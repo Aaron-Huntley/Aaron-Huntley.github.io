@@ -26,7 +26,7 @@ affiliations:
 
 academia:
     - course:
-        degree: "Mmath"
+        degree: "Mmath,"
         institution: 'University of Leeds'
         major: 'Mathematics'
         start_date: '2019'
