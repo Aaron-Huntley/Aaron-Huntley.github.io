@@ -1,4 +1,4 @@
-baseURL = "https://github.com/Aaron-Huntley/Aaron-Huntley.github.io"
+baseURL = "https://Aaron-Huntley.github.io"
 
 # set your your own ga token here.
 googleAnalytics = "UA/G-123123-12"
