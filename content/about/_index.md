@@ -5,7 +5,7 @@ draft: false
 headless: true
 
 full_name: "Aaron Huntley"
-profile_picture: "ProfilePic.png"
+profile_picture: "profile.JPG"
 cv: "cv.pdf"
 # set to false if you don't want to show your blog
 blog: false
