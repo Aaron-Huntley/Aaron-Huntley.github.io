@@ -25,17 +25,17 @@ affiliations:
         email: "ahuntle4 at uwo dot ca"
 
 academia:
-- course:
-        degree: "MSc,"
-        institution: 'Western University
-        major: 'Mathematics'
-        start_date: '2019'
     - course:
-        degree: "Mmath,"
+        degree: "MSc"
+        institution:  "Western University"
+        major: "Mathematics"
+        start_date: "2023"
+    - course:
+        degree: "Mmath"
         institution: 'University of Leeds'
         major: 'Mathematics'
         start_date: '2019'
         end_date: '2023'
-        other_info: 'Graduated with class I'
+        other_info: 'graduated with class I'
 ---
 
