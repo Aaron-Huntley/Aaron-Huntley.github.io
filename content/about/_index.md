@@ -30,7 +30,6 @@ academia:
         institution: 'Western University'
         major: 'Mathematics'
         start_date: '2023'
-        end_date: 'Present'
     - course:
         degree: "Mmath,"
         institution: 'University of Leeds'
