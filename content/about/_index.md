@@ -14,9 +14,9 @@ socials:
     github: "Aaron-Huntley"
 
 interests:
-    - Category Theory
-    - Topology
-    - Abstract Algebra
+    -  (Higher) Category Theory
+    - Homotopical Algebra
+    - Operads
 
 affiliations:
     - affiliation:
