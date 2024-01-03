@@ -1,10 +1,9 @@
 ---
-title: "Basic Category Theory"
+title: "Basic Category Theory - Undergraduate Project"
 
 date: "01-05-2022"
 
 links:
-    website: "LeedsCat.pdf"
-    alias: link_name_here
+    pdf: "LeedsCat.pdf"
 ---
 

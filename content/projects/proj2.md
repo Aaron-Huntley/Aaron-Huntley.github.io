@@ -1,9 +1,9 @@
 ---
-title: "Vestibulum: Olive Tadpole Pit Bull Terrier"
+title: "Symmetries of Eschers Paintings - Undergraduate Project"
 
-date: "2019-03-30"
+date: "01-05-2021"
 
 links:
-    website: 'https://github.com/hadisinaee/avicenna'
+    pdf: "LeedsEscher.pdf"
 ---
 
