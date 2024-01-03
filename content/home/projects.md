@@ -6,7 +6,7 @@ weight: 4
 content_type: "projects"
 
 section_settings:
-    show_section: false
+    show_section: true
     title: ''
 ---
 

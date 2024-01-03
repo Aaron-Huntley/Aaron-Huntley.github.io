@@ -1,10 +1,10 @@
 ---
-title: "Quisque: Lime Trout Sheepdog"
+title: "Basic Category Theory"
 
-date: "2018-05-18"
+date: "01-05-2022"
 
 links:
-    website: 'https://github.com/hadisinaee/avicenna'
+    website: "LeedsCat.pdf"
     alias: link_name_here
 ---
 
