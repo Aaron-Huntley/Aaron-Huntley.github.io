@@ -16,7 +16,7 @@ socials:
 interests:
     -  (Higher) Category Theory
     - Homotopical Algebra
-    - Operads
+    - Algebra and Operads
 
 affiliations:
     - affiliation:

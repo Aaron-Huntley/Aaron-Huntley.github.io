@@ -1,5 +1,5 @@
 ---
-title: "Symmetries of Eschers Paintings - Undergraduate Project"
+title: "Symmetries of Eschers Paintings - 2021"
 
 date: "01-05-2021"
 
