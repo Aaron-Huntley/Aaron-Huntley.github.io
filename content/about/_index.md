@@ -14,7 +14,7 @@ socials:
     github: "Aaron-Huntley"
 
 interests:
-    -  (Higher) Category Theory
+    - (Higher) Category Theory
     - Homotopical Algebra
     - Algebras and Operads
 
@@ -25,11 +25,11 @@ affiliations:
         email: "axh1127 at case dot edu"
 
 academia:
-    - course:
-    degree: "PhD"
-    institution: "Case Western Reserve University"
-    major: "Mathematics"
-    start_date: "2024"
+     - course:
+    	degree: "PhD"
+    	institution: "Case Western Reserve University"
+    	major: "Mathematics"
+    	start_date: "2024"
     - course:
         degree: "MSc"
         institution:  "Western University"
