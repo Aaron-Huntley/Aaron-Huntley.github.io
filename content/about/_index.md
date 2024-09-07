@@ -25,7 +25,6 @@ affiliations:
         email: "axh1127 at case dot edu"
 
 academia:
-
     - course:
     degree: "PhD"
     institution: "Case Western Reserve University"
