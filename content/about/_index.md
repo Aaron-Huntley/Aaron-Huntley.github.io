@@ -16,20 +16,27 @@ socials:
 interests:
     -  (Higher) Category Theory
     - Homotopical Algebra
-    - Algebra and Operads
+    - Algebras and Operads
 
 affiliations:
     - affiliation:
         title: "Graduate Student"
-        name: "Western University"
-        email: "ahuntle4 at uwo dot ca"
+        name: "Case Western Reserve University"
+        email: "axh1127 at case dot edu"
 
 academia:
+
+    - course:
+    degree: "PhD"
+    institution: "Case Western Reserve University"
+    major: "Mathematics"
+    start_date: "2024"
     - course:
         degree: "MSc"
         institution:  "Western University"
         major: "Mathematics"
         start_date: "2023"
+        end_date: "2024"
     - course:
         degree: "Mmath"
         institution: 'University of Leeds'
