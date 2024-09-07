@@ -26,6 +26,11 @@ affiliations:
 
 academia:
     - course:
+        degree: "PhD"
+        institution:  "Case Western Reserve University"
+        major: "Mathematics"
+        start_date: "2024"
+    - course:
         degree: "MSc"
         institution:  "Western University"
         major: "Mathematics"
