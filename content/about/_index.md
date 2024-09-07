@@ -25,7 +25,7 @@ affiliations:
         email: "axh1127 at case dot edu"
 
 academia:
-     - course:
+    - course:
     	degree: "PhD"
     	institution: "Case Western Reserve University"
     	major: "Mathematics"
