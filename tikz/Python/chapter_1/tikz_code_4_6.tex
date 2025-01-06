@@ -1,0 +1,16 @@
+\begin{center}
+\begin{tikzcd}
+
+\mathscr{C} \arrow[r, "F", bend left=70, ""{name=U,below}]
+\arrow[r, "F^\prime" description, ""{name=M1}] \arrow[r, "F^\prime" description, ""{name=M2,below}]
+\arrow[r, "F^{\prime\prime}"',bend right=70, ""{name=D}]
+&\mathscr{D} \arrow[r, "G", bend left=70, ""{name=U1,below}]
+\arrow[r, "G^\prime" description, ""{name=M11}] \arrow[r, "G^\prime" description, ""{name=M21,below}]
+\arrow[r, "G^{\prime\prime}"',bend right=70, ""{name=D1}]
+&\mathscr{E}
+\arrow[Rightarrow, "\mu", from=U, to=M1] 
+\arrow[Rightarrow,"\eta" , from=M2, to=D]
+\arrow[Rightarrow, "\alpha", from=U1, to=M11] 
+\arrow[Rightarrow,"\beta" , from=M21, to=D1]
+\end{tikzcd}
+\end{center}
