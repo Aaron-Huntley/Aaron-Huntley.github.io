@@ -2,6 +2,34 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
     <url>
          <loc>https://aaron-huntley.github.io/mathematics/</loc>
-         <lastmod>2025-01-04</lastmod>
+         <lastmod>2025-01-06</lastmod>
+    </url>
+    <url>
+         <loc>https://aaron-huntley.github.io/mathematics/category_theory/Categories/</loc>
+         <lastmod>2025-01-06</lastmod>
+    </url>
+    <url>
+         <loc>https://aaron-huntley.github.io/mathematics/category_theory/Functors/</loc>
+         <lastmod>2025-01-06</lastmod>
+    </url>
+    <url>
+         <loc>https://aaron-huntley.github.io/mathematics/category_theory/Initial%20and%20terminal%20objects/</loc>
+         <lastmod>2025-01-06</lastmod>
+    </url>
+    <url>
+         <loc>https://aaron-huntley.github.io/mathematics/category_theory/Introduction/</loc>
+         <lastmod>2025-01-06</lastmod>
+    </url>
+    <url>
+         <loc>https://aaron-huntley.github.io/mathematics/category_theory/Monads/</loc>
+         <lastmod>2025-01-06</lastmod>
+    </url>
+    <url>
+         <loc>https://aaron-huntley.github.io/mathematics/category_theory/Natural%20transformations/</loc>
+         <lastmod>2025-01-06</lastmod>
+    </url>
+    <url>
+         <loc>https://aaron-huntley.github.io/mathematics/category_theory/Universal%20morphisms%20and%20adjoint%20functors/</loc>
+         <lastmod>2025-01-06</lastmod>
     </url>
 </urlset>
