@@ -1,0 +1,3057 @@
+
+\documentclass[11pt,a4paper]{article}
+\usepackage[normalem]{ulem}
+
+\usepackage{float}
+\usepackage{amsmath}
+\usepackage{amssymb}
+\usepackage{color}
+\usepackage{graphicx}
+\usepackage{subcaption}
+\usepackage{amsfonts}
+\usepackage{palatino}  
+\usepackage{amsthm}
+\usepackage{tikz-cd}
+\usepackage{hyperref}
+\usepackage{mathrsfs}
+\theoremstyle{definition}
+\newtheorem{thm}{Theorem}[section]
+\newtheorem{lemma}[thm]{Lemma}
+\newtheorem{prop}[thm]{Proposition}
+\newtheorem{cor}[thm]{Corollary}
+\newtheorem{definition}[thm]{Definition}
+\newtheorem{example}[thm]{Example}
+\newtheorem{conj}[thm]{Conjecture}
+\newtheorem{remark}[thm]{Remark}
+\newcommand\norm[1]{\left\lVert#1\right\rVert}
+\newcommand\vect[1]{\mathbf{\underline{#1}}}
+\newcommand\ho[3][]{\hom_{#1}(#2,#3)}
+\newcommand\ob[1]{\mathrm{Ob(}#1\mathrm{)}}
+\newcommand\cat[1]{\mathscr{#1}}
+\newcommand\func[3]{\mathrm{#1}\colon#2\rightarrow#3}
+\newcommand\nattran[3]{#1\colon#2\Rightarrow#3}
+\newcommand\objs[1]{#1-Objects}
+\newcommand{\comment}[1]{}
+\newcommand{\GL}{\mathrm{GL}_{2}}
+\newcommand{\alg}[1]{\mathrm{Alg}(\mathbf{#1})}
+
+
+% change from the very wide default margins:
+\usepackage[left=3cm,right=2.5cm,top=3cm,bottom=3cm]{geometry}
+
+\DeclareMathOperator{\Units}{Units}
+
+
+
+\def \jfm{\textcolor{magenta}}
+\usepackage{fancyhdr} 
+\pagestyle{fancy}
+\fancyhead{}                 
+\fancyhead[C]{Basic Category Theory} 
+\fancyhead[L]{MATH 5004M}     
+\fancyhead[R]{2022/23}        
+\setlength{\headheight}{13.6pt}
+ 
+\numberwithin{equation}{section}
+
+\begin{document}
+
+\thispagestyle{plain}
+\begin{center}
+{\bf \huge Basic Category Theory} 
+\vspace{4mm} \\
+Aaron Huntley \#201319454
+\vspace{4mm} \\
+\today
+\end{center}
+
+\tableofcontents 
+
+\noindent \hrulefill
+
+%==========================================================================
+\pagebreak
+\section{Introduction}
+\label{s:intro} 
+%==========================================================================
+This is a short introduction on basic category theory with emphasis on proofs of results and examples to help illustrate the categorical perspective. We include definitions and examples of categories, functors and natural transformations we then take a deeper look into the idea of universal properties such as adjoints, limits, initial and terminal objects, and monads. We look at how these universal properties are linked as well as how they show up in categories we are used to working with. 
+
+Category theory is a branch of maths developed in the 1940's by Saunders Maclane and Samuel Eilenberg as an offshoot of algebraic topology (\cite{wiki:history}). Category theory aims to generalise the construction of mathematical objects such as: mappings, products, quotient spaces algebras and modules.
+
+Category theory is a vast area of mathematics and this report only states the very beginnings, interesting areas to look at after reading this Include: Representables and The Yoneda Lemma, Higher category theory and enriched category theory. This report has a ground up approach where we aim to prove every result stated. We also include lots of worked examples. The main references for this report are from the books: Adámek - Herrlick - Strecker \cite{ACC}, Leinster \cite{Leinster}  and Riehl \cite{Riehl} some supporting theory is also from nCatLab \cite{nLab} other references used will be cited in the report.
+
+%==========================================================================
+\subsection{Ethics}
+\label{ss:ethics} 
+%==========================================================================
+It is important to uphold the academic integrity and ethical principals when writing a paper to ensure its credibility. In this paper we have, to our best ability, cited every author of books, webpages and other sources where we have adapted or used their ideas and material. We state where we have added our own proofs of theorems or examples. Additionally, we expect the publication of this report will cause no harm to human kind, animals or nature. The purpose of the paper is to compile ideas and research and add our own proofs and perspective on the examples to promote the advancement of knowledge in the field.
+%==========================================================================
+\pagebreak
+\section{Categories}
+\label{s:cat} 
+%==========================================================================
+This section of notes adapted mainly from \cite{Leinster}.
+\begin{definition}
+\label{def:category}
+A \emph{category} is a quadruple \[\mathscr{C} = (\ob{\mathscr{C}}, \ho[\cat{C}]{-}{-}, \circ_{(-,-,-)}, id_{-})\] where:
+\begin{enumerate}
+    \item $\ob{\mathscr{C}}$ is a \emph{class}. We call the elements of $\ob{\mathscr{C}}$ \emph{\objs{$\mathscr{C}$}};
+    \item $\ho[\cat{C}]{-}{-}$ is a \emph{function},
+    \begin{align*}
+    \ho[\cat{C}]{-}{-} \colon  \ob{\mathscr{C}}\times\ob{\mathscr{C}}&\rightarrow \mathbf{set},\\
+    (A,B) &\mapsto \ho[\cat{C}]{A}{B}
+    \end{align*}
+    where $\mathbf{set}$ is the class of all sets. The  elements of $\ho[\cat{C}]{A}{B}$ we call maps from $A$ to $B$;
+    \item Given $A,B,C \in\ob{\mathscr{C}}, \circ_{(A,B,C)}$ is a function,
+    \begin{align*}
+        \circ_{(A,B,C)}\colon\ho[\cat{C}]{B}{C}\times\ho[\cat{C}]{A}{B}&\rightarrow \ho[\cat{C}]{A}{C},\\
+        (g,f)&\mapsto g\circ_{(A,B,C)} f.
+    \end{align*}
+    We call each $\circ_{(A,B,C)}$ \emph{composition};
+    \item For each $A\in\ob{\mathscr{C}}$, $id_{A}$ is an element of $\ho[\cat{C}]{A}{A}$.
+\end{enumerate}
+The following axioms are satisfied:
+\begin{enumerate}
+    \item $\circ$ satisfies \emph{associativity}:
+    Given $A,B,C,D \in \ob{\mathscr{C}}$, for each $f\in\ho[\cat{C}]{A}{B}$, $g\in\ho[\cat{C}]{B}{C}$ and $h\in\ho[\cat{C}]{C}{D}$ we have, \[(h\circ_{(B,C,D)} g)\circ_{(A,B,D)} f = h\circ_{(A,C,D)} (g\circ_{(A,B,C)} f);\]
+    \item For each $A\in\ob{\mathscr{C}}$, the morphism $id_{A}$ acts as an identity with respect to $\circ$. That is, given any two \objs{$\mathscr{C}$}, $B,C\in\ob{\mathscr{C}}$ for all $f\in\ho[\cat{C}]{A}{B}$ and $g\in\ho[\cat{C}]{C}{A}$ we have: \[f\circ_{(A,B,B)} id_{A} = f\]and, \[id_{A}\circ_{(B,A,A)} g = g.\]
+    \end{enumerate}
+\end{definition}
+\begin{remark}
+\label{rmk:mapfuncarrow}
+The elements of each set $\ho[\cat{C}]{A}{B}$ where $A,B\in\ob{\mathscr{C}}$  are also called functions, arrows or morphisms, from $A$ to $B$.
+
+For simplicity we write $\circ$ for any $\circ_{(A,B,C)}$. We will also write $\hom$ if the category we are working with is clear.
+\end{remark}
+\begin{remark}
+    In Definition \ref{def:category} we have that each $\ho[\cat{C}]{A}{B}$ is a set, this definition can be changed so that these are not sets but classes, however in this report we will only use sets. In the literature categories defined as in Definition \ref{def:category} may be refered to as \emph{locally small categories}, see nCatLab \cite{nLab} for more details.
+\end{remark}
+%==========================================================================
+\subsection{Examples}
+\label{ss:catexamples}
+%==========================================================================
+We can now see how some of the structures we already know fit into the framework of a category.
+\begin{example}
+\label{exe:catofsets}
+Let $\mathbf{Set} = (\ob{\mathbf{Set}}, \hom, \circ, id)$, where:
+\begin{enumerate}
+    \item $\ob{\mathbf{Set}}$ is the class of all sets;
+    \item Given any two \objs{$\mathbf{Set}$}, $(X,Y)$, $\ho{X}{Y}$ is the set of all functions between $X$ and $Y$;
+    \item Given three sets $X,Y,Z$,
+    \begin{align*}
+        \circ\colon\ho{Y}{Z}\times\ho{X}{Y}&\rightarrow\ho{X}{Z},\\
+        (f,g)&\mapsto g\centerdot f
+    \end{align*}
+    where $\centerdot$ is regular function composition;
+    \item For each $X\in\ob{\mathbf{Set}}$,
+    \begin{align*}
+        id_{X}\colon X&\rightarrow X,\\
+        x&\mapsto x.
+    \end{align*}
+\end{enumerate}
+Then $\circ$ is associative since function composition is associative and given any $X,Y\in\ob{\mathbf{Set}}$ then for all $f\in\ho{X,Y}$ and $h\in\ho{Y}{X}$: \[f\circ id_{X} = f\] and, \[id_{X}\circ h = h.\]
+Therefore $\mathbf{Set}$ is a category.
+\end{example}
+\begin{example}
+\label{exe:catoggroups}
+Let $\mathbf{Grp}$ be defined:
+\begin{enumerate}
+    \item $\ob{\mathbf{Grp}}$ is the class of all groups;
+    \item Given any two $(G,\bullet),(H,*)\in\ob{\mathbf{Grp}}$, $\ho{(G,\bullet)}{(H,*)}$ is the set of all group homomorphisms between $(G,\bullet)$ and $(H,*)$;
+    \item Given three groups $(G,\bullet),(H,*),(N,\square)$,
+    \begin{align*}
+        \circ\colon\ho{(G,\bullet)}{(H,*)}\times\ho{(H,*)}{(N,\square)}&\rightarrow\ho{(G,\bullet)}{(N,\square)},\\
+        (f,g)&\mapsto g\centerdot f
+    \end{align*}
+    where $\centerdot$ is regular function composition. 
+    This is well defined meaning $g\centerdot f$ is a group homomorphism;
+    \item For each $(G,\bullet)\in\ob{\mathbf{Grp}}$, $id_{(G,\bullet)}$ is the group homomorphism
+    \begin{align*}
+        id_{(G,\bullet)}\colon G &\rightarrow G,\\
+        g &\mapsto g.
+    \end{align*}
+\end{enumerate}
+Then $\circ$ is associative since function composition is associative and given any \objs{$\mathbf{Grp}$} $(G,\bullet),(H,*)\in\ob{\mathbf{Grp}}$ then for all $f\in\ho{(G,\bullet)}{(H,*)}$ and $h\in\ho{(H,*)}{(G,\bullet)}$; \[f\circ id_{(G,\bullet)} = f\] and, \[id_{(G,\bullet)}\circ h = h.\]
+Therefore $\mathbf{Grp}$ is a category.
+\end{example}
+\begin{example}
+Let $K$ be a field then define $\mathbf{Vect_{\textit{K}}}$ as:
+\begin{enumerate}
+    \item $\ob{\mathbf{Vect_{\textit{K}}}}$ is the class of all \textit{K}-vector spaces where \textit{K} is a field;
+    \item For any two vector spaces $V$ and $W$, $\ho{V}{W}$ is the set of all \textit{K}-linear maps between $V$ and $W$;
+    \item $\circ$ is regular function composition;
+    \item For each $V\in\ob{\mathbf{Vect_{\textit{K}}}}$, $id_{V}$ is the \textit{K}-linear map:
+    \begin{align*}
+        id_{V}\colon V &\rightarrow V,\\
+        v &\mapsto v.
+    \end{align*}
+    \end{enumerate}
+    Then $\mathbf{Vect_{\textit{K}}}$ is a category since $\circ$ is associative and for any $f\in\ho{V}{W}$ and $g\in\ho{W}{V}$ $f\circ id_{V} = f$ and $id_{V}\circ g= g$.
+\end{example}
+The following example came from a lecture given by Dr Daniel Graves at the University of Leeds.
+\begin{example}
+    \label{exe:catbasedtop}
+    Let $\mathbf{Top}^{*} = (\ob{\mathbf{Top}^{*}},\hom,\circ,id)$ where:
+    \begin{enumerate}
+        \item $\ob{\mathbf{Top}^{*}}$ Is the class of all based topological spaces, $((X,\tau_X),x_{0})$;
+        \item Given two based topological spaces, $((X,\tau_X),x_{0})$ and $((Y,\tau_Y),y_{0})$, each 
+        
+        \[\ho[\mathbf{Top}^*]{((X,\tau_X),x_{0})}{((Y,\tau_Y),y_{0})}\]
+        is the set of continuous maps which sends $x_0\mapsto y_{0}$ between these spaces;
+        \item $\circ$ is regular function composition. Given two base point preserving continuous maps, $f,g$, then $f\circ g$ is a base point preserving continuous map;
+        \item Given a based topological space $((X,\tau_X),x_{0})$, $id_{X}$ is the identity continuous map which sends each point $x\in X$ to itself.
+    \end{enumerate}
+    $\mathbf{Top}^*$ is a category since $\circ$ is associative and each $id_{X}$ acts as an identity.
+\end{example}
+%==========================================================================
+\subsubsection{Example: Category of monoids}
+\label{sss:catofmonexam}
+%==========================================================================
+\begin{definition}
+\label{def:monoid1}
+A \emph{monoid} is a triple $M=(M_{s},*,e_M)$ where:
+\begin{enumerate}
+    \item $M_{s}$ is a set, we call the \emph{underlying set of M};
+    \item For any two elements $a,b\in M_{s}, *$ is a closed binary operation:
+    \begin{align*}
+        *\colon M_{s}\times M_{s} &\rightarrow M_{s},\\
+        (a,b) &\mapsto a*b;
+    \end{align*}
+    \item $e_{M}$ is an element in $M_{s}$ such that for all $a\in M_{s},$,
+    \begin{align*}
+        e_{M}*a = a*e_{M} = a;
+    \end{align*}
+    \item $*$ is associative; Given any two $a,b,c\in M_{s}$ 
+    \[(a*b)*c = a*(b*c).\]
+\end{enumerate}
+\end{definition}
+\begin{remark}
+We will write $a\in M$ to mean $a\in M_{s}$.
+\end{remark}
+\begin{definition}
+\label{def:monhomo}
+Let $M=(M_{s},*_{M},e_{M})$ and $N=(N_{s},*_{N},e_{N})$ be monoids. A \emph{monoid homomorphism} between $M$ and $N$ is a function, $f: M \rightarrow N$,
+which satisfies the following axioms:
+\begin{enumerate}
+    \item For any $m_{1},m_{2}\in M$, $f(m_{1}*_{N}m_{2}) = f(m_{1})*_{N}f(m_{2})$;
+    \item $f(e_{M})= e_{M}$.
+\end{enumerate}
+\end{definition}
+With monoids and their morphisms defined, we can define the category of monoids.
+\begin{lemma}
+\label{lem:catofmon}
+Let $\mathbf{Mon}$ be defined:
+\begin{enumerate}
+    \item $\ob{\mathbf{Mon}}$ is the class of all monoids as defined in Definition \ref{def:monoid1};
+    \item For each $M,N\in\ob{\mathbf{Mon}}$, $\ho{M}{N}$ is the set of all monoid homomorphisms between $M$ and $N$;
+    \item Given $M,N,H\in\ob{\mathbf{Mon}}$ $\circ$ is the function:
+    \begin{align*}
+        \circ\colon \ho{M}{N}\times\ho{N}{H}&\rightarrow\ho{M}{H},\\
+        (f,g)&\mapsto g \centerdot f,
+    \end{align*}
+    where $\centerdot$ is regular function composition. 
+    
+    This is well defined since given any two monoid homomorphisms $f\in\ho{M}{N}$ and $g\in\ho{M}{H}$ and for each $x,y\in M$ we have,
+    \begin{align*}
+        g\centerdot f(x*_{M}y) &= g(f(x*^{M}y))\\
+        &= g(f(x)*^{N}f(y))\\
+        &= g(f(x))*^{H}g(f(y))\\
+        &= g\centerdot f(x) *^{H} g\centerdot f(y)
+    \end{align*}
+    and,
+    \begin{align*}
+        g\centerdot f(e_{M}) &= g(f(e_{M}))\\
+        &= g(e_{N})\\
+        &= e_{H}.
+    \end{align*}
+    Since $f$ and $g$ are monoid homomorphisms. Hence $g\centerdot h$ is a monoid homomorphism;
+    \item For each $M\in\ob{\mathbf{Mon}}$;
+    \begin{align*}
+        id_{M}\colon M_{s} &\rightarrow M_{s},\\
+        m&\mapsto m.
+    \end{align*}
+\end{enumerate}
+Then $\mathbf{Mon}$ is a category.
+\end{lemma}
+\begin{proof}
+Firstly $\circ$ is associative since it defined as function composition. 
+
+To show the condition on identities,given any $f\in\ho{M}{N}$ and $g\in\ho{N}{M}$ we have for each $m\in M$ and $n\in N$;
+\begin{align*}
+    f\circ id_{M}(m) &= f(id_{M}(m))\\
+    &=f(m)\\
+\end{align*}
+and,
+\begin{align*}
+    id_{M} \circ g(n) &= id_{M}(g(n))\\
+    &= g(n).
+\end{align*}
+Hence $id_{M}$ acts as an identity with respect to function composition and $\mathbf{Mon}$ is a category.
+\end{proof}
+The following Example \ref{exe:prodcat} is adapted from \cite{wiki:prodcat}.
+\begin{example}[Product Category]
+    \label{exe:prodcat}
+    Let $\cat{C}$ and $\cat{D}$ be categories. 
+    
+    We can define the \emph{Product category} $\cat{C}\times\cat{D}$ as follows:
+    \begin{enumerate}
+        \item The $\objs{\cat{C}\times\cat{D}}$ are pairs $(C,D)$ where $C\in\ob{\cat{C}}$ and $D\in\ob{\cat{C}}$;
+        \item For each $(C_{1},D_{1}),(C_{2},D_{2})\in\ob{\cat{C}\times\cat{D}}$ the elements of $\ho[\cat{C}\times\cat{D}]{(C_{1},D_{1})}{(C_{2},D_{2})}$ are the pairs $(f,g)$ where $f\in\ho[\cat{C}]{C_{1}}{C_{2}}$ and $g\in\ho[\cat{D}]{D_{1}}{D_{2}}$;
+        \item Composition is defined,
+        \begin{align*}
+        \circ_{\cat{C}\times\cat{D}}\colon\ho[\cat{C}\times\cat{D}]{(C_{2},D_{2})}{(C_{3},D_{3})}&\to\ho[\cat{C}\times\cat{D}]{(C_{1},D_{1})}{(C_{2},D_{2})},\\
+        ((f_{2},g_{2}),(f_{1},g_{1}))&\mapsto (f_{2}\circ_{\cat{C}} f_{1},g_{2}\circ_{\cat{D}}g_{1});
+        \end{align*}
+        \item Identities are defined for each $(C,D)\in\ob{\cat{C}\times\cat{D}}$: \[id_{(C,D)} = (id_{C},id_{D}).\]
+        \end{enumerate}
+        First we show composition is associative:
+        Given $(f_{1},g_{1})\in\ho[\cat{C}\times\cat{D}]{(C_{1},D_{1})}{(C_{2},D_{2})}$, $(f_{2},g_{2})\in\ho[\cat{C}\times\cat{D}]{(C_{2},D_{2})}{(C_{3},D_{3})}$ and $(f_{3},g_{3})\in\ho[\cat{C}\times\cat{D}]{(C_{3},D_{3})}{(C_{4},D_{4})}$ we have,
+        \begin{align*}
+            ((f_{3},g_{3})\circ_{\cat{C}\times\cat{D}}\cat{C}\times\cat{D}(f_{2},g_{2}))\circ_{\cat{C}\times\cat{D}}(f_{1},g_{1})&= (f_{3}\circ_{\cat{C}} f_{2},g_{3}\circ_{\cat{D}} g_{2})\circ_{\cat{C}\times\cat{D}}(f_{1},g_{1}),\\
+            &= (f_{3}\circ_{\cat{C}}f_{2}\circ_{\cat{C}}f_{1},g_{3}\circ_{\cat{D}}g_{2}\circ_{\cat{D}}g_{1}),\\
+            &= (f_{3},g_{3})\circ_{\cat{C}\times\cat{D}}(f_{2}\circ_{\cat{C}}f_{1},g_{2}\circ_{\cat{D}}g_{1}),\\
+            &= (f_{3},g_{3})\circ_{\cat{\cat{C}\times\cat{D}}}((f_{2},g_{2})\circ_{\cat{C}\times\cat{D}}(f_{1},g_{1})).
+        \end{align*}
+        Hence $\circ_{\cat{C}\times\cat{D}}$ is associative. 
+        
+        We now show the identities indeed act as identities:
+        Given $(C,D)\in\ob{\cat{C}\times\cat{D}}$, and $(f_{1},g_{1})\in\ho[\cat{C}\times\cat{D}]{(C_{1},D_{1})}{(C,D)}$, and $(f_{2},g_{2})\in\ho[\cat{C}\times\cat{D}]{(C,D)}{C_{2},D_{2}}$ we have;
+        \begin{align*}
+            id_{(C,D)}\circ_{\cat{C}\times\cat{D}}(f_{1},g_{1})&= (id_{C},id_{D})\circ_{\cat{C}\times\cat{D}}(f_{1},g_{1})\\
+            &= (id_{C}\circ_{\cat{C}}f_{1},id_{D}\circ_{\cat{D}}g_{1})\\
+            &= (f_{1},g_{1})
+        \end{align*}
+        and,
+        \begin{align*}
+            (f_{2},g_{2})\circ_{\cat{C}\times\cat{D}}id_{(C,D)}&= (f_{2},g_{2})\circ_{\cat{C}\times\cat{D}}(id_{C},id_{D})\\
+            &= (f_{2}\circ_{\cat{C}}id_{C},g_{2}\circ_{\cat{D}}id_{D})\\
+            &= (f_{2},g_{2}).
+        \end{align*}
+        Therefore $id_{(C,D)}$ acts as an identity with respect to composition. Hence $\cat{C}\times\cat{D}$ is a category.
+\end{example}
+The following Definition \ref{def:dualcategory} and Lemma \ref{lem:dualcatiscat} are adapted from Bartosz Milewsik video lectures \cite{Bartosz} and the book by Adámek - Herrlick - Strecker \cite{ACC} page 22 onward.
+\begin{definition}
+    \label{def:dualcategory}
+    Given a category $\cat{C}$ we define $\cat{C}^{op} = (\ob{\cat{C}},\hom_{op}, \circ^{op},id)$: 
+    \begin{enumerate}
+    \item The objects of $\cat{C}^{op}$ are the objects of $\cat{C}$;
+    \item Given $A,B\in\ob{\cat{C}}$ for each $f\in\ho{A}{B}$ we have a $f^{op}\in\ho[\cat{C}^{op}]{B}{A}$;
+    \item Given $f^{op}\in\hom^{op}(A,B)$ and $g^{op}\in\hom^{op}(B,C)$,
+    \[g^{op}\circ^{op}_{(A,B,C)}f^{op} = (f\circ_{(C,B,A)} g)^{op}.\]
+    \end{enumerate}
+\end{definition}
+\begin{lemma}
+    \label{lem:dualcatiscat}
+    $\cat{C}^{op}$ defined in Definition \ref{def:dualcategory} is a category.
+\end{lemma}
+\begin{proof}
+    We first prove associativity of the composition for $\cat{C}^{op}$; given morphisms $f^{op}\in\hom^{op}(A,B)$, $g^{op}\in\hom^{op}(B,C)$ and $h^{op}\in\hom^{op}(C,D)$ we have,
+    \begin{align*}
+        h^{op} \circ^{op} (g^{op}\circ^{op} f^{op}) &= h^{op} \circ^{op} (f\circ g)^{op}\\
+        &= f\circ g \circ h\\
+        &= f\circ (g\circ h)\\
+        &= (g\circ h)^{op} \circ^{op} f^{op}\\
+        &= (h^{op}\circ^{op} g^{op})\circ^{op} f^{op}.
+    \end{align*} 
+    Hence $\circ^{op}$ is associative.
+
+    Now we show the identities hold;
+    given morphisms  $f^{op}\in\hom^{op}(A,B)$ and $g^{op}\in\hom^{op}(B,C)$ we have,
+    \[f^{op} \circ^{op} id_{A} = (id_{A} \circ f)^{op} = f^{op}\]
+    and,
+    \[id_{C}\circ^{op}g^{op} = (g\circ id_{C})^{op} = g^{op}.\]
+    Hence each $id_{C}$ acts as an identity. Therefore, $\cat{C}^{op}$ is a category.
+\end{proof}
+\begin{remark}
+    Since we can construct a dual category for any category, $\cat{C}$ every result we prove about a general category gives us a dual result by looking from the perspective of the dual category.
+\end{remark}
+%==========================================================================
+\subsubsection{Example: Monoid as a category}
+\label{sss:monascat}
+%==========================================================================
+This section follows ideas from the video lectures of Bartosz Milewski \cite{Bartosz}.
+We can define a monoid in terms of the category structure as follows.
+\begin{definition}[Monoid as a category]
+\label{def:catmon}
+    A \emph{cat monoid} is a category $\cat{M}$ with one object, $m\in\ob{\cat{M}}$.
+\end{definition}
+We will show that each cat monoid is a monoid and each monoid is a cat monoid and so the definitions are equivalent.
+\begin{lemma}
+    \label{lem:moniscat}
+    Let $\cat{M}$ be a cat monoid with object $m\in\ob{\cat{M}}$. Then $(\ho{m}{m},\circ,id_{m})$ is a monoid.
+\end{lemma}
+\begin{proof}
+    $\ho{m}{m}$ is a set by Definition \ref{def:category}. 
+    
+    For any $g,f\in\ho{m}{m}$ we have $g\circ f\in\ho{m}{m}$ and so $\circ$ is a closed binary operation. 
+    
+    For each $g\in\ho{m}{m}$ we have, \[id_{m}\circ g = g\] and, \[g\circ id_{m} = g.\] $\circ$ is associative since $\cat{M}$ is a category. 
+    
+    Hence, $(\ho{m}{m},\circ,id_{m})$ is a monoid.
+\end{proof}
+\begin{definition}
+\label{def:monascatmon}
+    Let $M = (M_{s},*,e_{M})$ be a monoid. We define the category $\cat{M}$ as:
+    \begin{enumerate}
+        \item $\ob{\cat{M}}$ has one object $m$;
+        \item $M_{s}=\ho[\cat{M}]{m}{m}$;
+        \item $\circ_{m,m,m} = *$;
+        \item $id_{m} = e_{M}$.
+    \end{enumerate}
+\end{definition}
+\begin{lemma}
+    \label{lem:moncatismon}
+    $\cat{M}$ as defined above in Definition \ref{def:monascatmon} is a cat monoid.
+\end{lemma}
+\begin{proof}
+    Firstly, $\circ$ is associative since $*$ is associative as $M$ is a monoid. 
+    
+    We also have for each $f,g\in\ho{m}{m}$, \[f\circ id_{m} = f*e_{M} = f\] and \[id_{m}\circ g = e_{M}*g = g.\] 
+    
+    Therefore $\cat{M}$ is a one object category, hence a cat monoid.
+\end{proof}
+\begin{remark}
+    Any group can also be seen as a one object category since a group is a special case of  a monoid as follows:
+    
+    Suppose $\cat{G}$ is a group as a one object category then we have for each $f\in\ho[\cat{G}]{g}{g}$ a morphism $g\in\ho[\cat{G}]{g}{g}$ such that,
+    \[f\circ g = id_{g}\]
+    and,
+    \[g\circ f = id_{g}.\]
+\end{remark}
+%==========================================================================
+\subsubsection{Example: Category of rings}
+\label{sss:catofringsexam}
+%==========================================================================
+Here we define what a ring is and how it fits into the framework of a category.
+\begin{definition}
+\label{def:ringwith1}
+A \emph{ring with 1} is a triple $R=(R_{s},+,\times)$ where $R_{s}$ is a set called the \emph{underlying set of R}, and $+,\times$ are closed binary operations on $R_{s}$ called \emph{addition} and \emph{multiplication} respectively. 
+
+We also have that the following conditions are satisfied:
+\begin{enumerate}
+    \item $(R,+)$ forms an abelian group with identity denoted $0_{R}$;
+    \item $(R,\times,1_{R})$ forms a monoid with identity $1_{R}\neq0_{R}$;
+    \item Multiplication is distributive across addition. Given $,y,z\in R_{s}$,
+    \[x\times(y+z)=x\times y +x\times z\]
+    and,
+    \[(y+z)\times x=y\times x +z\times x.\]
+\end{enumerate}
+\end{definition}
+\begin{definition}
+An \emph{abelian group} $(G,+)$ is a group with the \emph{commutativity property} that is: 
+
+Given $x,y\in G$,\[x+y=y+x.\]
+\end{definition}
+\begin{definition}
+\label{def:comringwith1}
+A \emph{commutative ring with 1} is a ring with 1 $R=(R_{s},+,\times)$ where multiplication is commutative, that is:
+
+Given $x,y\in R_{s}$,
+    \[x\times y = y\times x.\]
+\end{definition}
+\begin{definition}
+\label{def:ringhomo}
+Given two rings with 1, $R=(R_{s},+_{R},\times_{R})$ and $S=(S_{S},+_{S},\times_{S})$ a function $f\colon R_{S}\rightarrow S_{S}$ is called a \emph{ring homomorphism} if given $x,y\in R_{s}$ the following axioms hold:
+\begin{enumerate}
+    \item $f(x+_{R}y)=f(x)+_{S}f(y)$;
+    \item $f(x\times_{R}y)=f(x)\times_{S}f(y)$;
+    \item $f(1_{R})=1_{S}$.
+\end{enumerate}
+\end{definition}
+\begin{cor}
+\label{cor:ringhom0to0}
+Let $R$ and $S$ be a rings with 1 and $f\colon R_{S}\to S_{S}$ be a ring homomorphism then:
+\[f(0_{R})=0_{S}.\]
+\end{cor}
+\begin{proof}
+    \begin{align*}
+    f(1_{R}) &= f(1_{R}+_{R}0_{R}) \\
+    &= f(1_{R})+_{S}f(0_{R}) \\
+    &= 1_{S}+_{S}f(0_{R}) \\
+    &= 1_{S},
+    \end{align*}
+    hence, $f(0_{R})=0_{S}$.
+\end{proof}
+\begin{remark}
+A commutative ring homomorphism is a ring homomorphism between commutative rings with 1. 
+\end{remark}
+\begin{definition}
+    \label{def:catofrings}
+    Define the quadruple $\mathbf{Rng}=(\ob{\mathbf{Rng}},\hom_{\mathbf{Rng}},\circ,id)$ where:
+    \begin{enumerate}
+    \item $\ob{\mathbf{Rng}}$ is the class of all rings with 1;
+    \item Given $R,S\in \ob{\mathbf{Rng}}$, $\ho[\mathbf{Rng}]{R}{S}$ is the set of all ring homomorphisms between $R$ and $S$;
+    \item $\circ$ is regular function composition;
+    \item Given $R\in \ob{\mathbf{Rng}}$, $id_{R}$ is the identity with respect to function composition. $id_{R}$ is a ring homomorphism since for each $x,y\in R$,\[id_{R}(x+_{R}y)=x+_{R}y=id_{R}(x)+_{R}id_{R}(y)\] and, \[id_{R}(x\times_{R}y)=x\times_{R}y=id_{R}(x)\times_{R}id_{R}(y)\] and,
+    \[id_{R}(1_{R})=1_{R}.\]
+\end{enumerate}
+\end{definition}
+\begin{definition}
+    \label{def:catofcrings}
+    Define the quadruple $\mathbf{CRng}=(\ob{\mathbf{Rng}},\hom_{\mathbf{CRng}},\circ,id)$ where:
+    \begin{enumerate}
+    \item $\ob{\mathbf{CRng}}$ is the class of all rings with 1;
+    \item Given $R,S\in \ob{\mathbf{CRng}}$, $\ho[\mathbf{CRng}]{R}{S}$ is the set of all ring homomorphisms between $R$ and $S$;
+    \item $\circ$ is regular function composition;
+    \item Given $R\in \ob{\mathbf{CRng}}$, $id_{R}$ is the identity with respect to function composition. 
+    
+    $id_{R}$ is a commutative ring homomorphism since for each $x,y\in R$,\[id_{R}(x+_{R}y)=x+_{R}y=id_{R}(x)+_{R}id_{R}(y)\] and, \[id_{R}(x\times_{R}y)=x\times_{R}y=id_{R}(x)\times_{R}id_{R}(y)\] and,
+    \[id_{R}(1_{R})=1_{R}.\]
+    \end{enumerate}
+\end{definition}
+\begin{lemma}
+Both $\mathbf{Rng}$ and $\mathbf{Crng}$ as defined in Definition \ref{def:catofrings} and Definition \ref{def:catofcrings} are categories.
+\end{lemma}
+\begin{proof}
+We prove the category $\mathbf{Rng}$, the proof for $\mathbf{Crng}$ follows trivially.
+
+Firstly, $\circ$ is associative since regular function composition is associative. 
+
+Given each $R\in\ob{\mathbf{Rng}}$, $id_{R}$ acts as an identity;
+Given $f\in\ho[\mathbf{Rng}]{R}{S}$ and $g\in\ho[\mathbf{CRng}]{S}{R}$
+\[f\circ id_{R} = f\]
+and,
+\[id_{S}\circ g = g.\]
+\end{proof}
+
+Some other well know categories can be found in Adámek - Herrlick - Strecker \cite{ACC} and include: $\mathbf{Top}_{C}$; objects are topological spaces and morphisms are continuous maps or $\mathbf{Top}_{H}$; objects are topological spaces and morphisms are homeomorphisms of topological spaces and $\mathbf{Met}$; objects are  metric spaces with morphisms continuous maps between metric spaces.
+
+We can now translate some familiar concepts from the theories we are used to and translate them to the language of category theory. First we look at an isomorphism. 
+\begin{definition}
+\label{def:isomorphism}
+For a category $\mathscr{C}$ a morphism $f\in\ho{A}{B}$ is called an isomorphism if there exists a $g\in\ho{B}{A}$ such that $f\circ g = id_{B}$ and $g\circ f = id_{A}.$
+\end{definition}
+\begin{thm}
+Let $X,Y\in\ob{\mathbf{Set}}$ and $f\in\ho{X}{Y}$ then $f$ is an isomorphism if and only if $f$ is a bijection.
+\end{thm}
+\begin{proof}
+For any two objects $X,Y\in\ob{\mathbf{Set}}$ suppose a map $f\in\ho{X}{Y}$ is a bijection therefore $f$ has an inverse $f^{-1}\in\ho{X}{Y}$ where, $f\circ f^{-1} = id_{X}$ and $f^{-1}\circ f = id_{Y}$. Hence, every bijection is a category isomorphism. 
+
+Suppose $f\in\ho{G}{H}$ is a isomorphism then there exists a $g\in\ho{H}{G}$ such that $f\circ g = id_{H}$ then $f$ is a bijection with inverse $f^{-1} = g$. Therefore the set of category isomorphisms is exactly the set of group isomorphisms in $\mathbf{Set}$.
+\end{proof}
+
+\begin{thm}
+Let $G,H\in\ob{\mathbf{Grp}}$ and $f\in\ho{G}{H}$ then $f$ is an isomorphism if and only if $f$ is a group isomorphism.
+\end{thm}
+\begin{proof}
+For any two objects $G,H\in\ob{\mathbf{Grp}}$ suppose a morphism $f\in\ho{G}{H}$ is a group isomorphism then $f$ is a bijection so has an inverse $f^{-1}\in\ho{H}{G}$ where, $f\circ f^{-1} = id_{H}$ and $f^{-1}\circ f = id_{G}$. Hence, every group isomorphism is a category isomorphism. Suppose $f\in\ho{G}{H}$ is a category isomorphism then there exists a $g\in\ho{H}{G}$ such that $f\circ g = id_{H}$ then $f$ is a bijection with inverse $f^{-1} = g$ hence a group isomorphism. Therefore the set of category isomorphisms is exactly the set of group isomorphisms in $\mathbf{Grp}$.
+\end{proof}
+
+%==========================================================================
+\subsection{Subcategories}
+\label{ss:subcategories}
+%==========================================================================
+%\jfm{Now define metric space, and consider two categories of metric spaces. $M_1$: Maps are continuous functions, $M_2$: maps are isometries: $d(f(x),f(y))=d(x,y)$. This will then give you an example of a non-full, but wide subcategory.} 
+
+The following definitions come from nCatLab \cite{nLab}.
+\begin{definition}
+    \label{def:subcategory}
+    Let $\cat{C}$ be a category. Then a \emph{subcategory}, $\cat{D}= (\ob{\cat{D}},\hom,\circ,id)$ is defined:
+    \begin{enumerate}
+        \item $\ob{\cat{D}}$ is a subclass of $\ob{\cat{C}}$;
+        \item For each $X,Y\in\ob{C}$, $\ho[\cat{D}]{X}{Y}$ is a subset of $\ho[\cat{C}]{X}{Y}$;
+        \item If $f\in\ho[\cat{D}]{X}{Y}$ then $X,Y\in\cat{D}$;
+        \item If $f\in\ho[\cat{D}]{X}{Y}$ and $g\in\ho[\cat{D}]{Y}{Z}$ then $g\circ f\in\ho[\cat{D}]{X}{Z}$;
+        \item For all $X\in\ob{\cat{D}}$, $id_{X}\in\ho[\cat{D}]{X}{X}$.
+    \end{enumerate}
+\end{definition}
+\begin{remark}
+    Every subcategory $D$ of $C$ is a category since the composition is associative and we have identities.
+\end{remark}
+\begin{definition}
+    \label{def:fullwidesubcategory}
+    Let $\cat{C}$ be a category and $\cat{D}$ be a sub category of $\cat{C}$.
+    
+    We say $\cat{D}$ is:
+    \begin{enumerate}
+        \item A \emph{full} subcategory if for all $X,Y\in\ob{\cat{D}}$, if $f\in\ho[\cat{C}]{X}{Y}$ then $f\in\ho[\cat{D}]{X}{Y}$;
+        \item A \emph{wide} subcategory if for all $X\in\ob{\cat{C}}$, $X\in\ob{\cat{D}}$.
+        \end{enumerate}
+\end{definition}
+
+The following example followed from a discussion with the supervisor.
+\begin{example}
+    Let $\mathbf{Met_{C}}$ be the category whose objects are metric spaces and morphisms are continuous maps between spaces. Let $\mathbf{Met_{I}}$ be the category whose objects are metric spaces and morphism are isometries; given two metric spaces $X,Y\in\ob{\mathbf{Met_{I}}}$, $f\in\ho[\mathbf{Met_{I}}]{X}{Y}$ if for $x,y\in X$,
+    \[d_{X}(x,y)=d_{Y}(f(x),f(y)).\]
+    Then $\mathbf{Met_{I}}$ is a wide, not full, subcategory of $\mathbf{Met_{C}}$, since every isometry is a continuous map but not every continuous map is an isometry.
+\end{example}
+
+\begin{example}
+    Recall the categories $\mathbf{CRng}$ and $\mathbf{Rng}$ defined in Subsection \ref{sss:catofringsexam}. $\mathbf{CRng}$ is a full but not wide subcategory of $\mathbf{Rng}$, since every commutative ring is a ring but there exist rings that are not commutative but we have for two commutative rings $R,S\in\ob{\mathbf{CRng}}$ if $f\in\ho[\mathbf{CRng}]{R}{S}$ then $f\in\ho[\mathbf{Rng}]{R}{S}$.
+\end{example}
+
+%==========================================================================
+\pagebreak
+\section{Functors}
+\label{s:functors}
+%==========================================================================
+Definitions and examples in this section come from various references including Leinster \cite{Leinster}, Adámek - Herrlick - Strecker \cite{ACC} can define a notion of morphisms between categories as follows.
+\begin{definition}
+\label{def:functor}
+Let $\mathscr{C}$ and $\mathscr{D}$ be categories. A \emph{functor} is a pair
+$F=(F^{ob},F^{hom})\colon \mathscr{C}\rightarrow\mathscr{D}$ where:
+\begin{enumerate}
+    \item $F^{ob}$ is a function,
+    \[F^{ob}\colon \ob{\mathscr{C}}\rightarrow\ob{\mathscr{D}};\]
+    \item For each $A,A^{\prime}\in\ob{\mathscr{C}}$, $F^{hom}$ is a function,
+    \begin{align*}
+        F^{hom}\colon \ho[\cat{C}]{A}{A^{\prime}} &\rightarrow\ho[\cat{D}]{F^{ob}(A)}{F^{ob}(A^{\prime})},\\
+        f&\mapsto F^{hom}(f);
+    \end{align*}
+    \end{enumerate}
+    The following axioms are satisfied:
+    \begin{enumerate}
+        \item For all $f\in\ho{A}{A^{\prime}}$ and $f^{\prime}\in\ho{A^{\prime}}{A^{\prime\prime}}$, 
+        \begin{align*}
+            F^{hom}(f^{\prime}\circ^{\mathscr{C}} f) = F^{hom}(f^{\prime})\circ^{\mathscr{D}} F^{hom}(f)
+        \end{align*} 
+        where $\circ^{\mathscr{C}}$ and $\circ^{\mathscr{D}}$ are the compositions for $\mathscr{C}, \mathscr{D}$ respectively;
+        \item For all $A\in\ob{\mathscr{C}}$, 
+        \[F^{hom}(id_{A}) = id_{F^{ob}(A)}.\]
+    \end{enumerate}
+\end{definition}
+\begin{remark}
+\label{rmk:functnotation}
+We will just write $F$ for both $F^{ob}$ and $F^{hom}$ and know which one is being used by what object it is acting on.
+\end{remark}
+\begin{definition}
+\label{def:endofunctor}
+Given a category $\mathscr{C}$ let $F\colon\mathscr{C}\rightarrow\mathscr{C}$ be a functor from $\mathscr{C}$ to $\mathscr{C}$, then we call $F$ an \emph{endofunctor}.
+\end{definition}
+%==========================================================================
+\subsection{Examples}
+\label{ss:funcexam}
+%==========================================================================
+%==========================================================================
+\subsubsection{Forgetful functor for monoids}
+\label{sss:forgetfunctors}
+%==========================================================================
+One of the easiest examples of a functor is the forgetful functor which, informally, takes any category where the objects are sets with added structure and 'forgets' any extra structure. These types of functors play an important role in the theory later in Section \ref{s:uniarrow} and Section \ref{s:monads}. We will see the case for monoids.
+\begin{definition}[Forgetful functor for monoids]
+\label{def:forgetfulfunctormon}
+Let $\mathbf{Mon}$ be the category of monoids as defined in Lemma \ref{lem:catofmon}. We define $U\colon \mathbf{Mon}\rightarrow\mathbf{Set}$ as:
+\begin{enumerate}
+    \item \begin{align*}
+        U^0\colon \ob{\mathbf{Mon}}&\rightarrow\ob{\mathbf{Set}}\\
+        (G,*,e_{G})&\mapsto G;
+    \end{align*}
+    \item \begin{align*}
+        U^1\colon \ho[\mathbf{Set}]{G}{H}&\rightarrow\ho[\mathbf{Mon}]{U(G)}{U(H)}\\
+        f &\mapsto f.
+    \end{align*}
+\end{enumerate}
+\end{definition}
+\begin{lemma}
+    The $U\colon \mathbf{Mon}\rightarrow\mathbf{Set}$ defined above in Definition \ref{def:forgetfulfunctormon} is a functor.
+\end{lemma}
+\begin{proof}
+Let $U$ be the forgetful functor for monoids, then:
+\begin{enumerate}
+    \item For all $f\in\ho{G}{H}$ and $g\in\ho{H}{J}$,
+    \begin{align*}
+        U(h\circ^{Mon} g) = U(h) \circ^{Set} U(g)
+    \end{align*}
+    since $U(g) = g$, $U(h) = h$ and $\circ^{Mon}$ is the same as $\circ^{Set}$;
+    \item For all $G\in\ob{\mathbf{Mon}}$, 
+    \[U(id_{G}) = id_{G} = id_{U(G)}.\]
+\end{enumerate}
+Hence $U$ is a functor.
+\end{proof}
+%==========================================================================
+\subsubsection{Free monoid functor}
+\label{sss:freefunctors}
+%==========================================================================
+Informally, free functors take a set and aim to add structure to form a different algebraic object. For example we will give the free functor for monoids, adapted from nCatLab \cite{nLab}. Free functors seem to be doing the opposite of forgetful functors, we will later make this notion rigorous in Section \ref{s:uniarrow} where these functors are 'adjoint'.
+\begin{definition}
+\label{def:freemonoid}
+Let $X$ be a set. The \emph{free monoid on $X$} is the triple $(\gamma(X),*,\varnothing)$ where: \[\gamma(X)=\{(x_{1},x_{2},\dots,x_{n})|n\in\mathbb{Z}^{+}, x_{1},x_{2},\dots,x_{n}\in X\}\cup\{\varnothing\}.\] The elements of $\gamma(X)$ are called \emph{lists} in $X$.\\
+    For any two lists $x=(x_{1},x_{2},\dots,x_{n}),y=(y_{1},y_{2},\dots,y_{m})\in\gamma(X)$, \[x*y = (x_{1},x_{2},\dots,x_{n},y_{1},y_{2},\dots,y_{m})\] and $*$ is called \emph{concatenation}.
+    
+    $\varnothing=()$ is defined as the list with no elements.
+\end{definition}
+
+\begin{lemma}
+For any set $X$ the free monoid on $X$ is a monoid.
+\end{lemma}
+\begin{proof}
+Let $X$ be a set and $(\gamma(X),*,\varnothing)$ the free monoid on $X$ then for any three lists $x,y,z\in\gamma(X)$ we have,
+    \begin{align*}
+        x*(y*z) &= (x_{1},x_{2},\dots,x_{n})*((y_{1},y_{2},\dots,y_{m})*(z_{1},z_{2},\dots,z_{k}))\\
+        &= (x_{1},x_{2},\dots,x_{n}) * (y_{1},y_{2},\dots,y_{m},z_{1},z_{2},\dots,z_{k})\\
+        &= (x_{1},x_{2},\dots,x_{n},y_{1},y_{2},\dots,y_{m},z_{1},z_{2},\dots,z_{k})\\
+        &= (x_{1},x_{2},\dots,x_{n},y_{1},y_{2},\dots,y_{m})*(z_{1},z_{2},\dots,z_{k})\\
+        &= ((x_{1},x_{2},\dots,x_{n})*(y_{1},y_{2},\dots,y_{m}))*(z_{1},z_{2},\dots,z_{k})\\
+        &= (x*y)*z
+    \end{align*}
+    and,
+    \begin{align*}
+        x*\varnothing &= (x_{1},x_{2},\dots,x_{n})*\varnothing\\
+        &=(x_{1},x_{2},\dots,x_{n})\\
+        &=x\\
+        &=\varnothing*(x_{1},x_{2},\dots,x_{n})\\
+        &=\varnothing*x.
+    \end{align*}
+    Hence concatenation is associative with identity $\varnothing$. 
+    
+    Therefore $(\gamma(X),*,\varnothing)$ is a monoid.
+\end{proof}
+
+\begin{lemma}
+Given two sets $X,Y$ and a function $f:X\rightarrow Y$. There is an induced monoid homomorphism, 
+\[f_{\gamma}:(\gamma(X),*,\varnothing)\rightarrow(\gamma(Y),*,\varnothing)\]
+        where for each $(x_{1},x_{2},\dots,x_{n}) \in\gamma(X)$
+    \[ (x_{1},x_{2},\dots,x_{n})  \mapsto (f(x_{1}),f(x_{2}),\dots,f(x_{n})),\]
+    and, \[\varnothing \mapsto \varnothing.\]
+\end{lemma}
+\begin{proof}
+Let $f_{\gamma}$ be defined as above then given any $x,y\in (\gamma(X),*,\varnothing)$,
+    \begin{align*}
+        f_{\gamma}(x*y) &= f_{\gamma}((x_{1},x_{2},\dots,x_{n})*(y_{1},y_{2},\dots,y_{m})) \\
+        &= f_{\gamma}((x_{1},x_{2},\dots,x_{n},y_{1},y_{2},\dots,y_{m}))\\
+        &= (f(x_{1}),f(x_{2}),\dots,f(x_{n}),f(y_{1}),f(y_{2}),\dots,f(y_{m}))\\
+        &= (f(x_{1}),f(x_{2}),\dots,f(x_{n}))*(f(y_{1}),f(y_{2}),\dots,f(y_{m}))\\
+        &= f_{\gamma}((x_{1},x_{2},\dots,x_{n}))*f_{\gamma}((y_{1},y_{2},\dots,y_{m}))\\
+        &= f_{\gamma}(x)*f_{\gamma}(y)
+    \end{align*}
+    and,
+    \begin{align*}
+        f_{\gamma}(\varnothing) &= \varnothing.
+    \end{align*}
+    Hence $f_{\gamma}$ is a monoid homomorphism.
+\end{proof}
+
+\begin{definition}
+\label{def:freefunctmon}
+Define the \emph{free monoid functor} $F\colon \mathbf{Set}\rightarrow\mathbf{Mon}$ as:
+\begin{enumerate}
+    \item For each $X\in\ob{\mathbf{Set}}$,
+    \begin{align*}
+        F\colon\ob{\mathbf{Set}}&\rightarrow\ob{\mathbf{Mon}},\\
+        X&\mapsto(\gamma(X),*,\varnothing);
+    \end{align*}
+    \item For any $X,Y\in\ob{\mathbf{Set}}$,
+    \begin{align*}
+        F\colon \ho[\mathbf{Set}]{X}{Y}&\rightarrow\ho[\mathbf{Mon}]{F(X)}{F(Y)},\\
+        f&\mapsto f_{\gamma}.
+    \end{align*}
+\end{enumerate}
+\end{definition}
+\begin{lemma}
+    $F\colon \mathbf{Set}\rightarrow\mathbf{Mon}$ defined above in Definition \ref{def:freefunctmon} is a functor.
+\end{lemma}
+\begin{proof}
+For any $X,Y,Z\in\ob{\mathbf{Set}}$, let $f\in\ho{X}{Y}$ and $g\in\ho{Y}{Z}$. Then for any list $(x_{1},x_{2},\dots,x_{n})\in\gamma(X)$ we have,
+\begin{align*}
+    F(g\circ f)(x_{1},x_{2},\dots,x_{n}) &= (g\circ f(x_{1}),g\circ f(x_{2}),\dots,g\circ f(x_{n}))\\
+    &= F(g)(f(x_{1}),f(x_{2}),\dots,f(x_{n}))\\
+    &= (F(g)\circ F(f))(x_{1},x_{2},\dots,x_{n}).
+\end{align*}
+For any $X\in\ob{\mathbf{Set}}$, $id_{X}$ is the identity with respect to function composition. 
+\begin{align*}
+    F(id_{X})(x_{1},x_{2},\dots,x_{n}) &= (id_{X}(x_{1}),id_{X}(x_{2}),\dots,id_{X}(x_{n}))\\
+    &= (x_{1},x_{2},\dots,x_{n})\\
+    &= id_{F(X)}(x_{1},x_{2},\dots,x_{n}).
+\end{align*}
+Therefore, $F$ is a functor.
+\end{proof}
+
+%==========================================================================
+\subsubsection{The Yoneda Embeddings $h_A$ and $h^B$}
+\label{sss:yonedaembeddings}
+%==========================================================================
+
+An important functor we will use later in Section \ref{s:uniarrow} is the $\hom$ functor. This definition is adapted from the Wikipedia article \cite{wiki:homfunc}. The following definition is similar to the definition of functors in Definition \ref{def:functor} however the morphisms and composition are reversed. See Wiki \cite{wiki:functors} for more details.
+\begin{definition}
+\label{def:contrafunctor}
+Let $\mathscr{C}$ and $\mathscr{D}$ be categories. A \emph{contravariant functor} is a pair
+$F=(F^{ob},F^{hom})\colon \mathscr{C}\rightarrow\mathscr{D}$ where:
+\begin{enumerate}
+    \item $F^{ob}$ is a function,
+    \[F^{ob}\colon \ob{\mathscr{C}}\rightarrow\ob{\mathscr{D}};\]
+    \item For each $A,A^{\prime}\in\ob{\mathscr{C}}$, $F^{hom}$ is a function,
+    \begin{align*}
+        F^{hom}\colon \ho[\cat{C}]{A}{A^{\prime}} &\rightarrow\ho[\cat{D}]{F^{ob}(A^{\prime})}{F^{ob}(A)},\\
+        f&\mapsto F^{hom}(f);
+    \end{align*}
+    \end{enumerate}
+    The following axioms are satisfied:
+    \begin{enumerate}
+        \item For all $f\in\ho{A}{A^{\prime}}$ and $f^{\prime}\in\ho{A^{\prime}}{A^{\prime\prime}}$, 
+        \begin{align*}
+            F^{hom}(f^{\prime}\circ^{\mathscr{C}} f) = F^{hom}(f^{\prime})\circ^{\mathscr{D}} F^{hom}(f)
+        \end{align*} 
+        where $\circ^{\mathscr{C}}$ and $\circ^{\mathscr{D}}$ are the compositions for $\mathscr{C}, \mathscr{D}$ respectively;
+        \item For all $A\in\ob{\mathscr{C}}$, 
+        \[F^{hom}(id_{A}) = id_{F^{ob}(A)}.\]
+    \end{enumerate}
+\end{definition}
+
+\begin{lemma}
+    \label{lem:homsetfunctor}
+    Let $\cat{C}$ be a category and $\mathbf{Set}$ be the category of sets as in Example \ref{exe:catofsets}. 
+    \begin{enumerate}
+    \item For all $A\in\ob{\cat{C}}$ we define the functor
+    \[\func{h_{A}}{\cat{C}}{\mathbf{Set}}\] 
+    where for each $C\in\ob{\cat{C}},$
+    \[C \mapsto \ho[\cat{C}]{A}{C}\]
+    and for each $f\in\ho[\cat{C}]{X}{Y}$,
+    \[f\mapsto \ho{A}{f}\]
+    where,
+    \begin{align*}
+        \ho[\cat{C}]{A}{f}\colon\ho[\cat{C}]{A}{X}&\to\ho[\cat{C}]{A}{Y},\\
+        g&\mapsto f\circ g;
+    \end{align*}
+    \item For all $B\in\ob{\cat{C}}$ we define the \emph{contravariant} functor
+    \[\func{h^{B}}{\cat{C}^{op}}{\mathbf{Set}}\] 
+    where for each $C\in\ob{\cat{C}},$
+    \[C \mapsto \ho[\cat{C}]{C}{B}\]
+    and for each $h\in\ho[\cat{C}^{op}]{X}{Y}$,
+    \[h\mapsto \ho{h}{B},\]
+    where,
+    \begin{align*}
+        \ho{h}{B}\colon\ho[\cat{C}]{Y}{B}&\to\ho[\cat{C}]{X}{B},\\
+        g&\mapsto g\circ h.
+    \end{align*}
+    \end{enumerate}
+\end{lemma}
+\begin{proof}
+First we prove $\mathrm{h}_{A}$ is a functor.
+
+    Let $C\in\ob{\cat{C}}$ then given $f\in\ho[\cat{C}]{A}{C}$,
+    \begin{align*}
+        \mathrm{h}_{A}(id_{C})(f) &= \ho[\cat{C}]{A}{id_{C}}(f)\\
+        &= f \\
+        &= id_{\ho[\cat{C}]{A}{C}}(f).
+    \end{align*}
+Hence identities are preserved. 
+We also have for any $f\in\ho[\cat{C}]{X}{Y}$ and $g\in\ho[\cat{C}]{Y}{Z}$ then given $h\in\ho[\cat{C}]{A}{X}$,
+\begin{align*}
+    \mathrm{h}_{A}(g\circ f)(h) &= \ho[\cat{C}]{A}{g\circ f}(h)\\
+    &= g\circ f \circ h\\
+    &= \ho[\cat{C}]{A}{g} \circ \ho[\cat{C}]{A}{f}(h)\\
+    &= (\mathrm{h}_{A}(g)\circ \mathrm{h}_{A}(f))(h).
+\end{align*}
+Hence composition is preserved. Therefore $\mathrm{h}_{A}$ is a functor.
+
+Now we show $\mathrm{h}^{B}$ is a contravariant functor.
+Let $C\in\ob{\cat{C}}$ then given $f\in\ho[\cat{C}]{C}{B}$:
+    \begin{align*}
+        \mathrm{h}^{B}(id_{C})(f) &= \ho[\cat{C}]{id_{C}}{B}(f)\\
+        &= f \\
+        &= id_{\ho[\cat{C}]{C}{B}}(f).
+    \end{align*}
+Hence identities are preserved. We also have for any $f\in\ho[\cat{C}]{X}{Y}$ and $g\in\ho[\cat{C}]{Y}{Z}$ then given $h\in\ho[\cat{C}^{op}]{Z}{B}$,
+\begin{align*}
+    \mathrm{h}^{B}(g\circ f)(h) &= \ho[\cat{C}]{g\circ f}{B}(h)\\
+    &= h\circ g\circ f\\
+    &= \ho[\cat{C}]{f}{B} \circ \ho[\cat{C}]{g}{B}(h)\\
+    &= (\mathrm{h}^{B}(f) \circ \mathrm{h}^{B}(g))(h).
+\end{align*}
+Hence composition is preserved. Therefore $\mathrm{h}^{B}$ is a contravariant functor.
+\end{proof}
+\begin{definition}
+    \label{def:covarianthomfunc}
+    Let $\cat{C}$ be a category then $\cat{C}^{op}\times\cat{C}$ is a category by Definition \ref{def:dualcategory} and Example \ref{exe:prodcat}. We define the \emph{hom functor}, $\func{h}{\cat{C}^{op}\times\cat{C}}{\mathbf{Set}}$, as follows:
+    Given $(C_{1},C_{2})\in\ob{\cat{C}^{op}\times\cat{C}}$,
+    \[(C_{1},C_{2})\mapsto\ho[\cat{C}]{C_{1}}{C_{2}}.\]
+    For each $f^{op}\in\ho[\cat{C}]{C_{1}}{C_{2}}$ and $g\in\ho[\cat{C}]{C_{1}^\prime}{C_{2}^\prime}$,
+    \[(f^{op},g)\mapsto\ho[\cat{C}]{f}{g},\]
+    where,
+    \begin{align*}
+        \ho[\cat{C}]{f}{g}\colon\ho[\cat{C}]{C_{1}}{C_{1}^\prime}&\to\ho[\cat{C}]{C_{2}}{C_{2}^\prime},\\
+        h\mapsto g\circ h\circ f.
+    \end{align*}
+\end{definition}
+\begin{lemma}
+    \label{lem:covhomfunc}
+    $\mathrm{h}$ as defined in Definition \ref{def:covarianthomfunc} is a functor.
+\end{lemma}
+\begin{proof}
+    Let $(f^{op}_1,g_1)\in\ho[\cat{C}^{op}\times\cat{C}]{(C_1,C_2)}{(C_1^\prime,C_2^\prime)}$, and $(f^{op}_2,g_2)\in\ho[\cat{C}^{op}\times\cat{C}]{(C_1^\prime,C_2^\prime)}{(C_1^{\prime\prime},C_2^{\prime\prime})}$, we then have,
+    \begin{align*}
+        \mathrm{h}((f^{op}_1,g_1)\circ(f^{op}_2,g_2)) &= \mathrm{h}((f^{op}_1\circ f^{op}_2,g_1\circ g_2)), \\
+        &= \ho[\cat{C}]{f^{op}_1\circ^{op} f^{op}_2}{g_1\circ g_2},
+    \end{align*}
+    where $\ho[\cat{C}]{f_2\circ f_1}{g_1\circ g_2}$ is the function which takes $h\in\ho[\cat{C}]{C_1}{C_1^\prime}$,
+    \[h\mapsto g_1\circ g_2 \circ f_2\circ f_1.\]
+    Hence is the same as the function,
+    \[\ho[\cat{C}]{f_1}{g_1} \circ \ho[\cat{C}]{f_2}{g_2} = \mathrm{h}((f^{op}_1,g_1))\circ \mathrm{h}((f^{op}_2,g_2)).\]
+    Given $(id_{C_1},id_{C_2})\in\ho[\cat{C}^{op}\times\cat{C}]{(C_1,C_2)}{(C_1,C_2)}$ we have,
+    \begin{align*}
+        \mathrm{h}((id_{C_1},id_{C_2})) &= \ho[\cat{C}]{id_{C_1}}{id_{C_2}},
+    \end{align*}
+    which is the function which sends $h\in\ho[\cat{C}]{C_1}{C_1^\prime}$
+    \[h\mapsto id_{C_1} \circ h \circ id_{C_2} = h.\]
+    Therefore, $\mathrm{h}$ is a functor.
+\end{proof}
+
+%==========================================================================
+\subsubsection{The Identity functor}
+\label{sss:identityfunctor}
+%==========================================================================
+
+For every category there exists a functor from that category to itself called the identity functor we will now define.
+\begin{definition}
+\label{def:identityfunctor}
+For any category $\mathscr{C}$ let $id_{\mathscr{C}}\colon \mathscr{C}\rightarrow\mathscr{C}$ be the identity functor on $\mathscr{C}$ defined:
+\begin{enumerate}
+    \item For each $X\in\ob{\mathscr{C}}$,
+    \[id_{\mathscr{C}}(X)=X.\]
+    \item Given two \objs{$\mathscr{C}$}, $X,Y\in\ob{\mathscr{C}}$, for each $f\in\ho{X}{Y}$,
+    \begin{align*}
+        id_{\mathscr{C}}(f) = f.
+    \end{align*}
+\end{enumerate}
+\end{definition}
+\begin{lemma}
+$id_{\mathscr{C}}$ as defined above in Definition \ref{def:identityfunctor} is a functor.
+\end{lemma}
+\begin{proof}
+Given any $X,Y,Z\in\mathscr{C}$, let $f\in\ho{X}{Y}$ and $g\in\ho{Y}{Z}$ be maps. Then,
+\begin{align*}
+    id_{\mathscr{C}}(f\circ g) &= f\circ g\\
+    &= id_{\mathscr{C}}(f)\circ id_{\mathscr{C}}(g).
+\end{align*}
+Hence composition is preserved.
+
+For all $X\in\ob{\mathscr{C}}$
+\begin{align*}
+    id_{\mathscr{C}}(id_{X})=id_{X}.
+\end{align*}
+Hence identities are preserved.
+Therefore $id_{\mathscr{C}}$ is a functor.
+\end{proof}
+
+%==========================================================================
+\subsubsection{More examples of functors}
+\label{ss:otherfunctors}
+%==========================================================================
+
+Here are some more examples of functors.
+
+The following example followed from a meeting with the supervisor.
+\begin{example}
+\label{exe:functorpowerset}
+Let the power set functor $P:\mathbf{Set}\rightarrow\mathbf{Set}$ be defined:
+\begin{enumerate}
+    \item For each $X\in\ob{\mathbf{Set}}$,
+    \[X\mapsto\mathcal{P}(X)\]
+    where $\mathcal{P}(X)$ is the power set of $X$,
+    \[\mathcal{P}(X)=\{A\mid A\subseteq X\};\]
+    \item Given two \objs{$\mathbf{Set}$} $X,Y\in\ob{\mathbf{Set}}$ then for each $f\in\ho{X}{Y}$,
+    \begin{align*}
+        P(f):P(X)&\rightarrow P(Y),\\
+        A&\mapsto f[A]
+    \end{align*}
+    where $f[A]$ is the image of $A$ under $f$,
+    \[f[A]=\{f(a)\mid a\in A\}.\]
+Clearly,  $P(f)$ is a function $P(X)\to P(Y)$, so it is in $\ho{P(X)}{P(Y)}$.
+\end{enumerate}
+Given any $X,Y,Z\in\mathbf{Set}$, let $f\in\ho{X}{Y}$ and $g\in\ho{Y}{Z}$ be functions. Then for all $A\in P(X)$,
+\begin{align*}
+    P(g\circ f)(A) &= (g\circ f)[A])\\
+    &=g[f[A]]\\
+    &= P(g)\circ P(f)(A).
+\end{align*}
+For each $X\in\mathbf{X}$, $id_{X}$ is the identity function with respect to function composition. For all $A\in P(X)$,
+\begin{align*}
+    P(id_{X})(A) &= id_{X}[A]\\
+    &= A \\
+    &= id_{P(X)}(A)
+\end{align*}
+Therefore P is a functor.
+\end{example}
+The following Example \ref{exe:matrixringfunc} uses ideas from the Wikipedia article \cite{wiki:invmatrix}.
+\begin{example}
+\label{exe:matrixringfunc}
+Let $\GL\colon\mathbf{CRng}\rightarrow\mathbf{Grp}$ be defined:
+\begin{enumerate}
+    \item For each $\mathbf{CRng}$-Object $R\in\ob{\mathbf{CRng}}$,
+    \[\GL(R)=\left\{\begin{bmatrix}
+        a&b\\
+        c&d
+    \end{bmatrix} | a,b,c,d\in R, ab-cd \text{ is invertable in }R\right\}
+    \]
+    $\GL(R)\in\mathbf{Grp}$ since each matrix is invertable, the matrix:\[\begin{bmatrix}1_{R}&0_{R}\\0_{R}&1_{R}\end{bmatrix}\] acts as an identity under matrix multiplication and matrix multiplication is associative.
+    \item Given $R,S\in\ob{\mathbf{CRng}}$ then for each $f\in\ho{R}{S}$,
+    \begin{align*}
+        \GL(f)\colon \GL(R)&\rightarrow \GL(S),\\
+    \begin{bmatrix} 
+    a & b\\
+    c&d
+    \end{bmatrix}&\mapsto \begin{bmatrix} 
+    f(a) & f(b)\\
+    f(c) & f(d)
+    \end{bmatrix}.
+    \end{align*}
+\end{enumerate}
+Then for $M,N\in \GL(R)$ we have,
+\begin{align*}
+    \GL(f)(M \times_{\GL(R)} N) &= \GL(f)\left(\begin{bmatrix} 
+    a_{M} \times_{R}a_{N}+_{R}b_{M}\times_{R}c_{N}& a_{N}\times_{R}b_{M}+_{R}b_{N}\times_{R}d_{N}\\
+    c_{M}\times_{R}a_{N}+_{R}d_{M}\times_{R}c_{N}& c_{M}\times_{R}b_{N}+_{R}d_{M}\times d_{N}
+    \end{bmatrix}\right)\\
+    &= \begin{bmatrix} 
+    f(a_{M} \times_{R}a_{N}+_{R}b_{M}\times_{R}c_{N})& f(a_{N}\times_{R}b_{M}+_{R}b_{N}\times_{R}d_{N})\\
+f(c_{M}\times_{R}a_{N}+_{R}d_{M}\times_{R}c_{N})& f(c_{M}\times_{R}b_{N}+_{R}d_{M}\times_{R} d_{N})
+    \end{bmatrix}\\
+    &= \begin{bmatrix} 
+    f(a_{M}) \times_{S}f(a_{N})+_{S}f(b_{M})\times_{S}f(c_{N})& f(a_{N})\times_{S}f(b_{M})+_{S}f(b_{N})\times_{S}f(d_{N})\\
+    f(c_{M})\times_{S}f(a_{N})+_{S}f(d_{M})\times_{S}f(c_{N})& f(c_{M})\times_{S}f(b_{N})+_{S}f(d_{M})\times_{S} f(d_{N})
+    \end{bmatrix}\\
+    &= \GL(f)(M) \times_{\GL(S)} \GL(f)(N)
+\end{align*}
+and,
+\begin{align*}
+    \GL(f)(1_{\GL(R)}) &= \GL(f)\left( \begin{bmatrix}
+    1_{R}&0_{R}\\
+    0_{R}&1_{R}
+    \end{bmatrix}\right)\\
+    &= \begin{bmatrix}
+    f(1_{R})&f(0_{R})\\
+    f(0_{R})&f(1_{R})
+    \end{bmatrix}\\
+    &= \begin{bmatrix}
+    1_{S}&0_{S}\\
+    0_{S}&1_{S}
+    \end{bmatrix}, &\text{since f is a ring homomorphism}\\
+    &= 1_{\GL(S)}.
+\end{align*}
+Therefore $\GL(f)$ is defined as a group homomorphism.\\
+We now show $\GL$ is a functor by proving the axioms hold. Given any $R,S,T\in\ob{\mathbf{CRng}}$, let $f\in\ho{R}{S}$ and $g\in\ho{S}{T}$ be ring homomorphisms. Then for all \[M=\begin{bmatrix} 
+    a & b\\
+    c&d
+    \end{bmatrix}\in \GL(R)\]
+    we have,
+\begin{align*}
+    \GL(g\circ f)(M)&=\begin{bmatrix} 
+    (g\circ f)(a) & (g\circ f)(b)\\
+    (g\circ f)(c)&(g\circ f)(d)
+    \end{bmatrix}\\
+    &= \begin{bmatrix} 
+    g(f(a))& g(f(b))\\
+    g(f(c))&g(f(d))
+    \end{bmatrix}\\
+    &= \GL(g)\left (\begin{bmatrix} 
+    f(a) & f(b)\\
+    f(c)&f(d)
+    \end{bmatrix}\right)\\
+    &= (\GL(g)\circ \GL(f))(M)
+\end{align*}
+and,
+\begin{align*}
+    \GL(id_{R})(M) &= \begin{bmatrix} 
+    id_{R}(a) & id_{R}(b)\\
+    id_{R}(c)&id_{R}(d)
+    \end{bmatrix}\\
+    &= \begin{bmatrix} 
+    a & b\\
+    c&d
+    \end{bmatrix}\\
+    &=M\\
+    &= id_{\GL(R)}(M).
+\end{align*}
+Therefore $\GL$ is a functor.
+\end{example}
+
+\begin{remark}
+Example \ref{exe:matrixringfunc} can be extended to $\mathrm{GL}_{n}$ with $n\times n$ matrices.
+\end{remark}
+
+\begin{lemma}
+    \label{lem:groupofunits}
+    Let $R$ be a ring with 1. Let $R^*$ be the set of all $r\in R$ such that, \[rr^\prime=r^\prime r=1_{R}\] for some $r^\prime \in R$. Then $(R^*,\times_{R})$ forms a group called the \emph{group of units of $R$}.
+    \end{lemma}
+\begin{proof}
+    We have an identity $1_{R}$ since for each $r\in R^*$,
+    \begin{align*}
+        r1_{R} = r = 1_{R}r
+    \end{align*}
+    since R is a ring. 
+    
+    Given $r\in R^*$ there exists $r^\prime\in R^*$ such that,
+    \begin{align*}
+        rr^\prime = r^\prime r = 1_{R}.
+    \end{align*}
+    Hence each $r$ has inverse $r^\prime$.
+    
+    We know $\times_{S}$ is associative since $R$ is a ring. 
+    
+    Finally given $r,s\in R^*$,
+    \begin{align*}
+        rss^\prime r^\prime &= r1_{R}r^\prime\\
+        &= rr^\prime\\
+        &= 1_{R}\\
+        &=s^{\prime}s\\
+        &= s^{\prime}1_{R}s\\
+        &= s^\prime r^{\prime}rs.
+    \end{align*}
+    Hence $rs\in R^*$ and therefore $R^*$ is a group.
+\end{proof}
+
+\begin{example}
+    \label{exe:ringdet}
+    Let $\func{\Units}{\mathbf{Crng}}{\mathbf{Grp}}$ be defined:
+    \begin{enumerate}
+        \item For each $R\in\mathbf{Crng}$,
+        \[\Units(R)=R^*\]
+        as in Lemma \ref{lem:groupofunits};
+    \item Given $R,S\in\ob{\mathbf{Crng}}$, for each $f\in\ho{R}{S}$,
+    \begin{align*}
+        \Units(f)\colon R^*&\to S^*,\\
+        r&\mapsto f(r)
+    \end{align*}
+    and $f(r)\in S^*$ since,
+    \begin{align*}
+        1_{S} &= f(1_{R})\\
+        &= f(rr^\prime) \\
+        &= f(r)f(r^\prime), & \text{since $f$ is a ring homomorphism.}
+    \end{align*}
+    We also have $\Units(f)$ is a group homomorphism since $f$ is a ring homomorphism.
+    \end{enumerate}
+    We will now show that $\Units$ is indeed a functor. 
+    
+    Given any $R,S,T\in\ob{\mathbf{Crng}}$, let $f\in\ho{R}{S}$ and $g\in\ho{S}{T}$. Then for all $r\in R$,
+    \begin{align*}
+        \Units(g\circ f)(r) &= g\circ f(r)\\
+        &= \Units(g)\circ \Units(f)(r).
+    \end{align*}
+    Hence composition is preserved.
+    We also have,
+    \begin{align*}
+        \Units(id_{R})(r)&= id_{R}(r)\\
+        &= r\\
+        &= id_{R^*}(r).
+        \end{align*}
+        Hence identities are preserved.
+    Therefore $\Units$ is a functor.
+\end{example}
+The following example followed from a lecture on Topology given by Dr Daniel Graves at the University of Leeds.
+\begin{example}
+    Let $\mathbf{Top}^*$ be the category of based topological spaces as defined in Example \ref{exe:catbasedtop} and $\mathbf{Grp}$ be the category of groups as defined in Example \ref{exe:catoggroups}. 
+    
+    The fundamental group functor $\func{\pi_{1}}{\mathbf{Top}^{*}}{\mathbf{Grp}}$ be defined:
+    \begin{enumerate}
+        \item For each $((X,\tau_X),x_{0})\in\ob{\mathbf{Top}^*}$,
+        \[((X,\tau_X),x_{0})\mapsto\pi_1(((X,\tau_X),x_{0}))\]
+        where $\pi_1(((X,\tau_X),x_{0}))$ is the fundamental group of $X$ based at $x_{0}$. The group operation $*$ is defined by join of paths;
+        
+        \item For a given continuous map $f\in\ho[\mathbf{Top}^*]{((X,\tau_X),x_{0})}{((Y,\tau_Y),y_{0})}$ we define the induced group homomorphism:
+        \[f\mapsto f^*\colon\pi_1(((X,\tau_X),x_{0}))\to\pi_1(((Y,\tau_Y),y_{0}))\]
+        where for each $[\gamma]\in \pi_1(((X,\tau_X),x_{0}))$,
+        \[ [\gamma] \mapsto [f\circ \gamma].\]
+        Here $[\gamma]$ is the equivalence class of a loop $\gamma$ based at $x_{0}$.
+        
+        $f^*$ is well defined since for any two loops $\gamma_1$ and $\gamma_2$ based at $x_0$ where $[\gamma_1] = [\gamma_2]$ we have a path homotopy, 
+        \[H\colon [0,1] \times [0,1] \to X\]
+        and therefore,
+        \[f\circ H \colon [0,1]\times [0,1]\to Y,\]
+        is a path homotopy between $f\circ \gamma_1$ and $f\circ\gamma_2$ hence $f^*$ is well defined.
+        
+        The group identity for $\pi_1(((X,\tau_X),x_{0}))$ is the equivalence class $[\gamma_{x_{0}}]$ where $\gamma_{x_{0}}$ is the constant path at $x_{0}$ so,
+        \[[f\circ\gamma_{x_{0}}] = [\gamma_{f(x)}] = [\gamma_{y_{0}}]\] 
+        where $\gamma_{y_{0}}$ is the constant path at $f(x_{0})$. Therefore $f^*$ preserves group identities. 
+        
+        We also have for any two $[\gamma_1],[\gamma_2]\in\pi_1(((X,\tau_X),x_{0}))$ 
+        \begin{align*}
+        f^*([\gamma_1]*[\gamma_2])&=f^*([\gamma_1*\gamma_2])\\
+        &=[f\circ\gamma_1*\gamma_2] \\
+        &= [f\circ\gamma_1*f\circ\gamma_2] \\
+        &= [f\circ\gamma_1]*[f\circ\gamma_2]\\
+        &= f^*([\gamma_1])*f^*([\gamma_2]).
+        \end{align*}
+        Therefore $f^*$ is a group homomorphism.
+    \end{enumerate}
+    To check $\pi_1$ is a functor we check it preserves identities $id_{X}\in\ho[\mathbf{Top}^*]{X}{X}$, given a path equivalence class $[\gamma]\in\pi_1(((X,\tau_X),x_{0}))$.
+    \begin{align*} 
+    \pi_{1}(id_{X})([\gamma]) &= [id_{X}\circ\gamma] \\
+    &= [\gamma] \\
+    &= id_{\pi_1(((X,\tau_X),x_{0}))}([\gamma]).
+    \end{align*}
+    Also given $f\in\ho[\mathbf{Top}^*]{((X,\tau_X),x_{0})}{((Y,\tau_Y),y_{0})}$ and $g\in\ho[\mathbf{Top}^*]{((Y,\tau_Y),y_{0})}{((Z,\tau_Z),z_{0})}$ we have,
+    \begin{align*}
+        (g\circ f)^*([\gamma]) &= [g\circ f\circ\gamma]\\
+        &= g^*([f\circ\gamma])\\
+        &= g^*(f^*([\gamma]))\\
+        &= g^*\circ f^*([\gamma]).
+    \end{align*}
+    Therefore $\pi_{1}$ is a functor.
+\end{example}
+The following example can be found in Leinster \cite{Leinster}.
+\begin{example}
+\label{exe:leftactionfunc}
+    Recall for each monoid $\cat{M}$ we have a one object category defined in subsection \ref{sss:monascat}, also recall the category $\mathbf{Set}$ in Example \ref{exe:catofsets}. 
+    
+    Given a set $X$, we define a functor
+    \[\func{L_{X}}{\cat{M}}{\mathbf{Set}}\]
+    where for the unique object $M\in\cat{M}$,
+    \[M\mapsto X,\]
+    and for each morphism $g\in\ho[\cat{M}]{M}{M}$,
+    \[g\mapsto L_{X}(g)\]
+    where,
+    \begin{align*}
+        L_{X}(g) \colon X &\to X,\\
+            x &\mapsto gx.
+    \end{align*}
+    The function $L_{X}(g)$ is the left action of $g$ on $X$.
+    
+    We see for each $x\in X$,
+    \begin{align*}
+        L_{X}(id_{M})(x) &= id_{M}x \\
+        &= x \\
+        &= id_{L_{X}(M)}
+    \end{align*}
+    and for $g,g^\prime\in\ho[\cat{M}]{M}{M}$ and each $x\in X$,
+    \begin{align*}
+        L_{X}(g^\prime\circ g)(x) &= g^\prime\circ g x \\
+        &= g^\prime gx \\
+        &= L_{X}(g^\prime)\circ L_{X}(g)(x).
+    \end{align*}
+    Therefore $L_{X}$ is a functor. For each set $X\in\ob{\mathbf{Set}}$ the functor $L_{X}$ represents the left action of $\cat{M}$ on that set.
+\end{example}
+%==========================================================================
+\subsection{Functor composition}
+\label{ss:functcomp} 
+%==========================================================================
+Ideas from this section are adapted from Leinster \cite{Leinster} and Adámek - Herrlick - Strecker \cite{ACC}.
+\begin{definition}
+\label{def:functcomp}
+Let $\mathscr{C}$, $\mathscr{D}$ and $\mathscr{E}$ be categories and $F_{1}\colon\mathscr{C}\rightarrow\mathscr{D}$, $F_{2}\colon\mathscr{D}\rightarrow\mathscr{E}$ functors. Then we define $F_{1}\circ F_{2}\colon\mathscr{C}\rightarrow\mathscr{E}$:
+\begin{enumerate}
+    \item \begin{align*}
+    (F_{1}\circ F_{2})^{ob}\colon\ob{\mathscr{C}}&\rightarrow\ob{\mathscr{E}},\\
+    A&\mapsto F_{2}(F_{1}(A));
+    \end{align*}
+    \item \begin{align*}
+        (F_{1}\circ F_{2})^{hom}\colon\ho[\mathscr{C}]{A}{A^{\prime}}&\rightarrow\ho[\mathscr{E}]{(F_{1}\circ F_{2})^{ob}(A)}{(F_{1}\circ F_{2})^{ob}(A^{\prime}},\\
+        f&\mapsto F_{2}(F_{1}(f)).
+    \end{align*}
+\end{enumerate}
+\end{definition}
+\begin{remark}
+Again we will drop notation as in Remark \ref{rmk:functnotation} for simplicity.
+\end{remark}
+\begin{lemma}
+$F_{1}\circ F_{2}\colon\mathscr{C}\rightarrow\mathscr{E}$ as defined above is a functor.
+\end{lemma}
+\begin{proof}
+Let $f\in\ho[\cat{C}]{A}{A^{\prime}}$ and $g\in\ho[\cat{C}]{A^{\prime}}{A^{\prime\prime}}$ then,
+\begin{align*}
+    F_{1}\circ F_{2}(f\circ^{\mathscr{C}} g) &= F_{2}(F_{1}(f\circ^{\mathscr{C}}g))\\
+    &= F_{2}(F_{1}(f)\circ^{\mathscr{D}}F_{1}(g)), &\text{since $F_{1}$ is a functor}\\
+    &= F_{2}(F_{1}(f))\circ^{\mathscr{E}}F_{2}(F_{1}(g)), &\text{since $F_{2}$ is a functor}\\
+    &= F_{1}\circ F_{2}(f) \circ^{\mathscr{E}}F_{1}\circ F_{2}(g).
+\end{align*}
+Given $A\in\ob{\mathscr{C}}$
+\begin{align*}
+    F_{1}\circ F_{2}(id_{A}) &= F_{2}(F_{1}(id_{A}))\\
+    &= F_{2}(id_{F_{1}(A)})\\
+    &= id_{F_{2}(F_{1}(A))}\\
+    &= id_{F_{1}\circ F_{2}(id_{A})}.
+\end{align*}
+Therefore $F_{1}\circ F_{2}$ is a functor.
+\end{proof}
+
+\begin{remark}
+For functors $F, G$ we will write $FG=F\circ G$ and If $F$ is an endofunctor, then we can write $F^{2}=F\circ F$.
+\end{remark}
+
+%==========================================================================
+\pagebreak
+\section{Natural transformations}
+\label{s:naturaltransformations} 
+%==========================================================================
+\begin{definition}
+\label{def:naturaltransformation}
+Let $\mathscr{C},\mathscr{D}$ be categories. Let $F\colon\mathscr{C}\rightarrow \mathscr{D}$, and $G\colon\mathscr{C}\rightarrow \mathscr{D}$ be functors. A \emph{natural transformation}, $\eta\colon F\Rightarrow G$ between $F$ and $G$ is an assignment which sends each $\mathscr{C}-Object$, $A$, to a map $\eta_{A}\in\ho{F(A)}{G(A)}$, where the \emph{naturality condition} holds: 
+
+\begin{quotation}
+Given $A,A^{\prime}\in\ob{\cat{C}}$, then for each map $f\in\ho{A}{A^{\prime}}$,
+\begin{align}
+\label{eqn:natualitycondition}
+    \eta_{A^{\prime}} \circ F(f) = G(f) \circ \eta_{A}.
+\end{align}
+Equation \ref{eqn:natualitycondition} is equivalent to saying the diagram,\\
+\begin{center}
+\begin{tikzcd}
+F(A) \arrow[r, "F(f)"] \arrow[d, "\eta_{A}"'] & F(A^{\prime}) \arrow[d, "\eta_{A^{\prime}}"] \\
+G(A) \arrow[r, "G(f)"'] & G(A^{\prime}) 
+\end{tikzcd}\\
+\end{center}
+commutes.
+\end{quotation}
+We call $\eta_{A}$ \emph{the component of $\eta$ at $A$}.
+\end{definition}
+We see some examples below.
+%==========================================================================
+\subsection{Examples}
+\label{ss:nattranexam}
+%==========================================================================
+\begin{example}
+\label{exe:naturalidentpowerset}
+Let $P$ be the power set functor as in \ref{exe:functorpowerset} and $id_{\mathbf{Set}}$ be the identity functor on $\mathbf{Set}$ as in \ref{def:identityfunctor}. We have natural transformation, $\nattran{\eta}{id_{\mathbf{Set}}}{P}$. such that,  for  each $X\in\ob{\mathbf{Set}}$, 
+\begin{align*}
+    \eta_{X}\colon id_{\mathbf{Set}}(X)&\rightarrow P(X),\\
+    x&\mapsto \{x\}.
+\end{align*}
+We need to show the naturality condition holds. Let
+$X,Y\in\ob{\mathbf{Set}}$ and $f\in\ho{X}{Y}$. For each $x\in id_{\mathbf{Set}}(X)$,
+\begin{align*}
+    (\eta_{Y}\circ id_{\mathbf{Set}}(f))(x) &= \eta_{Y}(f(x))\\
+    &= \{f(x)\}\\
+    &= P(f)(\{x\})\\
+    &= (P(f)\circ \eta_{X})(x).
+\end{align*}
+Therefore the naturality condition holds and $\eta$ is a natural transformation.
+\end{example}
+Another example of a natural transformation is given below.
+\begin{example}
+\label{exe:naturalmultipowerset}
+Let $P\colon\mathbf{Set}\rightarrow\mathbf{Set}$ be the power set functor as defined in \ref{exe:functorpowerset} and $P^2:\mathbf{Set}\rightarrow\mathbf{Set}$ be the composition of $P$ with its self as defined in \ref{def:functcomp}. Then we can define $\mu\colon P^2 \Rightarrow P$ where, for each $X\in\ob{\mathbf{Set}}$, we have,
+\begin{align*}
+    \mu_{X}\colon P^2(X)&\rightarrow P(X),\\
+    A &\mapsto \bigcup_{I \in A} I. 
+\end{align*}
+We need to show the naturality condition holds. Since $A$ is a set of subsets of $X$ then $\bigcup_{I\in A}I$ will be a subset of $X$. Furthermore for a set $A$, $\bigcup_{I\in\mathcal P(A)}I=A$. Then given $X,Y\in\ob{\mathbf{Set}}$ and $f\in\ho{X}{Y}$. For each $A\in P^2(X)$,
+\begin{align*}
+    (\mu_{Y}\circ P^2(f))(A) &= \mu_{Y}(f[A])\\
+    &= \bigcup_{I\in f[A]} I\\
+    &= P^2(f)(\bigcup_{I\in A}I)\\
+    &= P^2(f)\circ \mu_{X}(A).
+\end{align*}
+Where the third equality is true since the union of an image of a set is equal to the image of the union. Therefore we have defined a natural transformation.
+\end{example}
+These two natural transformations have some importance we discuss later. Here is another example of a natural transformation.
+\begin{example}
+\label{exe:detnattran} 
+Recall the functors $\func{\GL}{\mathbf{Crng}}{\mathbf{Grp}}$ and $\func{\Units}{\mathbf{Crng}}{\mathbf{Grp}}$ defined in Example \ref{exe:matrixringfunc} and Example \ref{exe:ringdet} respectively, 
+
+Let $\nattran{\det}{\GL}{\Units}$ be defined for each $R\in\mathbf{Crng}$ as,
+\begin{align*}
+    \det_R\colon \GL(R) &\to R^*\\
+    \begin{bmatrix}
+        a&b\\
+        c&d
+    \end{bmatrix}&\mapsto a\times_{R}d+_{R}-b\times_{R}c.
+\end{align*}
+Here $-b$ is the additive inverse of $b$. 
+
+$a\times_{R}d+_{R}-b\times_{R}c \in R^*$ since it is invertable in $R$.
+
+We first show for each $R\in\mathbf{Crng}$ that $\det_R$ is a group homomorphism.
+Given $M,N\in\GL(R)$, we know $\det(MN)= \det(M)\det(N)$.
+
+
+We need to show the naturality condition holds.
+Given $R,S\in\mathbf{CRng}$ and any $f\in\ho{R}{S}$ then for each $\begin{bmatrix}
+    a&b\\
+    c&d
+\end{bmatrix}\in \GL(R)$ we have,
+\begin{align*}
+    (\Units(f)\circ \det_R)\left(\begin{bmatrix}
+    a&b\\
+    c&d
+\end{bmatrix}\right) &= \Units(f)(a\times_{R}d+_{R}-b\times_{R}c)\\
+    &=f(a\times_{R}d+_{R}-b\times_{R}c)\\
+    &=f(a)\times_{S}f(d)+_{S}-f(b)\times_{S}f(c)\\ 
+    &=\det_S\left(\begin{bmatrix}
+    f(a)&f(b)\\
+    f(c)&f(d)
+\end{bmatrix}\right)\\
+    &= (\det_S \circ \GL(f))(\begin{bmatrix}
+    a&b\\
+    c&d
+\end{bmatrix}).
+\end{align*}
+The third equality is true since additive inverses are preserved under ring homomorphisms.
+Hence the naturality condition holds, therefore $\det$ is a natural transformation.
+\end{example}
+The following example comes from Leinster \cite{Leinster} (Page 29 Example 1.3.4).
+\begin{example}
+    \label{exe:nattranleftaction}
+    Let $X,Y\in\ob{\mathbf{Set}}$ be sets then recall from Example \ref{exe:leftactionfunc} we have functors $L_{X}$ and $L_{Y}$ representing left actions of the monoid $\cat{M}$ on the sets $X$ and $Y$ respectively. There is a natural transformation 
+    \[\nattran{\alpha}{L_{X}}{L_{Y}}\]
+    where for the single object $m\in\ob{\cat{M}}$ we have a map $\alpha_{m}\in\ho[\mathbf{Set}]{X}{Y}$ where the naturality condition implies for each $g\in\ho[\cat{M}]{M}{M}$,
+    \begin{align*}
+        \alpha_{M} \circ L_{X}(g) = L_{Y}(g)\circ \alpha_{M}
+    \end{align*}
+    so for an element $x\in X$,
+    \[\alpha_{M}(L_{g}(x)) = L_{Y}(g)(\alpha_{M}(x)),\]
+    that is,
+    \[\alpha_M(gx) = g\alpha_{M}(x),\]
+    So the natural transformation $\alpha$ represents a map of the sets $X$, $Y$ preserving left action from $\cat{M}$.
+\end{example}
+%==========================================================================
+\subsection{Composition of natural transformations}
+\label{ss:compnaturaltransformations} 
+%==========================================================================
+There are different ways to compose natural transformations; we can take natural transformations with the same domain and co-domain (vertical composition) or we can compose a natural transformation with a functor which leads to an alternative definition of composition (Horizontal composition). 
+%==========================================================================
+\subsubsection{Vertical composition of natural transformations}
+\label{sss:vertcompnaturaltransformations} 
+%==========================================================================
+First we compose two natural transformations whose functors they act on have the same domain and co-domain as demonstrated in the pasting diagram below. Ideas from this section are thanks to Riehl \cite{Riehl} and Leinster \cite{Leinster}.
+\begin{center}
+\begin{tikzcd}
+%PASTING DIAGRAM VERTCOMP
+\mathscr{C} \arrow[r, "F", bend left=70, ""{name=U,below}]
+\arrow[r, "F^\prime" description, ""{name=M1}] \arrow[r, "F^\prime" description, ""{name=M2,below}]
+\arrow[r, "F^{\prime\prime}"',bend right=70, ""{name=D}]
+&\mathscr{D}
+\arrow[Rightarrow, "\mu", from=U, to=M1] 
+\arrow[Rightarrow,"\eta" , from=M2, to=D]
+\end{tikzcd}
+\end{center}
+\begin{definition}[Vertical composition]
+\label{def:vertcomp}
+Let $\cat{C},\cat{D}$ be categories, $\func{F,F^\prime,F^{\prime\prime}}{C}{D}$ be functors and $\nattran{\eta}{F}{F^\prime}$ and $\nattran{\mu}{F^\prime}{F^{\prime\prime}}$ natural transformations. We then define 
+\[\nattran{\mu\cdot\eta}{F}{F^{\prime\prime}}\]
+where for each $X\in\cat{C}$,
+\[(\mu\cdot\eta)_{X}= \mu_{X}\circ\eta_{X}.\]
+\end{definition}
+\begin{remark}
+    We may also use the notation $(\mu\circ\eta)_{X}$ to mean $(\mu\cdot\eta)_{X}$
+\end{remark}
+\begin{lemma}
+The vertical composition of two natural transformations as defined above in Definition \ref{def:vertcomp} is a natural transformation.
+\end{lemma}
+\begin{proof}
+We need to prove that for $\mu\cdot\eta$ the naturality condition holds. Given $X,Y\in\ob{\mathscr{C}}$ and a map $f\in\ho{X}{Y}$ we have,
+\begin{align*}
+    (\mu\cdot\eta)_{Y}\circ F(f) &= \mu_{Y}\circ(\eta_{Y}\circ F(f))\\
+    &= \mu_{Y}\circ (F^{\prime}(f) \circ\eta_{X}) &\text{since $\eta$ is a natural transformation,}\\
+    &= (F^{\prime\prime}(f)\circ\mu_{X})\circ\eta_{X}&\text{since $\mu$ is a natural transformation,}\\
+    &= F^{\prime\prime}(f)\circ(\mu\cdot\eta)_{X}.
+\end{align*}
+There for the naturality condition holds and therefore the composition of two natural transformations is a natural transformation.
+\end{proof}
+%==========================================================================
+\subsubsection{Horizontal composition of natural transformations}
+\label{sss:horizcompnaturaltransformations} 
+%==========================================================================
+First we see how natural transformations can compose with functors. The diagram below illustrates how this should work.
+\begin{center}
+\begin{tikzcd}
+%Wiskering DIAGRAM HORIZCOMP
+\mathscr{B} \arrow[r, "F", ""{name=U,below}]
+&\mathscr{C} \arrow[r, "G", bend left=50, ""{name=U1,below}]
+\arrow[r, "G^\prime"',bend right=50, ""{name=D1}]& \mathscr{D} 
+\arrow[r, "F^\prime"]
+\arrow[Rightarrow,"\eta" , from=U1, to=D1]
+& \mathscr{E}
+\end{tikzcd}.
+\end{center}
+\begin{definition}
+    \label{def:natcompfunc}
+    Let $\cat{B,C,D,E}$ be categories, $\func{F}{\cat{B}}{\cat{C}}$, $\func{G,G^{\prime}}{\cat{C}}{\cat{D}}$ and $\func{F^\prime}{\cat{D}}{\cat{E}}$ be functors and $\nattran{\eta}{G}{G^\prime}$ a natural transformation. Given $B\in\cat{B}$, we define the natural transformation $\nattran{\eta F}{GF}{G^\prime F}$ where for each $B\in\ob{\cat{B}}$,
+    \[(\eta F)_B = \eta_{F(B)}.\]
+    Given $C\in\cat{C}$ we also define the natural transformation $\nattran{F^{\prime}\eta}{F^\prime G}{F^\prime G^\prime}$ where for each $C\in\ob{\cat{C}}$,
+    \[(F^{\prime}\eta)_{C} = F^\prime(\eta_{C}).\]
+\end{definition}
+\begin{lemma}
+\label{lem:natcompfunc}
+$\eta F$ and $F^{\prime}\eta$ as defined above in Definition \ref{def:natcompfunc} are natural transformations.
+\end{lemma}
+\begin{proof}
+    We need to show that the naturality condition holds. First for $\eta F$. Given $B,B^\prime\in\cat{B}$ and $f\in\ho{B}{B^\prime}$ we have,
+    \begin{align*}
+    (\eta F)_{B^\prime}\circ GF(f) &= \eta_{F(B^\prime)}\circ GF(f)\\
+    &= \eta_{F(B^\prime)}\circ G(F(f))\\
+    &= G^\prime(F(f))\circ\eta_{F(B)}, &\text{ by the naturality of $\eta$}\\
+    &= G^\prime F(f)\circ\eta_{F(B)}.
+    \end{align*}
+    Now we prove $F^\prime\eta$ is natural. Given $C,C^\prime\in\cat{C}$ and $g\in\ho{C}{C^\prime}$ we have,
+    \begin{align*}
+        (F^\prime \eta)_{C^\prime}\circ F^\prime G(g) &= F^\prime(\eta_{C^\prime})\circ F^\prime G(g)\\
+        &= F^\prime (\eta_{C^\prime}\circ G(g))\\
+        &= F^\prime(G^\prime(g)\circ\eta_{C}), &\text{ by the naturality of $\eta$}\\
+        &= F^\prime G^\prime(g)\circ F^\prime(\eta_{C})\\
+        &= F^\prime G^\prime(g)\circ(F^{\prime}\eta)_{C}.
+    \end{align*}
+\end{proof}
+Now we can define horizontal composition of natural transformations, the diagram below illustrates this,
+\begin{center}
+\begin{tikzcd}
+%PASTING DIAGRAM HORIZCOMP
+\mathscr{C} \arrow[r, "F", bend left=50, ""{name=U,below}]
+\arrow[r, "F^\prime"',bend right=50, ""{name=D}]
+&\mathscr{D} \arrow[r, "G", bend left=50, ""{name=U1,below}]
+\arrow[r, "G^\prime"',bend right=50, ""{name=D1}]& \mathscr{E}
+\arrow[Rightarrow, "\mu", from=U, to=D] 
+\arrow[Rightarrow,"\eta" , from=U1, to=D1]
+\end{tikzcd}.
+\end{center}
+\begin{definition}
+\label{def:horizontalcomposition}
+Let $\cat{C},\cat{D},\cat{E}$ be categories, $\func{F,F^{\prime}}{\cat{C}}{\cat{D}},\func{G,G^{\prime}}{\cat{D}}{\cat{E}}$ functors and $\nattran{\mu}{F}{F^{\prime}},\nattran{\eta}{G}{G^{\prime}}$ natural transformation. We then define,
+\[\eta*\mu\colon GF\Rightarrow G^{\prime}F^{\prime}\]
+where for each $X\in\cat{C}$,
+\begin{align*}
+ (\eta*\mu)_{X}&=G^\prime(\mu_{X})\circ\eta_{F(X)}\\
+    &=\eta_{F^{\prime}(X)}\circ G(\mu_{X}).
+\end{align*}
+The last equality is true by the naturality condition of $\eta$ on the morphism $\mu_{X}$ in $\cat{B}$. This definition is equivalent to the composition of the following commutative diagram.
+\begin{center}
+\begin{tikzcd}
+%CD HORIZCOMP NATURALITY
+GF(X) \arrow[r, "\eta_{F(X)}"] \arrow[d, "G(\mu_{X})"'] \arrow[rd,"(\eta*\mu)_{X}" description]& G^{\prime}F(X) \arrow[d, "G^{\prime}(\mu_{X})"] \\
+GF^{\prime}(X) \arrow[r, "\eta_{F^{\prime}(X)}"'] & G^{\prime}F^{\prime}(X) 
+\end{tikzcd}\\
+\end{center}
+\end{definition}
+\begin{lemma}
+$\eta*\mu$ as defined above is a natural transformation.
+\end{lemma}
+\begin{proof}
+Again we need to show the naturality condition holds for $\eta*\mu$. Given $X,Y\in\ob{\cat{C}}$ and $f\in\ho{X}{Y}$ we have,
+\begin{align*}
+    (\eta*\mu)_{Y} \circ GF(f) &= \eta_{F^{\prime}(Y)}\circ G^\prime(\mu_{Y}) \circ GF(f)\\
+    &=\eta_{F^{\prime}(Y)}\circ GF^{\prime}(f)\circ G^{\prime}(\mu_{X})\\
+    &= G^{\prime}F^{\prime}(f)\circ \eta_{F^{\prime}(X)}\circ G^{\prime}(\mu_{X})\\
+    &= G^{\prime}F^{\prime}(f) \circ (\eta*\mu)_{X}.
+\end{align*}
+The third equality is true by the naturality of $\eta$ and the second is true by the naturality of $\mu$ and that functors preserve commutativity (This is not proved here but can be found in Riehl \cite{Riehl}).
+This proof is equivalent to saying the diagram,
+\begin{center}
+\begin{tikzcd}
+GF(X) \arrow[r, "G^{\prime}(\mu_{X})"] \arrow[d, "GF(f)"'] & GF^{\prime}(X) \arrow[r, "\eta_{F^{\prime}(X)}"] \arrow[d, "GF^{\prime}(f)"] & G^{\prime}F^{\prime}(X) \arrow[d, "G^{\prime}F^{\prime}(f)"] \\
+GF(Y) \arrow[r, "G^{\prime}(\mu_{Y})"'] & GF^{\prime}(Y) \arrow[r,"\eta_{F^{\prime}(Y)}"']&G^{\prime}F^{\prime}(Y) 
+\end{tikzcd}\\
+\end{center}
+commutes.
+\end{proof}
+
+%==========================================================================
+\subsubsection{Composition interchange}
+\label{sss:compinterchange} 
+%==========================================================================
+This section is adapted from Leinster \cite{Leinster} (Page 38). If we have the categories, functors and natural transformations as in the diagram below we can compose vertically and then horizontally or horizontally then vertically. We find this to be equivalent.
+\begin{center}
+\begin{tikzcd}
+%PASTING DIAGRAM INTERCHANGE
+\mathscr{C} \arrow[r, "F", bend left=70, ""{name=U,below}]
+\arrow[r, "F^\prime" description, ""{name=M1}] \arrow[r, "F^\prime" description, ""{name=M2,below}]
+\arrow[r, "F^{\prime\prime}"',bend right=70, ""{name=D}]
+&\mathscr{D} \arrow[r, "G", bend left=70, ""{name=U1,below}]
+\arrow[r, "G^\prime" description, ""{name=M11}] \arrow[r, "G^\prime" description, ""{name=M21,below}]
+\arrow[r, "G^{\prime\prime}"',bend right=70, ""{name=D1}]
+&\mathscr{E}
+\arrow[Rightarrow, "\mu", from=U, to=M1] 
+\arrow[Rightarrow,"\eta" , from=M2, to=D]
+\arrow[Rightarrow, "\alpha", from=U1, to=M11] 
+\arrow[Rightarrow,"\beta" , from=M21, to=D1]
+\end{tikzcd}
+\end{center}
+\begin{thm}[Composition interchange]
+\label{thm:interchange}
+Let $\cat{C,D,E}$ be categories, $\func{F,F^\prime,F^{\prime\prime}}{C}{D}$ and $\func{G,G^\prime,G^{\prime\prime}}{D}{E}$ functors and \[\nattran{\mu}{F}{F^\prime}, \nattran{\eta}{F^\prime}{F^{\prime\prime}}, \nattran{\alpha}{G}{G^\prime}, \nattran{\beta}{G^\prime}{G^{\prime\prime}}\] natural transformations. Then,
+\begin{equation}
+\label{eqn:interchange}
+(\beta\cdot\alpha)*(\eta\cdot\mu)=(\beta*\eta)\cdot(\alpha*\mu).
+\end{equation}
+\end{thm}
+\begin{proof}
+For each $X\in\ob{\cat{C}}$ we have,
+\begin{align*}
+    ((\beta\cdot\alpha)*(\eta\cdot\mu))_{X} &= G^{\prime\prime}((\eta\cdot\mu)_{X})\circ(\beta\cdot\alpha)_{F(X)}\\
+    &= G^{\prime\prime}(\eta_{X}\circ\mu_{X})\circ\beta_{F(X)}\circ\alpha_{F(X)}\\
+    &= G^{\prime\prime}(\eta_{X})\circ G^{\prime\prime}(\mu_{X})\circ\beta_{F(X)}\circ\alpha_{F(X)}\\
+    &= G^{\prime\prime}(\eta_{X})\circ (\beta_{F^{\prime}(X)}\circ G^\prime(\mu_{X}))\circ\alpha_{F(X)}\\
+    &= (G^{\prime\prime}(\eta_{X})\circ \beta_{F^{\prime}(X)})\circ (G^{\prime}(\mu_{X})\circ\alpha_{F(X)})\\
+    &=(\beta*\eta)_{X}\circ(\alpha*\mu)_{X}\\
+    &= ((\beta*\eta)\cdot(\alpha*\mu))_{X}.
+\end{align*}
+Where the fourth equality is from the naturality of $\beta$.
+\end{proof}
+\begin{remark}
+    Equation \eqref{eqn:interchange} defines a natural transformation from $GF$ to $G^{\prime\prime}F^{\prime\prime}$.
+\end{remark}
+%==========================================================================
+\subsection{Functor categories}
+\label{ss:functorcat} 
+%==========================================================================
+We can consider functors as objects and natural transformations as morphisms between them. Since we have a notion of composing natural transformations we just need to show there exists an identity transformation for each functor and that composition is associative and we will have a category.
+
+\begin{definition}
+\label{def:identnattran}
+Let $\cat{C}$ and $\cat{D}$ be categories and $\func{F}{C}{D}$ be a functor. Then define,
+\begin{align*}
+    \nattran{id_{F}}{F&}{F},\\
+    id_{F_{X}}&\mapsto id_{F(X)}.
+\end{align*}
+\end{definition}
+\begin{lemma}
+\label{lem:identnattran}
+$id_{F}$ as defined above is a natural transformation.
+\end{lemma}
+\begin{proof}
+We need to show the naturality condition holds. Given $X,Y\in\ob{\cat{C}}$ and $f\in\ho{X}{Y}$ we have,
+\begin{align*}
+    id_{F_{Y}}\circ F(f) &= id_{F(Y)} \circ F(f)\\
+    &= F(f)\\
+    &= F(f)\circ id_{F(X)}\\
+    &= F(f)\circ id_{F_X}.
+\end{align*}
+\end{proof}
+\begin{definition}
+    \label{def:naturaliso}
+    Let $\cat{C}$,$\cat{D}$ be categories, $\func{F,G}{\cat{C}}{\cat{D}}$ be functors. We call a natural transformation $\nattran{\eta}{F}{G}$ a \emph{natural isomorphism} if there exists a natural transformation $\nattran{\eta^{-1}}{G}{F}$ such that,
+    \[\eta\cdot\eta^{-1} = id_{G}\]
+    and,
+    \[\eta^{-1}\cdot\eta = id_{F}.\]
+\end{definition}
+\begin{lemma}
+Let $\cat{C}$ and $\cat{D}$ be categories then for each functor $\func{F}{C}{D}$ The natural transformation $id_{F}$ acts as an identity with respect to vertical composition.
+\end{lemma}
+\begin{proof}
+Given any functors from $\cat{C}$ to $\cat{D}$, $\func{G}{C}{D}$ and $\func{G^{\prime}}{C}{D}$ and any two natural transformations $\nattran{\eta}{F}{G}$ and $\nattran{\mu}{G^{\prime}}{F}$. Then for each $X\in\ob{\cat{C}}$,
+\begin{align*}
+    (id_{F}\cdot\mu)_{X}&=id_{F_X} \circ \mu_{X}\\
+    &= id_{F(X)}\circ \mu_{X}\\
+    &=\mu_{X}
+\end{align*}
+and,
+\begin{align*}
+    (\eta\cdot id_{F})_{X}&=\eta_{X} \circ id_{F_X}\\
+    &= \eta_{X} \circ id_{F(X)}\\
+    &= \eta_{X}.
+\end{align*}
+\end{proof}
+\begin{lemma}
+\label{lem:vertcomassociative}
+Vertical composition as defined in Definition \ref{def:vertcomp} is associative.
+\end{lemma}
+\begin{proof}
+Let $\func{F}{C}{D}$, $\func{F^{\prime}}{C}{D}$, $\func{G^{\prime}}{C}{D}$ and $\func{G}{C}{D}$ be functors. Let $\nattran{\eta}{F}{F^{\prime}}$, $\nattran{\mu}{F^{\prime}}{G}$ and $\nattran{\gamma}{G}{G^{\prime}}$ be natural transformations. Then for each $X\in\ob{C}$,
+\begin{align*}
+    (\mu\cdot(\eta\cdot\gamma))_{X}&= \mu_{X}\circ(\eta_{X}\circ\gamma_{X})\\
+    &= (\mu_{X}\circ\eta_{X})\circ\gamma_{X}\\
+    &= ((\mu\cdot\eta)\cdot\gamma)_{X}
+\end{align*}
+where $\circ$ is associative since $\cat{C}$ is a category.
+\end{proof}
+
+Using Definition \ref{def:category} we cannot state that for all categories $\cat{C}$ and $\cat{D}$ there exists a functor category with functors as the objects and natural transformations as the morphisms since it is possible to have class of natural transformations between two functors rather than a set we need to put a restriction on the size of the categories to guarantee the natural transformations between any two functors form a set. A similar theorem and proof of Theorem \ref{thm:functorcat} is given in  Riehl \cite{Riehl} (page 44 corollary 1.7.2) where here we specify small categories since Riehl uses a slightly different definition of a category.
+
+\begin{definition}
+    \label{def:smallcat}
+    A category $\cat{C}$ is called \emph{small} if the collection of all morphisms in $\cat{C}$ form a set.
+\end{definition}
+
+\begin{remark}
+    Definition \ref{def:smallcat} implies that the collection of all objects also forms a set since the objects are in a bijective correspondence with the set off all identity morphisms and these form a subset of the set of all morphisms in a category.
+\end{remark}
+
+\begin{definition}
+    \label{def:functorcat}
+    Let $\cat{C}$ and $\cat{D}$ be small categories. We define $\cat{D}^{\cat{C}}=(\ob{\cat{D}^{\cat{C}}},\hom,\circ,id)$ as:
+    \begin{enumerate}
+        \item $\ob{\cat{D}^{\cat{C}}}$ is the collection of all functors between $\cat{C}$ and $\cat{D}$;
+        \item For each $F,G\in\ob{\cat{D}^{\cat{C}}}$, $\ho[\cat{D}^{\cat{C}}]{F}{G}$ is the collection of natural transformations between $F$ and $G$;
+        \item $\circ$ is vertical composition of natural transformations as in Definition \ref{def:vertcomp};
+        \item For each $F\in\ob{\cat{D}^{\cat{C}}}$ we have the identity $id_{F}$ defined in Definition \ref{def:identnattran}.
+    \end{enumerate}
+\end{definition}
+
+\begin{thm}
+\label{thm:functorcat}
+$\cat{D}^{\cat{C}}$ defined above in Definition \ref{def:functorcat} is a small category.
+\end{thm}
+\begin{proof}
+First note that the collection of all functors between $\cat{C}$ and $\cat{D}$ is indeed a set since the collection of all functions between two sets forms a set. Similarly, the collection of all natural transformations between two functors is a set. Composition is defined in Definition \ref{def:vertcomp} which is associative by Lemma \ref{lem:vertcomassociative}. Identities exist and are defined by Definition \ref{def:identnattran}.
+\end{proof}
+
+The following example was stated on Wiki \cite{wiki:functorcat} where here we go in to more detail.
+\begin{example}
+    \label{exe:leftsetfunctcat}
+    Recall the category of sets, $\mathbf{Set}$ as defined in Example \ref{exe:catofsets} and consider a monoid $\cat{M}$ defined as a one object category as in Subsection \ref{sss:monascat}. The functor category $\mathbf{Set}^{\cat{M}}$ is the category whose objects are the left action functors, $L_{X}$, as defined in Example \ref{exe:leftactionfunc} and morphisms are the natural transformations defined in Example \ref{exe:nattranleftaction}. This category represents the category of sets acted on by left action of the monoid $\cat{M}$. The category $\mathbf{Set}^{\cat{M}}$ is isomorphic to a wide subcategory of the category $\mathbf{Set}$. Let the functor $\func{\sigma}{\mathbf{Set}^{\cat{M}}}{\mathbf{Set}}$ be defined on objects,
+    \[L_{X} \mapsto X\]
+    and for a morphism $\alpha\in\ho[\mathbf{Set}^{\cat{M}}]{L_{X}}{L_{Y}}$,
+    \[\alpha \mapsto \alpha_{m}\]
+    
+    as in defined in Example \ref{exe:nattranleftaction}. Then $\sigma$ is an isomorphism from $\mathbf{Set}^{\cat{M}}$ to the subcategory of $\mathbf{Set}$ which has for morphisms only the functions of the form $\alpha_M$. 
+\end{example}
+%==========================================================================
+\pagebreak
+\section{Universal morphisms and adjoint functors}
+\label{s:uniarrow} 
+%==========================================================================
+In this section we see how the free and forgetful functors defined in Definition \ref{def:forgetfulfunctormon} and Definition \ref{def:freemonoid} are related by looking at universal morphism and adjoint functors. Definitions and notation from this section are from Clementino \cite{Maria} and Adámek - Herrlick - Strecker \cite{ACC}. 
+\begin{definition}[Universal morphism]
+    \label{def:uniarrow}
+    Let $\cat{C}$ and $\cat{D}$ be categories and $\func{G}{C}{D}$ be a functors and $X\in\ob{\cat{D}}$.\\
+    A \emph{universal morphism from $X$ to $G$} is a pair $(\eta_{X},C_{X})$ where $\eta_{X}\in\ho{X}{G(C_{X})}$ is a morphism and $C_{X}\in\ob{\mathscr{C}}$ such that for each $C\in\ob{\mathscr{C}}$ and each morphism $f\in\ho{X}{G(C)}$ there exists a unique morphism $\hat{f}\in\ho{C_{X}}{C}$ for which the diagram on the left
+    \begin{equation}\label{eqn:uniarrowXG}
+    \begin{tikzcd}
+    X \arrow[r, "\eta_{X}"] \arrow[rd, "f"'] & G(C_{X}) \arrow[d, "G(\hat{f})"] & C_{X} \arrow[d,dotted,"\hat{f}"] \\
+    & G(C) & C
+    \end{tikzcd}\\
+    \end{equation}
+    commutes.\\
+    A \emph{universal morphism from $G$ to $X$} is a pair $(\varepsilon_{X},C_{X})$ where $\varepsilon_{X}\in\ho{G(C_{X})}{X}$ is a morphism and $C_{X}\in\ob{\cat{C}}$ such that for each $C\in\ob{\cat{C}}$ and each morphism $g\in\ho{G(C)}{X}$ there exists a unique morphism $\hat{g}\in\ho{C}{C_{X}}$ for which the diagram on the left
+    \begin{center}
+    \begin{tikzcd}
+    X \arrow[r, "\varepsilon_{X}", leftarrow] \arrow[rd, "g"', leftarrow] & G(C_{X}) \arrow[d, "G(\hat{g})",leftarrow] & C_{X} \arrow[d,dotted,"\hat{g}", leftarrow] \\
+    & G(C) & C
+    \end{tikzcd}\\
+    \end{center}
+    commutes.
+\end{definition}
+\begin{definition}[Adjoint]
+    \label{def:adjunction}
+    Let $\cat{C}$ and $\cat{D}$ be categories and $\func{G}{\cat{C}}{\cat{D}}$ a functor. We say $G$ is \emph{right adjoint} if for each object $X\in\ob{\cat{D}}$ there exists a universal morphism, $(\eta_{X},C_{X})$ from $X$ to $G$.
+    We say $G$ is \emph{left adjoint} if for each object $X\in\ob{\cat{D}}$ there exists a universal morphism, $(\epsilon_{X},C_{X})$ from $G$ to $X$.
+    We say $G$ is \emph{adjoint} if $G$ is either right adjoint or left adjoint.
+\end{definition}
+%==========================================================================
+\subsection{Example: Free/forgetful adjunction for monoids}
+\label{ss:freeforgetadjunction} 
+%==========================================================================
+\begin{lemma}
+    \label{lem:freeadj}
+    Let $\mathrm{F}\colon\mathbf{Set}\to\mathbf{Mon}$ be the free monoid functor defined in Definition \ref{def:freefunctmon} and $\mathrm{U}\colon\mathbf{Mon}\to\mathbf{Set}$ be the forgetful monoid functor as defined in Definition \ref{def:forgetfulfunctormon}. Then $\mathrm{F}$ is left adjoint.
+\end{lemma}
+\begin{proof}
+    For each $X\in\ob{\mathbf{Set}}$ let \begin{align*}
+    \eta\colon id_{\mathbf{Set}}&\to UF,\\
+    \eta_{X}\colon X&\to U((\gamma(X),*,\varnothing)),\\
+    x&\mapsto (x).
+\end{align*}
+Then given $(A,\circ,e_{A})\in\mathbf{Mon}$ and $f\in\ho[\mathbf{Set}]{X}{U((A,\circ,e_{A}))}$ let \begin{align*}
+    \hat{f}\colon(\gamma(X),*,\varnothing)&\to(A,\circ,e_{A}),\\
+    \hat{f}((x_{1},x_{2},\dots,x_{n}))&\mapsto f(x_{1})\circ f(x_{2})\circ\dots\circ f(x_{n}),\\
+    \hat{f}(\varnothing)&\mapsto e_{A}.
+\end{align*}
+We first show $\hat{f}$ is a monoid homomorphism. We ,have that
+\begin{align*}
+    \hat{f}(\varnothing) = e_{A}
+\end{align*}
+and,
+\begin{align*}
+    \hat{f}((x_{1},x_{2},\dots,x_{n},y_{1},y_{2},\dots,y_{n})) &= f(x_{1})\circ f(x_{2})\circ \dots\circ f(x_{n})\circ f(y_{1})\circ f(y_{2})\circ\dots\circ f(y_{n}))\\
+    &= \hat{f}((x_{1},x_{2},\dots,x_{n}))\circ\hat{f}((y_{1},y_{2},\dots,y_{n})).
+\end{align*}
+Hence $\hat{f}$ is a monoid homomorphism.
+The diagram,
+\begin{center}
+\begin{tikzcd}
+X \arrow[r, "\eta_{X}"] \arrow[rd, "f"'] & U((\gamma(X),*,\varnothing)) \arrow[d, "U(\hat{f})"] & (\gamma(X),*,\varnothing) \arrow[d,dotted,"\hat{f}"] \\
+& U((A,\circ,e_{A})) & (A,\circ,e_{A})
+\end{tikzcd}\\
+\end{center}
+Commutes. So we need to show $\hat{f}$ is unique. Assume there exists monoid homomorphism $\hat{g}$ such that the diagram commutes. Then for each $x\in X$,
+\begin{align*}
+    f(x) &= \hat{g}(\eta_{x}(x))\\
+    &= \hat{g}((x))\\
+\end{align*}
+Since $\hat{g}$ is a monoid homomorphism,
+\begin{align*}
+    \hat{g}((x_{1},x_{2},\dots,x_{n}))&=\hat{g}((x_{1}))\circ\hat{g}((x_{2}))\dots\circ\hat{g}((x_{n}))\\
+    &= f(x_{1})\circ f(x_{2})\circ\dots\circ f(x_{n})\\
+    &= \hat{f}.
+\end{align*}
+Therefore, since there is a unique $\hat{f}$ such that the diagram commutes for all $X\in\mathbf{Set}$. $F$ is left adjoint.
+\end{proof}
+\begin{remark}
+    We will see later that Lemma \ref{lem:freeadj} implies $U$ is right adjoint.
+\end{remark}
+%==========================================================================
+\subsubsection{Equivalent definitions of adjoint functors}
+\label{ss:equdefadjfunctors} 
+%==========================================================================
+
+The following Lemma \ref{lem:hombijection} followed from discussion with the supervisor and from the Wikipedia article on adjoint functors \cite{wiki:adjoint}. Here we add the proof.
+\begin{lemma}
+    \label{lem:hombijection}
+    Let $\cat{C}$ and $\cat{D}$ be categories, $\func{G}{\cat{C}}{\cat{D}}$ be a functor and for each $X\in\ob{\cat{D}}$ we have $(\eta_{X},C_{X})$ is a universal morphism from $X$ to $G$. Then given $C\in\cat{C}$ there exists a bijective function, defined as
+    \begin{align*}
+        \phi_{X,C}\colon\ho[\cat{D}]{X}{G(C)}&\to\ho[\cat{C}]{C_{X}}{C},\\
+        f&\mapsto \hat{f},
+    \end{align*}
+    where $\hat{f}$ is defined from the universal property in Diagram \eqref{eqn:uniarrowXG}.
+    Further given $C^\prime\in\ob{\cat{C}}$ and $g\in\ho{C}{C^\prime}$ the following diagram commutes,
+    \begin{equation}
+    \label{cd:homisomorph}
+    \begin{tikzcd}
+    \ho[\cat{D}]{X}{G(C)} \arrow[r, "\phi_{X,C}"] \arrow[d, "\mathrm{h}_{X}(G(g))"'] & \ho[\cat{C}]{C_{X}}{C} \arrow[d, "\mathrm{h}_{C_{X}}(g)"] \\
+    \ho[\cat{D}]{X}{G(C^\prime)} \arrow[r, "\phi_{X,C^\prime}"'] & \ho[\cat{C}]{C_{X}}{C^{\prime}} 
+    \end{tikzcd}\\
+    \end{equation}
+    where $\mathrm{h}_{C_X}$ is the functor defined in Lemma \ref{lem:homsetfunctor}. 
+    In particular the $\phi_{X,C}$, where $C\in \ob{\cat{C}}$, combine to give a natural isomorphism  $\nattran{\phi_{X}}{\mathrm{h}_{X}\circ G}{\mathrm{h}_{C_{X}}}$.
+\end{lemma}
+\begin{proof}
+    First we show that for $C\in\ob{\cat{C}}$, $\phi_{X,C}$ is a bijection by showing it is surjective and injective. Given $f,f^\prime\in\ho[\cat{D}]{X}{G(C)}$ suppose $\hat{f}=\hat{f^\prime}$,  then we have,
+    \begin{align*}
+        f &= G(\hat{f})\circ \eta_{X}\\
+        &= G(\hat{f^\prime})\circ\eta_{X}\\
+        &= f^{\prime}.
+    \end{align*}
+    Hence $\phi_{X,C}$ is injective. Given $g \in\ho[\cat{C}]{C_{X}}{C}$ we have $G(g)\in\ho[\cat{D}]{G(C_{X})}{G(C)}$ since $G$ is a functor. We can then construct $f=G(g)\circ\eta_{X}$ since $\eta_{X}\in\ho[\cat{D}]{X}{G(C_{X})}$ and $\cat{D}$ is a category, hence $g=\hat{f}$. Therefore $\phi_{X,C}$ is surjective and hence a bijection. We will now show the diagram \eqref{cd:homisomorph} commutes. Given $f\in\ho[\cat{D}]{X}{G(C)}$ we need to show
+    \[g\circ\phi_{X,C}(f) = \phi_{X,C^\prime}(G(g)\circ f).\]
+    We have,
+    \begin{align*}
+        g\circ\phi_{X,C}(f) &= g\circ \hat{f}\\
+        &= \phi_{X,C^\prime}(\phi_{X,C^\prime}^{-1}(g\circ \hat{f}))\\
+        &= \phi_{X,C^\prime}(G(g\circ \hat{f})\circ\eta_{X})\\
+        &= \phi_{X,C^\prime}(G(g)\circ G(\hat{f})\circ\eta_{X})\\
+        &= \phi_{X,C^\prime}(G(g)\circ f).
+    \end{align*}
+\end{proof}
+
+%================wertghwertghj=w=====================================
+
+The following theorem is adapted from Adámek - Herrlick - Strecker \cite{ACC} (page 306 Theorem 19.1) where here we add the complete proof which was left as an exercise.
+\begin{thm}
+    \label{thm:adjsituation}
+    Let $\func{G}{\cat{C}}{\cat{D}}$ be a right adjoint functor and suppose that for each object $X\in\ob{\cat{C}}$ we are given a universal morphism $(\eta_{X},C_{X})$, from $X$ to $G$. 
+    \begin{enumerate}
+    
+  \item  There exists a unique functor $\func{F}{\cat{D}}{\cat{C}}$ such that the following two conditions hold:
+    \begin{enumerate}
+    \item $F(X) = C_{X}$;
+    \item We have a natural transformation, \begin{align*}
+        \nattran{\eta}{id_{\cat{D}}&}{GF}%\\
+ %       \eta_X\colon X &\mapsto G(C_X).
+    \end{align*}
+%\[        \nattran{\eta}{id_{\cat{D}}}{GF}\]
+whose components are given by:
+        \[\eta_X\colon X \to G(C_X);\]
+    
+    \end{enumerate}
+   \item  Further, we have a natural transformation $\nattran{\varepsilon}{FG}{id_{\cat{C}}}$ where for each $C\in\cat{C}$, $\varepsilon_{C}$ is the unique morphism for which,
+    \begin{equation}
+    \label{eqn:counitdef}
+    \begin{tikzcd}
+    G(C) \arrow[r, "\eta_{G(C)}"] \arrow[dr, "id_{G(C)}"'] & G(C_{X}) \arrow[d, "G(\varepsilon_{C})"] \\
+    & G(C)
+    \end{tikzcd}
+    \end{equation}
+commutes;
+
+\item We also have that the following identities are satisfied:
+    \begin{enumerate}
+        \item $\eta G \circ G\varepsilon = id_{G}$;
+        \item $F\eta \circ \varepsilon F = id_{F}$.
+    \end{enumerate}
+\end{enumerate}
+\end{thm}
+\begin{proof}
+Let $\func{F}{\cat{D}}{\cat{C}}$ be defined:
+\begin{align*}
+    F\colon\ob{\cat{D}}&\to\ob{\cat{C}},\\
+    X&\mapsto C_{X}
+\end{align*}
+and,
+\begin{align*}
+    F\colon\ho[\cat{D}]{X}{Y}&\to\ho[\cat{C}]{F(X)}{F(Y)},\\
+    f&\mapsto \widehat{\eta_{Y}\circ f}.
+\end{align*}
+This definition comes from the diagram,
+\begin{center}
+    \begin{tikzcd}
+    X \arrow[r, "\eta_{X}"] \arrow[d, "f"'] \arrow[rd,"\eta_{Y}\circ f"description, dotted] & G(C_{X}) \arrow[d, "G(\widehat{\eta_{Y}\circ f})"] \\
+    Y \arrow[r, "\eta_{Y}"'] & G(C_{Y}) 
+    \end{tikzcd}\\
+    \end{center}
+which commutes since $\eta_{X}$ is a universal morphism.
+If this is a functor then it is unique since it is unique on objects and for $f\in\ho[\cat{D}]{X}{Y}$ we have $\eta_{Y}\circ f\in\ho[\cat{D}]{X}{G(C_{Y})}$ and by Lemma \ref{lem:hombijection} there is a bijection between $\ho[\cat{D}]{X}{G(C_{Y})}$ and $\ho[\cat{C}]{C_{X}}{C_{Y}}$ hence $F$ is unique on morphisms.
+
+We show $F$ is a functor. Given $X\in\ob{\cat{D}}$,
+\begin{align*}
+    F(id_{X}) &= \widehat{\eta_{X} \circ id_{X}}\\
+    &= \hat{\eta_{X}}\\
+    &= id_{C_{X}}\\
+    &= id_{F(X)}.
+\end{align*}
+Equivalently the diagram,
+\begin{center}
+    \begin{tikzcd}
+    X \arrow[r, "\eta_{X}"] \arrow[d, "id_{X}"'] & G(C_{X}) \arrow[d, "G(\widehat{\eta_{X}\circ id_{X}})"] \\
+    X \arrow[r, "\eta_{X}"'] & G(C_{X})
+    \end{tikzcd}\\
+    \end{center}
+commutes since $\eta_{X}$ is a universal morphism.
+We also have for $f\in\ho[\cat{D}]{X}{Y}$ and $g\in\ho[\cat{D}]{Y}{Z}$, the diagram,
+\begin{center}
+    \begin{tikzcd}
+    X \arrow[r, "\eta_{X}"] \arrow[d, "f"'] & G(C_{X}) \arrow[d, "G(\widehat{\eta_{Y}\circ f)}"] \\
+    Y \arrow[r, "\eta_{Y}"'] \arrow[d, "g"'] & G(C_{Y}) \arrow[d,"G(\widehat{\eta_{Z}\circ g})"] \\
+    Z \arrow[r, "\eta_{Z}"'] & G(C_{Z})
+    \end{tikzcd}\\
+    \end{center}
+commutes since $\eta_{X}$ and $\eta_{Y}$ are universal morphisms and we also have,
+\begin{center}
+    \begin{tikzcd}
+    X \arrow[r, "\eta_{X}"] \arrow[d, "g\circ f"'] & G(C_{X}) \arrow[d, "G(\widehat{\eta_{Z}\circ (g\circ f))}"] \\
+    Z \arrow[r, "\eta_{Z}"'] & G(C_{Z})
+    \end{tikzcd}\\
+    \end{center}
+commutes since $\eta_{X}$ is a universal morphism, in particular,
+\[G(\widehat{\eta_{Z}\circ(g\circ f)} = G(\widehat{\eta_{Z}\circ g}) \circ G(\widehat{\eta_{Y}\circ f}),\]
+therefore, since $G$ is a functor,
+\begin{align*}
+    F(g\circ f) &= \widehat{\eta_{Z} \circ g\circ f} \\
+    &= \widehat{\eta_{Z}\circ g} \circ \widehat{\eta_{Y}\circ f}\\
+    &= F(g)\circ F(f).
+\end{align*}
+Hence $F$ is a functor.
+
+Define $\nattran{\eta}{id_{\cat{D}}}{FG}$ for each $X\in\ob{\cat{D}}$, $\eta_{X}$ is the universal morphism given. Then clearly $\eta_{X}\in\ho[\cat{D}]{X}{GF(X)}$ since $F(X) = C_{X}$. 
+
+We show the naturality condition holds. Given $X,Y\in\ob{\cat{D}}$ and $f\in\ho[\cat{D}]{X}{Y}$,
+\begin{center}
+    \begin{tikzcd}
+    id_{\cat{D}}(X) \arrow[r, "\eta_{X}"] \arrow[d, "id_{\cat{D}}(f)"'] & GF(X) \arrow[d, "GF(f)"] \\
+    id_{\cat{D}}(Y) \arrow[r, "\eta_{Y}"'] & GF(Y)
+    \end{tikzcd} = \begin{tikzcd}
+    X \arrow[r, "\eta_{X}"] \arrow[d, "f"'] & G(C_{X}) \arrow[d, "G(\widehat{\eta_{Y}\circ f})"] \\
+    Y \arrow[r, "\eta_{Y}"'] & G(C_{Y})
+    \end{tikzcd}
+    \end{center}
+commutes since $\eta_{X}$ is a universal morphism. Hence the naturality condition holds and $\eta$ is a natural transformation. $\nattran{\varepsilon}{FG}{id_{\cat{C}}}$ exists since $\eta_{G(C)}$ is a universal morphism we show the naturality condition holds. Given $C,C^\prime\in\ob{C}$ and $f\in\ho[\cat{C}]{C}{C^\prime}$ we have,
+\begin{align*}
+    G(f\circ \varepsilon_{C})\circ \eta_{G(C)} &= G(f)\circ G(\varepsilon_{C}) \circ \eta_{G(C)}\\
+    &= G(f) \circ id_{G(C)} \\
+    &= G(f) \\
+    &= G(\varepsilon_{C^\prime}) \circ \eta_{G(C^\prime)} G(f) \\
+    &= G(\varepsilon_{C^\prime}) \circ GFG(f)\circ \eta_{G(C)}, &\text{ by the naturality of $\eta$,}\\
+    &= G(\varepsilon_{C^\prime}\circ FG(f)) \circ \eta_{G(C)}.
+\end{align*}
+Therefore, \[f\circ \varepsilon_{C} = \varepsilon_{C^\prime}\circ FG(f).\]
+The identity (a) is satisfied by the definition of $\varepsilon$ Diagram \eqref{eqn:counitdef}.
+To show identity (b) first note since $\eta$ is a natural transformation from $id_{\cat{D}}$ to $GF$ we have for each $D\in\ob{\cat{D}}$,
+\begin{align*}
+(\eta GF \circ \eta)_D &= \eta_{G(F(D))} \circ \eta_D \\
+&= G(F(\eta_D)) \circ \eta_{D}\\
+&=(GF\eta \circ \eta)_D.
+\end{align*} 
+Therefore by using identity (a) we have:
+\begin{align*}
+    G(id_{F})\circ \eta &= id_{G}F \circ \eta \\
+    &= G\varepsilon F \circ \eta GF \circ \eta \\
+    &= G\varepsilon F \circ GF \eta \circ \eta \\
+    &= G(\varepsilon F \circ F\eta)\circ \eta.
+\end{align*}
+Hence,
+\[id_{F} = \varepsilon F \circ F\eta.\]
+
+\end{proof}
+
+%==========================================================================
+\subsection{Adjoint situations}
+\label{ss:adjsitu}
+%==========================================================================
+
+Definition \ref{def:adjsituations} if adapted from Adámek - Herrlick - Strecker \cite{ACC} page 307.
+\begin{definition}
+    \label{def:adjsituations}
+    An \emph{adjoint situation} $(F,G,\eta,\varepsilon)$ is a pair of functors $\func{F}{\cat{D}}{\cat{C}}$ and $\func{G}{\cat{C}}{\cat{D}}$ and a pair of natural transformations $\nattran{\eta}{id_{\cat{D}}}{GF}$ and $\nattran{\varepsilon}{FG}{id_{\cat{C}}}$. 
+    Satisfying the \emph{triangle identities}:
+    \begin{enumerate}
+        \item $\varepsilon F \circ F\eta = id_{F}$;
+        \item $G\varepsilon \circ \eta G = id_{G}$.
+    \end{enumerate}
+    We call $\eta$ the \emph{unit} and $\varepsilon$ the \emph{co-unit}.
+\end{definition}
+\begin{remark}
+    Given a right adjoint functor $\func{G}{\cat{C}}{\cat{D}}$, Theorem \ref{thm:adjsituation} tells us that there exists at least one adjoint situation $(F,G,\eta,\varepsilon)$.
+\end{remark}
+The following Corollary \ref{cor:homdefadj} followed from discussions with the supervisor and here we provide a proof.
+\begin{cor}
+    \label{cor:homdefadj}
+    Let $\cat{C}$ and $\cat{D}$ be categories, $\func{G}{\cat{C}}{\cat{D}}$ be a functor. 
+    The following are equivalent:
+    \begin{enumerate}
+    \item For each $D\in\ob{\cat{D}}$, $(\eta_{D},F(D))$is a universal morphism from $D$ to $G$;
+    \item $(F,G,\eta,\varepsilon)$ is an adjoint situation;
+    \item The family of functions: 
+    \[\phi_{D,C}\colon \ho[\cat{C}]{F(D)}{C}\to \ho[\cat{D}]{D}{G(C)},\] are bijections. That is for all $D\in\ob{\cat{D}}$, there exists a natural isomorphism $\nattran{\phi_{D}}{\mathrm{h}_{D}\circ G}{\mathrm{h}_{G(C)}}$.
+    \end{enumerate}
+\end{cor}
+\begin{proof}
+    (1) $\implies$ (2) by Theorem \ref{thm:adjsituation} and (1) $\implies$ (3) by Lemma \ref{lem:hombijection}. Suppose that for each object $D\in\ob{\cat{D}}$ we have a natural isomorphism $\nattran{\phi_{D}}{\mathrm{h}_{D}\circ G}{\mathrm{h}_{G(C)}}$. Then for each object $D\in\ob{\cat{D}}$ and each $C\in\ob{\cat{C}}$, $f\in\ho[\cat{D}]{D}{G(C)}$ there is a unique morphism $\phi_{D}(f)\in\ho[\cat{C}]{F(D)}{C}$, therefore $(\eta_{D},F(D))$ where $\eta_{D}$ is the unique morphism for which the diagram,
+    \begin{equation*}
+    \begin{tikzcd}
+    D \arrow[r, "\eta_{D}"] \arrow[rd, "f"'] & G(F(D)) \arrow[d, "G(\phi_{D}(f))"] & F(D) \arrow[d,dotted,"\phi_{D}(f)"] \\
+    & G(C) & C
+    \end{tikzcd}
+    \end{equation*}
+    commutes. Therefore (3) $\implies$ (1).
+    Suppose we have an adjoint situation $(F,G,\eta,\varepsilon)$ then for $C\in\ob{\cat{C}}$, $D\in\ob{\cat{D}}$ and $f\in\ho[\cat{D}]{D}{G(C)}$ the diagram on the left,
+    \begin{equation*}
+    \begin{tikzcd}
+    D \arrow[d, "f"'] \arrow[r , "\eta_{D}"] & G(F(D)) \arrow[d,"G(F(f))"] \\
+    G(C) \arrow[r, "\eta_{G(C)}"] \arrow[dr, "id_{G(C)}"'] & G(F(G(C))) \arrow[d, "G(\varepsilon_{C})"] & F(D) \arrow[d,"\varepsilon_{C} \circ F(f)", dotted] \\
+    & G(C) & C
+    \end{tikzcd}
+    \end{equation*}
+    commutes. Therefore for a morphism $f$ there exists a morphism $\hat{f}=\varepsilon_{C}\circ F(f)$ for which the diagram commutes. To show uniqueness if  $\hat{f}\in\ho[\cat{C}]{F(D)}{C}$ where $f= G(\hat{f})\circ \eta_D$ we have the diagram,
+    \begin{equation*}
+    \begin{tikzcd}
+    F(D)\arrow[bend left]{drr}{F(f)} \arrow[bend right]{ddr}[swap]{id_{D}} \arrow[]{dr}[description]{F(\eta_{D})} & & \\
+    & F(G(F(D))) \arrow{r}{F(G(\hat{f}))} \arrow{d}{\varepsilon_{F(D)}} & F(G(C)) \arrow{d}{\varepsilon_{C}} \\ & F(D) \arrow{r}{\hat{f}} & C
+    \end{tikzcd}
+    \end{equation*}
+    commutes, and therefore $\hat{f} = \varepsilon_{C}\circ F(f)$ is the unique morphism for which $f= G(\hat{f})\circ \eta_D$, hence $(\eta_{D},F(D))$ is a universal morphism from $D$ to $G$ for all $D\in\ob{\cat{D}}$.
+    Therefore (2) $\implies$ (1).
+\end{proof}
+
+The following Lemma \ref{lem:dualityofadjoints} is adapted from Adámek - Herrlick - Strecker \cite{ACC} (Page 308 Proposition 19.7)
+\begin{lemma}
+    \label{lem:dualityofadjoints}
+    Given an adjoint situation $(F,G,\eta,\varepsilon)$ we have:
+    \begin{enumerate}
+        \item $G$ is a right adjoint functor.
+        \item For each $D\in\ob{\cat{D}}$, $(\eta_{D},F(D))$ is a universal morphism from $D$ to $G$.
+        \item $F$ is a left adjoint functor.
+        \item For each $C\in\ob{\cat{C}}$, $(\varepsilon_{C},G(C))$ is a universal morphism from $F$ to $C$
+    \end{enumerate}
+\end{lemma}
+\begin{proof}
+    By Corollary \ref{cor:homdefadj} if we have an adjoint situation, $(F,G,\eta,\varepsilon)$ then $(\eta_{D},F(D))$ are universal morphisms hence $G$ is right adjoint. The proof for (4) and thus (3) follows similarly to the proof of \ref{cor:homdefadj}. Suppose we have the adjoint situation $(F,G,\eta,\varepsilon)$, then for $D\in\ob{\cat{D}}$, $C\in\ob{\cat{C}}$ and $f\in\ho[\cat{C}]{F(D)}{C}$ the diagram on the left,
+    \begin{equation*}
+    \begin{tikzcd}
+    C \arrow[d, "f"',leftarrow] \arrow[r , "\varepsilon_{C}",leftarrow] & G(F(D)) \arrow[d,"F(G(f))",leftarrow] \\
+    F(D) \arrow[r, "\varepsilon_{F(D)}",leftarrow] \arrow[dr, "id_{F(D)}"'] & F(G(F(D))) \arrow[d, "F(\eta_{D})",leftarrow] & G(C) \arrow[d,"G(f)\circ\eta_{D}", dotted,leftarrow] \\
+    & F(D) & D
+    \end{tikzcd},
+    \end{equation*}
+    commutes. Therefore for a morphism $f$ there exists a morphism $\hat{f}= G(f)\circ\eta_{D}$ for which the diagram commutes. To show uniqueness suppose we have $\hat{f}\in\ho[\cat{D}]{G(C)}{D}$ where $f = \varepsilon_{C}\circ F(\hat{f})$, then we have the diagram,
+    
+    \begin{equation*}
+    \begin{tikzcd}
+    G(C)\arrow[drr,"G(f)",bend left,leftarrow] \arrow[ddr,bend right,leftarrow,"id_{C}"] \arrow[dr,leftarrow,"G(\varepsilon_{C})"description] & & \\
+    & G(F(G(C))) \arrow[r,leftarrow,"G(F(\hat{f}))"] \arrow[d,leftarrow,"\eta_{G(C)}"] & F(G(C)) \arrow[d,leftarrow,"\eta_{D}"] \\ & G(C) \arrow[r,leftarrow,"\hat{f}"] & D
+    \end{tikzcd},
+    \end{equation*}
+    
+    commutes, and therefore $\hat{f}= G(f)\circ\eta_{D}$ is the unique morphism for which $f = \varepsilon_{C}\circ F(\hat{f})$, hence $(\varepsilon_{C},G(C))$ is a universal morphism from $F$ to $C$ for all $C\in\ob{\cat{D}}$ and therefore $F$ is a left adjoint functor.
+\end{proof}
+The following Lemma \ref{lem:adjsituniiso} is adapted from Adámek - Herrlick - Strecker \cite{ACC} (Page 309 Proposition 19.9) however here we give the proof from the perspective of the left adjoint functor $F$.
+\begin{lemma}
+    \label{lem:adjsituniiso}
+    Let $\func{F}{\cat{D}}{\cat{C}}$ be a left adjoint functor and $(F,G,\eta,\varepsilon)$ be an adjoint situation. 
+    \begin{enumerate}
+    \item If there is an adjoint situation $(F,G^\prime,\eta^\prime,\varepsilon^\prime)$ then there exists a natural isomorphism $\nattran{\tau}{G}{G^\prime}$ where $\varepsilon^\prime = F\tau \circ \varepsilon$ and $\eta^\prime = \eta\circ\tau^{-1}F$;
+    \item If we have a functor $G^\prime$ and a natural isomorphism $\nattran{\tau}{G}{G^\prime}$ then $(F,G^\prime,\eta\circ\tau^{-1}F,F\tau\circ\varepsilon)$ is an adjoint situation.
+    \end{enumerate}
+\end{lemma}
+\begin{proof}
+    (1): By Lemma \ref{lem:dualityofadjoints} we have for each $C\in\ob{\cat{C}}$,  $(\varepsilon_{C},G(C))$ and $(\varepsilon^\prime_{C},G^\prime(C))$ are universal morphisms from $F$ to $G$.
+    Therefore there is an isomorphism $\tau_{C}$ with $\varepsilon_{C}^\prime=F\tau_{C} \circ\varepsilon_{C}$ by Definition \ref{def:uniarrow} and hence $\nattran{\tau}{G}{G^\prime}$ is a natural isomorphism with $\varepsilon^\prime=F\tau \circ\varepsilon$. For each $D\in\ob{\cat{D}}$ we have:
+    \begin{align*}
+        \varepsilon_{F(D)} \circ F(\eta_{D}) &= id_{F(D)}\\
+        &= \varepsilon^\prime_{F(D)} \circ F(\eta^\prime_{D})\\
+        &= F\tau_{F(D)}\circ\varepsilon_{F(D)} \circ F(\eta^\prime_{D})\\
+        &= \varepsilon_{F(D)} \circ F(\tau_{F(D)}\circ \eta^\prime_{D}).
+    \end{align*}
+    Therefore $\eta_{D} = \tau_{F(D)} \circ \eta^\prime_{D}$, and hence $\eta^\prime=\eta\circ\tau^{-1}F$.
+    
+    (2): We have for each $D\in\ob{\cat{D}}$,
+    \begin{align*}
+        (F(\eta\circ\tau^{-1}F)\circ (F\tau\circ\varepsilon)F) (D) &= F(\eta_{D})\circ F(\tau^{-1}_{F(D)})\circ F(\tau_{F(D)})\circ\varepsilon_{F(D)} \\
+        &= F(\eta_{D})\circ F(\tau^{-1}_{F(D)}\circ \tau_{F(D)})\circ\varepsilon_{F(D)} \\
+        &= F(\eta_{D})\circ\varepsilon_{F(D)}\\
+        &= id_{F} (D)
+    \end{align*}
+    and for $C\in\ob{\cat{C}}$ we have,
+    \begin{align*}
+        (\eta\circ\tau^{-1}F)G^\prime \circ G^\prime(F\tau\circ\varepsilon)(C) &= \eta_{G^\prime(C)}\circ\tau^{-1}_{F(G^\prime(C))} \circ G^\prime(F(\tau_{C})\circ\varepsilon_{C}) \\
+        &= \eta_{G^\prime(C)}\circ\tau^{-1}_{F(G^\prime(C))} \circ G^\prime(F(\tau_{C}))\circ G^\prime(\varepsilon_{C})\\
+        &= \eta_{G^\prime(C)}\circ G^\prime(\varepsilon_{C}) \\
+        &=id_{G^\prime}(C).
+    \end{align*}
+    Therefore $(F,G^\prime,\eta\circ\tau^{-1}F,F\tau\circ\varepsilon)$ is an adjoint situation by Definition \ref{def:adjsituations}.
+\end{proof}
+
+%==========================================================================
+\subsubsection{Category of adjoint situations}
+\label{sss:catofadjsitu} 
+%==========================================================================
+This section uses ideas from MacLane \cite{MacLane}, specifically chapter IV. To define a category of adjoint situations we need to define morphisms between adjoint situations. The following Definition \ref{def:morphadjsitu} is adapted from MacLane \cite{MacLane} (Page 99).
+
+\begin{definition}
+    \label{def:morphadjsitu}
+    Let $(\func{F}{\cat{D}}{\cat{C}},\func{G}{\cat{C}}{\cat{D}},\eta,\varepsilon)$ and $(\func{F^\prime}{\cat{D^\prime}}{\cat{C^\prime}},\func{G^\prime}{\cat{C^\prime}}{\cat{D^\prime}},\eta^\prime,\varepsilon^\prime)$ be adjoint situations. A \emph{morphism between adjoint situations} from $(F,G,\eta,\varepsilon)$ to $(F^\prime,G^\prime,\eta^\prime,\varepsilon^\prime)$ is a pair of functors $(\func{K}{\cat{D}}{\cat{D^\prime}},\func{L}{\cat{C}}{\cat{C^\prime}})$ such that:
+    \begin{enumerate}
+        \item 
+    For each object $C\in\ob{\cat{C}}$,
+    \[(K\circ F\circ G)(C) = (F^\prime\circ G^\prime\circ K)(C) = (F^\prime\circ L\circ G)(C)\]
+    and each morphism $f\in\ho[\cat{C}]{C}{C^\prime}$
+    \[(K\circ F\circ G)(f) = (F^\prime\circ G^\prime\circ K)(f) = (F^\prime\circ L\circ G)(f).\]
+    That is the diagram,
+    \begin{equation}
+    \label{dia:morphadjsitufunc}
+        \begin{tikzcd}
+            \cat{C} \arrow[r, "G"] \arrow[d, "K"] & \cat{D} \arrow[r, "F"] \arrow[d, "L"] & \cat{C} \arrow[d, "K"] \\
+            \cat{C^\prime} \arrow[r, "G^\prime"] & \cat{D^\prime} \arrow[r, "F^\prime"] & \cat{C^\prime}
+        \end{tikzcd}
+    \end{equation}
+    commutes;
+    \item For each object $C\in\ob{\cat{C}}$ we have,
+    \[\varepsilon^\prime _{K(C)} = K(\varepsilon_C),\]
+    and for each object $D\in\ob{\cat{D}}$ we have,
+    \[L(\eta_D) = \eta^\prime_{L(D)}.\]
+    \end{enumerate}
+\end{definition}
+
+\begin{lemma}
+    \label{lem:compmorphadjsit}
+    Let $(\func{F}{\cat{D}}{\cat{C}},\func{G}{\cat{C}}{\cat{D}},\eta,\varepsilon)$, $(\func{F^\prime}{\cat{D^\prime}}{\cat{C^\prime}},\func{G^\prime}{\cat{C^\prime}}{\cat{D^\prime}},\eta^\prime,\varepsilon^\prime)$ and $(\func{F^{\prime\prime}}{\cat{D^{\prime\prime}}}{\cat{C^{\prime\prime}}},\func{G^{\prime\prime}}{\cat{C^{\prime\prime}}}{\cat{D^{\prime\prime}}},\eta^{\prime\prime},\varepsilon^{\prime\prime})$ be adjoint situations and let $(\func{K}{\cat{D}}{\cat{D^\prime}},\func{L}{\cat{C}}{\cat{C^\prime}})$ and $(\func{K^\prime}{\cat{D^\prime}}{\cat{D^{\prime\prime}}},\func{L^\prime}{\cat{C^\prime}}{\cat{C^{\prime\prime}}})$ be morphisms of adjoint situations. Then $(K^\prime \circ K,L^\prime\circ L)$ is a morphism of adjoint situations.
+\end{lemma}
+\begin{proof}
+    First note $\func{K^\prime \circ K}{\cat{D}}{\cat{D^\prime}}$ and $\func{L^\prime\circ L}{\cat{C}}{\cat{C^\prime}}$ are functors since they are the composition of functors. We have the diagram,
+    \begin{equation*}
+    \begin{tikzcd}
+            \cat{C} \arrow[r, "G"] \arrow[d, "K"] & \cat{D} \arrow[r, "F"] \arrow[d, "L"] & \cat{C} \arrow[d, "K"] \\
+            \cat{C^\prime} \arrow[r, "G^\prime"] \arrow[d, "K^\prime"]& \cat{D^\prime} \arrow[r, "F^\prime"] \arrow[d,"L^\prime"] & \cat{C^\prime} \arrow[d,"K^\prime"]\\
+            \cat{C^{\prime\prime}} \arrow[r, "G^{\prime\prime}"] & \cat{D^{\prime\prime}} \arrow[r, "F^{\prime\prime}"] & \cat{C^{\prime\prime}}
+        \end{tikzcd}
+    \end{equation*}
+    commutes since all parts of the diagram commute.
+    Then for each $C\in\ob{\cat{C}}$ we have the following,
+    \begin{align*}
+        \varepsilon^{\prime\prime}_{K^\prime(K(C))} &= K^\prime(\varepsilon^\prime_{K(C)}) \\
+        &= K^\prime(K(\varepsilon_{C}))
+    \end{align*}
+    and for each $D\in\ob{\cat{D}}$ we have,
+    \begin{align*}
+        L^\prime(L(\eta_{D})) &= L^\prime(\eta_{L(D)}) \\
+        &= \eta_{L^\prime(L(D))}.
+    \end{align*}
+    Therefore $(K^\prime \circ K, L^\prime \circ L)$ is a morphism of adjoint situations.
+\end{proof}
+\begin{definition}
+    \label{def:compadjsit}
+    We define the composition of two morphisms of adjoint situations, $(L,K)$ and $(L^\prime,L^\prime)$ as \[(L^\prime,K^\prime)\circ(L,K) = (K^\prime \circ K, L^\prime \circ L)\]
+\end{definition}
+\begin{example}
+    \label{exe:identityadjsitumorph}
+    Let $(\func{F}{\cat{D}}{\cat{C}},\func{G}{\cat{C}}{\cat{D}},\eta,\varepsilon)$ be an adjoint situation. Then $(id_{\cat{C}},id_{\cat{D}})$ a morphism of adjoint situations from $(F,G,\eta,\varepsilon)$ to $(F,G,\eta,\varepsilon)$. In fact we have that this morphism acts as an identity with respect to morphisms of adjoint situations and the composition defined above in Definition \ref{def:compadjsit}.
+\end{example}
+\begin{proof}
+    We need to show Diagram \ref{dia:morphadjsitufunc} commutes, so we have,
+    \begin{align*}
+        id_{\cat{C}}\circ F\circ G &= F\circ G \\
+        &= F\circ G\circ id_{\cat{C}} \\
+        &= F\circ G \\
+        &= F\circ id_{\cat{D}} \circ G.
+    \end{align*}
+    We also have for each $C\in\ob{\cat{C}}$,
+    \begin{align*}
+        \varepsilon_{id_{C}(C)} &= \varepsilon_{C} \\
+        &= id_{\cat{C}}(\varepsilon_C)
+    \end{align*}
+    and each $D\in\ob{\cat{D}}$,
+    \begin{align*}
+        id_{\cat{D}}(\eta_{D}) &= \eta_{D} \\
+        &= \eta_{id_{\cat{C}}(D)}.
+    \end{align*}
+    $(id_{\cat{C}},id_{\cat{D}})$ clearly acts as an identity since for any morphism $(L,K)$ from any adjoint situation to $(F,G,\eta,\varepsilon)$ and $(L^\prime,K^\prime)$ from $(F,G,\eta,\varepsilon)$ to any adjoint situation,
+    \begin{align*}
+        (L,K)\circ(id_{\cat{C}},id_{\cat{D}}) &= (L\circ id_{\cat{C}},K\circ id_{\cat{D}})\\
+        &= (L,K)
+    \end{align*}
+    and,
+    \begin{align*}
+        (id_{\cat{C}},id_{\cat{D}})\circ(K^\prime,L^\prime) &= (id_{\cat{C}}\circ K^\prime,id_{\cat{D}}\circ L^\prime)\\
+        &= (L^\prime,K^\prime).
+    \end{align*}
+\end{proof}
+
+%==========================================================================
+\subsection{Composition of adjoint functors}
+\label{ss:compadj}
+%==========================================================================
+
+The next Definition \ref{def:FadjointtoG} is adapted from \cite{ACC} (Page 309, Definition 19.10).
+
+\begin{definition}
+    \label{def:FadjointtoG}
+    Let $\func{G}{\cat{C}}{\cat{D}}$ and $\func{F}{\cat{D}}{\cat{C}}$ be functors. $F$ is \emph{left adjoint to} $G$ and $G$ is \emph{right adjoint to} $F$, written $F\dashv G$ if there exists an adjoint situation $(F,G,\eta,\varepsilon)$.
+\end{definition}
+
+The following Lemma \ref{lem:comadjoint} is adapted from Leinster \cite{Leinster} (Page 49, Remark 2.1.11) here we add a proof. 
+\begin{lemma}
+\label{lem:comadjoint}
+    Let $\cat{C}$, $\cat{D}$ and $\cat{E}$ be categories, $\func{G}{\cat{C}}{\cat{D}}$ be right adjoint to $\func{F}{\cat{D}}{\cat{C}}$ and $\func{G^\prime}{\cat{D}}{\cat{E}}$ be right adjoint to $\func{F^\prime}{\cat{E}}{\cat{D}}$. Then $\func{G^\prime \circ G}{\cat{C}}{\cat{E}}$ is right adjoint to $\func{F \circ F^\prime}{\cat{E}}{\cat{D}}$ and given $C\in\ob{\cat{C}}$ and $E\in\ob{\cat{E}}$ we have,
+    \[\ho[\cat{C}]{F(F^\prime(E))}{C}\cong \ho[\cat{D}]{F^\prime(E)}{G(C)}\cong\ho[\cat{E}]{E}{G^{\prime}(G(C))}.\]
+\end{lemma}
+\begin{proof}
+    We have for any $E\in\ob{\cat{E}}$, $F^\prime(E) \in \ob{\cat{D}}$ hence since there is an adjoint situation $F$,$G$ \[\ho[\cat{C}]{F(F^\prime(E))}{C}\cong \ho[\cat{D}]{F^\prime(E)}{G(C)}.\] Similarly, for any $C\in\ob{\cat{C}}$, $G(C)\in\ob{\cat{D}}$ hence since there is an adjoint situation $G^\prime$, $F^\prime$ we have,
+    \[\ho[\cat{D}]{F^\prime(E)}{G(C)}\cong\ho[\cat{E}]{E}{G^{\prime}(G(C))}.\]
+\end{proof}
+\begin{remark}
+    Lemma \ref{lem:comadjoint} shows that if we compose two adjoint functors then we get an adjoint functor. 
+\end{remark}
+
+
+
+%==========================================================================
+\subsection{Examples}
+\label{ss:adjexe}
+%==========================================================================
+
+
+The following Example \ref{exe:yonedaadj} came from a discussion with the supervisor and can be found in Leinster \cite{Leinster} (Page 47, Example 2.16). Example \ref{exe:yonedaadj} can also be found in Adámek - Herrlick - Strecker \cite{ACC} (Page 307, Example 19.4 (3)).
+\begin{example}
+    \label{exe:yonedaadj}
+    Let $M\in\ob{\mathbf{Set}}$ be a set then we have a functor
+    \[(-)\times M \colon \mathbf{Set} \to\mathbf{Set} \]
+    defined for each object $X\in\ob{\mathbf{Set}}$ as,
+    \[X\mapsto X\times M,\]
+    the usual direct product of sets,
+    and for each $f\in\ho[\mathbf{Set}]{X}{Y}$,
+    \[f\mapsto f\times M\]
+    where,
+    \begin{align*}
+        f\times M \colon X\times M &\to Y\times M,\\
+        (x,m)&\mapsto (f(x),m).
+    \end{align*}
+    Recall we also have the functor $h_{M}$ defined in Lemma \ref{lem:homsetfunctor}.
+    
+    We can define the natural transformation $\nattran{\eta}{id_{\mathbf{Set}}}{{h_{M}((-)\times M)}}$ where for each $X\in\ob{\mathbf{Set}}$,
+    \begin{align*}
+        \eta_{X}\colon X &\to h_{M}(X\times M),\\
+        x&\mapsto \eta_{X}^{(x)}
+    \end{align*}
+where,
+\begin{align*}
+    \eta_{X}^{(x)}\colon M&\to X\times M,\\
+    m&\mapsto (x,m).
+\end{align*}
+Then we have a unique function defined
+\begin{align*}
+    \hat{f}\colon X\times M&\to Z,\\
+    (x,m)&\mapsto f_{x}(m)
+\end{align*}
+where,
+\begin{align*}
+    f_{x}\colon M&\to Z,\\
+    m &\mapsto (f(x))(m)
+\end{align*}
+for which the diagram on the left,
+\begin{center}
+\begin{tikzcd}
+X \arrow[r, "\eta_{X}"] \arrow[rd, "f"'] & h_{M}(X\times M) \arrow[d, "h_{M}(\hat{f})"] & X\times M \arrow[d,dotted,"\hat{f}"] \\
+& h_{M}(Z) & Z
+\end{tikzcd}\\
+\end{center}
+commutes.
+
+The co-unit $\nattran{\varepsilon}{(h_{M}(-))\times M}{id_{\mathbf{Set}}}$ is defined for each $S\in\ob{\mathbf{Set}}$ as the unique morphism which,
+\begin{equation*}
+    \begin{tikzcd}
+    h_{M}(S) \arrow[r, "\eta_{h_{M}(S)}"] \arrow[dr, "id_{h_{M}(S)}"'] & h_{M}(X\times M) \arrow[d, "h_{M}(\varepsilon_{S})"] \\
+    & h_{M}(S)
+    \end{tikzcd}
+\end{equation*}
+commutes.
+Therefore define,
+\begin{align*}
+    \varepsilon_{S}\colon (h_{M}(S))\times M &\to S,\\
+    (g_{t},m)&\mapsto g_{t}(m)
+\end{align*}
+then for each $g\in\ho[\mathbf{Set}]{S}{T\times M}$ there is a unique function given,
+\begin{align*}
+\hat{g}\colon T &\to h_{M}(S)\\
+t&\mapsto g_{t}
+\end{align*}
+where,
+\begin{align*}
+    g_{t}\colon M&\to S,\\
+    g_{t}(m)&\mapsto g(t,m) 
+\end{align*}
+for which the diagram on the left,
+\begin{center}
+\begin{tikzcd}
+S \arrow[r, "\varepsilon_{S}",leftarrow] \arrow[rd, "g"',leftarrow] & (h_{M}(S))\times M \arrow[d, "\hat{g}\times M",leftarrow] & h_{M}(S) \arrow[d,dotted,"\hat{g}",leftarrow] \\
+& T\times M & T
+\end{tikzcd}\\
+\end{center}
+commutes.
+
+Now we can classify all other adjoint situations by looking at bijections;
+Let $M^\prime$ be a set such that there exists a bijection $\tau\colon M\to M^\prime$. $\tau$ can be realised as a natural transformation 
+\[\nattran{\tau}{(-)\times M}{(-)\times M^\prime}\] 
+where for each $X\in\ob{\mathbf{Set}}$ we have,
+\begin{align*}
+\tau_{X}\colon X\times M&\to X\times M^\prime,\\
+(x,m)&\mapsto (x,\tau(m)).
+\end{align*}
+We show the naturality condition holds. Let $X,Y\in\ob{\mathbf{Set}}$ and $f\in\ho[\mathbf{Set}]{X}{Y}$ then for $(x,m)\in X\times M$,
+\begin{align*}
+    (\tau_{Y}\circ f\times M )((x,m))&= (\tau_Y((f(x),m))) \\
+    &= (f(x),\tau(m))\\
+    &= f\times M((x,\tau(m))) \\
+    &= f\times M \circ \tau_{X}((x,m))
+\end{align*}
+Therefore the naturality condition holds.
+$\tau$ has a natural inverse
+\[\nattran{\tau^{-1}}{(-)\times M^{\prime}}{(-)\times M}\]
+where for each $X\in\ob{\mathbf{Set}}$ we have,
+\begin{align*}
+\tau_{X}^{-1}\colon X\times M&\to X\times M^\prime,\\
+(x,m^\prime)&\mapsto (x,\tau^{-1}(m^\prime)).
+\end{align*}
+since $\tau$ is a bijection. Hence $\tau$ is a natural isomorphism. 
+
+So for the functor $h_{M}$ we have adjoint situations $(\tau((-)\times M),h_{M},h_{M}\tau \circ \eta,\varepsilon\circ\tau^{-1}h_{M})$.
+\end{example}
+%==========================================================================
+\pagebreak
+\section{Initial and terminal objects}
+\label{s:intermob} 
+%==========================================================================
+In this section we use notation and definitions from Leinster \cite{Leinster}.
+
+\begin{definition}
+    \label{def:intermob}
+    Let $\cat{C}$ be a category. We call an $\objs{\cat{C}}$, $I\in\ob{\cat{C}}$ \emph{initial} if for any object $C\in\ob{\cat{C}}$, there is exactly one morphism $f\in\ho[\cat{C}]{I}{C}$.  We call an $\objs{\cat{C}}$, $T\in\ob{\cat{C}}$ \emph{terminal} if for any object $C\in\ob{\cat{C}}$, there is exactly one morphism $f\in\ho[\cat{C}]{C}{T}$.
+\end{definition}
+The following Lemma \ref{lem:initialiso} and proof is adapted from Leinster \cite{Leinster} (page 49 Lemma 2.1.8)
+\begin{lemma}
+    \label{lem:initialiso} 
+    Let $\cat{C}$ be a category and $I,I^\prime\in\ob{\cat{C}}$ initial objects in $\cat{C}$. There exists a unique isomorphism $f\in\ho[\cat{C}]{I}{I^\prime}$. Let $T,T^\prime\in\ob{\cat{C}}$ be terminal objects in $\cat{C}$ then there exists a unique isomorphism $g\in\ho[\cat{C}]{T}{T^\prime}$.
+\end{lemma}
+\begin{proof}
+    Since $I$ is initial there exists a unique morphism $f\in\ho[\cat{C}]{I}{I^\prime}$. 
+    
+    It remains to show $f$ is an isomorphism. Since $I^\prime$ is initial then there exists a unique morphism $f^\prime\in\ho[\cat{C}]{I^\prime}{I}$. Therefore $f^\prime\circ f\in\ho[\cat{C}]{I}{I}$ but since $I$ is initial $f^\prime\circ f$ is the unique morphism in $\ho[\cat{C}]{I}{I}$. Since $\cat{C}$ is a category we have $id_{I}\in\ho[\cat{C}]{I}{I}$, hence $id_{I}$ is the unique morphism in $\ho[\cat{C}]{I}{I}$ therefore,
+    \[f\circ f^\prime = id_{I}\]
+    similarly,
+    \[f^\prime\circ f = id_{I^\prime}\]
+    since $f\circ f^\prime\in\ho[\cat{C}]{I^\prime}{I^\prime}$ is unique. Therefore $f$ is an isomorphism.
+    
+    Since $T$ is terminal there exists a unique morphism $g\in\ho[\cat{C}]{T^\prime}{T}$, also since $T^\prime$ is terminal there exists a unique morphism $g^\prime\ho[\cat{C}]{T}{T^\prime}$. Then we have,
+    \[g\circ g^\prime = id_{T^\prime}\]
+    since $g\circ g^\prime\in\ho[\cat{C}]{T^\prime}{T^\prime}$ is unique. Similarly, \[g^\prime\circ g = id_{T}\] since $g^\prime\circ g\ho[\cat{C}]{T}{T}$ is unique.
+\end{proof}
+\begin{remark}
+    Given a category there may or may not exist an initial or terminal objects but the above Lemma \ref{lem:initialiso} states that if there are initial objects they are all isomorphic and if there are terminal objects they are all isomorphic.
+\end{remark}
+
+%==========================================================================
+\subsection{Examples}
+\label{ss:initermexe}
+%==========================================================================
+
+The following example can be found on nCatLab\cite{nLab}.
+\begin{example}
+    Let $\mathbf{Set}$ be the category of sets. The empty set $\varnothing\in\ob{\mathbf{Set}}$ is initial. Any singleton set $\{x\}\in\ob{\mathbf{Set}}$ is terminal.
+    For any set $Y\in\ob{\mathbf{Set}}$ we have the unique map
+    \begin{align*}
+        f\colon Y &\to \{x\},\\
+        y &\mapsto x.
+    \end{align*}
+    hence $\{x\}$ is terminal.
+    There also exists a unique function $\emptyset\colon \varnothing\to Y$ which is the empty function, hence $\varnothing$ is initial.
+\end{example}
+
+\begin{example}
+    Let $\mathbf{Grp}$ be the category of groups. The trivial group $\{id\}$ is initial and terminal. Given any group $(G,\circ)$ There exists a group homomorphism,
+    \begin{align*}
+        f\colon \{id\}&\to (G,\circ),\\
+        id&\mapsto id_{G},
+    \end{align*}
+    and also a group homomorphism,
+    \begin{align*}
+        f\colon (G,\circ)&\to \{id\},\\
+        x&\mapsto id.
+    \end{align*}
+    Both of these functions are unique since group homomorphisms must preserve identities.
+\end{example}
+
+%==========================================================================
+\subsection{Initial and terminal objects as adjoint functors}
+\label{ss:initermadj}
+%==========================================================================
+
+\begin{definition}
+    \label{def:identitycat}
+    We call the category $\mathbf{1}$ with one object $1\in\ob{\mathbf{1}}$ and one morphism $id_{1}\in\ho[\mathbf{1}]{1}{1}$ the \emph{identity category}.
+\end{definition}
+
+The following Lemma \ref{lem:initermadj} is adapted from Leinster \cite{Leinster} (Page 49 Example 2.1.9)
+
+\begin{lemma}
+    \label{lem:funcadj}
+    Let $\cat{C}$ be a category. Given $C\in\ob{\cat{C}}$, there exists a functor $\func{I_{C}}{\cat{C}}{\mathbf{1}}$ which maps \[1\mapsto C\] and, \[id_{1}\mapsto id_{C}.\] Further, there exists a functor $\func{T}{\mathbf{1}}{\cat{C}}$ where for $C\in\ob{\cat{C}}$, \[C\mapsto 1\] and for $f\in\ho[\cat{C}]{A}{B}$, \[f\mapsto id_{1}.\]
+\end{lemma}
+\begin{proof}
+    $I_{C}$ is a functor since,
+    \begin{align*}
+    I_{C}(id_{1}) &= id_{C} \\
+    &= id_{I_{C}(1)}
+    \end{align*} and,
+    \begin{align*}
+    I_{C}(id_{1}\circ id_{1}) &= I_{C}(id_{1}) \\ 
+    &= id_{C} \\
+    &= id_{C}\circ id_{C} \\
+    &= I_{C}(id_{1})\circ I_{C}(id_{1}).
+    \end{align*}
+    
+    $T$ is a functor since for all $C\in\ob{\cat{C}}$, \[T(id_{C})=id_{1} = id_{T(1)}\] and for any $f\in\ho[\cat{C}]{A}{B}$ and $g\in\ho[\cat{C}]{B}{C}$,
+    \begin{align*}
+    T(g\circ f) &= id_{1} \\
+    &= id_{1}\circ id_{1} \\
+    &= T(g)\circ T(f).
+    \end{align*}
+\end{proof}
+
+\begin{lemma}
+    \label{lem:bijecobfunc}
+    Given a category $\cat{C}$ let $I$ be the set of all functors of the form $I_{C}$ as in Lemma \ref{lem:funcadj}, there exists a bijection
+    \begin{align*}
+        \psi\colon\ob{\cat{C}}&\to I,\\
+        C&\mapsto I_{C}.
+    \end{align*}
+\end{lemma}
+\begin{proof}
+    Given $I_{C}\in I$ there exists $C\in\ob{\cat{C}}$ such that $C\mapsto I_{C}$ by Lemma \ref{lem:funcadj}, hence $\psi$ is surjective.
+    
+    Given $I_{C}=I_{C^\prime}$ then $C=C^\prime$ by Lemma \ref{lem:funcadj} hence $\psi$ is injective. 
+    
+    Therefore $\psi$ is a bijection.
+\end{proof}
+
+\begin{lemma}
+    \label{lem:initermadj}
+    Let $\cat{C}$ be a category and $C\in\cat{C}$ then: \begin{enumerate}
+        \item $\func{I_{C}}{\mathbf{1}}{\cat{C}}$ is left adjoint if and only if $C$ is an initial object of $\cat{C}$;
+        \item $\func{I_{C}}{\mathbf{1}}{\cat{C}}$ is right adjoint if and only if $C$ is a terminal object of $\cat{C}$.
+    \end{enumerate}
+\end{lemma}
+\begin{proof}
+    (1):
+    Let $I_{C}$ be a left adjoint. Then there exists an adjoint situation defined in Theorem \ref{thm:adjsituation}. Hence there is a unique functor $\func{T^*}{\cat{C}}{\mathbf{1}}$ but since the only functor from $\cat{C}$ to $\mathbf{1}$ is the one defined in Lemma \ref{lem:funcadj} we have $T^* = T$. Therefore, for each $C^\prime\in\ob{\cat{C}}$, 
+    \begin{align*}
+    \ho[\cat{C}]{I_{C}(1)}{C^\prime}&\cong \ho[\mathbf{1}]{1}{T(C^\prime)}\\
+    \implies \ho[\cat{C}]{C}{C^\prime}&\cong \ho[\mathbf{1}]{1}{1}\\
+    \implies \ho[\cat{C}]{C}{C^\prime}&\cong \{id_{1}\}.
+    \end{align*}
+    Therefore $C$ is an initial object.
+    
+    Let $C\in\ob{\cat{C}}$ be an initial object, therefore we have for any $C^\prime \in\ob{\cat{C}}$\[\ho[\cat{C}]{C}{C^\prime}.\] has one element. Then we have,
+    \begin{align*}
+        &\ho{C}{C^\prime}\cong \{id_{1}\}\\
+        \implies& \ho{C}{C^\prime}\cong \ho[\mathbf{1}]{1}{1}\\
+        \implies &\ho[\cat{C}]{I_{C}(1)}{C^\prime}\cong \ho[\mathbf{1}]{1}{T(C^\prime)}.
+    \end{align*}
+    Therefore by \ref{thm:adjsituation} $I_{C}$ is a left adjoint.
+    
+    (2):
+    Let $I_{C}$ be a right adjoint. Then there exists an adjoint situation defined in Theorem \ref{thm:adjsituation}. Hence there is a unique functor $\func{T^*}{\cat{C}}{\mathbf{1}}$ but since the only functor from $\cat{C}$ to $\mathbf{1}$ is the one defined in Lemma \ref{lem:funcadj} we have $T^* = T$. Therefore, for each $C^\prime\in\ob{\cat{C}}$, 
+    \begin{align*}
+    &\ho[\mathbf{1}]{T(C^\prime)}{1}\cong \ho[\cat{C}]{C^\prime}{I_{C}(1)},\\
+    \implies &\ho[\mathbf{1}]{1}{1}\cong \ho[\cat{C}]{C^\prime}{C},\\
+    \implies & \{id_{1}\} \cong \ho[\cat{C}]{C^\prime}{C}.
+    \end{align*}
+    Therefore $C$ is a terminal object.
+    Let $C\in\ob{\cat{C}}$ be a terminal object, therefore we have for any $C^\prime \in\ob{\cat{C}}$\[\ho[\cat{C}]{C^\prime}{C}.\] has one element. Then we have,
+    \begin{align*}
+        &\{id_{1}\} \cong \ho[\cat{C}]{C^\prime}{C}\\
+        \implies& \ho[\mathbf{1}]{1}{1}\cong \ho[\cat{C}]{C^\prime}{C}\\
+        \implies& \ho[\mathbf{1}]{T(C^\prime)}{1}\cong \ho[\cat{C}]{C^\prime}{I_{C}(1)}.
+    \end{align*}
+    Therefore by \ref{thm:adjsituation} $I_{C}$ is a right adjoint.
+\end{proof}
+\begin{example}
+    Let $\mathbf{Set}$ be the category of sets. We have the functor,
+    \begin{align*}
+        \func{I_{\varnothing}}{\mathbf{1}&}{\mathbf{Set}}, \\
+        1&\mapsto \varnothing.
+    \end{align*}
+    Then for $X\in\ob{\mathbf{Set}}$, we have a universal morphism $(\eta_{X},C_{X})$, where $C_{X}=1$ and $\eta_{X}=\emptyset$, the empty function:
+    \begin{align*}
+        \eta_{X}\colon X \mapsto \varnothing
+    \end{align*}
+    \begin{equation*}
+    \begin{tikzcd}
+    X \arrow[r, "\eta_{X}"] \arrow[rd, "\emptyset"'] & I_{\varnothing}(1) = \varnothing \arrow[d, "I_{\varnothing}(id_{1})=id_{\varnothing}"] & 1 \arrow[d,dotted,"id_{1}"] \\
+    & I_{\varnothing}(1) = \varnothing & 1
+    \end{tikzcd}.\\
+    \end{equation*}
+    Therefore, $I_{\varnothing}$ is right adjoint.
+\end{example}
+
+
+%==========================================================================
+\pagebreak
+\section{Monads}
+\label{s:monads} 
+%==========================================================================
+Monads on a category $\cat{C}$ are endofunctors of $\cat{C}$ with some extra structure. We can look at monads to study adjunctions since for adjoint functors $F$ and $G$ we will show $FG$ is a monad. Conversely, we will find that given a monad there are suitable adjoint functors which define the monad, these however are not unique.
+
+\begin{definition}
+    \label{def:monad}
+    Let $\cat{C}$ be a category. A \emph{monad on $\cat{C}$} is a triple $(T,\eta,\mu)$ where $\func{T}{\cat{C}}{\cat{C}}$ is endofunctor, $\nattran{\eta}{id_{\cat{C}}}{T}$ and $\nattran{\mu}{T^2}{T}$ are natural transformations for which the following conditions hold:
+    \begin{align*}
+        \mu\circ T\mu &= \mu \circ \mu T;\\
+        \mu\circ T\eta &= \mu \circ \eta T = id_{T}
+    \end{align*}
+    where $id_{T}$ is the identity natural transformation on $T$ as defined in Definition \ref{def:identnattran}. $\circ$ is vertical composition of natural transformations as in Definition \ref{def:vertcomp}. These conditions are equivalent to saying the diagrams,
+    \begin{center}
+\begin{tikzcd}
+T^3 \arrow[d, Rightarrow,"\mu T"'] \arrow[r,Rightarrow ,"T\mu"] & T^2 \arrow[d,Rightarrow , "\mu"] & T \arrow[d, Rightarrow,"T\eta"'] \arrow[r,Rightarrow,"\eta T"] \arrow[rd,equal]& T^2 \arrow[d,Rightarrow, "\mu"] \\
+T^2 \arrow[r,Rightarrow,"\mu"'] & T & T^2\arrow[r,Rightarrow,"\mu"'] & T
+\end{tikzcd}\\
+\end{center}
+    commute.
+    That is, for each object, $X\in\ob{\cat{C}}$, the diagram,
+\begin{equation}
+\label{dia:monassoc}
+\begin{tikzcd}
+T^3(X) \arrow[d, "\mu_{T(X)}"'] \arrow[r,"T(\mu_X)"] & T^2(X) \arrow[d, "\mu_X"] \\
+T^2(X) \arrow[r,"\mu_X"'] & T(X)
+\end{tikzcd}\\
+\end{equation}
+and,
+\begin{equation}
+    \label{dia:monident}
+    \begin{tikzcd}
+ T(X) \arrow[d,"T(\eta_X)"'] \arrow[r,"\eta_{T(X)}"] \arrow[rd,equal]& T^2(X) \arrow[d, "\mu_X"] \\
+ T^2(X)\arrow[r,"\mu_X"'] & T(X)
+\end{tikzcd}\\
+\end{equation}
+commutes.
+\end{definition}
+The following example is stated in Adámek - Herrlick - Strecker \cite{ACC} \cite{ACC} (Page 318, Examples 20.2 (3)), here we add the proof.
+\begin{example}
+    \label{exe:powersetmonad}
+    Let $\func{P}{\mathbf{Set}}{\mathbf{Set}}$ be the power set functor defined in Example \ref{exe:functorpowerset}. Let $\nattran{\eta}{id_{\mathbf{Set}}}{P}$ be defined as in Example \ref{exe:naturalidentpowerset} and $\nattran{\mu}{P^2}{P}$ be the natural transformation as defined in Example \ref{exe:naturalmultipowerset}. Then $\mathbf{P} = (P,\eta,\mu)$ is a monad.
+\end{example}
+\begin{proof}
+We need to show that the diagrams 
+    \begin{center}
+\begin{tikzcd}
+P^3 \arrow[d, "\mu P"'] \arrow[r,"P\mu"] & P^2 \arrow[d, "\mu"] & P \arrow[d,"P\eta"'] \arrow[r,"\eta P"] \arrow[rd,equal]& P^2 \arrow[d, "\mu"] \\
+P^2 \arrow[r,"\mu"'] & P & P^2\arrow[r,"\mu"'] & P
+\end{tikzcd}\\
+\end{center}
+commute. 
+For each $X\in\ob{\mathbf{Set}}$ and each element $A\in P^3(X)$ we have,
+\begin{align*}
+    (\mu \circ P\mu)_{X}(A) &= \mu_{X} \circ P(\mu_{X})(A) \\
+    &=  \mu_{X}(\mu_{X}[A])\\
+    &= \mu_{X}(\{\mu_{X}(a)|a\in A\}) \\
+    &= \bigcup_{a\in A}\mu_{X}(a)\\
+    &= \bigcup_{a\in A}\bigcup_{a^\prime\in a}a^\prime \\
+    &= \bigcup_{a^\prime\in\bigcup_{a\in A}a}a^\prime\\
+    &= \mu_{X}(\bigcup_{a\in A}a)\\
+    &= \mu_{X}(\mu_{P(X)}(A))\\
+    &= (\mu \circ \mu P)_{X}(A).
+\end{align*}
+Also for each $B\in P(X)$,
+\begin{align*}
+    (\mu \circ P\eta)_{X}(B) &= \mu_{X} \circ P(\eta_{X}(B)) \\
+    &= \mu_{X}(\eta_{X}[B])\\
+    &= \mu_{X}(\{\eta_{X}(b)|b\in B\})\\
+    &= \bigcup_{b\in B}\eta_{X}(b)\\
+    &= \bigcup_{b\in B}\{B\}\\
+    &= B\\
+    &= id_{P(X)}(B)\\
+    &= \bigcup_{b^\prime\in\{B\}}\\
+    &= \mu_{X}(\{B\})\\
+    &= \mu_{X}(\eta_{P(X)}(B))\\
+    &= (\mu \circ \eta P)_{X}(B).
+\end{align*}
+Therefore $\mathbf{P}$ is a monad.
+\end{proof}
+The following example was briefly stated in the Wikipedia articles on monads \cite{wiki:monad}, here we will go into more detail.
+\begin{example}
+    \label{exe:identitymonad}
+    Let $\cat{C}$ be a category, the identity functor $\func{id_{\cat{C}}}{\cat{C}}{\cat{C}}$ as defined in Definition \ref{def:identityfunctor} forms a monad with $\nattran{\eta}{id_{\cat{C}}}{id_{\cat{C}}}$ defined for each $X\in\ob{\cat{C}}$,
+    \[\eta_{X} = id_{X}\in\ho[\cat{C}]{X}{X}\]
+    and, $\nattran{\mu}{id_{\cat{C}}}{id_{\cat{C}}}$ defined for each $X\in\ob{\cat{C}}$,
+    \[\mu_{X} = id_{X}\in\ho[\cat{C}]{X}{X}.\]
+\end{example} 
+\begin{proof}
+We have for each $X\in\ob{\cat{C}}$,
+\begin{align*}
+(\mu \cdot F\mu)_X &= \mu_X \circ F(\mu_{X}) \\
+&= id_X \\
+&= \mu_X \circ \mu_{F(X)} \\
+&= (\mu \cdot \mu F)_X
+\end{align*}
+and,
+\begin{align*}
+    (\mu \cdot F\eta)_X &= \mu_X \circ F(\eta_{X}) \\
+    &= id_X\\
+    &= \mu_{X} \circ \eta_{F(X)} \\ 
+    &= (\mu \cdot \eta F)_X.
+\end{align*}
+Therefore we have a monad.
+\end{proof}
+The following example \ref{exe:monadmonoid1} follows the example given in The Catsters video series on monads \cite{catsters:mon}.
+\begin{example}
+    \label{exe:monadmonoid1}
+    Let $\mathbf{Set}$ be the category of sets, defined in Example \ref{exe:catofsets}. Let $\mathrm{F}\colon\mathbf{Set}\to\mathbf{Mon}$ be the free monoid functor defined in Definition \ref{def:freefunctmon} and $\mathrm{U}\colon\mathbf{Mon}\to\mathbf{Set}$ be the forgetful monoid functor as defined in Definition \ref{def:forgetfulfunctormon}. We define the triple $\mathbf{M} = (T,\eta,\mu)$ where $\func{T=UF}{\mathbf{Set}}{\mathbf{Set}}$ for each set $X\in\ob{\mathbf{Set}}$,
+    \begin{align*}
+        \eta_{X}\colon X &\to \gamma(X),\\
+        x&\mapsto (x).
+    \end{align*}
+    Where $\gamma(X)$ is the set of words of $X$, and
+    \[\mu_{X}\colon \gamma(\gamma(X)) \to \gamma(X)\] be such that,
+    \begin{align*}
+       \big ((x_1,x_2,\dots, x_n),(y_1,y_2,\dots,y_m),\dots\dots,(z_1,z_2,\dots,z_r)\big) \\ \mapsto \big(x_1,x_2,\dots,x_n,y_1,y_2,\dots,y_m,\dots\dots,z_1,z_2,\dots,z_r\big).
+    \end{align*}
+    (Note that $\gamma(\gamma(X))$ is the set of words of words of $X$).
+    We claim that $\mathbf{M}$ is a monad. 
+    
+    $T$ is a functor since it is a composition of two functors. 
+    We first show $\eta$ and $\mu$ are natural transformations.
+    
+    First we prove the naturality of $\eta$: Let $f\in\ho[\mathbf{Set}]{X}{X^\prime}$
+    then we have,
+    \begin{align*}
+        (\eta_{X^\prime} \circ f)(x) &= (f(x)) \\
+        &= T(f)((x)) \\
+        &= (T(f)\circ \eta_{X})(x).
+    \end{align*}
+    Therefore the naturality condition holds and $\eta$ is a natural transformation.
+    
+    Now let us prove the naturality of $\mu$:
+    Let $f\in\ho[\mathbf{Set}]{X}{X^\prime}$ then we have,
+    \begin{align*}
+        &(\mu_{X^\prime} \circ T(T(f)))(\big((x_1,x_2,\dots, x_n)(y_1,y_2,\dots,y_m),\dots\dots,(z_1,z_2,\dots,z_r)\big)) \\
+        &= \mu_{X^\prime} (\big((f(x_1),f(x_2),\dots, f(x_n))(f(y_1),f(y_2),\dots,f(y_m)),\dots\dots,(f(z_1),f(z_2),\dots,f(z_r))\big)) \\
+        &= \big(f(x_1),f(x_2),\dots, f(x_n),f(y_1),f(y_2),\dots,f(y_m),\dots\dots,f(z_1),f(z_2),\dots,f(z_r)\big) \\
+        &= T(f)(\big(x_1,x_2,\dots,x_n,y_1,y_2,\dots,y_m,\dots\dots,z_1,z_2,\dots,z_r\big))\\
+        &= (T(f)\circ\mu_{X})(\big((x_1,x_2,\dots, x_n),(y_1,y_2,\dots,y_m),\dots\dots,(z_1,z_2,\dots,z_r)\big)).
+    \end{align*}
+    Therefore the naturality condition holds and $\mu$ is a natural transformation.
+
+    We now prove that the diagram \eqref{dia:monassoc} commutes.
+    Let 
+    \[\begin{pmatrix}
+        ((a,\dots, a_n),(b,\dots ,b_m),\dots,(c,\dots, c_r)), \\
+        ((a^\prime,\dots, a^\prime_{n^\prime}),(b^\prime,\dots, b^\prime_{m^\prime}),\dots,(c^\prime,\dots, c^\prime_{r^\prime})), \\
+        \dots, \\
+        ((a^{\prime\prime},\dots, a^{\prime\prime}_{n^{\prime\prime}}),(b^{\prime\prime},\dots ,b^{\prime\prime}_{m^{\prime\prime}}),\dots,(c^{\prime\prime},\dots, c^{\prime\prime}_{r^{\prime\prime}}))
+    \end{pmatrix}\in \gamma(\gamma(\gamma(X)))\]
+    
+    be a general word of a word of a word of $X$. Here we have extended the notation in to multi line, where each row is a word of a word of $X$.
+    
+    We have,
+    \begin{align*}
+        &(\mu \circ T\mu)_X(\begin{pmatrix}
+        ((a,\dots, a_n),(b,\dots ,b_m),\dots,(c,\dots, c_r)), \\
+        ((a^\prime,\dots, a^\prime_{n^\prime}),(b^\prime,\dots, b^\prime_{m^\prime}),\dots,(c^\prime,\dots, c^\prime_{r^\prime})), \\
+        \dots, \\
+        ((a^{\prime\prime},\dots, a^{\prime\prime}_{n^{\prime\prime}}),(b^{\prime\prime},\dots ,b^{\prime\prime}_{m^{\prime\prime}}),\dots,(c^{\prime\prime},\dots, c^{\prime\prime}_{r^{\prime\prime}}))
+    \end{pmatrix}) \\
+    &= (\mu_{X} \circ T(\mu_{X}))(\begin{pmatrix}
+        ((a,\dots, a_n),(b,\dots ,b_m),\dots,(c,\dots, c_r)), \\
+        ((a^\prime,\dots, a^\prime_{n^\prime}),(b^\prime,\dots, b^\prime_{m^\prime}),\dots,(c^\prime,\dots, c^\prime_{r^\prime})), \\
+        \dots, \\
+        ((a^{\prime\prime},\dots, a^{\prime\prime}_{n^{\prime\prime}}),(b^{\prime\prime},\dots ,b^{\prime\prime}_{m^{\prime\prime}}),\dots,(c^{\prime\prime},\dots, c^{\prime\prime}_{r^{\prime\prime}}))
+    \end{pmatrix})\\
+        &= \mu_{X}(\begin{pmatrix}
+        (a,\dots, a_n,b,\dots ,b_m,\dots,c,\dots, c_r), \\
+        (a^\prime,\dots, a^\prime_{n^\prime},b^\prime,\dots, b^\prime_{m^\prime},\dots,c^\prime,\dots, c^\prime_{r^\prime}), \\
+        \dots, \\
+        (a^{\prime\prime},\dots, a^{\prime\prime}_{n^{\prime\prime}},b^{\prime\prime},\dots ,b^{\prime\prime}_{m^{\prime\prime}},\dots,c^{\prime\prime},\dots, c^{\prime\prime}_{r^{\prime\prime}})
+    \end{pmatrix})\\
+    &= \begin{pmatrix}
+        a,\dots, a_n,b,\dots ,b_m,\dots,c,\dots, c_r, \\
+        a^\prime,\dots, a^\prime_{n^\prime},b^\prime,\dots, b^\prime_{m^\prime},\dots,c^\prime,\dots, c^\prime_{r^\prime}, \\
+        \dots, \\
+        a^{\prime\prime},\dots, a^{\prime\prime}_{n^{\prime\prime}},b^{\prime\prime},\dots ,b^{\prime\prime}_{m^{\prime\prime}},\dots,c^{\prime\prime},\dots, c^{\prime\prime}_{r^{\prime\prime}}
+    \end{pmatrix} \\
+    &= \mu_X(\begin{pmatrix}
+        (a,\dots, a_n),(b,\dots ,b_m),\dots,(c,\dots, c_r), \\
+        (a^\prime,\dots, a^\prime_{n^\prime}),(b^\prime,\dots, b^\prime_{m^\prime}),\dots,(c^\prime,\dots, c^\prime_{r^\prime}), \\
+        \dots, \\
+        (a^{\prime\prime},\dots, a^{\prime\prime}_{n^{\prime\prime}}),(b^{\prime\prime},\dots ,b^{\prime\prime}_{m^{\prime\prime}}),\dots,(c^{\prime\prime},\dots, c^{\prime\prime}_{r^{\prime\prime}})
+    \end{pmatrix})\\
+    &= (\mu_X \circ \mu_{T(X)})(\begin{pmatrix}
+        ((a,\dots, a_n),(b,\dots ,b_m),\dots,(c,\dots, c_r)), \\
+        ((a^\prime,\dots, a^\prime_{n^\prime}),(b^\prime,\dots, b^\prime_{m^\prime}),\dots,(c^\prime,\dots, c^\prime_{r^\prime})), \\
+        \dots, \\
+        ((a^{\prime\prime},\dots, a^{\prime\prime}_{n^{\prime\prime}}),(b^{\prime\prime},\dots ,b^{\prime\prime}_{m^{\prime\prime}}),\dots,(c^{\prime\prime},\dots, c^{\prime\prime}_{r^{\prime\prime}}))
+    \end{pmatrix})\\
+        &= (\mu \circ \mu T)_{X}(\begin{pmatrix}
+        ((a,\dots, a_n),(b,\dots ,b_m),\dots,(c,\dots, c_r)), \\
+        ((a^\prime,\dots, a^\prime_{n^\prime}),(b^\prime,\dots, b^\prime_{m^\prime}),\dots,(c^\prime,\dots, c^\prime_{r^\prime})), \\
+        \dots, \\
+        ((a^{\prime\prime},\dots, a^{\prime\prime}_{n^{\prime\prime}}),(b^{\prime\prime},\dots ,b^{\prime\prime}_{m^{\prime\prime}}),\dots,(c^{\prime\prime},\dots, c^{\prime\prime}_{r^{\prime\prime}}))
+    \end{pmatrix})
+    \end{align*}
+
+    To show the diagram \eqref{dia:monident} commutes.
+    Let $(x_1,x_2,\dots,x_n)\in\gamma(X)$ then we have,
+    \begin{align*}
+        (\mu \circ T\eta)_X((x_1,x_2,\dots,x_n)) &= \mu_X (T(\eta_{X})((x_1,x_2,\dots,x_n))) \\
+        &= \mu_{X}(((x_1),(x_2),\dots,(x_n))) \\
+        &= (x_1,x_2,\dots,x_n) \\
+        &= \mu_{X}(((x_1,x_2,\dots,x_n))) \\
+        &= \mu_{X}(\eta_{T(X)}((x_1,x_2,\dots,x_n)))\\
+        &= (\mu \circ \eta T)_{X}((x_1,x_2,\dots,x_n)).
+    \end{align*}
+    Therefore, $\mathbf{M}$ is a monad.
+\end{example}
+
+%==========================================================================
+\subsection{Algebras of monads}
+\label{ss:algofmon} 
+%==========================================================================
+
+The following definition is adapted from Adámek - Herrlick - Strecker \cite{ACC} (Page 318, Definition 20.4) and the Casters video series on Monads \cite{catsters:mon}
+\begin{definition}
+\label{def:algofmon}
+    Let $\cat{C}$ be a category and $\mathbf{T} = (T,\eta,\mu)$ be a monad on $\cat{C}$. An \emph{algebra of $\mathbf{T}$} is a pair, $(X,\theta)$, where $X\in\ob{\cat{C}}$ and $\theta\in\ho[\cat{C}]{T(X)}{X}$, such that the following axioms hold:
+    \begin{enumerate}
+        \item $\theta \circ \eta_{X} = id_{X}$;
+        \item $\theta \circ T\theta = \theta \circ \mu_{X}$.
+    \end{enumerate}
+    That is the diagrams,
+    \begin{equation}
+    \label{dia:monalgident}
+        \begin{tikzcd}
+            X \arrow[dr,"id_{X}"'] \arrow[r,"\eta_{X}"]& T(X) \arrow[d,"\theta"] \\
+            & X
+        \end{tikzcd}
+    \end{equation}
+    and,
+    \begin{equation}
+    \label{dia:monalgasso}
+        \begin{tikzcd}
+            T^2(X) \arrow[r,"T\theta"] \arrow[d,"\mu_{X}"'] & T(X) \arrow[d,"\theta"]\\
+            T(X) \arrow[r,"\theta"']& X 
+        \end{tikzcd}
+    \end{equation}
+    commute.
+\end{definition}
+
+\begin{definition}
+    \label{def:monalgmorph}
+    Let $\cat{C}$ be a category, $\mathbf{T}=(T,\eta,\mu)$ be a monad on $\cat{C}$ and, $(A,\theta)$ and $(B,\phi)$ algebras of $\mathbf{T}$. A \emph{morphism of algebras of $\mathbf{T}$} is a morphism $f\in\ho[\cat{C}]{A}{B}$ such that
+    \[\phi\circ T(f) = f\circ\theta\]
+    that is the following diagram,
+    \begin{equation*}
+        \begin{tikzcd}
+            T(A) \arrow[r,"T(f)"] \arrow[d , "\theta"] & T(B) \arrow[d,"\phi"]\\
+            A \arrow[r,"f"] & B
+        \end{tikzcd}
+    \end{equation*}
+    commutes.
+\end{definition}
+\begin{remark}
+    The collection of morphisms of algebras, between the same pair of algebras, is  a set if we assume the definition of a category in Definition \ref{def:category} since each $\hom$ set of $\cat{C}$ is a set.
+\end{remark}
+\begin{lemma}
+    \label{lem:muisalg}
+    Let $\mathbf{T} = (T,\eta,\mu)$ be a monad of a category $\cat{C}$. Then for each $X\in\ob{\cat{C}}$, $(T(X), \mu_{X})$ is an algebra.
+\end{lemma}
+\begin{proof}
+    First note that $\eta_X\in\ho[\cat{C}]{T(T(X))}{T(X)}$ and therefore is a morphism $\eta_{X}\in\ho[\cat{C}]{T(Y)}{Y}$ where $Y=T(X)\in\ob{\cat{C}}$ so we check the axioms in Definition \ref{def:algofmon}.
+    \begin{align*}
+        \mu_{X} \circ \eta_{Y} &= \mu_{X}\circ \eta_{T(X)} \\
+        &= \mu_{X} \circ (\eta T)_{X} \\
+        &= id_{T(X)}, & \text{By Definition \ref{def:monad}} \\
+        &= id_{Y}
+    \end{align*}
+    and,
+    \begin{align*}
+        \mu_{X} \circ T(\mu_{X}) &= \mu_{X} \circ T(\mu_{X}) \\
+        &= \mu_{X} \circ \mu_{T(X)}, & \text{By Definition \ref{def:monad}} \\
+        &= \mu_{X} \circ \mu_{Y}.
+    \end{align*}
+    Therefore, $(X,\mu_X)$ is an algebra on $\mathbf{T}$.
+\end{proof}
+
+\begin{definition}
+    \label{def:muisalg}
+    For a monad $\mathbf{T} = (T,\eta,\mu)$ we call $(T(X), \mu_{X})$ the \emph{free $\mathbf{T}$-algebra on $X$.} 
+\end{definition}
+
+The following Lemma \ref{lem:monalgcat} is stated in Adámek - Herrlick - Strecker \cite{ACC} (Page 318, Definition 20.4) but not proven.
+\begin{lemma}
+    \label{lem:monalgcat}
+    Let $\cat{C}$ be a category and $\mathbf{T}= (T,\eta,\mu)$ a monad over $\cat{C}$. The collection of all algebras, written $\alg{T}$, forms a category with morphisms of algebras, called the \emph{Eilenberg-Moore category}. Composition is given by the composition of the category and for each $(A,\theta)\in\ob{\alg{T}}$ the identity is the $id_{A}$.
+\end{lemma}
+\begin{proof}
+    We first show composition of two morphisms for algebras is a morphism for algebras. Let $(A,\theta),(B,\phi),(C,\psi))\in\ob{\alg{T}}$, $f\in\ho[\cat{C}]{A}{B}$ and $g\in\ho[\cat{C}]{B}{C}$ be morphism for algebras then $g\circ f\in\ho[\cat{C}]{A}{C}$ and we have,
+    \begin{align*}
+        \psi \circ T(g\circ f) &= \psi \circ T(g) \circ T(f)\\
+        &= g \circ \phi \circ T(f)\\
+        &= g\circ  f \circ \theta.
+    \end{align*}
+    Therefore, $g\circ f$ is a morphism of algebras. 
+    
+    Composition of these algebras is associative since composition in $\cat{C}$ is associative. 
+    
+    For an algebra $(A,\theta)$ and $id_{A}\in\ho[\cat{C}]{A}{A}$ we have,
+    \[\theta \circ id_{A} = \theta = id_{A} \circ \theta\]
+    Hence, $id_{A}$ is a morphism for algebras. For a morphism of algebras $f\in\ho[\alg{T}]{(A,\theta_A)}{(B,\theta_B)}$ we have,
+    \[f\circ id_{A} = f = id_{B} \circ f.\]
+    Hence for each $(A,\theta_A)\in\ob{\alg{T}}$, $id_{A}$ is an identity morphism. Therefore we have a category.
+\end{proof}
+
+
+
+%==========================================================================
+\subsubsection{Examples}
+\label{sss:exealgemon}
+%==========================================================================
+The following example is stated in Adámek - Herrlick - Strecker \cite{ACC} (Page 318, Example 20.5 (1)).
+\begin{example}
+    Let $\mathbf{id_{\cat{C}}} = (id_{\cat{C}},\eta,\mu)$ be the identity monad as defined in Example \ref{exe:identitymonad}. Then an algebra on $\mathbf{id_{\cat{C}}}$ is an object $X\in\ob{\cat{C}}$ and a morphism $f\in\ho[\cat{C}]{X}{X}$ such that the diagrams \eqref{dia:monalgident} and \eqref{dia:monalgasso} commute. 
+    
+    We have,
+   \[f\circ \eta_X = f\circ id_{X}= id_{X}\]
+   therefore, $f = id_{X}$ and,
+   \begin{align*}
+   f\circ T(f) &= id_{X} \circ id_{X} \\
+   &= f\circ \mu_{X}.
+   \end{align*}
+   Hence, algebras are of the form $(X,id_{X})$ for all $X\in\ob{\cat{C}}$. 
+   
+   A morphism of algebras for two algebras $(X,id_{X})$ and $(Y,id_{Y})$ is a morphism, $f\in\ho[\cat{C}]{X}{Y}$ such that \[id_{Y}\circ f = f\circ id_{X}.\] Therefore $f$ is any morphism in $\cat{C}$. So the category $\alg{id_{\cat{C}}}) \cong \cat{C}$ 
+\end{example}
+
+The following Example \ref{exe:monoidalgebras} is stated in Adámek - Herrlick - Strecker \cite{ACC} (Page 318, Example 20.5 (2)).
+\begin{example}
+    \label{exe:monoidalgebras}
+    Let $\mathbf{M} = (T,\eta,\mu)$ be the monad defined in Example \ref{exe:monadmonoid1}. An algebra of $\mathbf{M}$, $(X,\theta)$ is a set $X\in\ob{\mathbf{Set}}$ and a morphism $\theta\in\ho[\mathbf{Set}]{\gamma(X)}{X}$ such that the diagrams \eqref{dia:monalgasso} and \eqref{dia:monalgident} commute. Hence we have for $x\in X$,
+    \begin{align*}
+        (\theta\circ \eta_{X})(x) &= \theta((x)) \\
+        &= id_{X}(x)
+    \end{align*}
+    therefore, $x = \theta((x))$.
+    
+    For a general word of a word of $X$,
+\[\gamma(\gamma(x)) = ((x_1,x_2,\dots, x_n),(y_1,y_2,\dots,y_m),\dots\dots,(z_1,z_2,\dots,z_r))\]
+we have,
+    \begin{align*}
+            (\theta\circ T\theta)(\gamma(\gamma(x))) &= \theta(\theta((x_1,\dots,x_n)),\theta((y_1,\dots,y_m)),\dots,\theta((z_1,\dots,z_r))))\\
+            &= \theta((x_1,\dots,z_r))\\
+            &= (\theta\circ\mu_X)(\gamma(\gamma(x))).
+    \end{align*}
+    Therefore, an algebra of $\mathbf{M}$ $(X,\theta)$ defines a monoid $(X,(- \cdot -),e)$ where $e = ()$ is the empty word and composition is defined,
+    \begin{align*}
+        (- \cdot -) \colon X\times X &\to X,\\
+        x\cdot y &\mapsto \theta((x,y)).
+    \end{align*}
+    $e = ()$ is an identity since for any $x\in X$,
+    \[x\cdot e = \theta((x)) = x\]
+    and $(- \cdot -)$ is associative since given $x,y,z\in X$,
+    \begin{align*}
+        (x\cdot y)\cdot z &= \theta((x,y))\cdot z \\
+        &= \theta((\theta((x,y)),z))\\
+        &= \theta(x,y,z)
+    \end{align*}
+    by the commutativity of diagram \eqref{dia:monalgasso} and,
+    \begin{align*}
+        x\cdot(y\cdot z) &= x\cdot\theta((x,y)) \\
+        &= \theta((x,\theta(x,y))) \\
+        &= \theta((x,y,z))
+    \end{align*}
+    by the commutativity of diagram \eqref{dia:monalgasso}. Hence 
+    \[(x\cdot y)\cdot z = x\cdot(y\cdot z).\]
+    Therefore each algebra of $\mathbf{M}$ forms a monoid hence $\alg{M}$ is a subcategory of $\mathbf{Mon}$.
+    
+    To show that $\alg{M} \cong \mathbf{Mon}$ we show every monoid can be defined by an algebra of $\mathbf{M}$.
+    Let $(X,\cdot,e)$ be a monoid then we can define the function $\theta$ as,
+    \begin{align*}
+        \theta\colon \gamma(X)&\to X\\
+        (x_1,x_2,\dots,x_n)&\mapsto x_1 \cdot x_2 \cdot \dots \cdot x_n.
+    \end{align*}
+    Then we check $(X,\theta)$ is an algebra of $\mathbf{M}$. For an element $x\in X$
+    \begin{align*}
+        (\theta \circ \eta_{X}) (x) &= \theta((x)) \\
+        &= x
+    \end{align*}
+    Therefore, diagram \eqref{dia:monalgident} commutes. For a general word of a word of $X$, $\gamma(\gamma(x))$,
+    \begin{align*}
+        (\theta \circ T\theta)(\gamma(\gamma(x))) &= \theta(((x_1\cdot x_2\cdot\dots \cdot x_{n}),(y_1\cdot\dots\cdot y_m),\dots,(z_1\cdot\dots\cdot z_r))) \\
+        &= x_1\cdot\dots\cdot z_r\\
+        &= \theta((x_1,\dots, z_r))\\
+        &= \theta(\mu_{x}(\gamma(\gamma(x))))\\
+        &= (\theta\circ \mu_{X}) (\gamma(\gamma(x))).
+    \end{align*}
+    Therefore, the diagram \eqref{dia:monalgasso} commutes and hence $(X,\theta)$ is an algebra of $\mathbf{M}$.
+    
+    This means $(X,\theta)$ an algebra of $\mathbf{M}$ if and only if $(X,\cdot,e)$ is a monoid. Hence there is a one to one correspondence between monoids and algebras of $\mathbf{M}$.
+    \end{example}
+
+
+%==========================================================================
+\subsection{Adjoint Functors as monads}
+\label{ss:adjfuncmon}
+%==========================================================================
+
+The following lemma can be found in Adámek - Herrlick - Strecker \cite{ACC} (Page 318, Proposition 20.3). Where here we add the completed proof which was left as an exercise.
+\begin{lemma}
+    \label{lem:adjsitumonad}
+    Let $\func{F}{\cat{D}}{\cat{C}}$ and $\func{G}{\cat{C}}{\cat{D}} $ be functors and $(F,G,\eta,\varepsilon)$ be an adjoint situation. We have an endofunctor, $\func{T =GF}{\cat{D}}{\cat{D}}$ and natural transformation $\nattran{G\varepsilon F}{T^{2}}{T}$. Then $(GF, \eta, G\varepsilon F)$ is a monad on $\cat{D}$.
+\end{lemma}
+\begin{proof}
+Since $\nattran{\varepsilon}{FU}{id_{\mathbf{Mon}}}$ is a natural transformation for each $M\in\ob{\mathbf{Mon}}$ we have,
+\begin{align*}
+(\varepsilon \circ FG\varepsilon)_M&= \varepsilon_M \circ F(G(\varepsilon_M)), \\
+&= \varepsilon_{FG(M)} \circ \varepsilon_M,\\
+&= (\varepsilon \circ \varepsilon FG).
+\end{align*}
+Therefore, for each $X\in\cat{D}$,
+\begin{align*}
+    (\mu \circ T\mu)_X &= (G\varepsilon F \circ GF G\varepsilon F)_X\\
+    &= (G(\varepsilon \circ FG\varepsilon) F)_X \\
+    &= (G(\varepsilon \circ \varepsilon FG)F)_X \\
+    &= (G\varepsilon F\circ G\varepsilon FGF)_X \\
+    &= (\mu \circ T\mu)_X.
+\end{align*}
+Also we have,
+    \begin{align*} 
+        (\mu \circ T\eta)_X &= (G\varepsilon F \circ GF\eta)_X\\
+        &= G(\varepsilon F \circ F\eta)_X \\
+        &= G(id_{F})_X, & \text{ by definition \ref{def:adjsituations}}\\
+        &= G(id_{F_{X}})\\
+        &= G(F(X))\\
+        &= id_{GF_{X}} \\
+        &= id_{T_{X}}
+    \end{align*}
+and,
+\begin{align*}
+    (\mu \circ \eta T)_X &= (G\varepsilon F \circ \eta GF)_X \\
+    &= ((G\varepsilon\circ \eta G)F)_X \\
+    &= ((id_{G})F)_X, &\text{by Definition \ref{def:adjsituations}} \\
+    &= (id_{G_{F(X)}}) \\
+    &= id_{GF_{X}} \\
+    &= id_{T_{X}}.
+\end{align*}
+\end{proof}
+\begin{remark}
+    The above shows that every adjoint situation gives rise to a monad, the following discussion shows that every monad has at least one adjoint situation which gives rise to it. 
+\end{remark}
+The following Lemma \ref{lem:mongivesadjsitu} is stated in Adámek - Herrlick - Strecker \cite{ACC} (Page 319, Proposition 20.7) but not proven.
+\begin{lemma}
+\label{lem:mongivesadjsitu}
+    Let $\cat{D}$ be a category and $\mathbf{T}= (T,\eta,\mu)$ be a monad over $\cat{D}$. Then $(F^{\mathbf{T}},G^{\mathbf{T}},\eta^{\mathbf{T}},\varepsilon^{\mathbf{T}})$ is an adjoint situation where:
+    \begin{enumerate}
+        \item 
+    \[\func{G^{\mathbf{T}}}{\alg{T}}{\cat{D}}\] is the \emph{forgetful functor} which sends $(X,\theta_1)\in\ob{\alg{T}},$
+    \[(X,\theta_1)\mapsto X\]
+    and $f\in\ho[\alg{T}]{(X,\theta_1)}{(Y,\theta_2)}$,
+    \[f\mapsto f\]
+    since $f\in\ho[\cat{C}]{X}{Y}$;
+    \item
+    \[\func{F^{\mathbf{T}}}{\cat{D}}{\alg{T}}\]
+    sends objects $X\in\ob{\cat{D}}$,
+    \[X\mapsto (T(X),\mu_X)\]
+    and morphisms $f\in\ho[\cat{D}]{X}{Y}$,
+    \[f\mapsto T(f)\]
+    where $T(f)\in\ho[\alg{T}]{(T(X),\mu_X)}{(T(Y),\mu_Y)}$;
+    \item \[\nattran{\varepsilon^{\mathbf{T}}}{F^{\mathbf{T}}G^{\mathbf{T}}}{id_{\alg{T}}},\]
+    is defined for each $(X,\theta)\in\ob{\alg{T}}$ as,
+    \[\varepsilon^{\mathbf{T}}{(X,\theta)} = \theta;\]
+    \item $\eta^{\mathbf{T}}=\eta$,.
+        \end{enumerate}
+\end{lemma}
+\begin{proof}
+    For each $X\in\ob{\cat{D}}$ we have $(X,\mu_X)\in\ob{\alg{T}}$ by Lemma \ref{lem:muisalg}. Then we check $G^{\mathbf{T}}$ and $F^{\mathbf{T}}$ are indeed functors by checking the axioms in Definition \ref{def:functor}. For any two morphisms, $f\in\ho[\alg{T}]{(X,\theta_1)}{(Y,\theta_2)}$ and $g\in\ho[\alg{T}]{(Y,\theta_2)}{(Z,\theta_3)}$ we have,
+    \begin{align*}
+        G^{\mathbf{T}}(g\circ f) &= g\circ f \\
+        &=G^{\mathbf{T}}(g)\circ G^{\mathbf{T}}(f).
+    \end{align*}
+    Given $id_{X}\in\ho[\alg{T}]{(X,\theta_1)}{(X,\theta_1)}$ we have,
+    \begin{align*}
+        G^{\mathbf{T}}(id_X) &= id_{X}.
+    \end{align*}
+    Therefore $G^{\mathbf{T}}$ is a functor. 
+    
+    Given $f\in\ho[\cat{D}]{X}{Y}$ and $g\in\ho[\cat{D}]{Y}{Z}$ we have,
+    \begin{align*}
+        F^{\mathbf{T}}(g\circ f) &= T(g\circ f)\\
+        &= T(g) \circ T(f) \\
+        &= F^{\mathbf{T}}(g) \circ F^{\mathbf{T}}(f).
+    \end{align*}
+    Given $id_{X}\in\ho[\cat{D}]{X}{X}$ we have,
+    \begin{align*}
+        F^{\mathbf{T}}(id_{X}) &= T(id_{X}) \\
+        &= id_{X} & \text{since $T$ is an endofunctor.}
+    \end{align*}
+    Therefore $F^{\mathbf{T}}$ is a functor.
+    
+    $\eta$ is defined as a natural transformation so we just check the naturality condition on $\varepsilon$. Given $(X,\theta_1),(Y,\theta_2)\in\ob{\alg{T}}$ and $f\in\ho[\alg{T}]{(X,\theta_1)}{(Y,\theta_2)}$we have,
+    \begin{align*}
+        \varepsilon_{(Y,\theta_2)} \circ F^{\mathbf{T}}(G^{\mathbf{T}}(f)) &= \theta_2 \circ F^{\mathbf{T}}(f) \\
+        &= \theta_{2} \circ T(f) \\
+        &= f\circ \theta_1, & \text{By Definition \ref{def:monalgmorph}}\\
+        &= f \circ \varepsilon_{(X,\theta_1)}.
+    \end{align*}
+    Therefore $\varepsilon$ is a natural transformation.
+    
+    To prove the above defines an adjoint situation we check the axioms in Definition \ref{def:adjsituations}. For each $X\in\ob{\cat{D}}$ we have,
+    \begin{align*}
+        (\varepsilon F^{\mathbf{T}}\circ F^{\mathbf{T}}\eta)_X &= \varepsilon_{F^{\mathbf{T}}(X)} \circ F^{\mathbf{T}}(\eta_{X}) \\
+        &= \varepsilon_{(T(X),\mu_{X})} \circ F^{\mathbf{T}}(\eta_{X}) \\
+        &= \mu_{X} \circ F^{\mathbf{T}}(\eta_{X}) \\
+        &= (\mu \circ F^{\mathbf{T}}\eta)_{X}\\
+        &= id_{F^{\mathbf{T}}}
+    \end{align*}
+    since $\mathbf{T}$ is a monad and $F^{\mathbf{T}}$ and there is a one to one correspondence between $F^{\mathbf{T}}(X)$ and $T(X)$.
+    For each $(X,\theta)\in\ob{\alg{T}}$ we have,
+    \begin{align*}
+        (G^{\mathbf{T}}\varepsilon \circ \eta G^{\mathbf{T}})_{(X,\theta)} &= G^{\mathbf{T}}(\varepsilon_{(X,\theta)}) \circ \eta_{G^{\mathbf{T}}((X,\theta))} \\
+        &= G^{\mathbf{T}}(\theta) \circ \eta_{X} \\
+        &=\theta \circ \eta_{X} \\
+        &= id_{X}, & \text{since $(X,\theta)$ is an algebra of $\mathbf{T}$} \\
+        &= id_{G^{\mathbf{T}}((X,\theta))}.
+     \end{align*}
+     Therefore $(F^{\mathbf{T}},G^{\mathbf{T}},\eta,\varepsilon)$ is an adjoint situation.
+\end{proof}
+
+\begin{remark}
+    The above Lemma \ref{lem:mongivesadjsitu} gives only existence of an adjoint situation given a monad and not uniqueness. In general a monad will \emph{not} give rise to a unique adjoint situation.
+\end{remark}
+
+We now define an important subcategory of the Eilenberg-Moore category of a monad, $\mathbf{T}$, the Kleisli category, and see how an adjoint situation from this category also gives rise to the monad $\mathbf{T}$. See Wiki \cite{wiki:kleisli} for more details on the Kleisli category.
+
+\begin{definition}
+    \label{def:kleislicategory}
+    Let $\cat{C}$ be a category and $\mathbf{T} = (T,\eta,\mu)$ be a monad over $\cat{C}$ then we define the \emph{Kleisli category}, $K_{\mathbf{T}}$ as the full subcategory of $\alg{T}$ whose objects are the \emph{free objects}, $(T(X),\eta_{X})$ for each $X\in\ob{\cat{C}}$.
+\end{definition}
+The following lemma is adapted from MacLane \cite{MacLane} (Page 148, Theorem 3)
+\begin{definition}
+    \label{def:catofadjsituofmon}
+    Let $\cat{C}$ be a category and $\mathbf{T}= (T,\eta,\mu)$ be a monad over $\cat{C}$. We define \emph{the category of adjoint situations for the monad $\mathbf{T}$}, $adj_{\mathbf{T}}$ as:
+    \begin{enumerate}
+        \item The objects, $(\func{F}{\cat{C}}{\cat{X}},\func{G}{\cat{X}}{\cat{C}},\eta,\varepsilon)\in\ob{adj_{\mathbf{T}}}$, are adjoint situations which give rise to the monad $\mathbf{T}$, that is $(GF,\eta,G\varepsilon F)=(T,\eta,\mu)$;
+        \item The morphisms, $(K,id_{\cat{X}})$ are morphisms of adjoint situations defined in Definition \ref{def:morphadjsitu} such that $id_{\cat{X}}$ is the identity on $\cat{X}$;
+        \item Composition is composition of morphisms of adjoint situations as defined in Definition \ref{lem:compmorphadjsit};
+        \item The identities are defined in Example \ref{exe:identityadjsitumorph}.
+    \end{enumerate}
+\end{definition}
+\begin{lemma}
+    $adj_{\mathbf{T}}$ as defined above in Definition \ref{def:catofadjsituofmon} is a category.
+\end{lemma}
+\begin{proof}
+    The composition is associative since the composition of functors is associative. Hence we have a category structure.
+\end{proof}
+The following Lemma \ref{lem:termobajdcatiskli} can be found in MacLane \cite{MacLane} with no proof, here we omit the proof.
+\begin{lemma}
+    \label{lem:termobajdcatiskli}
+    Let $\mathbf{T}=(T,\eta,\mu)$ be a monad and $adj_{\mathbf{T}}$ be the corresponding category of adjoint situations. Then the terminal object in $adj_{\mathbf{T}}$ is the adjoint situation, $(\func{F^{\mathbf{T}}}{\cat{D}}{\alg{T}},\func{G^{\mathbf{T}}}{\alg{T}}{\cat{D}},\eta,\varepsilon)$, defined in Lemma \ref{lem:mongivesadjsitu}.
+\end{lemma}
+\comment{
+\begin{proof}
+    We need to show given an adjoint situation giving rise to the monad $\mathbf{T}$, $(F,G,\eta,\varepsilon)$, there exists a unique morphism $(K,id_{\cat{D}})$ to the adjoint situation, $(F^{\mathbf{T}},G^{\mathbf{T}},\eta^{\mathbf{T}},\varepsilon^{\mathbf{T}})$, in Lemma \ref{lem:mongivesadjsitu}. For $(K,id_{\cat{D}})$ to be a morphism of adjoint situations as defined in Definition \ref{def:morphadjsitu} $\func{K}{\cat{C}}{\alg{T}}$ is a functor satisfying the diagram \eqref{dia:morphadjsitufunc} and identities in Definition \ref{def:morphadjsitu} (2).
+\end{proof}
+}
+This result ties together different parts of this project. Had this project been longer we would have discussed the proof and consequences. We also could have looked into monoidal categories and how monoids generalise in other categories, this leads to the exploration of the quote by James Iry \cite{jamesiry}: "a monad is a monoid in the category of endofunctors, what's the problem?".
+
+
+
+%==========================================================================
+\pagebreak
+%\bibliographystyle{alphaurl}
+%\bibliographystyle{alpha}
+%\bibliographystyle{plain}
+
+\bibliographystyle{plainurl}
+\bibliography{5004M.bib}
+%==========================================================================
+\end{document}
