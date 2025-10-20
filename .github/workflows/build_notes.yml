@@ -1,4 +1,4 @@
-name: Convert LaTeX notes and deploy MkDocs site
+name: build_notes
 
 on:
   push:
