@@ -1,6 +1,6 @@
 # **Aaron Huntley**
 
-📧 [ahuntle4@uwo.ca](mailto:ahuntle4@uwo.ca) 
+📧 [email](mailto:ahuntle4@uwo.ca) 
 
 ---
 
@@ -33,9 +33,14 @@ Sept 2019 – Jul 2023
 
 **Compact Closed Double Categories**
 
+## Things I've been interested in
+
 **A∞-Algebras and omega-Categories**
 
-## Things I've written in the past
+**Analysing Semantic Data**
+There was a time I had access to a some data collected by Psycologists to probe 'semantic space' I was interested in how we could analyse this data to learn about how the human brain thinks 'semantically'. 
+
+## Things I've written
 
 **[Notes on Category Theory](notes_pdf/cat_notes.pdf)**  
 You can find these notes on this website. However, if I haven't gotten around to fixing the script which converts the latex to html then you can find the pdf here. 
@@ -50,24 +55,24 @@ I wrote these notes in the third year of my time in Leeds.
 ## Teaching
 
 **Graduate Assistant *CWRU***
-Fall 2025 (SI) - MATH 120 (Calculus)
-Spring 2025 (TA) - MATH 304 (Discrete Math)
-Fall 2024 (TA) - MATH 201 (Linear Algebra)
+- Fall 2025 (SI) - MATH 120 (Calculus)
+- Spring 2025 (TA) - MATH 304 (Discrete Math)
+- Fall 2024 (TA) - MATH 201 (Linear Algebra)
 
 **Graduate Assistant *UWO***  
-Summer 2024 (TA)
-Spring 2024 (TA) 
-Fall 2023 (TA) - CALC1000A (Calculus)
+- Summer 2024 (TA)
+- Spring 2024 (TA) 
+- Fall 2023 (TA) - CALC1000A (Calculus)
 
 ## Mentorship
 
 **Directed Reading Program (DRP) *CWRU***  
-Fall 2025 - Proof Assistants and Functional Programming
-Spring 2025 - Categorical Homotopy Theory & Fractals and Hausdorff Measure
+- Fall 2025 - Proof Assistants and Functional Programming
+- Spring 2025 - Categorical Homotopy Theory & Fractals and Hausdorff Measure
 
 **Directed Reading Program (DRP) *UWO***  
-Spring 2024 - 2D Wallpaper Groups
-Fall 2023 - Introduction to Category Theory
+- Spring 2024 - 2D Wallpaper Groups
+- Fall 2023 - Introduction to Category Theory
 
 **PAL Mentor *UoL*** 
 
@@ -92,12 +97,6 @@ Discovering Operads through an Exploration of A∞-Algebras
 
 **Dynamical Systems Seminar *UoL***  
 Homoclinic Tangles
-
-### Additional Talks (to be formatted)
-- Locally Presentable Categories (Homotopy Seminar)  
-- The Mathematics of Juggling – Sept 19, 2025  
-- Model Structures in Set (Homotopy Seminar, Year 1 Semester 1)  
-- Homotopy Colimits (Homotopy Seminar, Year 1 Semester 2)
 
 ---
 

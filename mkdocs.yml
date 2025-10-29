@@ -27,7 +27,7 @@ theme:
 nav:
   - Home: index.md
   - About me:
-    - Education: cv/education.md
+    - CV: cv/education.md
   - Category Theory: 
     - Introduction: category_theory/Introduction.md
     - Categories: category_theory/Categories.md
