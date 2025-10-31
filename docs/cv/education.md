@@ -35,18 +35,18 @@ Sept 2019 – Jul 2023
 
 ## Things I've been interested in
 
-**A∞-Algebras and omega-Categories**
+**A infinity-Algebras and omega-Categories**
 
 **Analysing Semantic Data**
 There was a time I had access to a some data collected by Psycologists to probe 'semantic space' I was interested in how we could analyse this data to learn about how the human brain thinks 'semantically'. 
 
 ## Things I've written
 
-**[Notes on Category Theory](notes_pdf/cat_notes.pdf)**  
+**[Notes on Category Theory](/docs/notes_pdf/cat_notes.pdf)** 
 You can find these notes on this website. However, if I haven't gotten around to fixing the script which converts the latex to html then you can find the pdf here. 
 I wrote these notes in my last year at the University of Leeds, since then I have not made any changes. That is to say please take them with a grain of salt.
 
-**[Symmetries of Escher’s Paintings](notes_pdf/escher_notes.pdf)**  
+**[Symmetries of Escher’s Paintings](/docs/notes_pdf/escher_notes.pdf)**  
 The enumeration of the 17 wallpaper groups is a delightful piece of matematics I think everyone should see. 
 I wrote these notes in the third year of my time in Leeds.
 
@@ -68,7 +68,7 @@ I wrote these notes in the third year of my time in Leeds.
 
 **Directed Reading Program (DRP) *CWRU***  
 - Fall 2025 - Proof Assistants and Functional Programming
-- Spring 2025 - Categorical Homotopy Theory & Fractals and Hausdorff Measure
+- Spring 2025 - Categorical Homotopy Theory *Shane Redmond* & Fractals and Hausdorff Measure [*Max Seay*](https://mmacs.net)
 
 **Directed Reading Program (DRP) *UWO***  
 - Spring 2024 - 2D Wallpaper Groups
@@ -125,7 +125,6 @@ Homoclinic Tangles
 - **Nominated** – University-Wide Graduate Student Award, 2025 *CWRU*
 - **Recipient** – Graduate Student Appreciation Award (Departmental), 2025 *CWRU*
  
-
 ---
 
 _Last updated: October 2025_
