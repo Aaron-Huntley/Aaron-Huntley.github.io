@@ -42,11 +42,11 @@ There was a time I had access to a some data collected by Psycologists to probe 
 
 ## Things I've written
 
-**[Notes on Category Theory](/docs/notes_pdf/cat_notes.pdf)** 
+**[Notes on Category Theory](/notes_pdf/cat_notes.pdf)** 
 You can find these notes on this website. However, if I haven't gotten around to fixing the script which converts the latex to html then you can find the pdf here. 
 I wrote these notes in my last year at the University of Leeds, since then I have not made any changes. That is to say please take them with a grain of salt.
 
-**[Symmetries of Escher’s Paintings](/docs/notes_pdf/escher_notes.pdf)**  
+**[Symmetries of Escher’s Paintings](/notes_pdf/escher_notes.pdf)**  
 The enumeration of the 17 wallpaper groups is a delightful piece of matematics I think everyone should see. 
 I wrote these notes in the third year of my time in Leeds.
 
@@ -55,11 +55,13 @@ I wrote these notes in the third year of my time in Leeds.
 ## Teaching
 
 **Graduate Assistant *CWRU***
+
 - Fall 2025 (SI) - MATH 120 (Calculus)
 - Spring 2025 (TA) - MATH 304 (Discrete Math)
 - Fall 2024 (TA) - MATH 201 (Linear Algebra)
 
 **Graduate Assistant *UWO***  
+
 - Summer 2024 (TA)
 - Spring 2024 (TA) 
 - Fall 2023 (TA) - CALC1000A (Calculus)
@@ -67,10 +69,12 @@ I wrote these notes in the third year of my time in Leeds.
 ## Mentorship
 
 **Directed Reading Program (DRP) *CWRU***  
+
 - Fall 2025 - Proof Assistants and Functional Programming
 - Spring 2025 - Categorical Homotopy Theory *Shane Redmond* & Fractals and Hausdorff Measure [*Max Seay*](https://mmacs.net)
 
 **Directed Reading Program (DRP) *UWO***  
+
 - Spring 2024 - 2D Wallpaper Groups
 - Fall 2023 - Introduction to Category Theory
 
