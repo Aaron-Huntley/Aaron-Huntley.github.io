@@ -42,6 +42,12 @@ There was a time I had access to a some data collected by Psycologists to probe 
 
 ## Things I've written
 
+**[The Dold-Kan Correspondance](/notes_pdf/dold_kan.pdf)**  
+These notes were in preperation for a talk I gave for a class in Stable Homotopy theory.
+
+**[Introduction to Quasi-categories](/notes_pdf/quasicats.pdf)**  
+These notes were born out of trying to understand infinity categories. It was also a final project for a course in Homotopical Algebra I took at Western University.
+
 **[Notes on Category Theory](/notes_pdf/cat_notes.pdf)** 
 You can find these notes on this website. However, if I haven't gotten around to fixing the script which converts the latex to html then you can find the pdf here. 
 I wrote these notes in my last year at the University of Leeds, since then I have not made any changes. That is to say please take them with a grain of salt.
@@ -85,21 +91,27 @@ I wrote these notes in the third year of my time in Leeds.
 ## Talks & Presentations
 
 **Homotopy Seminar *CWRU*** 
+
 Locally Presentable Categories
 
 **MAMS Student Seminar *CWRU*** 
+
 The Mathematics of Juggling
 
 **Homotopy Seminar *CWRU*** 
+
 Homotopy Colimits
 
 **Homotopy Seminar *CWRU*** 
+
 Model Structures in Set
 
 **Algebraic Topology and Homotopy Theory Seminar *UWO*** 
+
 Discovering Operads through an Exploration of A∞-Algebras
 
 **Dynamical Systems Seminar *UoL***  
+
 Homoclinic Tangles
 
 ---
