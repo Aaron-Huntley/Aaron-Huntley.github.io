@@ -37,7 +37,7 @@ Sept 2019 – Jul 2023
 
 **A infinity-Algebras and omega-Categories**
 
-**Analysing Semantic Data**
+**[Analysing Semantic Data](/notes_pdf/semantic_comparison.pdf)**
 There was a time I had access to a some data collected by Psycologists to probe 'semantic space' I was interested in how we could analyse this data to learn about how the human brain thinks 'semantically'. 
 
 ## Things I've written
@@ -49,8 +49,7 @@ These notes were in preperation for a talk I gave for a class in Stable Homotopy
 These notes were born out of trying to understand infinity categories. It was also a final project for a course in Homotopical Algebra I took at Western University.
 
 **[Notes on Category Theory](/notes_pdf/cat_notes.pdf)** 
-You can find these notes on this website. However, if I haven't gotten around to fixing the script which converts the latex to html then you can find the pdf here. 
-I wrote these notes in my last year at the University of Leeds, since then I have not made any changes. That is to say please take them with a grain of salt.
+You can find these notes on this website. However, if I haven't gotten around to fixing the script which converts the latex to html then you can find the pdf here. I wrote these notes in my last year at the University of Leeds, since then I have not made any changes. That is to say please take them with a grain of salt.
 
 **[Symmetries of Escher’s Paintings](/notes_pdf/escher_notes.pdf)**  
 The enumeration of the 17 wallpaper groups is a delightful piece of matematics I think everyone should see. 
