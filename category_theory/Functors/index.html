@@ -1,0 +1,1396 @@
+
+<!doctype html>
+<html lang="en" class="no-js">
+  <head>
+    
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      
+      
+      
+        <link rel="canonical" href="https://aaron-huntley.github.io/mathematics/category_theory/Functors/">
+      
+      
+        <link rel="prev" href="../Categories/">
+      
+      
+        <link rel="next" href="../Natural%20transformations/">
+      
+      
+        
+      
+      
+      <link rel="icon" href="../../images/favicon.png">
+      <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-9.7.0">
+    
+    
+      
+        <title>Functors - Aaron Huntley</title>
+      
+    
+    
+      <link rel="stylesheet" href="../../assets/stylesheets/main.618322db.min.css">
+      
+        
+        <link rel="stylesheet" href="../../assets/stylesheets/palette.ab4e12ef.min.css">
+      
+      
+
+
+    
+    
+      
+    
+    
+      
+        
+        
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,300i,400,400i,700,700i%7CRoboto+Mono:400,400i,700,700i&display=fallback">
+        <style>:root{--md-text-font:"Roboto";--md-code-font:"Roboto Mono"}</style>
+      
+    
+    
+    <script>__md_scope=new URL("../..",location),__md_hash=e=>[...e].reduce(((e,_)=>(e<<5)-e+_.charCodeAt(0)),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
+    
+      
+
+    
+    
+  </head>
+  
+  
+    
+    
+      
+    
+    
+    
+    
+    <body dir="ltr" data-md-color-scheme="slate" data-md-color-primary="deep-orange" data-md-color-accent="amber">
+  
+    
+    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
+    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
+    <label class="md-overlay" for="__drawer"></label>
+    <div data-md-component="skip">
+      
+        
+        <a href="#13-functors" class="md-skip">
+          Skip to content
+        </a>
+      
+    </div>
+    <div data-md-component="announce">
+      
+    </div>
+    
+    
+      
+
+<header class="md-header" data-md-component="header">
+  <nav class="md-header__inner md-grid" aria-label="Header">
+    <a href="../.." title="Aaron Huntley" class="md-header__button md-logo" aria-label="Aaron Huntley" data-md-component="logo">
+      
+  <img src="../../images/logo.png" alt="logo">
+
+    </a>
+    <label class="md-header__button md-icon" for="__drawer">
+      
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3 6h18v2H3zm0 5h18v2H3zm0 5h18v2H3z"/></svg>
+    </label>
+    <div class="md-header__title" data-md-component="header-title">
+      <div class="md-header__ellipsis">
+        <div class="md-header__topic">
+          <span class="md-ellipsis">
+            Aaron Huntley
+          </span>
+        </div>
+        <div class="md-header__topic" data-md-component="header-topic">
+          <span class="md-ellipsis">
+            
+              Functors
+            
+          </span>
+        </div>
+      </div>
+    </div>
+    
+      
+        <form class="md-header__option" data-md-component="palette">
+  
+    
+    
+    
+    <input class="md-option" data-md-color-media="" data-md-color-scheme="slate" data-md-color-primary="deep-orange" data-md-color-accent="amber"  aria-label="Dark mode"  type="radio" name="__palette" id="__palette_0">
+    
+      <label class="md-header__button md-icon" title="Dark mode" for="__palette_1" hidden>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 7a5 5 0 0 1 5 5 5 5 0 0 1-5 5 5 5 0 0 1-5-5 5 5 0 0 1 5-5m0 2a3 3 0 0 0-3 3 3 3 0 0 0 3 3 3 3 0 0 0 3-3 3 3 0 0 0-3-3m0-7 2.39 3.42C13.65 5.15 12.84 5 12 5s-1.65.15-2.39.42zM3.34 7l4.16-.35A7.2 7.2 0 0 0 5.94 8.5c-.44.74-.69 1.5-.83 2.29zm.02 10 1.76-3.77a7.131 7.131 0 0 0 2.38 4.14zM20.65 7l-1.77 3.79a7.02 7.02 0 0 0-2.38-4.15zm-.01 10-4.14.36c.59-.51 1.12-1.14 1.54-1.86.42-.73.69-1.5.83-2.29zM12 22l-2.41-3.44c.74.27 1.55.44 2.41.44.82 0 1.63-.17 2.37-.44z"/></svg>
+      </label>
+    
+  
+    
+    
+    
+    <input class="md-option" data-md-color-media="" data-md-color-scheme="default" data-md-color-primary="cyan" data-md-color-accent="light-green"  aria-label="Light mode"  type="radio" name="__palette" id="__palette_1">
+    
+      <label class="md-header__button md-icon" title="Light mode" for="__palette_0" hidden>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="m17.75 4.09-2.53 1.94.91 3.06-2.63-1.81-2.63 1.81.91-3.06-2.53-1.94L12.44 4l1.06-3 1.06 3zm3.5 6.91-1.64 1.25.59 1.98-1.7-1.17-1.7 1.17.59-1.98L15.75 11l2.06-.05L18.5 9l.69 1.95zm-2.28 4.95c.83-.08 1.72 1.1 1.19 1.85-.32.45-.66.87-1.08 1.27C15.17 23 8.84 23 4.94 19.07c-3.91-3.9-3.91-10.24 0-14.14.4-.4.82-.76 1.27-1.08.75-.53 1.93.36 1.85 1.19-.27 2.86.69 5.83 2.89 8.02a9.96 9.96 0 0 0 8.02 2.89m-1.64 2.02a12.08 12.08 0 0 1-7.8-3.47c-2.17-2.19-3.33-5-3.49-7.82-2.81 3.14-2.7 7.96.31 10.98 3.02 3.01 7.84 3.12 10.98.31"/></svg>
+      </label>
+    
+  
+</form>
+      
+    
+    
+      <script>var palette=__md_get("__palette");if(palette&&palette.color){if("(prefers-color-scheme)"===palette.color.media){var media=matchMedia("(prefers-color-scheme: light)"),input=document.querySelector(media.matches?"[data-md-color-media='(prefers-color-scheme: light)']":"[data-md-color-media='(prefers-color-scheme: dark)']");palette.color.media=input.getAttribute("data-md-color-media"),palette.color.scheme=input.getAttribute("data-md-color-scheme"),palette.color.primary=input.getAttribute("data-md-color-primary"),palette.color.accent=input.getAttribute("data-md-color-accent")}for(var[key,value]of Object.entries(palette.color))document.body.setAttribute("data-md-color-"+key,value)}</script>
+    
+    
+    
+      
+      
+        <label class="md-header__button md-icon" for="__search">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        </label>
+        <div class="md-search" data-md-component="search" role="dialog">
+  <label class="md-search__overlay" for="__search"></label>
+  <div class="md-search__inner" role="search">
+    <form class="md-search__form" name="search">
+      <input type="text" class="md-search__input" name="query" aria-label="Search" placeholder="Search" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck="false" data-md-component="search-query" required>
+      <label class="md-search__icon md-icon" for="__search">
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11z"/></svg>
+      </label>
+      <nav class="md-search__options" aria-label="Search">
+        
+        <button type="reset" class="md-search__icon md-icon" title="Clear" aria-label="Clear" tabindex="-1">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19 6.41 17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"/></svg>
+        </button>
+      </nav>
+      
+    </form>
+    <div class="md-search__output">
+      <div class="md-search__scrollwrap" tabindex="0" data-md-scrollfix>
+        <div class="md-search-result" data-md-component="search-result">
+          <div class="md-search-result__meta">
+            Initializing search
+          </div>
+          <ol class="md-search-result__list" role="presentation"></ol>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+      
+    
+    
+  </nav>
+  
+</header>
+    
+    <div class="md-container" data-md-component="container">
+      
+      
+        
+          
+            
+<nav class="md-tabs" aria-label="Tabs" data-md-component="tabs">
+  <div class="md-grid">
+    <ul class="md-tabs__list">
+      
+        
+  
+  
+  
+  
+    <li class="md-tabs__item">
+      <a href="../.." class="md-tabs__link">
+        
+  
+  
+    
+  
+  Home
+
+      </a>
+    </li>
+  
+
+      
+        
+  
+  
+  
+  
+    
+    
+      <li class="md-tabs__item">
+        <a href="../../cv/education/" class="md-tabs__link">
+          
+  
+  
+  About me
+
+        </a>
+      </li>
+    
+  
+
+      
+        
+  
+  
+  
+    
+  
+  
+    
+    
+      <li class="md-tabs__item md-tabs__item--active">
+        <a href="../Introduction/" class="md-tabs__link">
+          
+  
+  
+  Category Theory
+
+        </a>
+      </li>
+    
+  
+
+      
+    </ul>
+  </div>
+</nav>
+          
+        
+      
+      <main class="md-main" data-md-component="main">
+        <div class="md-main__inner md-grid">
+          
+            
+              
+              <div class="md-sidebar md-sidebar--primary" data-md-component="sidebar" data-md-type="navigation" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+
+  
+
+
+<nav class="md-nav md-nav--primary md-nav--lifted" aria-label="Navigation" data-md-level="0">
+  <label class="md-nav__title" for="__drawer">
+    <a href="../.." title="Aaron Huntley" class="md-nav__button md-logo" aria-label="Aaron Huntley" data-md-component="logo">
+      
+  <img src="../../images/logo.png" alt="logo">
+
+    </a>
+    Aaron Huntley
+  </label>
+  
+  <ul class="md-nav__list" data-md-scrollfix>
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../.." class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Home
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+      
+      
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2" >
+        
+          
+          <label class="md-nav__link" for="__nav_2" id="__nav_2_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    About me
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_2_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_2">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    About me
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../cv/education/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    CV
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+    
+  
+  
+  
+    
+    
+    
+    
+      
+        
+        
+      
+      
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--active md-nav__item--section md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_3" checked>
+        
+          
+          <label class="md-nav__link" for="__nav_3" id="__nav_3_label" tabindex="">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Category Theory
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_3_label" aria-expanded="true">
+          <label class="md-nav__title" for="__nav_3">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Category Theory
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../Introduction/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Introduction
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../Categories/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Categories
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+    
+  
+  
+  
+    <li class="md-nav__item md-nav__item--active">
+      
+      <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
+      
+      
+        
+      
+      
+      <a href="./" class="md-nav__link md-nav__link--active">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Functors
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../Natural%20transformations/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Natural Transformations
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../Universal%20morphisms%20and%20adjoint%20functors/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Universal morphisms and adjoint functors
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../Initial%20and%20terminal%20objects/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Initial and terminal objects
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../Monads/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Monads
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+  </ul>
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+            
+              
+              <div class="md-sidebar md-sidebar--secondary" data-md-component="sidebar" data-md-type="toc" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+          
+          
+            <div class="md-content" data-md-component="content">
+              
+              <article class="md-content__inner md-typeset">
+                
+                  
+
+
+
+<style>
+.md-content {
+    max-width: 80em;
+}
+</style>
+<h1 id="13-functors">1.3. Functors</h1>
+<p>Definitions and examples in this section come from various references including Leinster \cite{Leinster}, Adámek - Herrlick - Strecker \cite{ACC} can define a notion of morphisms between categories as follows.</p>
+<p><span style="display:block" class="definition"></p>
+<p>Let $\mathscr{C}$ and $\mathscr{D}$ be categories. A <em>functor</em> is a pair
+$F=(F^{ob},F^{hom})\colon \mathscr{C}\rightarrow\mathscr{D}$ where:
+\begin{enumerate}
+\item $F^{ob}$ is a function,</p>
+<p>$$F^{ob}\colon \ob{\mathscr{C}}\rightarrow\ob{\mathscr{D}};$$</p>
+<p>\item For each $A,A^{\prime}\in\ob{\mathscr{C}}$, $F^{hom}$ is a function,</p>
+<p>\begin{align<em>}
+F^{hom}\colon \ho[\cat{C}]{A}{A^{\prime}} &amp;\rightarrow\ho[\cat{D}]{F^{ob}(A)}{F^{ob}(A^{\prime})},\
+f&amp;\mapsto F^{hom}(f);
+\end{align</em>}</p>
+<p>\end{enumerate}
+The following axioms are satisfied:
+\begin{enumerate}
+\item For all $f\in\ho{A}{A^{\prime}}$ and $f^{\prime}\in\ho{A^{\prime}}{A^{\prime\prime}}$, </p>
+<p>\begin{align<em>}
+F^{hom}(f^{\prime}\circ^{\mathscr{C}} f) = F^{hom}(f^{\prime})\circ^{\mathscr{D}} F^{hom}(f)
+\end{align</em>}</p>
+<p>where $\circ^{\mathscr{C}}$ and $\circ^{\mathscr{D}}$ are the compositions for $\mathscr{C}, \mathscr{D}$ respectively;
+\item For all $A\in\ob{\mathscr{C}}$, </p>
+<p>$$F^{hom}(id_{A}) = id_{F^{ob}(A)}.$$</p>
+<p>\end{enumerate}
+</span></p>
+<p><span style="display:block" class="remark"></p>
+<p>We will just write $F$ for both $F^{ob}$ and $F^{hom}$ and know which one is being used by what object it is acting on.
+</span></p>
+<p><span style="display:block" class="definition"></p>
+<p>Given a category $\mathscr{C}$ let $F\colon\mathscr{C}\rightarrow\mathscr{C}$ be a functor from $\mathscr{C}$ to $\mathscr{C}$, then we call $F$ an <em>endofunctor</em>.
+</span></p>
+<p>\subsection{Examples}</p>
+<p>\subsubsection{Forgetful functor for monoids}</p>
+<p>One of the easiest examples of a functor is the forgetful functor which, informally, takes any category where the objects are sets with added structure and 'forgets' any extra structure. These types of functors play an important role in the theory later in Section \ref{s:uniarrow} and Section \ref{s:monads}. We will see the case for monoids.</p>
+<p><span style="display:block" class="definition">[Forgetful functor for monoids]</p>
+<p>Let $\mathbf{Mon}$ be the category of monoids as defined in Lemma \ref{lem:catofmon}. We define $U\colon \mathbf{Mon}\rightarrow\mathbf{Set}$ as:
+\begin{enumerate}
+\item 
+\begin{align<em>}
+U^0\colon \ob{\mathbf{Mon}}&amp;\rightarrow\ob{\mathbf{Set}}\
+(G,</em>,e_{G})&amp;\mapsto G;
+\end{align*}</p>
+<p>\item 
+\begin{align<em>}
+U^1\colon \ho[\mathbf{Set}]{G}{H}&amp;\rightarrow\ho[\mathbf{Mon}]{U(G)}{U(H)}\
+f &amp;\mapsto f.
+\end{align</em>}</p>
+<p>\end{enumerate}
+</span></p>
+<p><span style="display:block" class="lemma">
+The $U\colon \mathbf{Mon}\rightarrow\mathbf{Set}$ defined above in Definition \ref{def:forgetfulfunctormon} is a functor.
+</span>
+\begin{proof}
+Let $U$ be the forgetful functor for monoids, then:
+\begin{enumerate}
+\item For all $f\in\ho{G}{H}$ and $g\in\ho{H}{J}$,</p>
+<p>\begin{align<em>}
+U(h\circ^{Mon} g) = U(h) \circ^{Set} U(g)
+\end{align</em>}</p>
+<p>since $U(g) = g$, $U(h) = h$ and $\circ^{Mon}$ is the same as $\circ^{Set}$;
+\item For all $G\in\ob{\mathbf{Mon}}$, </p>
+<p>$$U(id_{G}) = id_{G} = id_{U(G)}.$$</p>
+<p>\end{enumerate}
+Hence $U$ is a functor.
+\end{proof}</p>
+<p>\subsubsection{Free monoid functor}</p>
+<p>Informally, free functors take a set and aim to add structure to form a different algebraic object. For example we will give the free functor for monoids, adapted from nCatLab \cite{nLab}. Free functors seem to be doing the opposite of forgetful functors, we will later make this notion rigorous in Section \ref{s:uniarrow} where these functors are 'adjoint'.</p>
+<p><span style="display:block" class="definition"></p>
+<p>Let $X$ be a set. The <em>free monoid on $X$</em> is the triple $(\gamma(X),<em>,\varnothing)$ where: 
+$$\gamma(X)={(x_{1},x_{2},\dots,x_{n})|n\in\mathbb{Z}^{+}, x_{1},x_{2},\dots,x_{n}\in X}\cup{\varnothing}.$$
+ The elements of $\gamma(X)$ are called </em>lists<em> in $X$.\
+For any two lists $x=(x_{1},x_{2},\dots,x_{n}),y=(y_{1},y_{2},\dots,y_{m})\in\gamma(X)$, 
+$$x</em>y = (x_{1},x_{2},\dots,x_{n},y_{1},y_{2},\dots,y_{m})$$
+ and $<em>$ is called </em>concatenation*.</p>
+<p>$\varnothing=()$ is defined as the list with no elements.
+</span></p>
+<p><span style="display:block" class="lemma">
+For any set $X$ the free monoid on $X$ is a monoid.
+</span>
+\begin{proof}
+Let $X$ be a set and $(\gamma(X),*,\varnothing)$ the free monoid on $X$ then for any three lists $x,y,z\in\gamma(X)$ we have,</p>
+<p>\begin{align<em>}
+x</em>(y<em>z) &amp;= (x_{1},x_{2},\dots,x_{n})</em>((y_{1},y_{2},\dots,y_{m})<em>(z_{1},z_{2},\dots,z_{k}))\
+&amp;= (x_{1},x_{2},\dots,x_{n}) * (y_{1},y_{2},\dots,y_{m},z_{1},z_{2},\dots,z_{k})\
+&amp;= (x_{1},x_{2},\dots,x_{n},y_{1},y_{2},\dots,y_{m},z_{1},z_{2},\dots,z_{k})\
+&amp;= (x_{1},x_{2},\dots,x_{n},y_{1},y_{2},\dots,y_{m})</em>(z_{1},z_{2},\dots,z_{k})\
+&amp;= ((x_{1},x_{2},\dots,x_{n})<em>(y_{1},y_{2},\dots,y_{m}))</em>(z_{1},z_{2},\dots,z_{k})\
+&amp;= (x<em>y)</em>z
+\end{align*}</p>
+<p>and,</p>
+<p>\begin{align<em>}
+x</em>\varnothing &amp;= (x_{1},x_{2},\dots,x_{n})<em>\varnothing\
+&amp;=(x_{1},x_{2},\dots,x_{n})\
+&amp;=x\
+&amp;=\varnothing</em>(x_{1},x_{2},\dots,x_{n})\
+&amp;=\varnothing<em>x.
+\end{align</em>}</p>
+<p>Hence concatenation is associative with identity $\varnothing$. </p>
+<p>Therefore $(\gamma(X),*,\varnothing)$ is a monoid.
+\end{proof}</p>
+<p><span style="display:block" class="lemma">
+Given two sets $X,Y$ and a function $f:X\rightarrow Y$. There is an induced monoid homomorphism, </p>
+<p>$$f_{\gamma}:(\gamma(X),<em>,\varnothing)\rightarrow(\gamma(Y),</em>,\varnothing)$$</p>
+<p>where for each $(x_{1},x_{2},\dots,x_{n}) \in\gamma(X)$</p>
+<p>$$ (x_{1},x_{2},\dots,x_{n})  \mapsto (f(x_{1}),f(x_{2}),\dots,f(x_{n})),$$</p>
+<p>and, 
+$$\varnothing \mapsto \varnothing.$$</p>
+<p></span>
+\begin{proof}
+Let $f_{\gamma}$ be defined as above then given any $x,y\in (\gamma(X),*,\varnothing)$,</p>
+<p>\begin{align<em>}
+f_{\gamma}(x</em>y) &amp;= f_{\gamma}((x_{1},x_{2},\dots,x_{n})<em>(y_{1},y_{2},\dots,y_{m})) \
+&amp;= f_{\gamma}((x_{1},x_{2},\dots,x_{n},y_{1},y_{2},\dots,y_{m}))\
+&amp;= (f(x_{1}),f(x_{2}),\dots,f(x_{n}),f(y_{1}),f(y_{2}),\dots,f(y_{m}))\
+&amp;= (f(x_{1}),f(x_{2}),\dots,f(x_{n}))</em>(f(y_{1}),f(y_{2}),\dots,f(y_{m}))\
+&amp;= f_{\gamma}((x_{1},x_{2},\dots,x_{n}))<em>f_{\gamma}((y_{1},y_{2},\dots,y_{m}))\
+&amp;= f_{\gamma}(x)</em>f_{\gamma}(y)
+\end{align*}</p>
+<p>and,</p>
+<p>\begin{align<em>}
+f_{\gamma}(\varnothing) &amp;= \varnothing.
+\end{align</em>}</p>
+<p>Hence $f_{\gamma}$ is a monoid homomorphism.
+\end{proof}</p>
+<p><span style="display:block" class="definition"></p>
+<p>Define the <em>free monoid functor</em> $F\colon \mathbf{Set}\rightarrow\mathbf{Mon}$ as:
+\begin{enumerate}
+\item For each $X\in\ob{\mathbf{Set}}$,</p>
+<p>\begin{align<em>}
+F\colon\ob{\mathbf{Set}}&amp;\rightarrow\ob{\mathbf{Mon}},\
+X&amp;\mapsto(\gamma(X),</em>,\varnothing);
+\end{align*}</p>
+<p>\item For any $X,Y\in\ob{\mathbf{Set}}$,</p>
+<p>\begin{align<em>}
+F\colon \ho[\mathbf{Set}]{X}{Y}&amp;\rightarrow\ho[\mathbf{Mon}]{F(X)}{F(Y)},\
+f&amp;\mapsto f_{\gamma}.
+\end{align</em>}</p>
+<p>\end{enumerate}
+</span></p>
+<p><span style="display:block" class="lemma">
+$F\colon \mathbf{Set}\rightarrow\mathbf{Mon}$ defined above in Definition \ref{def:freefunctmon} is a functor.
+</span>
+\begin{proof}
+For any $X,Y,Z\in\ob{\mathbf{Set}}$, let $f\in\ho{X}{Y}$ and $g\in\ho{Y}{Z}$. Then for any list $(x_{1},x_{2},\dots,x_{n})\in\gamma(X)$ we have,</p>
+<p>\begin{align<em>}
+F(g\circ f)(x_{1},x_{2},\dots,x_{n}) &amp;= (g\circ f(x_{1}),g\circ f(x_{2}),\dots,g\circ f(x_{n}))\
+&amp;= F(g)(f(x_{1}),f(x_{2}),\dots,f(x_{n}))\
+&amp;= (F(g)\circ F(f))(x_{1},x_{2},\dots,x_{n}).
+\end{align</em>}</p>
+<p>For any $X\in\ob{\mathbf{Set}}$, $id_{X}$ is the identity with respect to function composition. </p>
+<p>\begin{align<em>}
+F(id_{X})(x_{1},x_{2},\dots,x_{n}) &amp;= (id_{X}(x_{1}),id_{X}(x_{2}),\dots,id_{X}(x_{n}))\
+&amp;= (x_{1},x_{2},\dots,x_{n})\
+&amp;= id_{F(X)}(x_{1},x_{2},\dots,x_{n}).
+\end{align</em>}</p>
+<p>Therefore, $F$ is a functor.
+\end{proof}</p>
+<p>\subsubsection{The Yoneda Embeddings $h_A$ and $h^B$}</p>
+<p>An important functor we will use later in Section \ref{s:uniarrow} is the $\hom$ functor. This definition is adapted from the Wikipedia article \cite{wiki:homfunc}. The following definition is similar to the definition of functors in Definition \ref{def:functor} however the morphisms and composition are reversed. See Wiki \cite{wiki:functors} for more details.</p>
+<p><span style="display:block" class="definition"></p>
+<p>Let $\mathscr{C}$ and $\mathscr{D}$ be categories. A <em>contravariant functor</em> is a pair
+$F=(F^{ob},F^{hom})\colon \mathscr{C}\rightarrow\mathscr{D}$ where:
+\begin{enumerate}
+\item $F^{ob}$ is a function,</p>
+<p>$$F^{ob}\colon \ob{\mathscr{C}}\rightarrow\ob{\mathscr{D}};$$</p>
+<p>\item For each $A,A^{\prime}\in\ob{\mathscr{C}}$, $F^{hom}$ is a function,</p>
+<p>\begin{align<em>}
+F^{hom}\colon \ho[\cat{C}]{A}{A^{\prime}} &amp;\rightarrow\ho[\cat{D}]{F^{ob}(A^{\prime})}{F^{ob}(A)},\
+f&amp;\mapsto F^{hom}(f);
+\end{align</em>}</p>
+<p>\end{enumerate}
+The following axioms are satisfied:
+\begin{enumerate}
+\item For all $f\in\ho{A}{A^{\prime}}$ and $f^{\prime}\in\ho{A^{\prime}}{A^{\prime\prime}}$, </p>
+<p>\begin{align<em>}
+F^{hom}(f^{\prime}\circ^{\mathscr{C}} f) = F^{hom}(f^{\prime})\circ^{\mathscr{D}} F^{hom}(f)
+\end{align</em>}</p>
+<p>where $\circ^{\mathscr{C}}$ and $\circ^{\mathscr{D}}$ are the compositions for $\mathscr{C}, \mathscr{D}$ respectively;
+\item For all $A\in\ob{\mathscr{C}}$, </p>
+<p>$$F^{hom}(id_{A}) = id_{F^{ob}(A)}.$$</p>
+<p>\end{enumerate}
+</span></p>
+<p><span style="display:block" class="lemma"></p>
+<p>Let $\cat{C}$ be a category and $\mathbf{Set}$ be the category of sets as in Example \ref{exe:catofsets}. 
+\begin{enumerate}
+\item For all $A\in\ob{\cat{C}}$ we define the functor</p>
+<p>$$\func{h_{A}}{\cat{C}}{\mathbf{Set}}$$</p>
+<p>where for each $C\in\ob{\cat{C}},$</p>
+<p>$$C \mapsto \ho[\cat{C}]{A}{C}$$</p>
+<p>and for each $f\in\ho[\cat{C}]{X}{Y}$,</p>
+<p>$$f\mapsto \ho{A}{f}$$</p>
+<p>where,</p>
+<p>\begin{align<em>}
+\ho[\cat{C}]{A}{f}\colon\ho[\cat{C}]{A}{X}&amp;\to\ho[\cat{C}]{A}{Y},\
+g&amp;\mapsto f\circ g;
+\end{align</em>}</p>
+<p>\item For all $B\in\ob{\cat{C}}$ we define the <em>contravariant</em> functor</p>
+<p>$$\func{h^{B}}{\cat{C}^{op}}{\mathbf{Set}}$$</p>
+<p>where for each $C\in\ob{\cat{C}},$</p>
+<p>$$C \mapsto \ho[\cat{C}]{C}{B}$$</p>
+<p>and for each $h\in\ho[\cat{C}^{op}]{X}{Y}$,</p>
+<p>$$h\mapsto \ho{h}{B},$$</p>
+<p>where,</p>
+<p>\begin{align<em>}
+\ho{h}{B}\colon\ho[\cat{C}]{Y}{B}&amp;\to\ho[\cat{C}]{X}{B},\
+g&amp;\mapsto g\circ h.
+\end{align</em>}</p>
+<p>\end{enumerate}
+</span>
+\begin{proof}
+First we prove $\mathrm{h}_{A}$ is a functor.</p>
+<p>Let $C\in\ob{\cat{C}}$ then given $f\in\ho[\cat{C}]{A}{C}$,</p>
+<p>\begin{align<em>}
+\mathrm{h}<em>{A}(id</em>{C})(f) &amp;= \ho[\cat{C}]{A}{id_{C}}(f)\
+&amp;= f \
+&amp;= id_{\ho[\cat{C}]{A}{C}}(f).
+\end{align</em>}</p>
+<p>Hence identities are preserved. 
+We also have for any $f\in\ho[\cat{C}]{X}{Y}$ and $g\in\ho[\cat{C}]{Y}{Z}$ then given $h\in\ho[\cat{C}]{A}{X}$,</p>
+<p>\begin{align<em>}
+\mathrm{h}<em>{A}(g\circ f)(h) &amp;= \ho[\cat{C}]{A}{g\circ f}(h)\
+&amp;= g\circ f \circ h\
+&amp;= \ho[\cat{C}]{A}{g} \circ \ho[\cat{C}]{A}{f}(h)\
+&amp;= (\mathrm{h}</em>{A}(g)\circ \mathrm{h}_{A}(f))(h).
+\end{align</em>}</p>
+<p>Hence composition is preserved. Therefore $\mathrm{h}_{A}$ is a functor.</p>
+<p>Now we show $\mathrm{h}^{B}$ is a contravariant functor.
+Let $C\in\ob{\cat{C}}$ then given $f\in\ho[\cat{C}]{C}{B}$:</p>
+<p>\begin{align<em>}
+\mathrm{h}^{B}(id_{C})(f) &amp;= \ho[\cat{C}]{id_{C}}{B}(f)\
+&amp;= f \
+&amp;= id_{\ho[\cat{C}]{C}{B}}(f).
+\end{align</em>}</p>
+<p>Hence identities are preserved. We also have for any $f\in\ho[\cat{C}]{X}{Y}$ and $g\in\ho[\cat{C}]{Y}{Z}$ then given $h\in\ho[\cat{C}^{op}]{Z}{B}$,</p>
+<p>\begin{align<em>}
+\mathrm{h}^{B}(g\circ f)(h) &amp;= \ho[\cat{C}]{g\circ f}{B}(h)\
+&amp;= h\circ g\circ f\
+&amp;= \ho[\cat{C}]{f}{B} \circ \ho[\cat{C}]{g}{B}(h)\
+&amp;= (\mathrm{h}^{B}(f) \circ \mathrm{h}^{B}(g))(h).
+\end{align</em>}</p>
+<p>Hence composition is preserved. Therefore $\mathrm{h}^{B}$ is a contravariant functor.
+\end{proof}</p>
+<p><span style="display:block" class="definition"></p>
+<p>Let $\cat{C}$ be a category then $\cat{C}^{op}\times\cat{C}$ is a category by Definition \ref{def:dualcategory} and Example \ref{exe:prodcat}. We define the <em>hom functor</em>, $\func{h}{\cat{C}^{op}\times\cat{C}}{\mathbf{Set}}$, as follows:
+Given $(C_{1},C_{2})\in\ob{\cat{C}^{op}\times\cat{C}}$,</p>
+<p>$$(C_{1},C_{2})\mapsto\ho[\cat{C}]{C_{1}}{C_{2}}.$$</p>
+<p>For each $f^{op}\in\ho[\cat{C}]{C_{1}}{C_{2}}$ and $g\in\ho[\cat{C}]{C_{1}^\prime}{C_{2}^\prime}$,</p>
+<p>$$(f^{op},g)\mapsto\ho[\cat{C}]{f}{g},$$</p>
+<p>where,</p>
+<p>\begin{align<em>}
+\ho[\cat{C}]{f}{g}\colon\ho[\cat{C}]{C_{1}}{C_{1}^\prime}&amp;\to\ho[\cat{C}]{C_{2}}{C_{2}^\prime},\
+h\mapsto g\circ h\circ f.
+\end{align</em>}</p>
+<p></span></p>
+<p><span style="display:block" class="lemma"></p>
+<p>$\mathrm{h}$ as defined in Definition \ref{def:covarianthomfunc} is a functor.
+</span>
+\begin{proof}
+Let $(f^{op}_1,g_1)\in\ho[\cat{C}^{op}\times\cat{C}]{(C_1,C_2)}{(C_1^\prime,C_2^\prime)}$, and $(f^{op}_2,g_2)\in\ho[\cat{C}^{op}\times\cat{C}]{(C_1^\prime,C_2^\prime)}{(C_1^{\prime\prime},C_2^{\prime\prime})}$, we then have,</p>
+<p>\begin{align<em>}
+\mathrm{h}((f^{op}_1,g_1)\circ(f^{op}_2,g_2)) &amp;= \mathrm{h}((f^{op}_1\circ f^{op}_2,g_1\circ g_2)), \
+&amp;= \ho[\cat{C}]{f^{op}_1\circ^{op} f^{op}_2}{g_1\circ g_2},
+\end{align</em>}</p>
+<p>where $\ho[\cat{C}]{f_2\circ f_1}{g_1\circ g_2}$ is the function which takes $h\in\ho[\cat{C}]{C_1}{C_1^\prime}$,</p>
+<p>$$h\mapsto g_1\circ g_2 \circ f_2\circ f_1.$$</p>
+<p>Hence is the same as the function,</p>
+<p>$$\ho[\cat{C}]{f_1}{g_1} \circ \ho[\cat{C}]{f_2}{g_2} = \mathrm{h}((f^{op}_1,g_1))\circ \mathrm{h}((f^{op}_2,g_2)).$$</p>
+<p>Given $(id_{C_1},id_{C_2})\in\ho[\cat{C}^{op}\times\cat{C}]{(C_1,C_2)}{(C_1,C_2)}$ we have,</p>
+<p>\begin{align<em>}
+\mathrm{h}((id_{C_1},id_{C_2})) &amp;= \ho[\cat{C}]{id_{C_1}}{id_{C_2}},
+\end{align</em>}</p>
+<p>which is the function which sends $h\in\ho[\cat{C}]{C_1}{C_1^\prime}$</p>
+<p>$$h\mapsto id_{C_1} \circ h \circ id_{C_2} = h.$$</p>
+<p>Therefore, $\mathrm{h}$ is a functor.
+\end{proof}</p>
+<p>\subsubsection{The Identity functor}</p>
+<p>For every category there exists a functor from that category to itself called the identity functor we will now define.</p>
+<p><span style="display:block" class="definition"></p>
+<p>For any category $\mathscr{C}$ let $id_{\mathscr{C}}\colon \mathscr{C}\rightarrow\mathscr{C}$ be the identity functor on $\mathscr{C}$ defined:
+\begin{enumerate}
+\item For each $X\in\ob{\mathscr{C}}$,</p>
+<p>$$id_{\mathscr{C}}(X)=X.$$</p>
+<p>\item Given two \objs{$\mathscr{C}$}, $X,Y\in\ob{\mathscr{C}}$, for each $f\in\ho{X}{Y}$,</p>
+<p>\begin{align<em>}
+id_{\mathscr{C}}(f) = f.
+\end{align</em>}</p>
+<p>\end{enumerate}
+</span></p>
+<p><span style="display:block" class="lemma">
+$id_{\mathscr{C}}$ as defined above in Definition \ref{def:identityfunctor} is a functor.
+</span>
+\begin{proof}
+Given any $X,Y,Z\in\mathscr{C}$, let $f\in\ho{X}{Y}$ and $g\in\ho{Y}{Z}$ be maps. Then,</p>
+<p>\begin{align<em>}
+id_{\mathscr{C}}(f\circ g) &amp;= f\circ g\
+&amp;= id_{\mathscr{C}}(f)\circ id_{\mathscr{C}}(g).
+\end{align</em>}</p>
+<p>Hence composition is preserved.</p>
+<p>For all $X\in\ob{\mathscr{C}}$</p>
+<p>\begin{align<em>}
+id_{\mathscr{C}}(id_{X})=id_{X}.
+\end{align</em>}</p>
+<p>Hence identities are preserved.
+Therefore $id_{\mathscr{C}}$ is a functor.
+\end{proof}</p>
+<p>\subsubsection{More examples of functors}</p>
+<p>Here are some more examples of functors.</p>
+<p>The following example followed from a meeting with the supervisor.</p>
+<p><span style="display:block" class="example"></p>
+<p>Let the power set functor $P:\mathbf{Set}\rightarrow\mathbf{Set}$ be defined:
+\begin{enumerate}
+\item For each $X\in\ob{\mathbf{Set}}$,</p>
+<p>$$X\mapsto\mathcal{P}(X)$$</p>
+<p>where $\mathcal{P}(X)$ is the power set of $X$,</p>
+<p>$$\mathcal{P}(X)={A\mid A\subseteq X};$$</p>
+<p>\item Given two \objs{$\mathbf{Set}$} $X,Y\in\ob{\mathbf{Set}}$ then for each $f\in\ho{X}{Y}$,</p>
+<p>\begin{align<em>}
+P(f):P(X)&amp;\rightarrow P(Y),\
+A&amp;\mapsto f[A]
+\end{align</em>}</p>
+<p>where $f[A]$ is the image of $A$ under $f$,</p>
+<p>$$f[A]={f(a)\mid a\in A}.$$</p>
+<p>Clearly,  $P(f)$ is a function $P(X)\to P(Y)$, so it is in $\ho{P(X)}{P(Y)}$.
+\end{enumerate}
+Given any $X,Y,Z\in\mathbf{Set}$, let $f\in\ho{X}{Y}$ and $g\in\ho{Y}{Z}$ be functions. Then for all $A\in P(X)$,</p>
+<p>\begin{align<em>}
+P(g\circ f)(A) &amp;= (g\circ f)[A])\
+&amp;=g[f[A]]\
+&amp;= P(g)\circ P(f)(A).
+\end{align</em>}</p>
+<p>For each $X\in\mathbf{X}$, $id_{X}$ is the identity function with respect to function composition. For all $A\in P(X)$,</p>
+<p>\begin{align<em>}
+P(id_{X})(A) &amp;= id_{X}[A]\
+&amp;= A \
+&amp;= id_{P(X)}(A)
+\end{align</em>}</p>
+<p>Therefore P is a functor.
+</span>
+The following Example \ref{exe:matrixringfunc} uses ideas from the Wikipedia article \cite{wiki:invmatrix}.</p>
+<p><span style="display:block" class="example"></p>
+<p>Let $\GL\colon\mathbf{CRng}\rightarrow\mathbf{Grp}$ be defined:
+\begin{enumerate}
+\item For each $\mathbf{CRng}$-Object $R\in\ob{\mathbf{CRng}}$,</p>
+<p>$$\GL(R)=\left{\begin{bmatrix}
+a&amp;b\
+c&amp;d
+\end{bmatrix} | a,b,c,d\in R, ab-cd \text{ is invertable in }R\right}
+$$</p>
+<p>$\GL(R)\in\mathbf{Grp}$ since each matrix is invertable, the matrix:
+$$\begin{bmatrix}1_{R}&amp;0_{R}\0_{R}&amp;1_{R}\end{bmatrix}$$
+ acts as an identity under matrix multiplication and matrix multiplication is associative.
+\item Given $R,S\in\ob{\mathbf{CRng}}$ then for each $f\in\ho{R}{S}$,</p>
+<p>\begin{align<em>}
+\GL(f)\colon \GL(R)&amp;\rightarrow \GL(S),\
+\begin{bmatrix} 
+a &amp; b\
+c&amp;d
+\end{bmatrix}&amp;\mapsto \begin{bmatrix} 
+f(a) &amp; f(b)\
+f(c) &amp; f(d)
+\end{bmatrix}.
+\end{align</em>}</p>
+<p>\end{enumerate}
+Then for $M,N\in \GL(R)$ we have,</p>
+<p>\begin{align<em>}
+\GL(f)(M \times_{\GL(R)} N) &amp;= \GL(f)\left(\begin{bmatrix} 
+a_{M} \times_{R}a_{N}+<em>{R}b</em>{M}\times_{R}c_{N}&amp; a_{N}\times_{R}b_{M}+<em>{R}b</em>{N}\times_{R}d_{N}\
+c_{M}\times_{R}a_{N}+<em>{R}d</em>{M}\times_{R}c_{N}&amp; c_{M}\times_{R}b_{N}+<em>{R}d</em>{M}\times d_{N}
+\end{bmatrix}\right)\
+&amp;= \begin{bmatrix} 
+f(a_{M} \times_{R}a_{N}+<em>{R}b</em>{M}\times_{R}c_{N})&amp; f(a_{N}\times_{R}b_{M}+<em>{R}b</em>{N}\times_{R}d_{N})\
+f(c_{M}\times_{R}a_{N}+<em>{R}d</em>{M}\times_{R}c_{N})&amp; f(c_{M}\times_{R}b_{N}+<em>{R}d</em>{M}\times_{R} d_{N})
+\end{bmatrix}\
+&amp;= \begin{bmatrix} 
+f(a_{M}) \times_{S}f(a_{N})+<em>{S}f(b</em>{M})\times_{S}f(c_{N})&amp; f(a_{N})\times_{S}f(b_{M})+<em>{S}f(b</em>{N})\times_{S}f(d_{N})\
+f(c_{M})\times_{S}f(a_{N})+<em>{S}f(d</em>{M})\times_{S}f(c_{N})&amp; f(c_{M})\times_{S}f(b_{N})+<em>{S}f(d</em>{M})\times_{S} f(d_{N})
+\end{bmatrix}\
+&amp;= \GL(f)(M) \times_{\GL(S)} \GL(f)(N)
+\end{align</em>}</p>
+<p>and,</p>
+<p>\begin{align<em>}
+\GL(f)(1_{\GL(R)}) &amp;= \GL(f)\left( \begin{bmatrix}
+1_{R}&amp;0_{R}\
+0_{R}&amp;1_{R}
+\end{bmatrix}\right)\
+&amp;= \begin{bmatrix}
+f(1_{R})&amp;f(0_{R})\
+f(0_{R})&amp;f(1_{R})
+\end{bmatrix}\
+&amp;= \begin{bmatrix}
+1_{S}&amp;0_{S}\
+0_{S}&amp;1_{S}
+\end{bmatrix}, &amp;\text{since f is a ring homomorphism}\
+&amp;= 1_{\GL(S)}.
+\end{align</em>}</p>
+<p>Therefore $\GL(f)$ is defined as a group homomorphism.\
+We now show $\GL$ is a functor by proving the axioms hold. Given any $R,S,T\in\ob{\mathbf{CRng}}$, let $f\in\ho{R}{S}$ and $g\in\ho{S}{T}$ be ring homomorphisms. Then for all 
+$$M=\begin{bmatrix} 
+a &amp; b\
+c&amp;d
+\end{bmatrix}\in \GL(R)$$</p>
+<p>we have,</p>
+<p>\begin{align<em>}
+\GL(g\circ f)(M)&amp;=\begin{bmatrix} 
+(g\circ f)(a) &amp; (g\circ f)(b)\
+(g\circ f)(c)&amp;(g\circ f)(d)
+\end{bmatrix}\
+&amp;= \begin{bmatrix} 
+g(f(a))&amp; g(f(b))\
+g(f(c))&amp;g(f(d))
+\end{bmatrix}\
+&amp;= \GL(g)\left (\begin{bmatrix} 
+f(a) &amp; f(b)\
+f(c)&amp;f(d)
+\end{bmatrix}\right)\
+&amp;= (\GL(g)\circ \GL(f))(M)
+\end{align</em>}</p>
+<p>and,</p>
+<p>\begin{align<em>}
+\GL(id_{R})(M) &amp;= \begin{bmatrix} 
+id_{R}(a) &amp; id_{R}(b)\
+id_{R}(c)&amp;id_{R}(d)
+\end{bmatrix}\
+&amp;= \begin{bmatrix} 
+a &amp; b\
+c&amp;d
+\end{bmatrix}\
+&amp;=M\
+&amp;= id_{\GL(R)}(M).
+\end{align</em>}</p>
+<p>Therefore $\GL$ is a functor.
+</span></p>
+<p><span style="display:block" class="remark">
+Example \ref{exe:matrixringfunc} can be extended to $\mathrm{GL}_{n}$ with $n\times n$ matrices.
+</span></p>
+<p><span style="display:block" class="lemma"></p>
+<p>Let $R$ be a ring with 1. Let $R^<em>$ be the set of all $r\in R$ such that, 
+$$rr^\prime=r^\prime r=1_{R}$$
+ for some $r^\prime \in R$. Then $(R^</em>,\times_{R})$ forms a group called the <em>group of units of $R$</em>.
+</span>
+\begin{proof}
+We have an identity $1_{R}$ since for each $r\in R^*$,</p>
+<p>\begin{align<em>}
+r1_{R} = r = 1_{R}r
+\end{align</em>}</p>
+<p>since R is a ring. </p>
+<p>Given $r\in R^<em>$ there exists $r^\prime\in R^</em>$ such that,</p>
+<p>\begin{align<em>}
+rr^\prime = r^\prime r = 1_{R}.
+\end{align</em>}</p>
+<p>Hence each $r$ has inverse $r^\prime$.</p>
+<p>We know $\times_{S}$ is associative since $R$ is a ring. </p>
+<p>Finally given $r,s\in R^*$,</p>
+<p>\begin{align<em>}
+rss^\prime r^\prime &amp;= r1_{R}r^\prime\
+&amp;= rr^\prime\
+&amp;= 1_{R}\
+&amp;=s^{\prime}s\
+&amp;= s^{\prime}1_{R}s\
+&amp;= s^\prime r^{\prime}rs.
+\end{align</em>}</p>
+<p>Hence $rs\in R^<em>$ and therefore $R^</em>$ is a group.
+\end{proof}</p>
+<p><span style="display:block" class="example"></p>
+<p>Let $\func{\Units}{\mathbf{Crng}}{\mathbf{Grp}}$ be defined:
+\begin{enumerate}
+\item For each $R\in\mathbf{Crng}$,</p>
+<p>$$\Units(R)=R^*$$</p>
+<p>as in Lemma \ref{lem:groupofunits};
+\item Given $R,S\in\ob{\mathbf{Crng}}$, for each $f\in\ho{R}{S}$,</p>
+<p>\begin{align<em>}
+\Units(f)\colon R^</em>&amp;\to S^<em>,\
+r&amp;\mapsto f(r)
+\end{align</em>}</p>
+<p>and $f(r)\in S^*$ since,</p>
+<p>\begin{align<em>}
+1_{S} &amp;= f(1_{R})\
+&amp;= f(rr^\prime) \
+&amp;= f(r)f(r^\prime), &amp; \text{since $f$ is a ring homomorphism.}
+\end{align</em>}</p>
+<p>We also have $\Units(f)$ is a group homomorphism since $f$ is a ring homomorphism.
+\end{enumerate}
+We will now show that $\Units$ is indeed a functor. </p>
+<p>Given any $R,S,T\in\ob{\mathbf{Crng}}$, let $f\in\ho{R}{S}$ and $g\in\ho{S}{T}$. Then for all $r\in R$,</p>
+<p>\begin{align<em>}
+\Units(g\circ f)(r) &amp;= g\circ f(r)\
+&amp;= \Units(g)\circ \Units(f)(r).
+\end{align</em>}</p>
+<p>Hence composition is preserved.
+We also have,</p>
+<p>\begin{align<em>}
+\Units(id_{R})(r)&amp;= id_{R}(r)\
+&amp;= r\
+&amp;= id_{R^</em>}(r).
+\end{align*}</p>
+<p>Hence identities are preserved.
+Therefore $\Units$ is a functor.
+</span>
+The following example followed from a lecture on Topology given by Dr Daniel Graves at the University of Leeds.</p>
+<p><span style="display:block" class="example">
+Let $\mathbf{Top}^*$ be the category of based topological spaces as defined in Example \ref{exe:catbasedtop} and $\mathbf{Grp}$ be the category of groups as defined in Example \ref{exe:catoggroups}. </p>
+<p>The fundamental group functor $\func{\pi_{1}}{\mathbf{Top}^{<em>}}{\mathbf{Grp}}$ be defined:
+\begin{enumerate}
+\item For each $((X,\tau_X),x_{0})\in\ob{\mathbf{Top}^</em>}$,</p>
+<p>$$((X,\tau_X),x_{0})\mapsto\pi_1(((X,\tau_X),x_{0}))$$</p>
+<p>where $\pi_1(((X,\tau_X),x_{0}))$ is the fundamental group of $X$ based at $x_{0}$. The group operation $*$ is defined by join of paths;</p>
+<p>\item For a given continuous map $f\in\ho[\mathbf{Top}^*]{((X,\tau_X),x_{0})}{((Y,\tau_Y),y_{0})}$ we define the induced group homomorphism:</p>
+<p>$$f\mapsto f^*\colon\pi_1(((X,\tau_X),x_{0}))\to\pi_1(((Y,\tau_Y),y_{0}))$$</p>
+<p>where for each $[\gamma]\in \pi_1(((X,\tau_X),x_{0}))$,</p>
+<p>$$ [\gamma] \mapsto [f\circ \gamma].$$</p>
+<p>Here $[\gamma]$ is the equivalence class of a loop $\gamma$ based at $x_{0}$.</p>
+<p>$f^*$ is well defined since for any two loops $\gamma_1$ and $\gamma_2$ based at $x_0$ where $[\gamma_1] = [\gamma_2]$ we have a path homotopy, </p>
+<p>$$H\colon [0,1] \times [0,1] \to X$$</p>
+<p>and therefore,</p>
+<p>$$f\circ H \colon [0,1]\times [0,1]\to Y,$$</p>
+<p>is a path homotopy between $f\circ \gamma_1$ and $f\circ\gamma_2$ hence $f^*$ is well defined.</p>
+<p>The group identity for $\pi_1(((X,\tau_X),x_{0}))$ is the equivalence class $[\gamma_{x_{0}}]$ where $\gamma_{x_{0}}$ is the constant path at $x_{0}$ so,</p>
+<p>$$[f\circ\gamma_{x_{0}}] = [\gamma_{f(x)}] = [\gamma_{y_{0}}]$$</p>
+<p>where $\gamma_{y_{0}}$ is the constant path at $f(x_{0})$. Therefore $f^*$ preserves group identities. </p>
+<p>We also have for any two $[\gamma_1],[\gamma_2]\in\pi_1(((X,\tau_X),x_{0}))$ </p>
+<p>\begin{align<em>}
+f^</em>([\gamma_1]<em>[\gamma_2])&amp;=f^</em>([\gamma_1<em>\gamma_2])\
+&amp;=[f\circ\gamma_1</em>\gamma_2] \
+&amp;= [f\circ\gamma_1<em>f\circ\gamma_2] \
+&amp;= [f\circ\gamma_1]</em>[f\circ\gamma_2]\
+&amp;= f^<em>([\gamma_1])</em>f^<em>([\gamma_2]).
+\end{align</em>}</p>
+<p>Therefore $f^<em>$ is a group homomorphism.
+\end{enumerate}
+To check $\pi_1$ is a functor we check it preserves identities $id_{X}\in\ho[\mathbf{Top}^</em>]{X}{X}$, given a path equivalence class $[\gamma]\in\pi_1(((X,\tau_X),x_{0}))$.</p>
+<p>\begin{align<em>} 
+\pi_{1}(id_{X})([\gamma]) &amp;= [id_{X}\circ\gamma] \
+&amp;= [\gamma] \
+&amp;= id_{\pi_1(((X,\tau_X),x_{0}))}([\gamma]).
+\end{align</em>}</p>
+<p>Also given $f\in\ho[\mathbf{Top}^<em>]{((X,\tau_X),x_{0})}{((Y,\tau_Y),y_{0})}$ and $g\in\ho[\mathbf{Top}^</em>]{((Y,\tau_Y),y_{0})}{((Z,\tau_Z),z_{0})}$ we have,</p>
+<p>\begin{align<em>}
+(g\circ f)^</em>([\gamma]) &amp;= [g\circ f\circ\gamma]\
+&amp;= g^<em>([f\circ\gamma])\
+&amp;= g^</em>(f^<em>([\gamma]))\
+&amp;= g^</em>\circ f^<em>([\gamma]).
+\end{align</em>}</p>
+<p>Therefore $\pi_{1}$ is a functor.
+</span>
+The following example can be found in Leinster \cite{Leinster}.</p>
+<p><span style="display:block" class="example"></p>
+<p>Recall for each monoid $\cat{M}$ we have a one object category defined in subsection \ref{sss:monascat}, also recall the category $\mathbf{Set}$ in Example \ref{exe:catofsets}. </p>
+<p>Given a set $X$, we define a functor</p>
+<p>$$\func{L_{X}}{\cat{M}}{\mathbf{Set}}$$</p>
+<p>where for the unique object $M\in\cat{M}$,</p>
+<p>$$M\mapsto X,$$</p>
+<p>and for each morphism $g\in\ho[\cat{M}]{M}{M}$,</p>
+<p>$$g\mapsto L_{X}(g)$$</p>
+<p>where,</p>
+<p>\begin{align<em>}
+L_{X}(g) \colon X &amp;\to X,\
+x &amp;\mapsto gx.
+\end{align</em>}</p>
+<p>The function $L_{X}(g)$ is the left action of $g$ on $X$.</p>
+<p>We see for each $x\in X$,</p>
+<p>\begin{align<em>}
+L_{X}(id_{M})(x) &amp;= id_{M}x \
+&amp;= x \
+&amp;= id_{L_{X}(M)}
+\end{align</em>}</p>
+<p>and for $g,g^\prime\in\ho[\cat{M}]{M}{M}$ and each $x\in X$,</p>
+<p>\begin{align<em>}
+L_{X}(g^\prime\circ g)(x) &amp;= g^\prime\circ g x \
+&amp;= g^\prime gx \
+&amp;= L_{X}(g^\prime)\circ L_{X}(g)(x).
+\end{align</em>}</p>
+<p>Therefore $L_{X}$ is a functor. For each set $X\in\ob{\mathbf{Set}}$ the functor $L_{X}$ represents the left action of $\cat{M}$ on that set.
+</span></p>
+<p>\subsection{Functor composition}</p>
+<p>Ideas from this section are adapted from Leinster \cite{Leinster} and Adámek - Herrlick - Strecker \cite{ACC}.</p>
+<p><span style="display:block" class="definition"></p>
+<p>Let $\mathscr{C}$, $\mathscr{D}$ and $\mathscr{E}$ be categories and $F_{1}\colon\mathscr{C}\rightarrow\mathscr{D}$, $F_{2}\colon\mathscr{D}\rightarrow\mathscr{E}$ functors. Then we define $F_{1}\circ F_{2}\colon\mathscr{C}\rightarrow\mathscr{E}$:
+\begin{enumerate}
+\item 
+\begin{align<em>}
+(F_{1}\circ F_{2})^{ob}\colon\ob{\mathscr{C}}&amp;\rightarrow\ob{\mathscr{E}},\
+A&amp;\mapsto F_{2}(F_{1}(A));
+\end{align</em>}</p>
+<p>\item 
+\begin{align<em>}
+(F_{1}\circ F_{2})^{hom}\colon\ho[\mathscr{C}]{A}{A^{\prime}}&amp;\rightarrow\ho[\mathscr{E}]{(F_{1}\circ F_{2})^{ob}(A)}{(F_{1}\circ F_{2})^{ob}(A^{\prime}},\
+f&amp;\mapsto F_{2}(F_{1}(f)).
+\end{align</em>}</p>
+<p>\end{enumerate}
+</span></p>
+<p><span style="display:block" class="remark">
+Again we will drop notation as in Remark \ref{rmk:functnotation} for simplicity.
+</span></p>
+<p><span style="display:block" class="lemma">
+$F_{1}\circ F_{2}\colon\mathscr{C}\rightarrow\mathscr{E}$ as defined above is a functor.
+</span>
+\begin{proof}
+Let $f\in\ho[\cat{C}]{A}{A^{\prime}}$ and $g\in\ho[\cat{C}]{A^{\prime}}{A^{\prime\prime}}$ then,</p>
+<p>\begin{align<em>}
+F_{1}\circ F_{2}(f\circ^{\mathscr{C}} g) &amp;= F_{2}(F_{1}(f\circ^{\mathscr{C}}g))\
+&amp;= F_{2}(F_{1}(f)\circ^{\mathscr{D}}F_{1}(g)), &amp;\text{since $F_{1}$ is a functor}\
+&amp;= F_{2}(F_{1}(f))\circ^{\mathscr{E}}F_{2}(F_{1}(g)), &amp;\text{since $F_{2}$ is a functor}\
+&amp;= F_{1}\circ F_{2}(f) \circ^{\mathscr{E}}F_{1}\circ F_{2}(g).
+\end{align</em>}</p>
+<p>Given $A\in\ob{\mathscr{C}}$</p>
+<p>\begin{align<em>}
+F_{1}\circ F_{2}(id_{A}) &amp;= F_{2}(F_{1}(id_{A}))\
+&amp;= F_{2}(id_{F_{1}(A)})\
+&amp;= id_{F_{2}(F_{1}(A))}\
+&amp;= id_{F_{1}\circ F_{2}(id_{A})}.
+\end{align</em>}</p>
+<p>Therefore $F_{1}\circ F_{2}$ is a functor.
+\end{proof}</p>
+<p><span style="display:block" class="remark">
+For functors $F, G$ we will write $FG=F\circ G$ and If $F$ is an endofunctor, then we can write $F^{2}=F\circ F$.
+</span></p>
+<p>\pagebreak</p>
+<script src="../../mathjax_helper.js"></script>
+
+
+
+
+
+
+
+
+
+
+
+
+                
+              </article>
+            </div>
+          
+          
+<script>var target=document.getElementById(location.hash.slice(1));target&&target.name&&(target.checked=target.name.startsWith("__tabbed_"))</script>
+        </div>
+        
+      </main>
+      
+        <footer class="md-footer">
+  
+  <div class="md-footer-meta md-typeset">
+    <div class="md-footer-meta__inner md-grid">
+      <div class="md-copyright">
+  
+  
+    Made with
+    <a href="https://squidfunk.github.io/mkdocs-material/" target="_blank" rel="noopener">
+      Material for MkDocs
+    </a>
+  
+</div>
+      
+    </div>
+  </div>
+</footer>
+      
+    </div>
+    <div class="md-dialog" data-md-component="dialog">
+      <div class="md-dialog__inner md-typeset"></div>
+    </div>
+    
+    
+    
+      
+      
+      <script id="__config" type="application/json">{"annotate": null, "base": "../..", "features": ["navigation.instant", "navigation.tabs", "navigation.sections"], "search": "../../assets/javascripts/workers/search.7a47a382.min.js", "tags": null, "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}, "version": null}</script>
+    
+    
+      <script src="../../assets/javascripts/bundle.e71a0d61.min.js"></script>
+      
+    
+  </body>
+</html>

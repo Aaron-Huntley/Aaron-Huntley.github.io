@@ -1,0 +1,1262 @@
+
+<!doctype html>
+<html lang="en" class="no-js">
+  <head>
+    
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      
+      
+      
+        <link rel="canonical" href="https://aaron-huntley.github.io/mathematics/category_theory/Monads/">
+      
+      
+        <link rel="prev" href="../Initial%20and%20terminal%20objects/">
+      
+      
+      
+        
+      
+      
+      <link rel="icon" href="../../images/favicon.png">
+      <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-9.7.0">
+    
+    
+      
+        <title>Monads - Aaron Huntley</title>
+      
+    
+    
+      <link rel="stylesheet" href="../../assets/stylesheets/main.618322db.min.css">
+      
+        
+        <link rel="stylesheet" href="../../assets/stylesheets/palette.ab4e12ef.min.css">
+      
+      
+
+
+    
+    
+      
+    
+    
+      
+        
+        
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,300i,400,400i,700,700i%7CRoboto+Mono:400,400i,700,700i&display=fallback">
+        <style>:root{--md-text-font:"Roboto";--md-code-font:"Roboto Mono"}</style>
+      
+    
+    
+    <script>__md_scope=new URL("../..",location),__md_hash=e=>[...e].reduce(((e,_)=>(e<<5)-e+_.charCodeAt(0)),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
+    
+      
+
+    
+    
+  </head>
+  
+  
+    
+    
+      
+    
+    
+    
+    
+    <body dir="ltr" data-md-color-scheme="slate" data-md-color-primary="deep-orange" data-md-color-accent="amber">
+  
+    
+    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
+    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
+    <label class="md-overlay" for="__drawer"></label>
+    <div data-md-component="skip">
+      
+        
+        <a href="#17-monads" class="md-skip">
+          Skip to content
+        </a>
+      
+    </div>
+    <div data-md-component="announce">
+      
+    </div>
+    
+    
+      
+
+<header class="md-header" data-md-component="header">
+  <nav class="md-header__inner md-grid" aria-label="Header">
+    <a href="../.." title="Aaron Huntley" class="md-header__button md-logo" aria-label="Aaron Huntley" data-md-component="logo">
+      
+  <img src="../../images/logo.png" alt="logo">
+
+    </a>
+    <label class="md-header__button md-icon" for="__drawer">
+      
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3 6h18v2H3zm0 5h18v2H3zm0 5h18v2H3z"/></svg>
+    </label>
+    <div class="md-header__title" data-md-component="header-title">
+      <div class="md-header__ellipsis">
+        <div class="md-header__topic">
+          <span class="md-ellipsis">
+            Aaron Huntley
+          </span>
+        </div>
+        <div class="md-header__topic" data-md-component="header-topic">
+          <span class="md-ellipsis">
+            
+              Monads
+            
+          </span>
+        </div>
+      </div>
+    </div>
+    
+      
+        <form class="md-header__option" data-md-component="palette">
+  
+    
+    
+    
+    <input class="md-option" data-md-color-media="" data-md-color-scheme="slate" data-md-color-primary="deep-orange" data-md-color-accent="amber"  aria-label="Dark mode"  type="radio" name="__palette" id="__palette_0">
+    
+      <label class="md-header__button md-icon" title="Dark mode" for="__palette_1" hidden>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 7a5 5 0 0 1 5 5 5 5 0 0 1-5 5 5 5 0 0 1-5-5 5 5 0 0 1 5-5m0 2a3 3 0 0 0-3 3 3 3 0 0 0 3 3 3 3 0 0 0 3-3 3 3 0 0 0-3-3m0-7 2.39 3.42C13.65 5.15 12.84 5 12 5s-1.65.15-2.39.42zM3.34 7l4.16-.35A7.2 7.2 0 0 0 5.94 8.5c-.44.74-.69 1.5-.83 2.29zm.02 10 1.76-3.77a7.131 7.131 0 0 0 2.38 4.14zM20.65 7l-1.77 3.79a7.02 7.02 0 0 0-2.38-4.15zm-.01 10-4.14.36c.59-.51 1.12-1.14 1.54-1.86.42-.73.69-1.5.83-2.29zM12 22l-2.41-3.44c.74.27 1.55.44 2.41.44.82 0 1.63-.17 2.37-.44z"/></svg>
+      </label>
+    
+  
+    
+    
+    
+    <input class="md-option" data-md-color-media="" data-md-color-scheme="default" data-md-color-primary="cyan" data-md-color-accent="light-green"  aria-label="Light mode"  type="radio" name="__palette" id="__palette_1">
+    
+      <label class="md-header__button md-icon" title="Light mode" for="__palette_0" hidden>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="m17.75 4.09-2.53 1.94.91 3.06-2.63-1.81-2.63 1.81.91-3.06-2.53-1.94L12.44 4l1.06-3 1.06 3zm3.5 6.91-1.64 1.25.59 1.98-1.7-1.17-1.7 1.17.59-1.98L15.75 11l2.06-.05L18.5 9l.69 1.95zm-2.28 4.95c.83-.08 1.72 1.1 1.19 1.85-.32.45-.66.87-1.08 1.27C15.17 23 8.84 23 4.94 19.07c-3.91-3.9-3.91-10.24 0-14.14.4-.4.82-.76 1.27-1.08.75-.53 1.93.36 1.85 1.19-.27 2.86.69 5.83 2.89 8.02a9.96 9.96 0 0 0 8.02 2.89m-1.64 2.02a12.08 12.08 0 0 1-7.8-3.47c-2.17-2.19-3.33-5-3.49-7.82-2.81 3.14-2.7 7.96.31 10.98 3.02 3.01 7.84 3.12 10.98.31"/></svg>
+      </label>
+    
+  
+</form>
+      
+    
+    
+      <script>var palette=__md_get("__palette");if(palette&&palette.color){if("(prefers-color-scheme)"===palette.color.media){var media=matchMedia("(prefers-color-scheme: light)"),input=document.querySelector(media.matches?"[data-md-color-media='(prefers-color-scheme: light)']":"[data-md-color-media='(prefers-color-scheme: dark)']");palette.color.media=input.getAttribute("data-md-color-media"),palette.color.scheme=input.getAttribute("data-md-color-scheme"),palette.color.primary=input.getAttribute("data-md-color-primary"),palette.color.accent=input.getAttribute("data-md-color-accent")}for(var[key,value]of Object.entries(palette.color))document.body.setAttribute("data-md-color-"+key,value)}</script>
+    
+    
+    
+      
+      
+        <label class="md-header__button md-icon" for="__search">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        </label>
+        <div class="md-search" data-md-component="search" role="dialog">
+  <label class="md-search__overlay" for="__search"></label>
+  <div class="md-search__inner" role="search">
+    <form class="md-search__form" name="search">
+      <input type="text" class="md-search__input" name="query" aria-label="Search" placeholder="Search" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck="false" data-md-component="search-query" required>
+      <label class="md-search__icon md-icon" for="__search">
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11z"/></svg>
+      </label>
+      <nav class="md-search__options" aria-label="Search">
+        
+        <button type="reset" class="md-search__icon md-icon" title="Clear" aria-label="Clear" tabindex="-1">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19 6.41 17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"/></svg>
+        </button>
+      </nav>
+      
+    </form>
+    <div class="md-search__output">
+      <div class="md-search__scrollwrap" tabindex="0" data-md-scrollfix>
+        <div class="md-search-result" data-md-component="search-result">
+          <div class="md-search-result__meta">
+            Initializing search
+          </div>
+          <ol class="md-search-result__list" role="presentation"></ol>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+      
+    
+    
+  </nav>
+  
+</header>
+    
+    <div class="md-container" data-md-component="container">
+      
+      
+        
+          
+            
+<nav class="md-tabs" aria-label="Tabs" data-md-component="tabs">
+  <div class="md-grid">
+    <ul class="md-tabs__list">
+      
+        
+  
+  
+  
+  
+    <li class="md-tabs__item">
+      <a href="../.." class="md-tabs__link">
+        
+  
+  
+    
+  
+  Home
+
+      </a>
+    </li>
+  
+
+      
+        
+  
+  
+  
+  
+    
+    
+      <li class="md-tabs__item">
+        <a href="../../cv/education/" class="md-tabs__link">
+          
+  
+  
+  About me
+
+        </a>
+      </li>
+    
+  
+
+      
+        
+  
+  
+  
+    
+  
+  
+    
+    
+      <li class="md-tabs__item md-tabs__item--active">
+        <a href="../Introduction/" class="md-tabs__link">
+          
+  
+  
+  Category Theory
+
+        </a>
+      </li>
+    
+  
+
+      
+    </ul>
+  </div>
+</nav>
+          
+        
+      
+      <main class="md-main" data-md-component="main">
+        <div class="md-main__inner md-grid">
+          
+            
+              
+              <div class="md-sidebar md-sidebar--primary" data-md-component="sidebar" data-md-type="navigation" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+
+  
+
+
+<nav class="md-nav md-nav--primary md-nav--lifted" aria-label="Navigation" data-md-level="0">
+  <label class="md-nav__title" for="__drawer">
+    <a href="../.." title="Aaron Huntley" class="md-nav__button md-logo" aria-label="Aaron Huntley" data-md-component="logo">
+      
+  <img src="../../images/logo.png" alt="logo">
+
+    </a>
+    Aaron Huntley
+  </label>
+  
+  <ul class="md-nav__list" data-md-scrollfix>
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../.." class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Home
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+      
+      
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2" >
+        
+          
+          <label class="md-nav__link" for="__nav_2" id="__nav_2_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    About me
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_2_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_2">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    About me
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../cv/education/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    CV
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+    
+  
+  
+  
+    
+    
+    
+    
+      
+        
+        
+      
+      
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--active md-nav__item--section md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_3" checked>
+        
+          
+          <label class="md-nav__link" for="__nav_3" id="__nav_3_label" tabindex="">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Category Theory
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_3_label" aria-expanded="true">
+          <label class="md-nav__title" for="__nav_3">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Category Theory
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../Introduction/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Introduction
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../Categories/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Categories
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../Functors/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Functors
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../Natural%20transformations/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Natural Transformations
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../Universal%20morphisms%20and%20adjoint%20functors/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Universal morphisms and adjoint functors
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../Initial%20and%20terminal%20objects/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Initial and terminal objects
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+    
+  
+  
+  
+    <li class="md-nav__item md-nav__item--active">
+      
+      <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
+      
+      
+        
+      
+      
+      <a href="./" class="md-nav__link md-nav__link--active">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Monads
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+      
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+  </ul>
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+            
+              
+              <div class="md-sidebar md-sidebar--secondary" data-md-component="sidebar" data-md-type="toc" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+          
+          
+            <div class="md-content" data-md-component="content">
+              
+              <article class="md-content__inner md-typeset">
+                
+                  
+
+
+
+<style>
+.md-content {
+    max-width: 80em;
+}
+</style>
+<h1 id="17-monads">1.7. Monads</h1>
+<p>Monads on a category $\cat{C}$ are endofunctors of $\cat{C}$ with some extra structure. We can look at monads to study adjunctions since for adjoint functors $F$ and $G$ we will show $FG$ is a monad. Conversely, we will find that given a monad there are suitable adjoint functors which define the monad, these however are not unique.</p>
+<p><span style="display:block" class="definition"></p>
+<p>Let $\cat{C}$ be a category. A <em>monad on $\cat{C</em>$} is a triple $(T,\eta,\mu)$ where $\func{T}{\cat{C}}{\cat{C}}$ is endofunctor, $\nattran{\eta}{id_{\cat{C}}}{T}$ and $\nattran{\mu}{T^2}{T}$ are natural transformations for which the following conditions hold:</p>
+<p>\begin{align<em>}
+\mu\circ T\mu &amp;= \mu \circ \mu T;\
+\mu\circ T\eta &amp;= \mu \circ \eta T = id_{T}
+\end{align</em>}</p>
+<p>where $id_{T}$ is the identity natural transformation on $T$ as defined in Definition \ref{def:identnattran}. $\circ$ is vertical composition of natural transformations as in Definition \ref{def:vertcomp}. These conditions are equivalent to saying the diagrams,</p>
+<p><img src="../../../png/Python/chapter_1/tikz_code_7_0.png" width="99%" style="display: block; margin-left: auto; margin-right: auto;"/>
+commute.
+That is, for each object, $X\in\ob{\cat{C}}$, the diagram,
+\begin{equation}</p>
+<p><img src="../../../png/Python/chapter_1/tikz_code_7_2.png" width="99%" style="display: block; margin-left: auto; margin-right: auto;"/>
+\
+\end{equation}
+and,
+\begin{equation}</p>
+<p><img src="../../../png/Python/chapter_1/tikz_code_7_3.png" width="99%" style="display: block; margin-left: auto; margin-right: auto;"/>
+\
+\end{equation}
+commutes.
+</span>
+The following example is stated in Adámek - Herrlick - Strecker \cite{ACC} \cite{ACC} (Page 318, Examples 20.2 (3)), here we add the proof.</p>
+<p><span style="display:block" class="example"></p>
+<p>Let $\func{P}{\mathbf{Set}}{\mathbf{Set}}$ be the power set functor defined in Example \ref{exe:functorpowerset}. Let $\nattran{\eta}{id_{\mathbf{Set}}}{P}$ be defined as in Example \ref{exe:naturalidentpowerset} and $\nattran{\mu}{P^2}{P}$ be the natural transformation as defined in Example \ref{exe:naturalmultipowerset}. Then $\mathbf{P} = (P,\eta,\mu)$ is a monad.
+</span>
+\begin{proof}
+We need to show that the diagrams </p>
+<p><img src="../../../png/Python/chapter_1/tikz_code_7_1.png" width="99%" style="display: block; margin-left: auto; margin-right: auto;"/>
+commute. 
+For each $X\in\ob{\mathbf{Set}}$ and each element $A\in P^3(X)$ we have,</p>
+<p>\begin{align<em>}
+(\mu \circ P\mu)<em>{X}(A) &amp;= \mu</em>{X} \circ P(\mu_{X})(A) \
+&amp;=  \mu_{X}(\mu_{X}[A])\
+&amp;= \mu_{X}({\mu_{X}(a)|a\in A}) \
+&amp;= \bigcup_{a\in A}\mu_{X}(a)\
+&amp;= \bigcup_{a\in A}\bigcup_{a^\prime\in a}a^\prime \
+&amp;= \bigcup_{a^\prime\in\bigcup_{a\in A}a}a^\prime\
+&amp;= \mu_{X}(\bigcup_{a\in A}a)\
+&amp;= \mu_{X}(\mu_{P(X)}(A))\
+&amp;= (\mu \circ \mu P)_{X}(A).
+\end{align</em>}</p>
+<p>Also for each $B\in P(X)$,</p>
+<p>\begin{align<em>}
+(\mu \circ P\eta)<em>{X}(B) &amp;= \mu</em>{X} \circ P(\eta_{X}(B)) \
+&amp;= \mu_{X}(\eta_{X}[B])\
+&amp;= \mu_{X}({\eta_{X}(b)|b\in B})\
+&amp;= \bigcup_{b\in B}\eta_{X}(b)\
+&amp;= \bigcup_{b\in B}{B}\
+&amp;= B\
+&amp;= id_{P(X)}(B)\
+&amp;= \bigcup_{b^\prime\in{B}}\
+&amp;= \mu_{X}({B})\
+&amp;= \mu_{X}(\eta_{P(X)}(B))\
+&amp;= (\mu \circ \eta P)_{X}(B).
+\end{align</em>}</p>
+<p>Therefore $\mathbf{P}$ is a monad.
+\end{proof}
+The following example was briefly stated in the Wikipedia articles on monads \cite{wiki:monad}, here we will go into more detail.</p>
+<p><span style="display:block" class="example"></p>
+<p>Let $\cat{C}$ be a category, the identity functor $\func{id_{\cat{C}}}{\cat{C}}{\cat{C}}$ as defined in Definition \ref{def:identityfunctor} forms a monad with $\nattran{\eta}{id_{\cat{C}}}{id_{\cat{C}}}$ defined for each $X\in\ob{\cat{C}}$,</p>
+<p>$$\eta_{X} = id_{X}\in\ho[\cat{C}]{X}{X}$$</p>
+<p>and, $\nattran{\mu}{id_{\cat{C}}}{id_{\cat{C}}}$ defined for each $X\in\ob{\cat{C}}$,</p>
+<p>$$\mu_{X} = id_{X}\in\ho[\cat{C}]{X}{X}.$$</p>
+<p></span> 
+\begin{proof}
+We have for each $X\in\ob{\cat{C}}$,</p>
+<p>\begin{align<em>}
+(\mu \cdot F\mu)<em>X &amp;= \mu_X \circ F(\mu</em>{X}) \
+&amp;= id_X \
+&amp;= \mu_X \circ \mu_{F(X)} \
+&amp;= (\mu \cdot \mu F)_X
+\end{align</em>}</p>
+<p>and,</p>
+<p>\begin{align<em>}
+(\mu \cdot F\eta)<em>X &amp;= \mu_X \circ F(\eta</em>{X}) \
+&amp;= id_X\
+&amp;= \mu_{X} \circ \eta_{F(X)} \ 
+&amp;= (\mu \cdot \eta F)_X.
+\end{align</em>}</p>
+<p>Therefore we have a monad.
+\end{proof}
+The following example \ref{exe:monadmonoid1} follows the example given in The Catsters video series on monads \cite{catsters:mon}.</p>
+<p><span style="display:block" class="example"></p>
+<p>Let $\mathbf{Set}$ be the category of sets, defined in Example \ref{exe:catofsets}. Let $\mathrm{F}\colon\mathbf{Set}\to\mathbf{Mon}$ be the free monoid functor defined in Definition \ref{def:freefunctmon} and $\mathrm{U}\colon\mathbf{Mon}\to\mathbf{Set}$ be the forgetful monoid functor as defined in Definition \ref{def:forgetfulfunctormon}. We define the triple $\mathbf{M} = (T,\eta,\mu)$ where $\func{T=UF}{\mathbf{Set}}{\mathbf{Set}}$ for each set $X\in\ob{\mathbf{Set}}$,</p>
+<p>\begin{align<em>}
+\eta_{X}\colon X &amp;\to \gamma(X),\
+x&amp;\mapsto (x).
+\end{align</em>}</p>
+<p>Where $\gamma(X)$ is the set of words of $X$, and</p>
+<p>$$\mu_{X}\colon \gamma(\gamma(X)) \to \gamma(X)$$
+ be such that,</p>
+<p>\begin{align<em>}
+\big ((x_1,x_2,\dots, x_n),(y_1,y_2,\dots,y_m),\dots\dots,(z_1,z_2,\dots,z_r)\big) \ \mapsto \big(x_1,x_2,\dots,x_n,y_1,y_2,\dots,y_m,\dots\dots,z_1,z_2,\dots,z_r\big).
+\end{align</em>}</p>
+<p>(Note that $\gamma(\gamma(X))$ is the set of words of words of $X$).
+We claim that $\mathbf{M}$ is a monad. </p>
+<p>$T$ is a functor since it is a composition of two functors. 
+We first show $\eta$ and $\mu$ are natural transformations.</p>
+<p>First we prove the naturality of $\eta$: Let $f\in\ho[\mathbf{Set}]{X}{X^\prime}$
+then we have,</p>
+<p>\begin{align<em>}
+(\eta_{X^\prime} \circ f)(x) &amp;= (f(x)) \
+&amp;= T(f)((x)) \
+&amp;= (T(f)\circ \eta_{X})(x).
+\end{align</em>}</p>
+<p>Therefore the naturality condition holds and $\eta$ is a natural transformation.</p>
+<p>Now let us prove the naturality of $\mu$:
+Let $f\in\ho[\mathbf{Set}]{X}{X^\prime}$ then we have,</p>
+<p>\begin{align<em>}
+&amp;(\mu_{X^\prime} \circ T(T(f)))(\big((x_1,x_2,\dots, x_n)(y_1,y_2,\dots,y_m),\dots\dots,(z_1,z_2,\dots,z_r)\big)) \
+&amp;= \mu_{X^\prime} (\big((f(x_1),f(x_2),\dots, f(x_n))(f(y_1),f(y_2),\dots,f(y_m)),\dots\dots,(f(z_1),f(z_2),\dots,f(z_r))\big)) \
+&amp;= \big(f(x_1),f(x_2),\dots, f(x_n),f(y_1),f(y_2),\dots,f(y_m),\dots\dots,f(z_1),f(z_2),\dots,f(z_r)\big) \
+&amp;= T(f)(\big(x_1,x_2,\dots,x_n,y_1,y_2,\dots,y_m,\dots\dots,z_1,z_2,\dots,z_r\big))\
+&amp;= (T(f)\circ\mu_{X})(\big((x_1,x_2,\dots, x_n),(y_1,y_2,\dots,y_m),\dots\dots,(z_1,z_2,\dots,z_r)\big)).
+\end{align</em>}</p>
+<p>Therefore the naturality condition holds and $\mu$ is a natural transformation.</p>
+<p>We now prove that the diagram \eqref{dia:monassoc} commutes.
+Let </p>
+<p>$$\begin{pmatrix}
+((a,\dots, a_n),(b,\dots ,b_m),\dots,(c,\dots, c_r)), \
+((a^\prime,\dots, a^\prime_{n^\prime}),(b^\prime,\dots, b^\prime_{m^\prime}),\dots,(c^\prime,\dots, c^\prime_{r^\prime})), \
+\dots, \
+((a^{\prime\prime},\dots, a^{\prime\prime}<em>{n^{\prime\prime}}),(b^{\prime\prime},\dots ,b^{\prime\prime}</em>{m^{\prime\prime}}),\dots,(c^{\prime\prime},\dots, c^{\prime\prime}_{r^{\prime\prime}}))
+\end{pmatrix}\in \gamma(\gamma(\gamma(X)))$$</p>
+<p>be a general word of a word of a word of $X$. Here we have extended the notation in to multi line, where each row is a word of a word of $X$.</p>
+<p>We have,</p>
+<p>\begin{align<em>}
+&amp;(\mu \circ T\mu)<em>X(\begin{pmatrix}
+((a,\dots, a_n),(b,\dots ,b_m),\dots,(c,\dots, c_r)), \
+((a^\prime,\dots, a^\prime</em>{n^\prime}),(b^\prime,\dots, b^\prime_{m^\prime}),\dots,(c^\prime,\dots, c^\prime_{r^\prime})), \
+\dots, \
+((a^{\prime\prime},\dots, a^{\prime\prime}<em>{n^{\prime\prime}}),(b^{\prime\prime},\dots ,b^{\prime\prime}</em>{m^{\prime\prime}}),\dots,(c^{\prime\prime},\dots, c^{\prime\prime}<em>{r^{\prime\prime}}))
+\end{pmatrix}) \
+&amp;= (\mu</em>{X} \circ T(\mu_{X}))(\begin{pmatrix}
+((a,\dots, a_n),(b,\dots ,b_m),\dots,(c,\dots, c_r)), \
+((a^\prime,\dots, a^\prime_{n^\prime}),(b^\prime,\dots, b^\prime_{m^\prime}),\dots,(c^\prime,\dots, c^\prime_{r^\prime})), \
+\dots, \
+((a^{\prime\prime},\dots, a^{\prime\prime}<em>{n^{\prime\prime}}),(b^{\prime\prime},\dots ,b^{\prime\prime}</em>{m^{\prime\prime}}),\dots,(c^{\prime\prime},\dots, c^{\prime\prime}<em>{r^{\prime\prime}}))
+\end{pmatrix})\
+&amp;= \mu</em>{X}(\begin{pmatrix}
+(a,\dots, a_n,b,\dots ,b_m,\dots,c,\dots, c_r), \
+(a^\prime,\dots, a^\prime_{n^\prime},b^\prime,\dots, b^\prime_{m^\prime},\dots,c^\prime,\dots, c^\prime_{r^\prime}), \
+\dots, \
+(a^{\prime\prime},\dots, a^{\prime\prime}<em>{n^{\prime\prime}},b^{\prime\prime},\dots ,b^{\prime\prime}</em>{m^{\prime\prime}},\dots,c^{\prime\prime},\dots, c^{\prime\prime}<em>{r^{\prime\prime}})
+\end{pmatrix})\
+&amp;= \begin{pmatrix}
+a,\dots, a_n,b,\dots ,b_m,\dots,c,\dots, c_r, \
+a^\prime,\dots, a^\prime</em>{n^\prime},b^\prime,\dots, b^\prime_{m^\prime},\dots,c^\prime,\dots, c^\prime_{r^\prime}, \
+\dots, \
+a^{\prime\prime},\dots, a^{\prime\prime}<em>{n^{\prime\prime}},b^{\prime\prime},\dots ,b^{\prime\prime}</em>{m^{\prime\prime}},\dots,c^{\prime\prime},\dots, c^{\prime\prime}<em>{r^{\prime\prime}}
+\end{pmatrix} \
+&amp;= \mu_X(\begin{pmatrix}
+(a,\dots, a_n),(b,\dots ,b_m),\dots,(c,\dots, c_r), \
+(a^\prime,\dots, a^\prime</em>{n^\prime}),(b^\prime,\dots, b^\prime_{m^\prime}),\dots,(c^\prime,\dots, c^\prime_{r^\prime}), \
+\dots, \
+(a^{\prime\prime},\dots, a^{\prime\prime}<em>{n^{\prime\prime}}),(b^{\prime\prime},\dots ,b^{\prime\prime}</em>{m^{\prime\prime}}),\dots,(c^{\prime\prime},\dots, c^{\prime\prime}<em>{r^{\prime\prime}})
+\end{pmatrix})\
+&amp;= (\mu_X \circ \mu</em>{T(X)})(\begin{pmatrix}
+((a,\dots, a_n),(b,\dots ,b_m),\dots,(c,\dots, c_r)), \
+((a^\prime,\dots, a^\prime_{n^\prime}),(b^\prime,\dots, b^\prime_{m^\prime}),\dots,(c^\prime,\dots, c^\prime_{r^\prime})), \
+\dots, \
+((a^{\prime\prime},\dots, a^{\prime\prime}<em>{n^{\prime\prime}}),(b^{\prime\prime},\dots ,b^{\prime\prime}</em>{m^{\prime\prime}}),\dots,(c^{\prime\prime},\dots, c^{\prime\prime}<em>{r^{\prime\prime}}))
+\end{pmatrix})\
+&amp;= (\mu \circ \mu T)</em>{X}(\begin{pmatrix}
+((a,\dots, a_n),(b,\dots ,b_m),\dots,(c,\dots, c_r)), \
+((a^\prime,\dots, a^\prime_{n^\prime}),(b^\prime,\dots, b^\prime_{m^\prime}),\dots,(c^\prime,\dots, c^\prime_{r^\prime})), \
+\dots, \
+((a^{\prime\prime},\dots, a^{\prime\prime}<em>{n^{\prime\prime}}),(b^{\prime\prime},\dots ,b^{\prime\prime}</em>{m^{\prime\prime}}),\dots,(c^{\prime\prime},\dots, c^{\prime\prime}_{r^{\prime\prime}}))
+\end{pmatrix})
+\end{align</em>}</p>
+<p>To show the diagram \eqref{dia:monident} commutes.
+Let $(x_1,x_2,\dots,x_n)\in\gamma(X)$ then we have,</p>
+<p>\begin{align<em>}
+(\mu \circ T\eta)<em>X((x_1,x_2,\dots,x_n)) &amp;= \mu_X (T(\eta</em>{X})((x_1,x_2,\dots,x_n))) \
+&amp;= \mu_{X}(((x_1),(x_2),\dots,(x_n))) \
+&amp;= (x_1,x_2,\dots,x_n) \
+&amp;= \mu_{X}(((x_1,x_2,\dots,x_n))) \
+&amp;= \mu_{X}(\eta_{T(X)}((x_1,x_2,\dots,x_n)))\
+&amp;= (\mu \circ \eta T)_{X}((x_1,x_2,\dots,x_n)).
+\end{align</em>}</p>
+<p>Therefore, $\mathbf{M}$ is a monad.
+</span></p>
+<p>\subsection{Algebras of monads}</p>
+<p>The following definition is adapted from Adámek - Herrlick - Strecker \cite{ACC} (Page 318, Definition 20.4) and the Casters video series on Monads \cite{catsters:mon}</p>
+<p><span style="display:block" class="definition"></p>
+<p>Let $\cat{C}$ be a category and $\mathbf{T} = (T,\eta,\mu)$ be a monad on $\cat{C}$. An <em>algebra of $\mathbf{T</em>$} is a pair, $(X,\theta)$, where $X\in\ob{\cat{C}}$ and $\theta\in\ho[\cat{C}]{T(X)}{X}$, such that the following axioms hold:
+\begin{enumerate}
+\item $\theta \circ \eta_{X} = id_{X}$;
+\item $\theta \circ T\theta = \theta \circ \mu_{X}$.
+\end{enumerate}
+That is the diagrams,
+\begin{equation}</p>
+<p><img src="../../../png/Python/chapter_1/tikz_code_7_4.png" width="99%" style="display: block; margin-left: auto; margin-right: auto;"/></p>
+<p>\end{equation}
+and,
+\begin{equation}</p>
+<p><img src="../../../png/Python/chapter_1/tikz_code_7_5.png" width="99%" style="display: block; margin-left: auto; margin-right: auto;"/></p>
+<p>\end{equation}
+commute.
+</span></p>
+<p><span style="display:block" class="definition"></p>
+<p>Let $\cat{C}$ be a category, $\mathbf{T}=(T,\eta,\mu)$ be a monad on $\cat{C}$ and, $(A,\theta)$ and $(B,\phi)$ algebras of $\mathbf{T}$. A <em>morphism of algebras of $\mathbf{T</em>$} is a morphism $f\in\ho[\cat{C}]{A}{B}$ such that</p>
+<p>$$\phi\circ T(f) = f\circ\theta$$</p>
+<p>that is the following diagram,
+\begin{equation*}</p>
+<p><img src="../../../png/Python/chapter_1/tikz_code_7_6.png" width="99%" style="display: block; margin-left: auto; margin-right: auto;"/></p>
+<p>\end{equation*}
+commutes.
+</span></p>
+<p><span style="display:block" class="remark">
+The collection of morphisms of algebras, between the same pair of algebras, is  a set if we assume the definition of a category in Definition \ref{def:category} since each $\hom$ set of $\cat{C}$ is a set.
+</span></p>
+<p><span style="display:block" class="lemma"></p>
+<p>Let $\mathbf{T} = (T,\eta,\mu)$ be a monad of a category $\cat{C}$. Then for each $X\in\ob{\cat{C}}$, $(T(X), \mu_{X})$ is an algebra.
+</span>
+\begin{proof}
+First note that $\eta_X\in\ho[\cat{C}]{T(T(X))}{T(X)}$ and therefore is a morphism $\eta_{X}\in\ho[\cat{C}]{T(Y)}{Y}$ where $Y=T(X)\in\ob{\cat{C}}$ so we check the axioms in Definition \ref{def:algofmon}.</p>
+<p>\begin{align<em>}
+\mu_{X} \circ \eta_{Y} &amp;= \mu_{X}\circ \eta_{T(X)} \
+&amp;= \mu_{X} \circ (\eta T)<em>{X} \
+&amp;= id</em>{T(X)}, &amp; \text{By Definition \ref{def:monad}} \
+&amp;= id_{Y}
+\end{align</em>}</p>
+<p>and,</p>
+<p>\begin{align<em>}
+\mu_{X} \circ T(\mu_{X}) &amp;= \mu_{X} \circ T(\mu_{X}) \
+&amp;= \mu_{X} \circ \mu_{T(X)}, &amp; \text{By Definition \ref{def:monad}} \
+&amp;= \mu_{X} \circ \mu_{Y}.
+\end{align</em>}</p>
+<p>Therefore, $(X,\mu_X)$ is an algebra on $\mathbf{T}$.
+\end{proof}</p>
+<p><span style="display:block" class="definition"></p>
+<p>For a monad $\mathbf{T} = (T,\eta,\mu)$ we call $(T(X), \mu_{X})$ the <em>free $\mathbf{T</em>$-algebra on $X$.} 
+</span></p>
+<p>The following Lemma \ref{lem:monalgcat} is stated in Adámek - Herrlick - Strecker \cite{ACC} (Page 318, Definition 20.4) but not proven.</p>
+<p><span style="display:block" class="lemma"></p>
+<p>Let $\cat{C}$ be a category and $\mathbf{T}= (T,\eta,\mu)$ a monad over $\cat{C}$. The collection of all algebras, written $\alg{T}$, forms a category with morphisms of algebras, called the <em>Eilenberg-Moore category</em>. Composition is given by the composition of the category and for each $(A,\theta)\in\ob{\alg{T}}$ the identity is the $id_{A}$.
+</span>
+\begin{proof}
+We first show composition of two morphisms for algebras is a morphism for algebras. Let $(A,\theta),(B,\phi),(C,\psi))\in\ob{\alg{T}}$, $f\in\ho[\cat{C}]{A}{B}$ and $g\in\ho[\cat{C}]{B}{C}$ be morphism for algebras then $g\circ f\in\ho[\cat{C}]{A}{C}$ and we have,</p>
+<p>\begin{align<em>}
+\psi \circ T(g\circ f) &amp;= \psi \circ T(g) \circ T(f)\
+&amp;= g \circ \phi \circ T(f)\
+&amp;= g\circ  f \circ \theta.
+\end{align</em>}</p>
+<p>Therefore, $g\circ f$ is a morphism of algebras. </p>
+<p>Composition of these algebras is associative since composition in $\cat{C}$ is associative. </p>
+<p>For an algebra $(A,\theta)$ and $id_{A}\in\ho[\cat{C}]{A}{A}$ we have,</p>
+<p>$$\theta \circ id_{A} = \theta = id_{A} \circ \theta$$</p>
+<p>Hence, $id_{A}$ is a morphism for algebras. For a morphism of algebras $f\in\ho[\alg{T}]{(A,\theta_A)}{(B,\theta_B)}$ we have,</p>
+<p>$$f\circ id_{A} = f = id_{B} \circ f.$$</p>
+<p>Hence for each $(A,\theta_A)\in\ob{\alg{T}}$, $id_{A}$ is an identity morphism. Therefore we have a category.
+\end{proof}</p>
+<p>\subsubsection{Examples}</p>
+<p>The following example is stated in Adámek - Herrlick - Strecker \cite{ACC} (Page 318, Example 20.5 (1)).</p>
+<p><span style="display:block" class="example">
+Let $\mathbf{id_{\cat{C}}} = (id_{\cat{C}},\eta,\mu)$ be the identity monad as defined in Example \ref{exe:identitymonad}. Then an algebra on $\mathbf{id_{\cat{C}}}$ is an object $X\in\ob{\cat{C}}$ and a morphism $f\in\ho[\cat{C}]{X}{X}$ such that the diagrams \eqref{dia:monalgident} and \eqref{dia:monalgasso} commute. </p>
+<p>We have,</p>
+<p>$$f\circ \eta_X = f\circ id_{X}= id_{X}$$</p>
+<p>therefore, $f = id_{X}$ and,</p>
+<p>\begin{align<em>}
+f\circ T(f) &amp;= id_{X} \circ id_{X} \
+&amp;= f\circ \mu_{X}.
+\end{align</em>}</p>
+<p>Hence, algebras are of the form $(X,id_{X})$ for all $X\in\ob{\cat{C}}$. </p>
+<p>A morphism of algebras for two algebras $(X,id_{X})$ and $(Y,id_{Y})$ is a morphism, $f\in\ho[\cat{C}]{X}{Y}$ such that 
+$$id_{Y}\circ f = f\circ id_{X}.$$
+ Therefore $f$ is any morphism in $\cat{C}$. So the category $\alg{id_{\cat{C}}}) \cong \cat{C}$ 
+</span></p>
+<p>The following Example \ref{exe:monoidalgebras} is stated in Adámek - Herrlick - Strecker \cite{ACC} (Page 318, Example 20.5 (2)).</p>
+<p><span style="display:block" class="example"></p>
+<p>Let $\mathbf{M} = (T,\eta,\mu)$ be the monad defined in Example \ref{exe:monadmonoid1}. An algebra of $\mathbf{M}$, $(X,\theta)$ is a set $X\in\ob{\mathbf{Set}}$ and a morphism $\theta\in\ho[\mathbf{Set}]{\gamma(X)}{X}$ such that the diagrams \eqref{dia:monalgasso} and \eqref{dia:monalgident} commute. Hence we have for $x\in X$,</p>
+<p>\begin{align<em>}
+(\theta\circ \eta_{X})(x) &amp;= \theta((x)) \
+&amp;= id_{X}(x)
+\end{align</em>}</p>
+<p>therefore, $x = \theta((x))$.</p>
+<p>For a general word of a word of $X$,</p>
+<p>$$\gamma(\gamma(x)) = ((x_1,x_2,\dots, x_n),(y_1,y_2,\dots,y_m),\dots\dots,(z_1,z_2,\dots,z_r))$$</p>
+<p>we have,</p>
+<p>\begin{align<em>}
+(\theta\circ T\theta)(\gamma(\gamma(x))) &amp;= \theta(\theta((x_1,\dots,x_n)),\theta((y_1,\dots,y_m)),\dots,\theta((z_1,\dots,z_r))))\
+&amp;= \theta((x_1,\dots,z_r))\
+&amp;= (\theta\circ\mu_X)(\gamma(\gamma(x))).
+\end{align</em>}</p>
+<p>Therefore, an algebra of $\mathbf{M}$ $(X,\theta)$ defines a monoid $(X,(- \cdot -),e)$ where $e = ()$ is the empty word and composition is defined,</p>
+<p>\begin{align<em>}
+(- \cdot -) \colon X\times X &amp;\to X,\
+x\cdot y &amp;\mapsto \theta((x,y)).
+\end{align</em>}</p>
+<p>$e = ()$ is an identity since for any $x\in X$,</p>
+<p>$$x\cdot e = \theta((x)) = x$$</p>
+<p>and $(- \cdot -)$ is associative since given $x,y,z\in X$,</p>
+<p>\begin{align<em>}
+(x\cdot y)\cdot z &amp;= \theta((x,y))\cdot z \
+&amp;= \theta((\theta((x,y)),z))\
+&amp;= \theta(x,y,z)
+\end{align</em>}</p>
+<p>by the commutativity of diagram \eqref{dia:monalgasso} and,</p>
+<p>\begin{align<em>}
+x\cdot(y\cdot z) &amp;= x\cdot\theta((x,y)) \
+&amp;= \theta((x,\theta(x,y))) \
+&amp;= \theta((x,y,z))
+\end{align</em>}</p>
+<p>by the commutativity of diagram \eqref{dia:monalgasso}. Hence </p>
+<p>$$(x\cdot y)\cdot z = x\cdot(y\cdot z).$$</p>
+<p>Therefore each algebra of $\mathbf{M}$ forms a monoid hence $\alg{M}$ is a subcategory of $\mathbf{Mon}$.</p>
+<p>To show that $\alg{M} \cong \mathbf{Mon}$ we show every monoid can be defined by an algebra of $\mathbf{M}$.
+Let $(X,\cdot,e)$ be a monoid then we can define the function $\theta$ as,</p>
+<p>\begin{align<em>}
+\theta\colon \gamma(X)&amp;\to X\
+(x_1,x_2,\dots,x_n)&amp;\mapsto x_1 \cdot x_2 \cdot \dots \cdot x_n.
+\end{align</em>}</p>
+<p>Then we check $(X,\theta)$ is an algebra of $\mathbf{M}$. For an element $x\in X$</p>
+<p>\begin{align<em>}
+(\theta \circ \eta_{X}) (x) &amp;= \theta((x)) \
+&amp;= x
+\end{align</em>}</p>
+<p>Therefore, diagram \eqref{dia:monalgident} commutes. For a general word of a word of $X$, $\gamma(\gamma(x))$,</p>
+<p>\begin{align<em>}
+(\theta \circ T\theta)(\gamma(\gamma(x))) &amp;= \theta(((x_1\cdot x_2\cdot\dots \cdot x_{n}),(y_1\cdot\dots\cdot y_m),\dots,(z_1\cdot\dots\cdot z_r))) \
+&amp;= x_1\cdot\dots\cdot z_r\
+&amp;= \theta((x_1,\dots, z_r))\
+&amp;= \theta(\mu_{x}(\gamma(\gamma(x))))\
+&amp;= (\theta\circ \mu_{X}) (\gamma(\gamma(x))).
+\end{align</em>}</p>
+<p>Therefore, the diagram \eqref{dia:monalgasso} commutes and hence $(X,\theta)$ is an algebra of $\mathbf{M}$.</p>
+<p>This means $(X,\theta)$ an algebra of $\mathbf{M}$ if and only if $(X,\cdot,e)$ is a monoid. Hence there is a one to one correspondence between monoids and algebras of $\mathbf{M}$.
+</span></p>
+<p>\subsection{Adjoint Functors as monads}</p>
+<p>The following lemma can be found in Adámek - Herrlick - Strecker \cite{ACC} (Page 318, Proposition 20.3). Where here we add the completed proof which was left as an exercise.</p>
+<p><span style="display:block" class="lemma"></p>
+<p>Let $\func{F}{\cat{D}}{\cat{C}}$ and $\func{G}{\cat{C}}{\cat{D}} $ be functors and $(F,G,\eta,\varepsilon)$ be an adjoint situation. We have an endofunctor, $\func{T =GF}{\cat{D}}{\cat{D}}$ and natural transformation $\nattran{G\varepsilon F}{T^{2}}{T}$. Then $(GF, \eta, G\varepsilon F)$ is a monad on $\cat{D}$.
+</span>
+\begin{proof}
+Since $\nattran{\varepsilon}{FU}{id_{\mathbf{Mon}}}$ is a natural transformation for each $M\in\ob{\mathbf{Mon}}$ we have,</p>
+<p>\begin{align<em>}
+(\varepsilon \circ FG\varepsilon)<em>M&amp;= \varepsilon_M \circ F(G(\varepsilon_M)), \
+&amp;= \varepsilon</em>{FG(M)} \circ \varepsilon_M,\
+&amp;= (\varepsilon \circ \varepsilon FG).
+\end{align</em>}</p>
+<p>Therefore, for each $X\in\cat{D}$,</p>
+<p>\begin{align<em>}
+(\mu \circ T\mu)_X &amp;= (G\varepsilon F \circ GF G\varepsilon F)_X\
+&amp;= (G(\varepsilon \circ FG\varepsilon) F)_X \
+&amp;= (G(\varepsilon \circ \varepsilon FG)F)_X \
+&amp;= (G\varepsilon F\circ G\varepsilon FGF)_X \
+&amp;= (\mu \circ T\mu)_X.
+\end{align</em>}</p>
+<p>Also we have,</p>
+<p>\begin{align<em>} 
+(\mu \circ T\eta)<em>X &amp;= (G\varepsilon F \circ GF\eta)_X\
+&amp;= G(\varepsilon F \circ F\eta)_X \
+&amp;= G(id</em>{F})<em>X, &amp; \text{ by definition \ref{def:adjsituations}}\
+&amp;= G(id</em>{F_{X}})\
+&amp;= G(F(X))\
+&amp;= id_{GF_{X}} \
+&amp;= id_{T_{X}}
+\end{align</em>}</p>
+<p>and,</p>
+<p>\begin{align<em>}
+(\mu \circ \eta T)<em>X &amp;= (G\varepsilon F \circ \eta GF)_X \
+&amp;= ((G\varepsilon\circ \eta G)F)_X \
+&amp;= ((id</em>{G})F)<em>X, &amp;\text{by Definition \ref{def:adjsituations}} \
+&amp;= (id</em>{G_{F(X)}}) \
+&amp;= id_{GF_{X}} \
+&amp;= id_{T_{X}}.
+\end{align</em>}</p>
+<p>\end{proof}</p>
+<p><span style="display:block" class="remark">
+The above shows that every adjoint situation gives rise to a monad, the following discussion shows that every monad has at least one adjoint situation which gives rise to it. 
+</span>
+The following Lemma \ref{lem:mongivesadjsitu} is stated in Adámek - Herrlick - Strecker \cite{ACC} (Page 319, Proposition 20.7) but not proven.</p>
+<p><span style="display:block" class="lemma"></p>
+<p>Let $\cat{D}$ be a category and $\mathbf{T}= (T,\eta,\mu)$ be a monad over $\cat{D}$. Then $(F^{\mathbf{T}},G^{\mathbf{T}},\eta^{\mathbf{T}},\varepsilon^{\mathbf{T}})$ is an adjoint situation where:
+\begin{enumerate}
+\item </p>
+<p>$$\func{G^{\mathbf{T}}}{\alg{T}}{\cat{D}}$$
+ is the <em>forgetful functor</em> which sends $(X,\theta_1)\in\ob{\alg{T}},$</p>
+<p>$$(X,\theta_1)\mapsto X$$</p>
+<p>and $f\in\ho[\alg{T}]{(X,\theta_1)}{(Y,\theta_2)}$,</p>
+<p>$$f\mapsto f$$</p>
+<p>since $f\in\ho[\cat{C}]{X}{Y}$;
+\item</p>
+<p>$$\func{F^{\mathbf{T}}}{\cat{D}}{\alg{T}}$$</p>
+<p>sends objects $X\in\ob{\cat{D}}$,</p>
+<p>$$X\mapsto (T(X),\mu_X)$$</p>
+<p>and morphisms $f\in\ho[\cat{D}]{X}{Y}$,</p>
+<p>$$f\mapsto T(f)$$</p>
+<p>where $T(f)\in\ho[\alg{T}]{(T(X),\mu_X)}{(T(Y),\mu_Y)}$;
+\item 
+$$\nattran{\varepsilon^{\mathbf{T}}}{F^{\mathbf{T}}G^{\mathbf{T}}}{id_{\alg{T}}},$$</p>
+<p>is defined for each $(X,\theta)\in\ob{\alg{T}}$ as,</p>
+<p>$$\varepsilon^{\mathbf{T}}{(X,\theta)} = \theta;$$</p>
+<p>\item $\eta^{\mathbf{T}}=\eta$,.
+\end{enumerate}
+</span>
+\begin{proof}
+For each $X\in\ob{\cat{D}}$ we have $(X,\mu_X)\in\ob{\alg{T}}$ by Lemma \ref{lem:muisalg}. Then we check $G^{\mathbf{T}}$ and $F^{\mathbf{T}}$ are indeed functors by checking the axioms in Definition \ref{def:functor}. For any two morphisms, $f\in\ho[\alg{T}]{(X,\theta_1)}{(Y,\theta_2)}$ and $g\in\ho[\alg{T}]{(Y,\theta_2)}{(Z,\theta_3)}$ we have,</p>
+<p>\begin{align<em>}
+G^{\mathbf{T}}(g\circ f) &amp;= g\circ f \
+&amp;=G^{\mathbf{T}}(g)\circ G^{\mathbf{T}}(f).
+\end{align</em>}</p>
+<p>Given $id_{X}\in\ho[\alg{T}]{(X,\theta_1)}{(X,\theta_1)}$ we have,</p>
+<p>\begin{align<em>}
+G^{\mathbf{T}}(id_X) &amp;= id_{X}.
+\end{align</em>}</p>
+<p>Therefore $G^{\mathbf{T}}$ is a functor. </p>
+<p>Given $f\in\ho[\cat{D}]{X}{Y}$ and $g\in\ho[\cat{D}]{Y}{Z}$ we have,</p>
+<p>\begin{align<em>}
+F^{\mathbf{T}}(g\circ f) &amp;= T(g\circ f)\
+&amp;= T(g) \circ T(f) \
+&amp;= F^{\mathbf{T}}(g) \circ F^{\mathbf{T}}(f).
+\end{align</em>}</p>
+<p>Given $id_{X}\in\ho[\cat{D}]{X}{X}$ we have,</p>
+<p>\begin{align<em>}
+F^{\mathbf{T}}(id_{X}) &amp;= T(id_{X}) \
+&amp;= id_{X} &amp; \text{since $T$ is an endofunctor.}
+\end{align</em>}</p>
+<p>Therefore $F^{\mathbf{T}}$ is a functor.</p>
+<p>$\eta$ is defined as a natural transformation so we just check the naturality condition on $\varepsilon$. Given $(X,\theta_1),(Y,\theta_2)\in\ob{\alg{T}}$ and $f\in\ho[\alg{T}]{(X,\theta_1)}{(Y,\theta_2)}$we have,</p>
+<p>\begin{align<em>}
+\varepsilon_{(Y,\theta_2)} \circ F^{\mathbf{T}}(G^{\mathbf{T}}(f)) &amp;= \theta_2 \circ F^{\mathbf{T}}(f) \
+&amp;= \theta_{2} \circ T(f) \
+&amp;= f\circ \theta_1, &amp; \text{By Definition \ref{def:monalgmorph}}\
+&amp;= f \circ \varepsilon_{(X,\theta_1)}.
+\end{align</em>}</p>
+<p>Therefore $\varepsilon$ is a natural transformation.</p>
+<p>To prove the above defines an adjoint situation we check the axioms in Definition \ref{def:adjsituations}. For each $X\in\ob{\cat{D}}$ we have,</p>
+<p>\begin{align<em>}
+(\varepsilon F^{\mathbf{T}}\circ F^{\mathbf{T}}\eta)<em>X &amp;= \varepsilon</em>{F^{\mathbf{T}}(X)} \circ F^{\mathbf{T}}(\eta_{X}) \
+&amp;= \varepsilon_{(T(X),\mu_{X})} \circ F^{\mathbf{T}}(\eta_{X}) \
+&amp;= \mu_{X} \circ F^{\mathbf{T}}(\eta_{X}) \
+&amp;= (\mu \circ F^{\mathbf{T}}\eta)<em>{X}\
+&amp;= id</em>{F^{\mathbf{T}}}
+\end{align</em>}</p>
+<p>since $\mathbf{T}$ is a monad and $F^{\mathbf{T}}$ and there is a one to one correspondence between $F^{\mathbf{T}}(X)$ and $T(X)$.
+For each $(X,\theta)\in\ob{\alg{T}}$ we have,</p>
+<p>\begin{align<em>}
+(G^{\mathbf{T}}\varepsilon \circ \eta G^{\mathbf{T}})<em>{(X,\theta)} &amp;= G^{\mathbf{T}}(\varepsilon</em>{(X,\theta)}) \circ \eta_{G^{\mathbf{T}}((X,\theta))} \
+&amp;= G^{\mathbf{T}}(\theta) \circ \eta_{X} \
+&amp;=\theta \circ \eta_{X} \
+&amp;= id_{X}, &amp; \text{since $(X,\theta)$ is an algebra of $\mathbf{T}$} \
+&amp;= id_{G^{\mathbf{T}}((X,\theta))}.
+\end{align</em>}</p>
+<p>Therefore $(F^{\mathbf{T}},G^{\mathbf{T}},\eta,\varepsilon)$ is an adjoint situation.
+\end{proof}</p>
+<p><span style="display:block" class="remark">
+The above Lemma \ref{lem:mongivesadjsitu} gives only existence of an adjoint situation given a monad and not uniqueness. In general a monad will <em>not</em> give rise to a unique adjoint situation.
+</span></p>
+<p>We now define an important subcategory of the Eilenberg-Moore category of a monad, $\mathbf{T}$, the Kleisli category, and see how an adjoint situation from this category also gives rise to the monad $\mathbf{T}$. See Wiki \cite{wiki:kleisli} for more details on the Kleisli category.</p>
+<p><span style="display:block" class="definition"></p>
+<p>Let $\cat{C}$ be a category and $\mathbf{T} = (T,\eta,\mu)$ be a monad over $\cat{C}$ then we define the <em>Kleisli category</em>, $K_{\mathbf{T}}$ as the full subcategory of $\alg{T}$ whose objects are the <em>free objects</em>, $(T(X),\eta_{X})$ for each $X\in\ob{\cat{C}}$.
+</span>
+The following lemma is adapted from MacLane \cite{MacLane} (Page 148, Theorem 3)</p>
+<p><span style="display:block" class="definition"></p>
+<p>Let $\cat{C}$ be a category and $\mathbf{T}= (T,\eta,\mu)$ be a monad over $\cat{C}$. We define <em>the category of adjoint situations for the monad $\mathbf{T</em>$}, $adj_{\mathbf{T}}$ as:
+\begin{enumerate}
+\item The objects, $(\func{F}{\cat{C}}{\cat{X}},\func{G}{\cat{X}}{\cat{C}},\eta,\varepsilon)\in\ob{adj_{\mathbf{T}}}$, are adjoint situations which give rise to the monad $\mathbf{T}$, that is $(GF,\eta,G\varepsilon F)=(T,\eta,\mu)$;
+\item The morphisms, $(K,id_{\cat{X}})$ are morphisms of adjoint situations defined in Definition \ref{def:morphadjsitu} such that $id_{\cat{X}}$ is the identity on $\cat{X}$;
+\item Composition is composition of morphisms of adjoint situations as defined in Definition \ref{lem:compmorphadjsit};
+\item The identities are defined in Example \ref{exe:identityadjsitumorph}.
+\end{enumerate}
+</span></p>
+<p><span style="display:block" class="lemma">
+$adj_{\mathbf{T}}$ as defined above in Definition \ref{def:catofadjsituofmon} is a category.
+</span>
+\begin{proof}
+The composition is associative since the composition of functors is associative. Hence we have a category structure.
+\end{proof}
+The following Lemma \ref{lem:termobajdcatiskli} can be found in MacLane \cite{MacLane} with no proof, here we omit the proof.</p>
+<p><span style="display:block" class="lemma"></p>
+<p>Let $\mathbf{T}=(T,\eta,\mu)$ be a monad and $adj_{\mathbf{T}}$ be the corresponding category of adjoint situations. Then the terminal object in $adj_{\mathbf{T}}$ is the adjoint situation, $(\func{F^{\mathbf{T}}}{\cat{D}}{\alg{T}},\func{G^{\mathbf{T}}}{\alg{T}}{\cat{D}},\eta,\varepsilon)$, defined in Lemma \ref{lem:mongivesadjsitu}.
+</span>
+\comment{
+\begin{proof}
+We need to show given an adjoint situation giving rise to the monad $\mathbf{T}$, $(F,G,\eta,\varepsilon)$, there exists a unique morphism $(K,id_{\cat{D}})$ to the adjoint situation, $(F^{\mathbf{T}},G^{\mathbf{T}},\eta^{\mathbf{T}},\varepsilon^{\mathbf{T}})$, in Lemma \ref{lem:mongivesadjsitu}. For $(K,id_{\cat{D}})$ to be a morphism of adjoint situations as defined in Definition \ref{def:morphadjsitu} $\func{K}{\cat{C}}{\alg{T}}$ is a functor satisfying the diagram \eqref{dia:morphadjsitufunc} and identities in Definition \ref{def:morphadjsitu} (2).
+\end{proof}
+}
+This result ties together different parts of this project. Had this project been longer we would have discussed the proof and consequences. We also could have looked into monoidal categories and how monoids generalise in other categories, this leads to the exploration of the quote by James Iry \cite{jamesiry}: "a monad is a monoid in the category of endofunctors, what's the problem?".</p>
+<p>\pagebreak</p>
+<p>\bibliographystyle{plainurl}
+\bibliography{5004M.bib}</p>
+<script src="../../mathjax_helper.js"></script>
+
+
+
+
+
+
+
+
+
+
+
+
+                
+              </article>
+            </div>
+          
+          
+<script>var target=document.getElementById(location.hash.slice(1));target&&target.name&&(target.checked=target.name.startsWith("__tabbed_"))</script>
+        </div>
+        
+      </main>
+      
+        <footer class="md-footer">
+  
+  <div class="md-footer-meta md-typeset">
+    <div class="md-footer-meta__inner md-grid">
+      <div class="md-copyright">
+  
+  
+    Made with
+    <a href="https://squidfunk.github.io/mkdocs-material/" target="_blank" rel="noopener">
+      Material for MkDocs
+    </a>
+  
+</div>
+      
+    </div>
+  </div>
+</footer>
+      
+    </div>
+    <div class="md-dialog" data-md-component="dialog">
+      <div class="md-dialog__inner md-typeset"></div>
+    </div>
+    
+    
+    
+      
+      
+      <script id="__config" type="application/json">{"annotate": null, "base": "../..", "features": ["navigation.instant", "navigation.tabs", "navigation.sections"], "search": "../../assets/javascripts/workers/search.7a47a382.min.js", "tags": null, "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}, "version": null}</script>
+    
+    
+      <script src="../../assets/javascripts/bundle.e71a0d61.min.js"></script>
+      
+    
+  </body>
+</html>
