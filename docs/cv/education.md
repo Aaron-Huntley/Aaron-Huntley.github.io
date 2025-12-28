@@ -6,7 +6,7 @@
 
 ## Summary
 
-I am a mathematician currently studying for a PhD degree at Case Western Reserve University. 
+I am a mathematician and second year PhD student at Case Western Reserve University. 
 
 ---
 
@@ -35,7 +35,7 @@ Sept 2019 – Jul 2023
 
 ## Things I've been interested in
 
-**A infinity-Algebras and omega-Categories**
+**A∞-Algebras and omega-Categories**
 
 **[Analysing Semantic Data](/notes_pdf/semantic_comparison.pdf)**
 There was a time I had access to a some data collected by Psycologists to probe 'semantic space' I was interested in how we could analyse this data to learn about how the human brain thinks 'semantically'. 
@@ -76,7 +76,7 @@ I wrote these notes in the third year of my time in Leeds.
 **Directed Reading Program (DRP) *CWRU***  
 
 - Fall 2025 - Proof Assistants and Functional Programming
-- Spring 2025 - Categorical Homotopy Theory *Shane Redmond* & Fractals and Hausdorff Measure [*Max Seay*](https://mmacs.net)
+- Spring 2025 - Categorical Homotopy Theory, *Shane Redmond*; Fractals and Hausdorff Measure, [*Max Seay*](https://maxs.mmacs.net/index.html)
 
 **Directed Reading Program (DRP) *UWO***  
 
@@ -89,40 +89,30 @@ I wrote these notes in the third year of my time in Leeds.
 
 ## Talks & Presentations
 
-**Homotopy Seminar *CWRU*** 
+Locally Presentable Categories, *Homotopy Seminar, CWRU*
 
-Locally Presentable Categories
+The Mathematics of Juggling, *MAMS Student Seminar, CWRU*
 
-**MAMS Student Seminar *CWRU*** 
+Homotopy Colimits, *Homotopy Seminar, CWRU*
 
-The Mathematics of Juggling
+Model Structures in Set, *Homotopy Seminar, CWRU*
 
-**Homotopy Seminar *CWRU*** 
+Discovering Operads through an Exploration of A∞-Algebras, *Algebraic Topology and Homotopy Theory Seminar UWO*
 
-Homotopy Colimits
+Introduction to Quasicategories, *Homotopical Algebra, UWO*
 
-**Homotopy Seminar *CWRU*** 
-
-Model Structures in Set
-
-**Algebraic Topology and Homotopy Theory Seminar *UWO*** 
-
-Discovering Operads through an Exploration of A∞-Algebras
-
-**Dynamical Systems Seminar *UoL***  
-
-Homoclinic Tangles
+Homoclinic Tangles, *Dynamical Systems, *UoL*
 
 ---
 
 ## Leadership, Service & Outreach
 
-- **Co-Founder** – MGSA Student Seminar - *CWRU*
-- **MGSA GCAS Representative 2025 *CWRU***  
-- **Founder** – [Directed Reading Program](https://artscimedia.case.edu/wp-content/uploads/sites/41/2025/08/28180927/DRP.pdf) *CWRU*
-- **MGSA International Student Liaison 2024 *CWRU***  
-- **Co-Founder** – Algebraic Topology and Homotopy Theory Seminar *UWO*
-- **Co-Founder** – JuggleSoc *UoL*
+- **Co-Founder** – MGSA Student Seminar, *CWRU*
+- **MGSA GCAS Representative**, 2025, *CWRU*  
+- **Founder** – [Directed Reading Program](https://artscimedia.case.edu/wp-content/uploads/sites/41/2025/08/28180927/DRP.pdf), *CWRU*
+- **MGSA International Student Liaison**, 2024, *CWRU*  
+- **Co-Founder** – Algebraic Topology and Homotopy Theory Seminar, *UWO*
+- **Founder** – JuggleSoc, *UoL*
 
 ---
 
@@ -137,9 +127,9 @@ Homoclinic Tangles
 
 ## Awards & Recognition
 
-- **Nominated** – University-Wide Graduate Student Award, 2025 *CWRU*
-- **Recipient** – Graduate Student Appreciation Award (Departmental), 2025 *CWRU*
+- **Nominated** – University-Wide Graduate Student Award, 2025, *CWRU*
+- **Recipient** – Graduate Student Appreciation Award (Departmental), 2025, *CWRU*
  
 ---
 
-_Last updated: October 2025_
+_Last updated: November 2025_

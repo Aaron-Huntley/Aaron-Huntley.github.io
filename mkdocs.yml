@@ -28,11 +28,6 @@ nav:
   - Home: index.md
   - About me:
     - CV: cv/education.md
-  - Category Theory: 
-    - Introduction: category_theory/Introduction.md
-    - Categories: category_theory/Categories.md
-    - Functors: category_theory/Functors.md
-    - Natural Transformations: category_theory/Natural transformations.md
-    - Universal morphisms and adjoint functors: category_theory/Universal morphisms and adjoint functors.md
-    - Initial and terminal objects: category_theory/Initial and terminal objects.md
-    - Monads: category_theory/Monads.md
+  - Blog: blog/index.md
+plugins:
+  - blog
