@@ -19,7 +19,7 @@ However, that thought doesn't seem interesting.
 So what makes a thought interesting?
 
 How can we separate our thoughts into a single thought particle?
-At least how my mind works is a stream of thoughts never ending each one influencing the next.
+At least how my mind works is a stream of thoughts, never ending, each one influencing the next.
 In this way are all thoughts unique? 
 Each mind has its own unique interpretation of thoughts and though we can transfer the thought information through communication is a thought ever perfectly replicated?
 How could it possibly be perfectly replicated without exactly the same hardware.
@@ -32,12 +32,15 @@ I like this, because now we get two thoughts for the price of one.
 Each person we speak to can offer a new perspective on a thought. 
 Can we get a complete picture of a single thought if we collect all the perspectives.
 Perhaps we can define humanities collective thought this way.
-Then humanities collective still a finite number of thoughts, but is what were trying to think infinite?
+Then humanities collective thought is still a finite number of thoughts, but is what were trying to think infinite?
 Is a thought finite?
 You can argue the space of all thoughts is at least countably infinite.
 Since if you think of $1$ then you can think of $2$, and by induction all $n\in\mathbb{N}$.
-However, when I think of a red car is that one thought.
-Is the instance of the electrons firing in my brain enough to define that thought?
+However, when I think of a red car is that, one finite thought?
+If we define the instance of the electrons firing in my brain as that thought.
+It is a closed and bounded region of space time.
+This definition seems unsatisfactory.
+We are losing the abstraction of the thought.
 
 I believe I am only capable of thinking of a finite number of things in the span of my life.
 If this is the case then what we think about is scarce.
