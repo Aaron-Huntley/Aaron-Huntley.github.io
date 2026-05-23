@@ -16,7 +16,7 @@ Here, you'll find:
 
 - **About me**: A description of my given talks, papers and events I helped organize.
 - **Mathematical notes**: [IN PROGRESS] I'm in the process of converting the notes I've written in LaTeX to HTML so they are displayed nicely on this website. I'm testing this with the category theory notes however if you actually want to read these notes I would recommend instead clicking the pdf link in the About Me section.
-- **Blog**: I like thinking about things and having long conversations with others about things. In this blog I want to keep a record of some of the things thought and conversated.
+- **Conversations with friends**: I like thinking about things and having long conversations with others about things. In this section I want to keep a record of some of the things thought and conversated.
 
 If you find something here that resonates with you, feel free to reach out to me at **axh1127 [at] case [dot] edu**.
 

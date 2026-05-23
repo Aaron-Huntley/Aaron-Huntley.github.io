@@ -1,2 +1,2 @@
-# Blog
+# Conversations with friends
 
