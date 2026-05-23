@@ -1,0 +1,134 @@
+%Matrix category example
+\begin{example}
+This example shows how we can describe matrices in the language of categories, it also demonstrates how the category morphisms can be viewed more abstractly. Let $\mathbf{mat} = (\ob{mat},\hom,\circ,id)$:
+\begin{enumerate}
+    \item $\ob{mat}$ is the set of natural numbers with out zero $\mathbb{N}\setminus{\{0\}}$.
+    \item $\hom$ is defined,
+    \begin{align*}
+        \hom: \ob{mat}\times\ob{mat}&\rightarrow \mathbf{set}\\
+        (n,m)&\mapsto\ho{n}{m}
+    \end{align*}
+    where $\ho{n}{m}$ is the set of all real $n\times m$ matrices.
+    \item $\circ$ is defined as matrix multiplication, for each $A\circ B = BA$.
+    \item id assigns each $n\in\ob{mat}$ to $id_{n}$ where,
+    \begin{align*}
+    I_{n} = \begin{bmatrix} 
+    1 & 0 & \dots & 0\\
+    0& \ddots& & \vdots\\
+    \vdots& & \ddots & 0 \\
+    0 &\dots& 0&  1
+    \end{bmatrix}
+    \end{align*}
+\end{enumerate}
+Then $\mathbf{mat}$ forms a category since $\circ$ is associative and for any $A\in\ho{n}{m}$ and $B\in\ho{n}{m}$, $f\circ I_{n} = AI = A$ and $I_{n}\circ B= IB = B$.
+For this example the important part of the category are the morphisms. Each set $\ho{m,n}$ gives all the $m\times n$ matrices. 
+\end{example}
+
+%example every monoid is a one object category
+\begin{example}
+let $\mathbf{M} = (\ob{M},\hom,\circ,id)$ where:
+\begin{enumerate}
+    \item $\ob{M}$ contains just on object called M.
+    \item $\hom$ is defined,
+    \begin{align*}
+        \hom\colon \ob{M}\times\ob{M}&\rightarrow \mathbf{set}\\
+        (M,M)&\mapsto\ho{M}{M}
+    \end{align*}
+    where each $f\in\ho{M}{M}$ corresponds to an element in the monoid M.
+    \item $\circ$ is the function,
+    \begin{align*}
+        \circ\colon \ho{M}{M}\times\ho{M}{M}&\rightarrow\ho{M}{M}\\
+        (f,g)&\mapsto f\cdot g
+    \end{align*}
+    where $\cdot$ is the binary operation for the monoid M.
+    \item $id$ assigns M to $id_{M} = e$ which corresponds to the identity element in the monoid M, where for each $f\in\ho{M}{M}$,
+    \begin{align*}
+        \ho{M}{M}\times\ho{M}{M}&\rightarrow\ho{M}{M}\\
+        (id_{M},f)&\mapsto e\cdot f = f\\
+        \text{and}\\
+        (f,id_{M})&\mapsto f\cdot e = f
+    \end{align*}
+\end{enumerate}
+Then $\mathbf{M}$ is a category since $\circ$ is associative and $id_{M}$ acts as an identity on $\ho{M}{M}$.
+\end{example}
+
+%P0P functor Example incomplete
+\begin{example}
+Let $P\circ P\colon\mathbf{Set}\rightarrow\mathbf{Set}$ be defined:
+\begin{enumerate}
+    \item For each $\mathbf{Set}-Object$, $X\in\ob{Set}$,
+    \[P(X)=\mathcal{P}(\mathcal{P}(X))\]
+    Where $\mathcal{P}(X)$ is the power set of $X$,
+    \[\mathcal{P}(X)=\{A\mid A\subseteq X\}\]
+    \item Given two $\mathbf{Set}-Objects$, $X,Y\in\ob{Set}$, for each $f\in\ho{X}{Y}$,
+    \begin{align*}
+        P\circ P(f):P\circ P(X)&\rightarrow P\circ P(Y)\\
+        A&\mapsto f[A]
+    \end{align*}
+    Where $f[A]$ is the image of $A$ under $f$,
+    \[f[A]=\{f(a)\mid a\in A\}\]
+    $P\circ P(f)$ is a function so is well defined in $\ho{P\circ P(X)}{P\circ P(Y)}$
+\end{enumerate}
+\end{example}
+
+\begin{example}
+    \label{exe:powersetmonalg}
+    Let $\mathbf{P} = (P,\eta,\mu)$ be the monad defined in Example \ref{exe:powersetmonad}. An algebra of $\mathbf{P}$, $(X,\theta)$ is a set $X\in\ob{\mathbf{Set}}$ and a morphism $\theta\in\ho[\mathbf{Set}]{P(X)}{X}$ such that the diagrams \eqref{dia:monalgident} and \eqref{dia:monalgasso} commute. We have for each $X\in\ob{\mathbf{Set}}$ and $x\in X$,
+    \begin{align*}
+        (\theta \circ \eta_{X})(x) &= \theta(\{x\}) \\
+        &= x
+    \end{align*}
+    and also for each $A\in\mathcal{P}(\mathcal{P}(X))$,
+    \begin{align*}
+        (\theta \circ P\theta)(A) &= 
+    \end{align*}
+    \end{example}
+
+
+%==========================================================================
+\subsection{Monad is a monoid in the category of endofunctors}
+\label{ss:monmon}
+%==========================================================================
+This section was included after reading the blog post by James Iry \cite{jamesiry} and trying to understand the quote "a monad is a monoid in the category of endofunctors, what's the problem?". This section leaves out some details such as $\cat{C}^\cat{C}$ being a monoidal category, these details can be found at nCatLab \cite{nLab} (Monoid in monoidal category) or MacLane \cite{MacLane}.
+\begin{definition}
+    \label{def:catofendo}
+    Let $\cat{C}$ be a small category. We define $\cat{C}^\cat{C}$ as the \emph{category of endofunctors} as in Definition \ref{def:functorcat}. 
+\end{definition}
+\begin{remark}
+    $\cat{C}^
+    \cat{C}$ is a category by Theorem \ref{thm:functorcat}.
+\end{remark}
+
+\begin{definition}
+    \label{def:monoidalcategory}
+    
+\end{definition}
+
+\begin{definition}
+    \label{def:monoidobject}
+    Let $\cat{C}$ be a monoidal category. A \emph{monoid object} $(M,\eta,\mu)$ is defined:
+    \begin{enumerate}
+        \item $M\in\ob{\cat{C}}$ is an object of $\cat{C}$;
+        \item $\eta\colon M\otimes M\to M$ is called \emph{multiplication} where $\times$;
+        \item $\mu\colon I \to M$ is called the \emph{unit} where $I$ is the unit object of $\cat{C}$
+    \end{enumerate}
+    
+\end{definition}
+
+\begin{lemma}
+    \label{lem:catofendoismonoidal}
+    Let $\cat{C}^\cat{C}$ be the category of endofunctors of $\cat{C}$ as defined in Definition \ref{def:catofendo}. Then $\cat{C}^\cat{C}$ is a monoidal category.
+\end{lemma}
+
+\begin{example}
+    \label{exe:catofsetsmonoidalwithmonoids}
+    
+\end{example}
+
+\begin{lemma}
+    \label{lem:monmon}
+    Let $\cat{C}^\cat{C}$ be the category of endofunctors of $\cat{C}$ as defined above in Definition \ref{def:catofendo}. Let $T\in\ob{\cat{C}^\cat{C}}$ be an endofunctor of  $\cat{C}$ and $\eta\in\ho[\cat{C}^\cat{C}]{id_{\cat{C}}}{T}$, $\mu\in\ho[\cat{C}^\cat{C}]{T^2}{T}$ be natural transformations (morphisms in $\cat{C}^\cat{C}$). Suppose $(T,\eta,\mu)$ is a monad. Then $(T,\circ,\eta)$ is a monoid. 
+\end{lemma}
+\begin{proof}
+    
+\end{proof}
