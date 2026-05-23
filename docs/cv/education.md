@@ -59,9 +59,13 @@ I wrote these notes in the third year of my time in Leeds.
 
 ## Teaching
 
+**Instructor of Record *CWRU***
+
+- Spring 2026 - Math 125 (Calculus)
+
 **Graduate Assistant *CWRU***
 
-- Fall 2025 (SI) - MATH 120 (Calculus)
+- Fall 2025 (SI) - MATH 125 (Calculus)
 - Spring 2025 (TA) - MATH 304 (Discrete Math)
 - Fall 2024 (TA) - MATH 201 (Linear Algebra)
 

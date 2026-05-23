@@ -20,3 +20,7 @@ Here, you'll find:
 
 If you find something here that resonates with you, feel free to reach out to me at **axh1127 [at] case [dot] edu**.
 
+## Friends
+
+[*Sebastian Gómez Rendón*](https://sites.google.com/view/sebasgomez)
+
