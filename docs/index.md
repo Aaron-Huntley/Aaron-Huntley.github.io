@@ -15,7 +15,7 @@ Hello! I'm a mathematician and PhD candidate at Case Western Reserve University.
 Here, you'll find:
 
 - **About me**: A description of my given talks, papers and events I helped organize.
-- **Conversations with friends**: I like thinking about things and having long conversations with others about things. In this section I want to keep a record of some of the things thought and conversated.
+- **Conversations with friends**: (pending) I like thinking about things and having long conversations with others about things. In this section I want to keep a record of some of the things thought and conversated.
 
 If you find something here that resonates with you, feel free to reach out to me at **axh1127 [at] case [dot] edu**.
 
@@ -24,5 +24,7 @@ If you find something here that resonates with you, feel free to reach out to me
 [*Sebastian Gómez Rendón*](https://sites.google.com/view/sebasgomez)
 
 [*Shiv Mauree*](https://smauree.com)
+
+[*Nikolas Rieke*](https://www.iaa.tu-bs.de/nikrieke/)
 
 

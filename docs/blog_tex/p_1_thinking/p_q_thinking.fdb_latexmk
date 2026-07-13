@@ -1,5 +1,5 @@
 # Fdb version 4
-["pdflatex"] 1780309990.31477 "p_q_thinking.tex" "p_q_thinking.pdf" "p_q_thinking" 1780309991.32627 0
+["pdflatex"] 1783703740.10997 "p_q_thinking.tex" "p_q_thinking.pdf" "p_q_thinking" 1783703741.12757 0
   "/usr/local/texlive/2025/texmf-dist/fonts/map/fontname/texfonts.map" 1577235249 3524 cb3e574dea2d1052e39280babc910dc8 ""
   "/usr/local/texlive/2025/texmf-dist/fonts/tfm/public/amsfonts/cmextra/cmex7.tfm" 1246382020 1004 54797486969f23fa377b128694d548df ""
   "/usr/local/texlive/2025/texmf-dist/fonts/tfm/public/amsfonts/cmextra/cmex8.tfm" 1246382020 988 bdf658c3bfc2d96d3c8b02cfc1c94c20 ""
@@ -252,9 +252,9 @@
   "/usr/local/texlive/2025/texmf-var/web2c/pdftex/pdflatex.fmt" 1741450574 3345740 46b66fdb0378f7bf5921b5eabf1762b8 ""
   "/usr/local/texlive/2025/texmf.cnf" 1741450484 577 418a7058ec8e006d8704f60ecd22c938 ""
   "ekblite.cls" 1766233630.05661 8664 f36600117ed91dbd62ac644dd55533df ""
-  "p_q_thinking.aux" 1780309991.22057 546 e97d506d41780659644c302d5288644d "pdflatex"
-  "p_q_thinking.out" 1780309991.22103 206 58047e6dbc9915cd5c8fbf2057d91dcf "pdflatex"
-  "p_q_thinking.tex" 1780309989.96788 5513 e582dd51cb6fe5b21cad39417c829685 ""
+  "p_q_thinking.aux" 1783703741.0155 546 e97d506d41780659644c302d5288644d "pdflatex"
+  "p_q_thinking.out" 1783703741.01596 206 58047e6dbc9915cd5c8fbf2057d91dcf "pdflatex"
+  "p_q_thinking.tex" 1783703739.77768 5514 54e8ea3e4b7e060f2e9c3c0d17bf286e ""
   (generated)
   "p_q_thinking.aux"
   "p_q_thinking.log"

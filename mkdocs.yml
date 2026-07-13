@@ -28,6 +28,5 @@ nav:
   - Home: index.md
   - About me:
     - CV: cv/education.md
-  - Conversations with friends: blog/index.md
 plugins:
   - blog
