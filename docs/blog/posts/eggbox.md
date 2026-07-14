@@ -13,6 +13,8 @@ The conversation and resulting outcome is what follows.
 
 <!-- more -->
 
+Explanation to come but if you can try the program below.
+
 ## Try the egg box tracker
 
 Click **LOAD**, then the run arrow in the lower-right corner of the editor.
