@@ -28,5 +28,12 @@ nav:
   - Home: index.md
   - About me:
     - CV: cv/education.md
+  - Conversations with friends:
+    - blog/index.md
 plugins:
   - blog
+  - mkdocs-pyscript
+markdown_extensions:
+  - pymdownx.snippets:
+      base_path: docs
+      check_paths: true
