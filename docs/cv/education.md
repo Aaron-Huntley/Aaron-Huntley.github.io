@@ -1,6 +1,6 @@
 # **Aaron Huntley**
 
-📧 [email](mailto:ahuntle4@uwo.ca) 
+📧 [email](mailto:axh1127@case.edu) 
 
 ---
 
