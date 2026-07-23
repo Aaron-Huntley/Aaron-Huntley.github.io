@@ -32,7 +32,7 @@ nav:
     - blog/index.md
 plugins:
   - blog:
-    draft_on_serve: false
+      draft_on_serve: false
   - mkdocs-pyscript
 markdown_extensions:
   - pymdownx.snippets:

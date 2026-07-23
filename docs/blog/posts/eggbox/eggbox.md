@@ -13,6 +13,11 @@ The conversation and resulting outcome is what follows.
 
 <!-- more -->
 
+<figure style="float: right; width: 30%;">
+  <img src="images/eggbox.jpeg" alt="The eggbox." style="width: 100%;">
+  <figcaption>The eggbox.</figcaption>
+</figure>
+
 Explanation to come but if you can try the program below.
 
 ## Try the egg box tracker
