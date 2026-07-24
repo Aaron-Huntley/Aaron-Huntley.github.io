@@ -14,7 +14,35 @@
 
   const style = document.createElement("style");
   style.textContent = `
+    #p3-love-layout {
+      display: flex;
+      align-items: flex-start;
+      flex-wrap: wrap;
+      gap: 1.25rem;
+    }
+
+    .p3-love-cloud {
+      flex: 0 1 12rem;
+      width: 100%;
+      max-width: 12rem;
+      min-width: 8rem;
+      height: 7.2rem;
+      border-radius: 50%;
+      overflow: hidden;
+      background: var(--md-default-fg-color--lightest, #00000012);
+    }
+
+    .p3-love-cloud canvas {
+      display: block;
+      width: 100%;
+      height: 100%;
+    }
+
     #p3-love-grid {
+      flex: 1 1 260px;
+      width: 100%;
+      max-width: 28rem;
+      min-width: 0;
       --p3-love-orange: #aeea00;
       --p3-love-magenta: #e91e63;
       --p3-love-lime: var(--md-primary-fg-color, #ff7043);
@@ -23,7 +51,6 @@
       display: grid;
       grid-template-columns: repeat(100, minmax(0, 1fr));
       gap: 1px;
-      width: min(100%, 32rem);
       aspect-ratio: 1;
       padding: 1px;
       background: var(--md-default-fg-color--lightest, #00000012);
@@ -100,6 +127,21 @@
   }
   grid.append(cells);
 
+  // A layout row placed around the grid (in its existing spot in the page)
+  // so a cloud panel can sit to its right.
+  const layout = document.createElement("div");
+  layout.id = "p3-love-layout";
+  grid.replaceWith(layout);
+  layout.append(grid);
+
+  const cloudWrap = document.createElement("div");
+  cloudWrap.className = "p3-love-cloud";
+  const cloudCanvas = document.createElement("canvas");
+  cloudCanvas.width = 260;
+  cloudCanvas.height = 160;
+  cloudWrap.append(cloudCanvas);
+  layout.append(cloudWrap);
+
   const toIndex = (row, column) => row * gridSize + column;
   const toPosition = (index) => [
     Math.floor(index / gridSize),
@@ -170,6 +212,133 @@
   markOrigin(magentaStart);
   markOrigin(limeStart);
 
+  // "r, g, b" for a colony, read from an already-coloured cell rather than
+  // its CSS custom property, since custom properties that reference other
+  // vars (like --p3-love-lime) don't reliably resolve through getComputedStyle.
+  const rgbComponentsOf = (index) => {
+    const value = getComputedStyle(cellsByIndex[index]).backgroundColor;
+    const numbers = value.match(/\d+(\.\d+)?/g);
+    return numbers ? numbers.slice(0, 3).join(", ") : "255, 255, 255";
+  };
+
+  // Two drifting particle clouds sharing one space -- magenta on the left,
+  // lime (orange) on the right -- each growing and flashing brighter every
+  // time its colony's fungus pulses. Whenever the colonies interact, a
+  // half-magenta half-lime particle spawns and drifts around the midpoint,
+  // so the more they interact the more the middle fills in and the two
+  // clouds visually become one.
+  const createLoveCloud = (canvas, magentaRgb, limeRgb) => {
+    const ctx = canvas.getContext("2d");
+    const width = canvas.width;
+    const height = canvas.height;
+    const centerY = height / 2;
+
+    const makeParticle = () => ({
+      angle: Math.random() * Math.PI * 2,
+      angularSpeed: (Math.random() - 0.5) * 0.5,
+      baseRadius: 6 + Math.random() * 8,
+      wobbleAmp: 4 + Math.random() * 6,
+      wobbleFreq: 0.3 + Math.random() * 0.7,
+      wobblePhase: Math.random() * Math.PI * 2,
+      jitterPhaseX: Math.random() * Math.PI * 2,
+      jitterPhaseY: Math.random() * Math.PI * 2,
+      radius: 1.5 + Math.random() * 2.5,
+    });
+
+    const createGroup = (centerX, maxSpread, maxParticles, initialCount) => {
+      const group = {
+        centerX, maxSpread, maxParticles, spread: 18, pulseIntensity: 0, particles: [],
+      };
+      for (let i = 0; i < initialCount; i += 1) group.particles.push(makeParticle());
+      return group;
+    };
+
+    const magentaGroup = createGroup(width * 0.28, width * 0.26, 80, 22);
+    const limeGroup = createGroup(width * 0.72, width * 0.26, 80, 22);
+    const hybridGroup = createGroup(width * 0.5, width * 0.16, 60, 0);
+
+    const growGroup = (group) => {
+      group.spread = Math.min(group.maxSpread, group.spread + 2);
+      if (group.particles.length < group.maxParticles) {
+        group.particles.push(makeParticle());
+        if (Math.random() < 0.6) group.particles.push(makeParticle());
+      }
+      group.pulseIntensity = 1;
+    };
+
+    let lastTimestamp = null;
+    const render = (timestamp) => {
+      if (lastTimestamp === null) lastTimestamp = timestamp;
+      const elapsed = (timestamp - lastTimestamp) / 1000;
+      lastTimestamp = timestamp;
+      const t = timestamp / 1000;
+
+      ctx.clearRect(0, 0, width, height);
+
+      // Advances and positions every particle in `group`, handing each one
+      // to `draw` so the caller decides how it's actually painted.
+      const drawGroup = (group, draw) => {
+        group.pulseIntensity = Math.max(0, group.pulseIntensity - elapsed * 1.4);
+        for (const particle of group.particles) {
+          particle.angle += particle.angularSpeed * elapsed * 0.3;
+
+          const radius = particle.baseRadius + group.spread * 0.7
+            + particle.wobbleAmp * Math.sin(t * particle.wobbleFreq + particle.wobblePhase);
+          const jitterX = Math.sin(t * 0.9 + particle.jitterPhaseX) * 3;
+          const jitterY = Math.cos(t * 0.7 + particle.jitterPhaseY) * 3;
+
+          const x = group.centerX + Math.cos(particle.angle) * radius + jitterX;
+          const y = centerY + Math.sin(particle.angle) * radius * 0.75 + jitterY;
+          const drawRadius = particle.radius * (1 + group.pulseIntensity * 0.8);
+          draw(x, y, drawRadius, group.pulseIntensity);
+        }
+      };
+
+      const drawDot = (rgb) => (x, y, radius, pulse) => {
+        ctx.beginPath();
+        ctx.fillStyle = `rgba(${rgb}, ${0.55 + pulse * 0.45})`;
+        ctx.shadowColor = `rgba(${rgb}, ${0.6 + pulse * 0.4})`;
+        ctx.shadowBlur = 6 + pulse * 10;
+        ctx.arc(x, y, radius, 0, Math.PI * 2);
+        ctx.fill();
+      };
+
+      drawGroup(magentaGroup, drawDot(magentaRgb));
+      drawGroup(limeGroup, drawDot(limeRgb));
+
+      // Half-magenta, half-lime: a fused particle for a fused moment.
+      drawGroup(hybridGroup, (x, y, radius, pulse) => {
+        ctx.beginPath();
+        ctx.moveTo(x, y);
+        ctx.arc(x, y, radius, Math.PI / 2, -Math.PI / 2);
+        ctx.closePath();
+        ctx.fillStyle = `rgba(${magentaRgb}, ${0.6 + pulse * 0.4})`;
+        ctx.shadowColor = `rgba(${magentaRgb}, ${0.6 + pulse * 0.4})`;
+        ctx.shadowBlur = 5 + pulse * 8;
+        ctx.fill();
+
+        ctx.beginPath();
+        ctx.moveTo(x, y);
+        ctx.arc(x, y, radius, -Math.PI / 2, Math.PI / 2);
+        ctx.closePath();
+        ctx.fillStyle = `rgba(${limeRgb}, ${0.6 + pulse * 0.4})`;
+        ctx.shadowColor = `rgba(${limeRgb}, ${0.6 + pulse * 0.4})`;
+        ctx.shadowBlur = 5 + pulse * 8;
+        ctx.fill();
+      });
+
+      requestAnimationFrame(render);
+    };
+    requestAnimationFrame(render);
+
+    return {
+      grow: (colony) => growGroup(colony === magenta ? magentaGroup : limeGroup),
+      interact: () => growGroup(hybridGroup),
+    };
+  };
+
+  const loveCloud = createLoveCloud(cloudCanvas, rgbComponentsOf(magentaStart), rgbComponentsOf(limeStart));
+
   const otherColonyOf = (colony) => (colony === magenta ? lime : magenta);
 
   // Distance to the nearest active food, so growth can be biased toward
@@ -214,8 +383,10 @@
   };
 
   // Fires a wave of light in `colony`'s colour, rippling outward from
-  // `start` through the whole connected structure ring by ring.
+  // `start` through the whole connected structure ring by ring. Its cloud
+  // grows and pulses in lockstep with every wave.
   const fireWave = (colony, start) => {
+    loveCloud.grow(colony);
     const pulseClass = colony.className.replace("cell--", "cell--pulse-");
     waveRings(colony, start).forEach((ring, ringIndex) => {
       setTimeout(() => {
@@ -290,6 +461,7 @@
     if (collisionsFired.has(index)) return;
     collisionsFired.add(index);
 
+    loveCloud.interact();
     fireWave(colonyA, index);
     fireWave(colonyB, index);
     triggerFirstContact(index);

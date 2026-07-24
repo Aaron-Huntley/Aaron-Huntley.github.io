@@ -14,11 +14,21 @@ The conversation and resulting outcome is what follows.
 <!-- more -->
 
 <figure style="float: right; width: 30%;">
-  <img src="images/eggbox.jpeg" alt="The eggbox." style="width: 100%;">
+  <img src="../../../../../images/eggbox.jpeg" alt="The eggbox." style="width: 100%;">
   <figcaption>The eggbox.</figcaption>
 </figure>
 
-Explanation to come but if you can try the program below.
+The full discussion of the problem is pending to be written up by Shiv and I but here I include the AI generated code solution to the problem.
+
+<!-- Ideas for the write up: include how I am not an applied mathematician and theres prob some pure solution -->
+
+On the night of the eggbox problem we cobbled together some poorly written python code which could compute all combinations for an $$n\times m$$ egg box with $$k$$ eggs. 
+After finding a satisfying solution (so we could safely store our eggs in the future) we discussed extensions and variants of the problem. 
+Since then, I have no interest in writing any more python code.
+Luckily, I don't really have to since claude can do it for me. 
+On a separate note im blown away at how easy it is for AI to write code now.
+Currently we have the standard variation of the problem but I intend to add the future variants and hopefully something more complicated may arise.
+
 
 ## Try the egg box tracker
 
