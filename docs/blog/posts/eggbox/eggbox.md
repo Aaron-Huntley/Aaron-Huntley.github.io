@@ -22,7 +22,7 @@ The full discussion of the problem is pending to be written up by Shiv and I but
 
 <!-- Ideas for the write up: include how I am not an applied mathematician and theres prob some pure solution -->
 
-On the night of the eggbox problem we cobbled together some poorly written python code which could compute all combinations for an $$n\times m$$ egg box with $$k$$ eggs. 
+On the night of the eggbox problem we cobbled together some poorly written python code which could compute all combinations for an $n\times m$ egg box with $k$ eggs. 
 After finding a satisfying solution (so we could safely store our eggs in the future) we discussed extensions and variants of the problem. 
 Since then, I have no interest in writing any more python code.
 Luckily, I don't really have to since claude can do it for me. 

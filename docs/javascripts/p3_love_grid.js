@@ -22,11 +22,11 @@
     }
 
     .p3-love-cloud {
-      flex: 0 1 12rem;
+      flex: 0 1 16rem;
       width: 100%;
-      max-width: 12rem;
-      min-width: 8rem;
-      height: 7.2rem;
+      max-width: 16rem;
+      min-width: 10rem;
+      height: 9.6rem;
       border-radius: 50%;
       overflow: hidden;
       background: var(--md-default-fg-color--lightest, #00000012);
@@ -137,8 +137,8 @@
   const cloudWrap = document.createElement("div");
   cloudWrap.className = "p3-love-cloud";
   const cloudCanvas = document.createElement("canvas");
-  cloudCanvas.width = 260;
-  cloudCanvas.height = 160;
+  cloudCanvas.width = 320;
+  cloudCanvas.height = 192;
   cloudWrap.append(cloudCanvas);
   layout.append(cloudWrap);
 
@@ -221,13 +221,27 @@
     return numbers ? numbers.slice(0, 3).join(", ") : "255, 255, 255";
   };
 
+  // --p3-love-lime tracks the theme's primary colour (orange in dark mode,
+  // cyan/blue in light mode), so these are kept live rather than read once,
+  // and refreshed whenever Material's light/dark toggle flips.
+  let magentaRgb = rgbComponentsOf(magentaStart);
+  let limeRgb = rgbComponentsOf(limeStart);
+  new MutationObserver(() => {
+    magentaRgb = rgbComponentsOf(magentaStart);
+    limeRgb = rgbComponentsOf(limeStart);
+  }).observe(document.body, {
+    attributes: true,
+    attributeFilter: ["data-md-color-scheme", "data-md-color-primary"],
+  });
+
   // Two drifting particle clouds sharing one space -- magenta on the left,
-  // lime (orange) on the right -- each growing and flashing brighter every
-  // time its colony's fungus pulses. Whenever the colonies interact, a
-  // half-magenta half-lime particle spawns and drifts around the midpoint,
-  // so the more they interact the more the middle fills in and the two
-  // clouds visually become one.
-  const createLoveCloud = (canvas, magentaRgb, limeRgb) => {
+  // lime (orange/blue, depending on the light/dark theme) on the right --
+  // each growing and flashing brighter every time its colony's fungus
+  // pulses. Whenever the colonies interact, a half-magenta half-lime
+  // particle spawns and drifts around the midpoint, so the more they
+  // interact the more the middle fills in and the two clouds visually
+  // become one.
+  const createLoveCloud = (canvas) => {
     const ctx = canvas.getContext("2d");
     const width = canvas.width;
     const height = canvas.height;
@@ -337,7 +351,7 @@
     };
   };
 
-  const loveCloud = createLoveCloud(cloudCanvas, rgbComponentsOf(magentaStart), rgbComponentsOf(limeStart));
+  const loveCloud = createLoveCloud(cloudCanvas);
 
   const otherColonyOf = (colony) => (colony === magenta ? lime : magenta);
 
