@@ -79,17 +79,25 @@ Similarly to how $\mathbf{Set}$ is the free coproduct completion of $*$ are $\ma
 # Introduction
 
 The category $\mathbf{Set}$ of sets and functions is the free coproduct completion of the terminal category, $*$.
-This is apparently folklore, the earliest appearance in print we know of is \cite{BenaBou1985Fibered}. 
-We define a free coproduct completion for a category $\mathsf{C}$ via the family construction, $\mathsf{Fam} \colon \mathbf{Cat}\to \mathbf{Cat}$. An object of $\mathsf{Fam}(\mathsf{C})$, $(I,x)$ is a set $I$ with $I$-indexed objects of $\mathsf{C}$, $x_i$. A morphism, $(f_0,f)\colon (I,x)\to (J,y)$, is a function $f_0\colon I\to J$ with $I$-indexed morphisms of $\mathsf{C}$, $f_i\colon x_i\to y_{f_0(i)}$.
+This is apparently folklore; the earliest appearance in print we know of is \cite{BenaBou1985Fibered}. 
+We define a free coproduct completion for a category $\mathsf{C}$ via the family construction, $\mathsf{Fam} \colon \mathbf{Cat}\to \mathbf{Cat}$. An object of $\mathsf{Fam}(\mathsf{C})$, $(I,x)$, is a set $I$ with $I$-indexed objects of $\mathsf{C}$, $x_i$. A morphism, $(f_0,f)\colon (I,x)\to (J,y)$, is a function $f_0\colon I\to J$ with $I$-indexed morphisms of $\mathsf{C}$, $f_i\colon x_i\to y_{f_0(i)}$.
 There is an inclusion $\Delta\colon \mathsf{C}\to \mathsf{Fam}(\mathsf{C})$ given by sending objects and morphisms to the objects and morphisms indexed by the singleton set $*$.
-We then obtain the universal property: for any category $\mathsf{C}$ and functor $F\colon \mathsf{C}\to \mathsf{D}$ where $\mathsf{D}$ has small coproducts, there exists an essentially unique coproduct preserving functor $\hat{F}\colon \mathsf{Fam}(\mathsf{C})\to \mathsf{D}$ such that the following diagram commutes,
+We then obtain the universal property: for any functor $F\colon \mathsf{C}\to \mathsf{D}$ where $\mathsf{D}$ has small coproducts, there exists an essentially unique coproduct preserving functor $\hat{F}\colon \mathsf{Fam}(\mathsf{C})\to \mathsf{D}$ such that the following diagram commutes,
 
-UNIV PROP OF FAMILIES DIAGRAM.
+\begin{equation*}
+\begin{tikzcd}
+	& {\mathsf{Fam}(\mathsf{C})} \\
+	{\mathsf{C}} & {\mathsf{D}}
+	\arrow["{\hat{F}}", dashed, from=1-2, to=2-2]
+	\arrow["\Delta", from=2-1, to=1-2]
+	\arrow["F"', from=2-1, to=2-2]
+\end{tikzcd}.
+\end{equation*}
 
 Can we trace the universal property in reverse, that is, if you know the family construction on a category how do you recover the coproduct?
-If $\mathsf{C}$ has coproducts then we can define $\Sigma:= \hat{\mathsf{id}_{\mathsf{C}}} \colon \mathsf{Fam}(\mathsf{C})\to \mathsf{C}$.
+If $\mathsf{C}$ has coproducts then we can define $\Sigma:= \widehat{\mathsf{id}_{\mathsf{C}}} \colon \mathsf{Fam}(\mathsf{C})\to \mathsf{C}$.
 It is a fun exercise to show that a category $\mathsf{C}$ has coproducts if and only if the inclusion $\Delta\colon \mathsf{C}\to \mathsf{Fam}(\mathsf{C})$ admits a left adjoint, $\Sigma\dashv \Delta$. 
-So, we can characterise a coproduct starting with the family construction by requiring an existence of an adjoint.
+So, we can characterise a coproduct starting with the family construction by the existence of a left adjoint.
 
 When we start looking at higher dimensional category theory, in particular in double categories, it is not uncommon for equivalent definitions of a concept to diverge. 
 In this case, you may want to define a coproduct as an initial cocone over a discrete diagram $F\colon I\to \mathsf{C}$ or as a left adjoint to the inclusion $\Delta\colon \mathsf{C}\to \mathsf{Fam}(\mathsf{C})$ depending on which is convenient.
@@ -97,31 +105,55 @@ Grandis and Paré in their seminal paper \cite{GPlimindblcats} extended the form
 They defined what it means for a double functor from a small double category, $F\colon \mathbb{I} \to \mathbb{D}$, to have a (co)limit.
 In particular when $\mathbb{I}$ is discrete we obtain a definition for a double (co)product.
 If we then ask what we get when we take the terminal double category, $*$, and freely add double coproducts we obtain the double category of sets, functions, trivial vertical arrows and cells, $\mathbb{S}\mathsf{et}_{\mathsf{id}}$. 
-It's reasonable to find this unsatisfying, since we're losing the 2-dimensional information about a double category which differentiates it from that of a category.
-If you know some double category theory you may expect what we were hoping for was actually the double category $\mathbb{S}\mathsf{pan}$ of sets, functions, spans and span homomorphisms. $\mathbb{S}\mathsf{pan}$ plays a crucial role in double category theory as exhibited, for example, by Paré in \cite{pareYoneda}, where the double Yoneda embedding takes values in $\mathbb{S}$\mathsf{pan}-valued double functors.
+It's reasonable to find this unsatisfying, since we're losing the 2-dimensional information about a double category which differentiates it from that of an ordinary (1-)category.
+If you know some double category theory you may expect what we were hoping for was actually the double category $\mathbb{S}\mathsf{pan}$ of sets, functions, spans and span homomorphisms. $\mathbb{S}\mathsf{pan}$ plays a crucial role in double category theory as exhibited, for example, by Paré in \cite{pareYoneda}, where the double Yoneda embedding lands in $\mathbb{S}\mathsf{pan}$-valued double functors.
 
 Remedying this problem was the goal of Evan Patterson's paper \cite{evan:prod_in_dbl}. 
 Evan defined a double family construction $\mathbb{F}\mathsf{am}(\mathbb{D})$, the key difference being we index the proarrows in $\mathbb{D}$ by arbitrary spans of sets $I\leftarrow A\rightarrow J$, and redefined a double coproduct as a lax left adjoint to the inclusion $\Delta \colon\mathbb{D}\to \mathbb{F}\mathsf{am}(\mathbb{D})$, mirroring the $1$-categorical case.
-Interestingly, indexing proarrows by an empty span specialises to the Grandis and Paré definition.
+Interestingly, indexing proarrows by an identity span specialises to the Grandis and Paré definition.
 Furthermore, completing with respect to the new coproduct gives us the desired result, $\mathbb{F}\mathsf{am}(*)\cong\mathbb{S}\mathsf{pan}$.
 
 This summer Evan and I unfolded a more nuanced story where we both generalised and refined the original result.
 First, we extended the family construction to the setting of (co)virtual double categories.
 This allows us to define a notion of product in a virtual double category and coproduct in a covirtual double category (sometimes called oplax virtual double category).
-We will see that one benefit is now we can capture examples such as coproducts in the covirtual double category $\mathbb{S}\mathsf{pan}(\mathsf{C})$ which can be defined even when $\mathsf{C}$ does not have pullbacks.
+One benefit is that we can now capture examples such as coproducts in the covirtual double category $\mathbb{S}\mathsf{pan}(\mathsf{C})$, which, we will see later, can be defined even when $\mathsf{C}$ does not have pullbacks.
 Second, we noticed that particular classes of spans whose left leg is in $L$ and right leg is in $R$, called $(L,R)$-spans, are closed under certain coproduct and pullback operations.
 So, we can specify further the family construction with respect to $(L,R)$, $\mathbb{F}\mathsf{am}_{(L,R)}$ and give definitions of $(L,R)$-(co)products.
 The non-trivial complexity of what it means to be a (co)product in a double category can be seen when we try to present a "biased" view of a double product.
 That is, a category $\mathsf{C}$ has all finite products if and only if it has binary products and a terminal object. In a double category, we need more than just binary double products and terminal objects to generate all double products, and finding generating sets is even more catastrophic in a virtual double category.
 
-Finally, as an application of the new theory we can exhibit the double categories $\mathbb{P}\mathsf{ar}$ and $\mathbb{M}\mathsf{ult}$, of partial functions and multivalued functions, as free $(L,R)$-coproduct completions of the terminal double category $*$ where $R$ is all functions and $L$ is the injections or surjections respectively. 
+Finally, as an application of the new theory we can exhibit the double categories $\mathbb{P}\mathsf{ar}$ and $\mathbb{M}\mathsf{ult}$, of partial functions and multivalued functions, as free $(L,R)$-coproduct completions of the terminal double category $*$ where $R$ is all functions and $L$ is the injections or surjections, respectively. 
 
-# Background
+# Virtual Double Categories
 
-We will mention what is a virtual double category as this is the setting we want to work in. 
+We are assuming the reader is familiar with some category theory but may not have come across virtual double categories (VDCs).
+It is worth spending some time to get used to VDCs since they are becoming increasingly useful in the study of formal category theory.
 First introduced by Burroni in \cite{BTcats} under the name "T-categories", virtual double categories were developed by Leinster in \cite{Leinster2004Higher} named "fc-multicategories" and then by Cruttwell and Shulman in \cite{cruttwellshulman_gen_multicat} where we we use the name and notation of virtual double categories.
 
-## Virtual double categories
+Before seeing a virtual double category, it is worth remembering what is a double category.
+Without giving the precise definition, we will say a double category is a two dimensional categorical structure with two orthogonal one dimensional components.
+That is a double category $\mathbb{D}$ has objects $x$, arrows $x\to y$, proarrows $x\proto y$ and cells ADD CELL DIAGRAM, such that the objects and arrows form a category, and the proarrows and cells form a category.
+The notion of a double category is natural as it arises by considering category objects internal to the $2$-category $\mathbf{Cat}$.
+Double categories have proven useful since they can package together information of two kinds of arrows which is common in a lot of examples.
+For example, sets typically have functions as maps between them, and functions are very well studied, however, there are other kinds of mappings between sets such as relations, partial functions and spans. 
+There are ways in which we can compile double categories $\mathbb{P}\mathsf{ar}$ or $\mathbb{S}\mathsf{pan}$ with functions as arrows and partial functions or spans as the proarrows.
+This allows us to study partial functions or spans through their relationship with functions, of which we know a lot of.
+
+The step from double categories to virtual double categories is a small one, all we do is forget the proarrows have a composition.
+
+\begin{definition}[virtual double category, (VDC)]
+
+\end{definition}
+
+If you know what a double category is then you might see how a VDC generalises a double category by forgetting about composition in the loose direction entirely.
+In fact there is an inclusion of the $2$ category of double categories, lax functors and transformations, into the $2$-category of virtual double categories, virtual functors and transformations,
+\[\Dbl_lax \hookrightarrow vDbl\]
+fully faithful on $1$-cells and $2$-cells.
+So VDC's are useful insofar they generalise double categories, but do they provide any use that a double category does not? 
+
+FIND A NEW USE FOR VDCS
+
+
 
 # Virtual double family construction 
 
