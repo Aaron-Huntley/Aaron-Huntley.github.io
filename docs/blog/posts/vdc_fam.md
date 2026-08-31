@@ -128,36 +128,100 @@ Finally, as an application of the new theory we can exhibit the double categorie
 
 We are assuming the reader is familiar with some category theory but may not have come across virtual double categories (VDCs).
 It is worth spending some time to get used to VDCs since they are becoming increasingly useful in the study of formal category theory.
-First introduced by Burroni in \cite{BTcats} under the name "T-categories", virtual double categories were developed by Leinster in \cite{Leinster2004Higher} named "fc-multicategories" and then by Cruttwell and Shulman in \cite{cruttwellshulman_gen_multicat} where we we use the name and notation of virtual double categories.
+First introduced by Burroni in \cite{BTcats} as the case $T=\mathrm{fc}$ of his "T-categories" where $\mathrm{fc}$ is the free category monad. Virtual double categories were then developed by Leinster in \cite{Leinster2004Higher} named "fc-multicategories". We will use the name and notation from Cruttwell and Shulman in \cite{cruttwellshulman_gen_multicat}.
 
-Before seeing a virtual double category, it is worth remembering what is a double category.
-Without giving the precise definition, we will say a double category is a two dimensional categorical structure with two orthogonal one dimensional components.
-That is a double category $\mathbb{D}$ has objects $x$, arrows $x\to y$, proarrows $x\proto y$ and cells ADD CELL DIAGRAM, such that the objects and arrows form a category, and the proarrows and cells form a category.
-The notion of a double category is natural as it arises by considering category objects internal to the $2$-category $\mathbf{Cat}$.
-Double categories have proven useful since they can package together information of two kinds of arrows which is common in a lot of examples.
-For example, sets typically have functions as maps between them, and functions are very well studied, however, there are other kinds of mappings between sets such as relations, partial functions and spans. 
-There are ways in which we can compile double categories $\mathbb{P}\mathsf{ar}$ or $\mathbb{S}\mathsf{pan}$ with functions as arrows and partial functions or spans as the proarrows.
-This allows us to study partial functions or spans through their relationship with functions, of which we know a lot of.
+Before seeing a virtual double category, it is worth remembering what a double category is.
+A double category is a category object internal to $\mathbf{Cat}$.
+We will denote the underlying category of objects and arrows as $\mathbb{D}_0$ and of proarrows and cells as $\mathbb{D}_1$.
+Double categories have proven useful since they can package together two kinds of arrows in the same structure.
+For example, sets typically have functions as maps between them, and functions are very well studied. However, there are other kinds of mappings between sets such as relations, partial functions and spans. 
+We can define the double categories $\mathbb{P}\mathsf{ar}$ or $\mathbb{S}\mathsf{pan}$ with functions as arrows and partial functions or spans as the proarrows.
+This allows us to study partial functions or spans through their relationship with functions.
 
-The step from double categories to virtual double categories is a small one, all we do is forget the proarrows have a composition.
+The step from double categories to virtual double categories is a small one. We forget about the composition of proarrows, and to compensate we need that the cells have an arbitrary string of "composable" proarrows as a source.
 
-\begin{definition}[virtual double category, (VDC)]
-
+\begin{definition}[Virtual double category, (VDC)]
+ADD
 \end{definition}
 
-If you know what a double category is then you might see how a VDC generalises a double category by forgetting about composition in the loose direction entirely.
-In fact there is an inclusion of the $2$ category of double categories, lax functors and transformations, into the $2$-category of virtual double categories, virtual functors and transformations,
-\[\Dbl_lax \hookrightarrow vDbl\]
-fully faithful on $1$-cells and $2$-cells.
-So VDC's are useful insofar they generalise double categories, but do they provide any use that a double category does not? 
+To recover the relation to double categories, we can define notions of virtual double functors and transformations as the maps preserving the relevant structure.
+Then there is a fully faithful inclusion of the $2$ category of double categories, lax functors and transformations, into the $2$-category of virtual double categories, virtual functors and transformations.
+\[\mathbf{Dbl}_{\mathrm{lax}} \hookrightarrow \mathbf{vDbl}\]
 
-FIND A NEW USE FOR VDCS
+Let us tie up the loose end that was in the intro, how to define $\mathbb{S}\mathsf{pan}(\mathsf{C})$ even when $\mathsf{C}$ doesn't have pullbacks. 
+First, let's dualise our definition of a VDC to get what's called a covirtual double category (coVDC).
+Notice how simply reversing the arrows in a VDC will not give us back a VDC, due to the asymmetry of the multi-source and single-target of the cells.
+So define a coVDC to consist of objects, arrows, proarrows and cells of the shape,
+ADD CELL DIAG
 
+Now we can give a use for this abstraction hinted in the intro. 
+\begin{example}
+For \emph{any} category $\mathsf{C}$ define the covirtual double category $\mathbb{S}\mathsf{pan}(\mathsf{C})$:
+\begin{itemize}
+  \item on objects and arrows, the objects and arrows of $\mathsf{C}$;
+  \item on proarrows, spans of arrows of $\mathsf{C}$, $X\leftarrow A\rightarrow Y$
+  \item on cells,
+  ADD GENERAL CELL DIAG
+  a collection of arrows of $\mathsf{C}$, $f_i\colon A \to B_i$ such that the diagram
+  ADD SPAN DIAG
+  commutes.
+\end{itemize}
+\end{example}
+Since we didn't need to compose spans, we never needed pullback. 
+If $\mathsf{C}$ had pullbacks then by the universal property the maps into the apexes give a unique map into the pullback, hence the definitions are equivalent.
 
+# The family construction for virtual double categories
 
-# Virtual double family construction 
+Now we have "\emph{familiarised}" ourselves with virtual double categories and the family construction, we will put them together to get the family construction on VDCs.
+Giving the definition will seem a little intimidating so first let's figure out how we get there.
+To come up with the definition, there's one thing we know already we want the construction to be the same on objects and arrows as for the family construction on categories.
+This leaves us to decide what happens on proarrows and cells. 
+Evan's observation was to index the proarrows by a \emph{span} of sets $I\leftarrow A \rightarrow J$.
+To see why this makes sense recall for a double category $\mathbb{D}$, there are underlying categories $\mathbb{D}_0$ and $\mathbb{D}_1$ with source and target functors $s,t\colon\mathbb{D}_1\rightrightarrows \mathbb{D}_0$, since a double category is a category object internal to $\mathbf{Cat}$.
+We want to index both of these underlying categories with a discrete category, that is, a set viewed as a category.
+We could choose the same set $I$ indexing both categories giving us a diagram,
+
+ADD PARALLEL PROD DIAGRAM
+
+However, it makes just as much sense to index the categories by different underlying sets with functors (functions since the categories are sets) that commute with the source and target functors,
+
+ADD SPAN INDEXING DIAGRAM
+
+This is what we mean when we say we are indexing by a span.
+Coming up with this generalised indexing forces what makes sense on the cells, and even though we don't have diagrams like this in virtual double categories we can still perform the same construction.
+
+\begin{definition}[Family construction on VDCs]
+ADD
+\end{definition}
+
+We learn from the $1$-categorical case that the family construction encodes coproducts.
+In fact we can say this statement much more precisely; the family construction is the free coproduct completion monad.
+That is, taking families is an algebraic construction and the algebras over the monad give categories with coproducts. 
+The unit of the monad is the inclusion of a category into the category of families and the multiplication is taking coproducts in the category of families.
+If $\mathsf{C}$ is an algebra, then the algebra laws force the algebra multiplication, $\Sigma$ to be isomorphic to taking coproducts in $\mathsf{C}$. In fact $\mathsf{Fam}(-)$ is what's called a lax-idempotent monad on $\mathbf{Cat}$ which tells us the algebra structure, if it exists, is unique \cite{KLPropertylikestructues}. 
+
+## Span indexing pairs
+
+Indexing proarrows by a span gives us a lot more freedom on what we're indexing by. 
+It is no longer just the indexing set that can vary, but also the functions in the legs of the span.
+We can notice certain classes of these functions, for example injections, are closed under the operations which encode the family monad.
+So there is not just one family monad but many depending on which class of functions we choose for the legs of the span.
+In particular we have the following,
+
+\begin{definition}[Span indexing pair]
+A \emph{span indexing pair}, $(L,R)$, is a pair of classes of functions satisfying:
+\begin{enumerate}
+  \item pullback closure
+  \item coproduct closure
+  \item unit
+\end{enumerate}
+\end{definition}
+
+The definition reflects exactly the conditions we need for the family construction to assemble into a monad.
+More precisely, we can now define a refined family construction $\mathbb{F}\mathsf{am}_{(L,R)}(\mathbb{D})$.
 
 # Double products 
+
 
 # Generation theorems
 
