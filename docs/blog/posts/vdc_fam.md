@@ -128,7 +128,7 @@ Finally, as an application of the new theory we can exhibit the double categorie
 
 We are assuming the reader is familiar with some category theory but may not have come across virtual double categories (VDCs).
 It is worth spending some time to get used to VDCs since they are becoming increasingly useful in the study of formal category theory.
-First introduced by Burroni in \cite{BTcats} as the case $T=\mathrm{fc}$ of his "T-categories" where $\mathrm{fc}$ is the free category monad. Virtual double categories were then developed by Leinster in \cite{Leinster2004Higher} named "fc-multicategories". We will use the name and notation from Cruttwell and Shulman in \cite{cruttwellshulman_gen_multicat}.
+The idea was first introduced by Burroni in \cite{BTcats} as the case $\mathrm{T}=\mathrm{fc}$ of his "$\mathrm{T}$-categories" where $\mathrm{fc}$ is the free category monad. Virtual double categories were then developed by Leinster in \cite{Leinster2004Higher} named "$\mathrm{fc}$-multicategories". We will use the name and notation from Cruttwell and Shulman in \cite{cruttwellshulman_gen_multicat}.
 
 Before seeing a virtual double category, it is worth remembering what a double category is.
 A double category is a category object internal to $\mathbf{Cat}$.
@@ -145,7 +145,7 @@ ADD
 \end{definition}
 
 To recover the relation to double categories, we can define notions of virtual double functors and transformations as the maps preserving the relevant structure.
-Then there is a fully faithful inclusion of the $2$ category of double categories, lax functors and transformations, into the $2$-category of virtual double categories, virtual functors and transformations.
+Then there is a inclusion (fully faithful on $1$-cells and $2$-cells) of the $2$-category of double categories, lax functors and transformations, into the $2$-category of virtual double categories, virtual functors and transformations.
 \[\mathbf{Dbl}_{\mathrm{lax}} \hookrightarrow \mathbf{vDbl}\]
 
 Let us tie up the loose end that was in the intro, how to define $\mathbb{S}\mathsf{pan}(\mathsf{C})$ even when $\mathsf{C}$ doesn't have pullbacks. 
@@ -168,11 +168,11 @@ For \emph{any} category $\mathsf{C}$ define the covirtual double category $\math
 \end{itemize}
 \end{example}
 Since we didn't need to compose spans, we never needed pullback. 
-If $\mathsf{C}$ had pullbacks then by the universal property the maps into the apexes give a unique map into the pullback, hence the definitions are equivalent.
+If $\mathsf{C}$ had pullbacks then by the universal property the maps into the apexes give a unique map into the pullback, hence our definition and one defined by maps into the pullback coincide.
 
 # The family construction for virtual double categories
 
-Now we have "\emph{familiarised}" ourselves with virtual double categories and the family construction, we will put them together to get the family construction on VDCs.
+Now that we have "\emph{familiarised}" ourselves with virtual double categories and the family construction, we will put them together to get the family construction on VDCs.
 Giving the definition will seem a little intimidating so first let's figure out how we get there.
 To come up with the definition, there's one thing we know already we want the construction to be the same on objects and arrows as for the family construction on categories.
 This leaves us to decide what happens on proarrows and cells. 
@@ -198,7 +198,7 @@ We learn from the $1$-categorical case that the family construction encodes copr
 In fact we can say this statement much more precisely; the family construction is the free coproduct completion monad.
 That is, taking families is an algebraic construction and the algebras over the monad give categories with coproducts. 
 The unit of the monad is the inclusion of a category into the category of families and the multiplication is taking coproducts in the category of families.
-If $\mathsf{C}$ is an algebra, then the algebra laws force the algebra multiplication, $\Sigma$ to be isomorphic to taking coproducts in $\mathsf{C}$. In fact $\mathsf{Fam}(-)$ is what's called a lax-idempotent monad on $\mathbf{Cat}$ which tells us the algebra structure, if it exists, is unique \cite{KLPropertylikestructues}. 
+If $\mathsf{C}$ is an algebra, then the algebra laws force the algebra action, $\Sigma$, to be isomorphic to taking coproducts in $\mathsf{C}$. In fact $\mathsf{Fam}(-)$ is what's called a lax-idempotent monad on $\mathbf{Cat}$ which tells us the algebra structure, if it exists, is unique up to isomorphism \cite{KLPropertylikestructues}. 
 
 ## Span indexing pairs
 
