@@ -27,8 +27,8 @@ theme:
 nav:
   - Home: index.md
   - About me:
-    - CV: cv/education.md
-    - Talks: cv/talks.md
+    - CV: aboutme/cv.md
+    - Talks: aboutme/talks.md
   - Conversations with friends:
     - blog/index.md
 plugins:
