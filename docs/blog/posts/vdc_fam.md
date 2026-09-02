@@ -194,6 +194,13 @@ Coming up with this generalised indexing forces what makes sense on the cells, a
 ADD
 \end{definition}
 
+\begin{remark}[Covariant vs Contravariant]
+  You may have noticed the arrows in the construction here are going in the reverse direction that you might expect. 
+  This is because we are stating the contravariant family construction, and the reason for it is so we can define products in VDCs instead of coproducts. Interestingly, to define coproducts in a double category we need to consider the covariant family construction which lives on covirtual double categories.
+  To avoid getting in to the weeds we will only present the contravariant version. 
+  To signify the difference we include a $*$ on the contravariant versions. 
+\end{remark}
+
 We learn from the $1$-categorical case that the family construction encodes coproducts.
 In fact we can say this statement much more precisely; the family construction is the free coproduct completion monad.
 That is, taking families is an algebraic construction and the algebras over the monad give categories with coproducts. 
@@ -217,13 +224,34 @@ A \emph{span indexing pair}, $(L,R)$, is a pair of classes of functions satisfyi
 \end{enumerate}
 \end{definition}
 
+ADD POSET OF SPAN INDEXING PAIRS
+
 The definition reflects exactly the conditions we need for the family construction to assemble into a monad.
-More precisely, we can now define a refined family construction $\mathbb{F}\mathsf{am}_{(L,R)}(\mathbb{D})$.
+More precisely, we can now define a refined family construction $\mathbb{F}\mathsf{am}_{(L,R)}(\mathbb{D})$ by instead now only indexing by spans with the left leg in $L$ and right leg in $R$.
+
+\begin{theorem}[Generalised family monads]
+  For a span indexing pair $(L,R)$ there is a colax idempotent pseudomonad
+  \[\mathbb{F}\mathsf{am}^*(-)\colon \mathbf{vDbl}\to \mathbf{vDbl}\]
+  given by the family construction.
+  The unit of the monad, $\Delta$, is the inclusion at the singleton set and the multiplication, $\Sigma$, is taking the coproduct over the indexing sets.
+\end{theorem}
 
 # Double products 
+Everything about double products can be understood through the monad presentation here. 
+However, it is valuable to unpack whats going on into other descriptions we might be more familiar with.
+In particular, we want to recover the definition of a double product as an adjoint to the inclusion.
+On one hand we can say a virtual double category with $(L,R)$-products is an algebra of $\mathbb{F}\mathsf{am}^*(-)$.
+However, this doesn't give us much intuition of what these products "look like".
+Instead, if you rephrase the definition of adjoint functors by a "universal arrow" definition it is easier to get your hands on the double products.
+To find the details of what we mean, you'll have to wait for the paper.
+Instead here we hope to give an intuition of what double products "look like".
+
+As stated, we define a \emph{virtual double category with $(L,R)$-products}, $\mathbb{D}$, as a virtual double category such that $\Delta\colon \mathbb{D}\to \mathbb{F}\mathsf{am}^{*}(\mathbb{D})$ has a right adjoint, $\Pi$.
+
+Then 
 
 
-# Generation theorems
+## Generation theorems
 
 
 Bibtex citations:
