@@ -19,18 +19,26 @@ Do you have one?
 When I was younger I had specific goals.
 I wanted to get a PhD and produce novel research.
 I wanted to travel, meet new people and have many new and exciting experiences.
-I chose to study maths in part to achieve this goal, but more in part because I saw something which I thought gave my life meaning.
+I chose to study mathematics in part to achieve this goal, but more in part because I saw something which I thought gave my life meaning.
 Maths gave me tools to answer questions, to think, so I could think about what was the meaning maths gave.
 I remember distinctly sitting in a class, sheet of paper in front of me, staring into the cosmos of mathematics and witnessing its endlessness.
-It was a single moment which was so powerful It completely dictated the course of my life.
-Im not attributing my life to this moment, every other experience in my life has built me to have these thoughts and feelings.
+It was a single moment which was so powerful it completely predicted the course of my life.
+I'm not attributing my life to this moment, every other experience in my life has built me to have these thoughts and feelings.
 However, I have thought about that moment a lot.
 It feels important to me.
 
-Years following then I had not thought about the question of what brought meaning to my life much.
+Years following then I had not thought much about the question of what brought meaning to my life.
 Recently, I like thinking.
 I have made decisions of how I want to live, what I think is correct, how certain decisions align with a moral compass I have constructed. 
 I have slowly built up a picture of what it means to be me.
+
+This is an egotistical question, that is a question of what my ego looks like.
+This doesn't mean I have to get attached to it but instead observe it, question it.
+It is much more comfortable, in my opinion to take an ego as the axiom and retrofit meaning.
+I don't want to do that (ironically that want is also part of the ego).
+I believe that asking the meaning of life globally is not a sensible question. 
+However, asking it locally (what is it to you) is not only answerable but you can choose the answer.
+
 Part of that picture is the idea of contentedness.
 I want to live a life which is content and satisfied.
 What do I mean by those words?
