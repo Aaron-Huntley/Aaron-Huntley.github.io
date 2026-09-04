@@ -1,0 +1,923 @@
+
+<!DOCTYPE html>
+
+<html class="no-js" lang="en">
+<head>
+<meta charset="utf-8"/>
+<meta content="width=device-width,initial-scale=1" name="viewport"/>
+<link href="https://aaron-huntley.github.io/mathematics/category_theory/Functors/" rel="canonical"/>
+<link href="../../images/favicon.png" rel="icon"/>
+<meta content="mkdocs-1.6.1, mkdocs-material-9.7.1" name="generator"/>
+<title>Functors - Aaron Huntley</title>
+<link href="../../assets/stylesheets/main.484c7ddc.min.css" rel="stylesheet"/>
+<link href="../../assets/stylesheets/palette.ab4e12ef.min.css" rel="stylesheet"/>
+<link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect"/>
+<link href="https://fonts.googleapis.com/css?family=Roboto:300,300i,400,400i,700,700i%7CRoboto+Mono:400,400i,700,700i&amp;display=fallback" rel="stylesheet"/>
+<style>:root{--md-text-font:"Roboto";--md-code-font:"Roboto Mono"}</style>
+<link href="../../pyrepl.css" rel="stylesheet"/>
+<script>__md_scope=new URL("../..",location),__md_hash=e=>[...e].reduce(((e,_)=>(e<<5)-e+_.charCodeAt(0)),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
+</head>
+<body data-md-color-accent="amber" data-md-color-primary="deep-orange" data-md-color-scheme="slate" dir="ltr">
+<input autocomplete="off" class="md-toggle" data-md-toggle="drawer" id="__drawer" type="checkbox"/>
+<input autocomplete="off" class="md-toggle" data-md-toggle="search" id="__search" type="checkbox"/>
+<label class="md-overlay" for="__drawer"></label>
+<div data-md-component="skip">
+<a class="md-skip" href="#13-functors">
+          Skip to content
+        </a>
+</div>
+<div data-md-component="announce">
+</div>
+<header class="md-header" data-md-component="header">
+<nav aria-label="Header" class="md-header__inner md-grid">
+<a aria-label="Aaron Huntley" class="md-header__button md-logo" data-md-component="logo" href="../.." title="Aaron Huntley">
+<img alt="logo" src="../../images/logo.png"/>
+</a>
+<label class="md-header__button md-icon" for="__drawer">
+<svg viewbox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M3 6h18v2H3zm0 5h18v2H3zm0 5h18v2H3z"></path></svg>
+</label>
+<div class="md-header__title" data-md-component="header-title">
+<div class="md-header__ellipsis">
+<div class="md-header__topic">
+<span class="md-ellipsis">
+            Aaron Huntley
+          </span>
+</div>
+<div class="md-header__topic" data-md-component="header-topic">
+<span class="md-ellipsis">
+            
+              Functors
+            
+          </span>
+</div>
+</div>
+</div>
+<form class="md-header__option" data-md-component="palette">
+<input aria-label="Dark mode" class="md-option" data-md-color-accent="amber" data-md-color-media="" data-md-color-primary="deep-orange" data-md-color-scheme="slate" id="__palette_0" name="__palette" type="radio"/>
+<label class="md-header__button md-icon" for="__palette_1" hidden="" title="Dark mode">
+<svg viewbox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M12 7a5 5 0 0 1 5 5 5 5 0 0 1-5 5 5 5 0 0 1-5-5 5 5 0 0 1 5-5m0 2a3 3 0 0 0-3 3 3 3 0 0 0 3 3 3 3 0 0 0 3-3 3 3 0 0 0-3-3m0-7 2.39 3.42C13.65 5.15 12.84 5 12 5s-1.65.15-2.39.42zM3.34 7l4.16-.35A7.2 7.2 0 0 0 5.94 8.5c-.44.74-.69 1.5-.83 2.29zm.02 10 1.76-3.77a7.131 7.131 0 0 0 2.38 4.14zM20.65 7l-1.77 3.79a7.02 7.02 0 0 0-2.38-4.15zm-.01 10-4.14.36c.59-.51 1.12-1.14 1.54-1.86.42-.73.69-1.5.83-2.29zM12 22l-2.41-3.44c.74.27 1.55.44 2.41.44.82 0 1.63-.17 2.37-.44z"></path></svg>
+</label>
+<input aria-label="Light mode" class="md-option" data-md-color-accent="light-green" data-md-color-media="" data-md-color-primary="cyan" data-md-color-scheme="default" id="__palette_1" name="__palette" type="radio"/>
+<label class="md-header__button md-icon" for="__palette_0" hidden="" title="Light mode">
+<svg viewbox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="m17.75 4.09-2.53 1.94.91 3.06-2.63-1.81-2.63 1.81.91-3.06-2.53-1.94L12.44 4l1.06-3 1.06 3zm3.5 6.91-1.64 1.25.59 1.98-1.7-1.17-1.7 1.17.59-1.98L15.75 11l2.06-.05L18.5 9l.69 1.95zm-2.28 4.95c.83-.08 1.72 1.1 1.19 1.85-.32.45-.66.87-1.08 1.27C15.17 23 8.84 23 4.94 19.07c-3.91-3.9-3.91-10.24 0-14.14.4-.4.82-.76 1.27-1.08.75-.53 1.93.36 1.85 1.19-.27 2.86.69 5.83 2.89 8.02a9.96 9.96 0 0 0 8.02 2.89m-1.64 2.02a12.08 12.08 0 0 1-7.8-3.47c-2.17-2.19-3.33-5-3.49-7.82-2.81 3.14-2.7 7.96.31 10.98 3.02 3.01 7.84 3.12 10.98.31"></path></svg>
+</label>
+</form>
+<script>var palette=__md_get("__palette");if(palette&&palette.color){if("(prefers-color-scheme)"===palette.color.media){var media=matchMedia("(prefers-color-scheme: light)"),input=document.querySelector(media.matches?"[data-md-color-media='(prefers-color-scheme: light)']":"[data-md-color-media='(prefers-color-scheme: dark)']");palette.color.media=input.getAttribute("data-md-color-media"),palette.color.scheme=input.getAttribute("data-md-color-scheme"),palette.color.primary=input.getAttribute("data-md-color-primary"),palette.color.accent=input.getAttribute("data-md-color-accent")}for(var[key,value]of Object.entries(palette.color))document.body.setAttribute("data-md-color-"+key,value)}</script>
+</nav>
+</header>
+<div class="md-container" data-md-component="container">
+<nav aria-label="Tabs" class="md-tabs" data-md-component="tabs">
+<div class="md-grid">
+<ul class="md-tabs__list">
+<li class="md-tabs__item">
+<a class="md-tabs__link" href="../..">
+        
+  
+  
+    
+  
+  Home
+
+      </a>
+</li>
+<li class="md-tabs__item">
+<a class="md-tabs__link" href="../../aboutme/cv/">
+          
+  
+  
+  About me
+
+        </a>
+</li>
+<li class="md-tabs__item">
+<a class="md-tabs__link" href="../../blog/">
+          
+  
+  
+  Conversations with friends
+
+        </a>
+</li>
+</ul>
+</div>
+</nav>
+<main class="md-main" data-md-component="main">
+<div class="md-main__inner md-grid">
+<div class="md-sidebar md-sidebar--primary" data-md-component="sidebar" data-md-type="navigation">
+<div class="md-sidebar__scrollwrap">
+<div class="md-sidebar__inner">
+<nav aria-label="Navigation" class="md-nav md-nav--primary md-nav--lifted" data-md-level="0">
+<label class="md-nav__title" for="__drawer">
+<a aria-label="Aaron Huntley" class="md-nav__button md-logo" data-md-component="logo" href="../.." title="Aaron Huntley">
+<img alt="logo" src="../../images/logo.png"/>
+</a>
+    Aaron Huntley
+  </label>
+<ul class="md-nav__list" data-md-scrollfix="">
+<li class="md-nav__item">
+<a class="md-nav__link" href="../..">
+<span class="md-ellipsis">
+    
+  
+    Home
+  
+
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item md-nav__item--nested">
+<input class="md-nav__toggle md-toggle" id="__nav_2" type="checkbox"/>
+<label class="md-nav__link" for="__nav_2" id="__nav_2_label" tabindex="0">
+<span class="md-ellipsis">
+    
+  
+    About me
+  
+
+    
+  </span>
+<span class="md-nav__icon md-icon"></span>
+</label>
+<nav aria-expanded="false" aria-labelledby="__nav_2_label" class="md-nav" data-md-level="1">
+<label class="md-nav__title" for="__nav_2">
+<span class="md-nav__icon md-icon"></span>
+            
+  
+    About me
+  
+
+          </label>
+<ul class="md-nav__list" data-md-scrollfix="">
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../aboutme/cv/">
+<span class="md-ellipsis">
+    
+  
+    CV
+  
+
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../aboutme/talks/">
+<span class="md-ellipsis">
+    
+  
+    Talks
+  
+
+    
+  </span>
+</a>
+</li>
+</ul>
+</nav>
+</li>
+<li class="md-nav__item md-nav__item--nested">
+<input class="md-nav__toggle md-toggle" id="__nav_3" type="checkbox"/>
+<label class="md-nav__link" for="__nav_3" id="__nav_3_label" tabindex="0">
+<span class="md-ellipsis">
+    
+  
+    Conversations with friends
+  
+
+    
+  </span>
+<span class="md-nav__icon md-icon"></span>
+</label>
+<nav aria-expanded="false" aria-labelledby="__nav_3_label" class="md-nav" data-md-level="1">
+<label class="md-nav__title" for="__nav_3">
+<span class="md-nav__icon md-icon"></span>
+            
+  
+    Conversations with friends
+  
+
+          </label>
+<ul class="md-nav__list" data-md-scrollfix="">
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../blog/">
+<span class="md-ellipsis">
+    
+  
+    Conversations with friends
+  
+
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item md-nav__item--nested">
+<input class="md-nav__toggle md-toggle" id="__nav_3_2" type="checkbox"/>
+<label class="md-nav__link" for="__nav_3_2" id="__nav_3_2_label" tabindex="0">
+<span class="md-ellipsis">
+    
+  
+    Archive
+  
+
+    
+  </span>
+<span class="md-nav__icon md-icon"></span>
+</label>
+<nav aria-expanded="false" aria-labelledby="__nav_3_2_label" class="md-nav" data-md-level="2">
+<label class="md-nav__title" for="__nav_3_2">
+<span class="md-nav__icon md-icon"></span>
+            
+  
+    Archive
+  
+
+          </label>
+<ul class="md-nav__list" data-md-scrollfix="">
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../blog/archive/2026/">
+<span class="md-ellipsis">
+    
+  
+    2026
+  
+
+    
+  </span>
+</a>
+</li>
+</ul>
+</nav>
+</li>
+</ul>
+</nav>
+</li>
+</ul>
+</nav>
+</div>
+</div>
+</div>
+<div class="md-sidebar md-sidebar--secondary" data-md-component="sidebar" data-md-type="toc">
+<div class="md-sidebar__scrollwrap">
+<div class="md-sidebar__inner">
+<nav aria-label="Table of contents" class="md-nav md-nav--secondary">
+</nav>
+</div>
+</div>
+</div>
+<div class="md-content" data-md-component="content">
+<article class="md-content__inner md-typeset">
+<style>
+.md-content {
+    max-width: 80em;
+}
+</style>
+<h1 id="13-functors">1.3. Functors</h1>
+<p>Definitions and examples in this section come from various references including Leinster \cite{Leinster}, Adámek - Herrlick - Strecker \cite{ACC} can define a notion of morphisms between categories as follows.</p>
+<p><span class="definition" style="display:block"></span></p>
+<p>Let <span class="arithmatex">\(\mathscr{C}\)</span> and <span class="arithmatex">\(\mathscr{D}\)</span> be categories. A <em>functor</em> is a pair
+<span class="arithmatex">\(F=(F^{ob},F^{hom})\colon \mathscr{C}\rightarrow\mathscr{D}\)</span> where:
+\begin{enumerate}
+\item <span class="arithmatex">\(F^{ob}\)</span> is a function,</p>
+<div class="arithmatex">\[F^{ob}\colon \ob{\mathscr{C}}\rightarrow\ob{\mathscr{D}};\]</div>
+<p>\item For each <span class="arithmatex">\(A,A^{\prime}\in\ob{\mathscr{C}}\)</span>, <span class="arithmatex">\(F^{hom}\)</span> is a function,</p>
+<div class="arithmatex">\[\begin{align*}
+F^{hom}\colon \ho[\cat{C}]{A}{A^{\prime}} &amp;\rightarrow\ho[\cat{D}]{F^{ob}(A)}{F^{ob}(A^{\prime})},\\
+f&amp;\mapsto F^{hom}(f);
+\end{align*}\]</div>
+<p>\end{enumerate}
+The following axioms are satisfied:
+\begin{enumerate}
+\item For all <span class="arithmatex">\(f\in\ho{A}{A^{\prime}}\)</span> and <span class="arithmatex">\(f^{\prime}\in\ho{A^{\prime}}{A^{\prime\prime}}\)</span>, </p>
+<div class="arithmatex">\[\begin{align*}
+F^{hom}(f^{\prime}\circ^{\mathscr{C}} f) = F^{hom}(f^{\prime})\circ^{\mathscr{D}} F^{hom}(f)
+\end{align*}\]</div>
+<p>where <span class="arithmatex">\(\circ^{\mathscr{C}}\)</span> and <span class="arithmatex">\(\circ^{\mathscr{D}}\)</span> are the compositions for <span class="arithmatex">\(\mathscr{C}, \mathscr{D}\)</span> respectively;
+\item For all <span class="arithmatex">\(A\in\ob{\mathscr{C}}\)</span>, </p>
+<div class="arithmatex">\[F^{hom}(id_{A}) = id_{F^{ob}(A)}.\]</div>
+<p>\end{enumerate}
+</p>
+<p><span class="remark" style="display:block"></span></p>
+<p>We will just write <span class="arithmatex">\(F\)</span> for both <span class="arithmatex">\(F^{ob}\)</span> and <span class="arithmatex">\(F^{hom}\)</span> and know which one is being used by what object it is acting on.
+</p>
+<p><span class="definition" style="display:block"></span></p>
+<p>Given a category <span class="arithmatex">\(\mathscr{C}\)</span> let <span class="arithmatex">\(F\colon\mathscr{C}\rightarrow\mathscr{C}\)</span> be a functor from <span class="arithmatex">\(\mathscr{C}\)</span> to <span class="arithmatex">\(\mathscr{C}\)</span>, then we call <span class="arithmatex">\(F\)</span> an <em>endofunctor</em>.
+</p>
+<p>\subsection{Examples}</p>
+<p>\subsubsection{Forgetful functor for monoids}</p>
+<p>One of the easiest examples of a functor is the forgetful functor which, informally, takes any category where the objects are sets with added structure and 'forgets' any extra structure. These types of functors play an important role in the theory later in Section \ref{s:uniarrow} and Section \ref{s:monads}. We will see the case for monoids.</p>
+<p><span class="definition" style="display:block">[Forgetful functor for monoids]</span></p>
+<p>Let <span class="arithmatex">\(\mathbf{Mon}\)</span> be the category of monoids as defined in Lemma \ref{lem:catofmon}. We define <span class="arithmatex">\(U\colon \mathbf{Mon}\rightarrow\mathbf{Set}\)</span> as:
+\begin{enumerate}
+\item 
+\begin{align<em>}
+U^0\colon \ob{\mathbf{Mon}}&amp;\rightarrow\ob{\mathbf{Set}}\
+(G,</em>,e_{G})&amp;\mapsto G;
+\end{align*}</p>
+<p>\item 
+\begin{align<em>}
+U^1\colon \ho[\mathbf{Set}]{G}{H}&amp;\rightarrow\ho[\mathbf{Mon}]{U(G)}{U(H)}\
+f &amp;\mapsto f.
+\end{align</em>}</p>
+<p>\end{enumerate}
+</p>
+<p><span class="lemma" style="display:block">
+The <span class="arithmatex">\(U\colon \mathbf{Mon}\rightarrow\mathbf{Set}\)</span> defined above in Definition \ref{def:forgetfulfunctormon} is a functor.
+</span>
+\begin{proof}
+Let <span class="arithmatex">\(U\)</span> be the forgetful functor for monoids, then:
+\begin{enumerate}
+\item For all <span class="arithmatex">\(f\in\ho{G}{H}\)</span> and <span class="arithmatex">\(g\in\ho{H}{J}\)</span>,</p>
+<div class="arithmatex">\[\begin{align*}
+U(h\circ^{Mon} g) = U(h) \circ^{Set} U(g)
+\end{align*}\]</div>
+<p>since <span class="arithmatex">\(U(g) = g\)</span>, <span class="arithmatex">\(U(h) = h\)</span> and <span class="arithmatex">\(\circ^{Mon}\)</span> is the same as <span class="arithmatex">\(\circ^{Set}\)</span>;
+\item For all <span class="arithmatex">\(G\in\ob{\mathbf{Mon}}\)</span>, </p>
+<div class="arithmatex">\[U(id_{G}) = id_{G} = id_{U(G)}.\]</div>
+<p>\end{enumerate}
+Hence <span class="arithmatex">\(U\)</span> is a functor.
+\end{proof}</p>
+<p>\subsubsection{Free monoid functor}</p>
+<p>Informally, free functors take a set and aim to add structure to form a different algebraic object. For example we will give the free functor for monoids, adapted from nCatLab \cite{nLab}. Free functors seem to be doing the opposite of forgetful functors, we will later make this notion rigorous in Section \ref{s:uniarrow} where these functors are 'adjoint'.</p>
+<p><span class="definition" style="display:block"></span></p>
+<p>Let <span class="arithmatex">\(X\)</span> be a set. The <em>free monoid on <span class="arithmatex">\(X\)</span></em> is the triple <span class="arithmatex">\((\gamma(X),*,\varnothing)\)</span> where: 
+$<span class="arithmatex">\(\gamma(X)=\{(x_{1},x_{2},\dots,x_{n})|n\in\mathbb{Z}^{+}, x_{1},x_{2},\dots,x_{n}\in X\}\cup\{\varnothing\}.\)</span>$
+ The elements of <span class="arithmatex">\(\gamma(X)\)</span> are called <em>lists</em> in <span class="arithmatex">\(X\)</span>.\
+For any two lists <span class="arithmatex">\(x=(x_{1},x_{2},\dots,x_{n}),y=(y_{1},y_{2},\dots,y_{m})\in\gamma(X)\)</span>, 
+$<span class="arithmatex">\(x*y = (x_{1},x_{2},\dots,x_{n},y_{1},y_{2},\dots,y_{m})\)</span>$
+ and <span class="arithmatex">\(*\)</span> is called <em>concatenation</em>.</p>
+<p><span class="arithmatex">\(\varnothing=()\)</span> is defined as the list with no elements.
+</p>
+<p><span class="lemma" style="display:block">
+For any set <span class="arithmatex">\(X\)</span> the free monoid on <span class="arithmatex">\(X\)</span> is a monoid.
+</span>
+\begin{proof}
+Let <span class="arithmatex">\(X\)</span> be a set and <span class="arithmatex">\((\gamma(X),*,\varnothing)\)</span> the free monoid on <span class="arithmatex">\(X\)</span> then for any three lists <span class="arithmatex">\(x,y,z\in\gamma(X)\)</span> we have,</p>
+<div class="arithmatex">\[\begin{align*}
+x*(y*z) &amp;= (x_{1},x_{2},\dots,x_{n})*((y_{1},y_{2},\dots,y_{m})*(z_{1},z_{2},\dots,z_{k}))\\
+&amp;= (x_{1},x_{2},\dots,x_{n}) * (y_{1},y_{2},\dots,y_{m},z_{1},z_{2},\dots,z_{k})\\
+&amp;= (x_{1},x_{2},\dots,x_{n},y_{1},y_{2},\dots,y_{m},z_{1},z_{2},\dots,z_{k})\\
+&amp;= (x_{1},x_{2},\dots,x_{n},y_{1},y_{2},\dots,y_{m})*(z_{1},z_{2},\dots,z_{k})\\
+&amp;= ((x_{1},x_{2},\dots,x_{n})*(y_{1},y_{2},\dots,y_{m}))*(z_{1},z_{2},\dots,z_{k})\\
+&amp;= (x*y)*z
+\end{align*}\]</div>
+<p>and,</p>
+<div class="arithmatex">\[\begin{align*}
+x*\varnothing &amp;= (x_{1},x_{2},\dots,x_{n})*\varnothing\\
+&amp;=(x_{1},x_{2},\dots,x_{n})\\
+&amp;=x\\
+&amp;=\varnothing*(x_{1},x_{2},\dots,x_{n})\\
+&amp;=\varnothing*x.
+\end{align*}\]</div>
+<p>Hence concatenation is associative with identity <span class="arithmatex">\(\varnothing\)</span>. </p>
+<p>Therefore <span class="arithmatex">\((\gamma(X),*,\varnothing)\)</span> is a monoid.
+\end{proof}</p>
+<p><span class="lemma" style="display:block">
+Given two sets <span class="arithmatex">\(X,Y\)</span> and a function <span class="arithmatex">\(f:X\rightarrow Y\)</span>. There is an induced monoid homomorphism, </span></p>
+<div class="arithmatex">\[f_{\gamma}:(\gamma(X),*,\varnothing)\rightarrow(\gamma(Y),*,\varnothing)\]</div>
+<p>where for each <span class="arithmatex">\((x_{1},x_{2},\dots,x_{n}) \in\gamma(X)\)</span></p>
+<div class="arithmatex">\[ (x_{1},x_{2},\dots,x_{n})  \mapsto (f(x_{1}),f(x_{2}),\dots,f(x_{n})),\]</div>
+<p>and, 
+$<span class="arithmatex">\(\varnothing \mapsto \varnothing.\)</span>$</p>
+<p>
+\begin{proof}
+Let <span class="arithmatex">\(f_{\gamma}\)</span> be defined as above then given any <span class="arithmatex">\(x,y\in (\gamma(X),*,\varnothing)\)</span>,</p>
+<div class="arithmatex">\[\begin{align*}
+f_{\gamma}(x*y) &amp;= f_{\gamma}((x_{1},x_{2},\dots,x_{n})*(y_{1},y_{2},\dots,y_{m})) \\
+&amp;= f_{\gamma}((x_{1},x_{2},\dots,x_{n},y_{1},y_{2},\dots,y_{m}))\\
+&amp;= (f(x_{1}),f(x_{2}),\dots,f(x_{n}),f(y_{1}),f(y_{2}),\dots,f(y_{m}))\\
+&amp;= (f(x_{1}),f(x_{2}),\dots,f(x_{n}))*(f(y_{1}),f(y_{2}),\dots,f(y_{m}))\\
+&amp;= f_{\gamma}((x_{1},x_{2},\dots,x_{n}))*f_{\gamma}((y_{1},y_{2},\dots,y_{m}))\\
+&amp;= f_{\gamma}(x)*f_{\gamma}(y)
+\end{align*}\]</div>
+<p>and,</p>
+<div class="arithmatex">\[\begin{align*}
+f_{\gamma}(\varnothing) &amp;= \varnothing.
+\end{align*}\]</div>
+<p>Hence <span class="arithmatex">\(f_{\gamma}\)</span> is a monoid homomorphism.
+\end{proof}</p>
+<p><span class="definition" style="display:block"></span></p>
+<p>Define the <em>free monoid functor</em> <span class="arithmatex">\(F\colon \mathbf{Set}\rightarrow\mathbf{Mon}\)</span> as:
+\begin{enumerate}
+\item For each <span class="arithmatex">\(X\in\ob{\mathbf{Set}}\)</span>,</p>
+<div class="arithmatex">\[\begin{align*}
+F\colon\ob{\mathbf{Set}}&amp;\rightarrow\ob{\mathbf{Mon}},\\
+X&amp;\mapsto(\gamma(X),*,\varnothing);
+\end{align*}\]</div>
+<p>\item For any <span class="arithmatex">\(X,Y\in\ob{\mathbf{Set}}\)</span>,</p>
+<div class="arithmatex">\[\begin{align*}
+F\colon \ho[\mathbf{Set}]{X}{Y}&amp;\rightarrow\ho[\mathbf{Mon}]{F(X)}{F(Y)},\\
+f&amp;\mapsto f_{\gamma}.
+\end{align*}\]</div>
+<p>\end{enumerate}
+</p>
+<p><span class="lemma" style="display:block">
+<span class="arithmatex">\(F\colon \mathbf{Set}\rightarrow\mathbf{Mon}\)</span> defined above in Definition \ref{def:freefunctmon} is a functor.
+</span>
+\begin{proof}
+For any <span class="arithmatex">\(X,Y,Z\in\ob{\mathbf{Set}}\)</span>, let <span class="arithmatex">\(f\in\ho{X}{Y}\)</span> and <span class="arithmatex">\(g\in\ho{Y}{Z}\)</span>. Then for any list <span class="arithmatex">\((x_{1},x_{2},\dots,x_{n})\in\gamma(X)\)</span> we have,</p>
+<div class="arithmatex">\[\begin{align*}
+F(g\circ f)(x_{1},x_{2},\dots,x_{n}) &amp;= (g\circ f(x_{1}),g\circ f(x_{2}),\dots,g\circ f(x_{n}))\\
+&amp;= F(g)(f(x_{1}),f(x_{2}),\dots,f(x_{n}))\\
+&amp;= (F(g)\circ F(f))(x_{1},x_{2},\dots,x_{n}).
+\end{align*}\]</div>
+<p>For any <span class="arithmatex">\(X\in\ob{\mathbf{Set}}\)</span>, <span class="arithmatex">\(id_{X}\)</span> is the identity with respect to function composition. </p>
+<div class="arithmatex">\[\begin{align*}
+F(id_{X})(x_{1},x_{2},\dots,x_{n}) &amp;= (id_{X}(x_{1}),id_{X}(x_{2}),\dots,id_{X}(x_{n}))\\
+&amp;= (x_{1},x_{2},\dots,x_{n})\\
+&amp;= id_{F(X)}(x_{1},x_{2},\dots,x_{n}).
+\end{align*}\]</div>
+<p>Therefore, <span class="arithmatex">\(F\)</span> is a functor.
+\end{proof}</p>
+<p>\subsubsection{The Yoneda Embeddings <span class="arithmatex">\(h_A\)</span> and <span class="arithmatex">\(h^B\)</span>}</p>
+<p>An important functor we will use later in Section \ref{s:uniarrow} is the <span class="arithmatex">\(\hom\)</span> functor. This definition is adapted from the Wikipedia article \cite{wiki:homfunc}. The following definition is similar to the definition of functors in Definition \ref{def:functor} however the morphisms and composition are reversed. See Wiki \cite{wiki:functors} for more details.</p>
+<p><span class="definition" style="display:block"></span></p>
+<p>Let <span class="arithmatex">\(\mathscr{C}\)</span> and <span class="arithmatex">\(\mathscr{D}\)</span> be categories. A <em>contravariant functor</em> is a pair
+<span class="arithmatex">\(F=(F^{ob},F^{hom})\colon \mathscr{C}\rightarrow\mathscr{D}\)</span> where:
+\begin{enumerate}
+\item <span class="arithmatex">\(F^{ob}\)</span> is a function,</p>
+<div class="arithmatex">\[F^{ob}\colon \ob{\mathscr{C}}\rightarrow\ob{\mathscr{D}};\]</div>
+<p>\item For each <span class="arithmatex">\(A,A^{\prime}\in\ob{\mathscr{C}}\)</span>, <span class="arithmatex">\(F^{hom}\)</span> is a function,</p>
+<div class="arithmatex">\[\begin{align*}
+F^{hom}\colon \ho[\cat{C}]{A}{A^{\prime}} &amp;\rightarrow\ho[\cat{D}]{F^{ob}(A^{\prime})}{F^{ob}(A)},\\
+f&amp;\mapsto F^{hom}(f);
+\end{align*}\]</div>
+<p>\end{enumerate}
+The following axioms are satisfied:
+\begin{enumerate}
+\item For all <span class="arithmatex">\(f\in\ho{A}{A^{\prime}}\)</span> and <span class="arithmatex">\(f^{\prime}\in\ho{A^{\prime}}{A^{\prime\prime}}\)</span>, </p>
+<div class="arithmatex">\[\begin{align*}
+F^{hom}(f^{\prime}\circ^{\mathscr{C}} f) = F^{hom}(f^{\prime})\circ^{\mathscr{D}} F^{hom}(f)
+\end{align*}\]</div>
+<p>where <span class="arithmatex">\(\circ^{\mathscr{C}}\)</span> and <span class="arithmatex">\(\circ^{\mathscr{D}}\)</span> are the compositions for <span class="arithmatex">\(\mathscr{C}, \mathscr{D}\)</span> respectively;
+\item For all <span class="arithmatex">\(A\in\ob{\mathscr{C}}\)</span>, </p>
+<div class="arithmatex">\[F^{hom}(id_{A}) = id_{F^{ob}(A)}.\]</div>
+<p>\end{enumerate}
+</p>
+<p><span class="lemma" style="display:block"></span></p>
+<p>Let <span class="arithmatex">\(\cat{C}\)</span> be a category and <span class="arithmatex">\(\mathbf{Set}\)</span> be the category of sets as in Example \ref{exe:catofsets}. 
+\begin{enumerate}
+\item For all <span class="arithmatex">\(A\in\ob{\cat{C}}\)</span> we define the functor</p>
+<div class="arithmatex">\[\func{h_{A}}{\cat{C}}{\mathbf{Set}}\]</div>
+<p>where for each <span class="arithmatex">\(C\in\ob{\cat{C}},\)</span></p>
+<div class="arithmatex">\[C \mapsto \ho[\cat{C}]{A}{C}\]</div>
+<p>and for each <span class="arithmatex">\(f\in\ho[\cat{C}]{X}{Y}\)</span>,</p>
+<div class="arithmatex">\[f\mapsto \ho{A}{f}\]</div>
+<p>where,</p>
+<div class="arithmatex">\[\begin{align*}
+\ho[\cat{C}]{A}{f}\colon\ho[\cat{C}]{A}{X}&amp;\to\ho[\cat{C}]{A}{Y},\\
+g&amp;\mapsto f\circ g;
+\end{align*}\]</div>
+<p>\item For all <span class="arithmatex">\(B\in\ob{\cat{C}}\)</span> we define the <em>contravariant</em> functor</p>
+<div class="arithmatex">\[\func{h^{B}}{\cat{C}^{op}}{\mathbf{Set}}\]</div>
+<p>where for each <span class="arithmatex">\(C\in\ob{\cat{C}},\)</span></p>
+<div class="arithmatex">\[C \mapsto \ho[\cat{C}]{C}{B}\]</div>
+<p>and for each <span class="arithmatex">\(h\in\ho[\cat{C}^{op}]{X}{Y}\)</span>,</p>
+<div class="arithmatex">\[h\mapsto \ho{h}{B},\]</div>
+<p>where,</p>
+<div class="arithmatex">\[\begin{align*}
+\ho{h}{B}\colon\ho[\cat{C}]{Y}{B}&amp;\to\ho[\cat{C}]{X}{B},\\
+g&amp;\mapsto g\circ h.
+\end{align*}\]</div>
+<p>\end{enumerate}
+
+\begin{proof}
+First we prove <span class="arithmatex">\(\mathrm{h}_{A}\)</span> is a functor.</p>
+<p>Let <span class="arithmatex">\(C\in\ob{\cat{C}}\)</span> then given <span class="arithmatex">\(f\in\ho[\cat{C}]{A}{C}\)</span>,</p>
+<div class="arithmatex">\[\begin{align*}
+\mathrm{h}_{A}(id_{C})(f) &amp;= \ho[\cat{C}]{A}{id_{C}}(f)\\
+&amp;= f \\
+&amp;= id_{\ho[\cat{C}]{A}{C}}(f).
+\end{align*}\]</div>
+<p>Hence identities are preserved. 
+We also have for any <span class="arithmatex">\(f\in\ho[\cat{C}]{X}{Y}\)</span> and <span class="arithmatex">\(g\in\ho[\cat{C}]{Y}{Z}\)</span> then given <span class="arithmatex">\(h\in\ho[\cat{C}]{A}{X}\)</span>,</p>
+<div class="arithmatex">\[\begin{align*}
+\mathrm{h}_{A}(g\circ f)(h) &amp;= \ho[\cat{C}]{A}{g\circ f}(h)\\
+&amp;= g\circ f \circ h\\
+&amp;= \ho[\cat{C}]{A}{g} \circ \ho[\cat{C}]{A}{f}(h)\\
+&amp;= (\mathrm{h}_{A}(g)\circ \mathrm{h}_{A}(f))(h).
+\end{align*}\]</div>
+<p>Hence composition is preserved. Therefore <span class="arithmatex">\(\mathrm{h}_{A}\)</span> is a functor.</p>
+<p>Now we show <span class="arithmatex">\(\mathrm{h}^{B}\)</span> is a contravariant functor.
+Let <span class="arithmatex">\(C\in\ob{\cat{C}}\)</span> then given <span class="arithmatex">\(f\in\ho[\cat{C}]{C}{B}\)</span>:</p>
+<div class="arithmatex">\[\begin{align*}
+\mathrm{h}^{B}(id_{C})(f) &amp;= \ho[\cat{C}]{id_{C}}{B}(f)\\
+&amp;= f \\
+&amp;= id_{\ho[\cat{C}]{C}{B}}(f).
+\end{align*}\]</div>
+<p>Hence identities are preserved. We also have for any <span class="arithmatex">\(f\in\ho[\cat{C}]{X}{Y}\)</span> and <span class="arithmatex">\(g\in\ho[\cat{C}]{Y}{Z}\)</span> then given <span class="arithmatex">\(h\in\ho[\cat{C}^{op}]{Z}{B}\)</span>,</p>
+<div class="arithmatex">\[\begin{align*}
+\mathrm{h}^{B}(g\circ f)(h) &amp;= \ho[\cat{C}]{g\circ f}{B}(h)\\
+&amp;= h\circ g\circ f\\
+&amp;= \ho[\cat{C}]{f}{B} \circ \ho[\cat{C}]{g}{B}(h)\\
+&amp;= (\mathrm{h}^{B}(f) \circ \mathrm{h}^{B}(g))(h).
+\end{align*}\]</div>
+<p>Hence composition is preserved. Therefore <span class="arithmatex">\(\mathrm{h}^{B}\)</span> is a contravariant functor.
+\end{proof}</p>
+<p><span class="definition" style="display:block"></span></p>
+<p>Let <span class="arithmatex">\(\cat{C}\)</span> be a category then <span class="arithmatex">\(\cat{C}^{op}\times\cat{C}\)</span> is a category by Definition \ref{def:dualcategory} and Example \ref{exe:prodcat}. We define the <em>hom functor</em>, <span class="arithmatex">\(\func{h}{\cat{C}^{op}\times\cat{C}}{\mathbf{Set}}\)</span>, as follows:
+Given <span class="arithmatex">\((C_{1},C_{2})\in\ob{\cat{C}^{op}\times\cat{C}}\)</span>,</p>
+<div class="arithmatex">\[(C_{1},C_{2})\mapsto\ho[\cat{C}]{C_{1}}{C_{2}}.\]</div>
+<p>For each <span class="arithmatex">\(f^{op}\in\ho[\cat{C}]{C_{1}}{C_{2}}\)</span> and <span class="arithmatex">\(g\in\ho[\cat{C}]{C_{1}^\prime}{C_{2}^\prime}\)</span>,</p>
+<div class="arithmatex">\[(f^{op},g)\mapsto\ho[\cat{C}]{f}{g},\]</div>
+<p>where,</p>
+<div class="arithmatex">\[\begin{align*}
+\ho[\cat{C}]{f}{g}\colon\ho[\cat{C}]{C_{1}}{C_{1}^\prime}&amp;\to\ho[\cat{C}]{C_{2}}{C_{2}^\prime},\\
+h\mapsto g\circ h\circ f.
+\end{align*}\]</div>
+<p></p>
+<p><span class="lemma" style="display:block"></span></p>
+<p><span class="arithmatex">\(\mathrm{h}\)</span> as defined in Definition \ref{def:covarianthomfunc} is a functor.
+
+\begin{proof}
+Let <span class="arithmatex">\((f^{op}_1,g_1)\in\ho[\cat{C}^{op}\times\cat{C}]{(C_1,C_2)}{(C_1^\prime,C_2^\prime)}\)</span>, and <span class="arithmatex">\((f^{op}_2,g_2)\in\ho[\cat{C}^{op}\times\cat{C}]{(C_1^\prime,C_2^\prime)}{(C_1^{\prime\prime},C_2^{\prime\prime})}\)</span>, we then have,</p>
+<div class="arithmatex">\[\begin{align*}
+\mathrm{h}((f^{op}_1,g_1)\circ(f^{op}_2,g_2)) &amp;= \mathrm{h}((f^{op}_1\circ f^{op}_2,g_1\circ g_2)), \\
+&amp;= \ho[\cat{C}]{f^{op}_1\circ^{op} f^{op}_2}{g_1\circ g_2},
+\end{align*}\]</div>
+<p>where <span class="arithmatex">\(\ho[\cat{C}]{f_2\circ f_1}{g_1\circ g_2}\)</span> is the function which takes <span class="arithmatex">\(h\in\ho[\cat{C}]{C_1}{C_1^\prime}\)</span>,</p>
+<div class="arithmatex">\[h\mapsto g_1\circ g_2 \circ f_2\circ f_1.\]</div>
+<p>Hence is the same as the function,</p>
+<div class="arithmatex">\[\ho[\cat{C}]{f_1}{g_1} \circ \ho[\cat{C}]{f_2}{g_2} = \mathrm{h}((f^{op}_1,g_1))\circ \mathrm{h}((f^{op}_2,g_2)).\]</div>
+<p>Given <span class="arithmatex">\((id_{C_1},id_{C_2})\in\ho[\cat{C}^{op}\times\cat{C}]{(C_1,C_2)}{(C_1,C_2)}\)</span> we have,</p>
+<div class="arithmatex">\[\begin{align*}
+\mathrm{h}((id_{C_1},id_{C_2})) &amp;= \ho[\cat{C}]{id_{C_1}}{id_{C_2}},
+\end{align*}\]</div>
+<p>which is the function which sends <span class="arithmatex">\(h\in\ho[\cat{C}]{C_1}{C_1^\prime}\)</span></p>
+<div class="arithmatex">\[h\mapsto id_{C_1} \circ h \circ id_{C_2} = h.\]</div>
+<p>Therefore, <span class="arithmatex">\(\mathrm{h}\)</span> is a functor.
+\end{proof}</p>
+<p>\subsubsection{The Identity functor}</p>
+<p>For every category there exists a functor from that category to itself called the identity functor we will now define.</p>
+<p><span class="definition" style="display:block"></span></p>
+<p>For any category <span class="arithmatex">\(\mathscr{C}\)</span> let <span class="arithmatex">\(id_{\mathscr{C}}\colon \mathscr{C}\rightarrow\mathscr{C}\)</span> be the identity functor on <span class="arithmatex">\(\mathscr{C}\)</span> defined:
+\begin{enumerate}
+\item For each <span class="arithmatex">\(X\in\ob{\mathscr{C}}\)</span>,</p>
+<div class="arithmatex">\[id_{\mathscr{C}}(X)=X.\]</div>
+<p>\item Given two \objs{<span class="arithmatex">\(\mathscr{C}\)</span>}, <span class="arithmatex">\(X,Y\in\ob{\mathscr{C}}\)</span>, for each <span class="arithmatex">\(f\in\ho{X}{Y}\)</span>,</p>
+<div class="arithmatex">\[\begin{align*}
+id_{\mathscr{C}}(f) = f.
+\end{align*}\]</div>
+<p>\end{enumerate}
+</p>
+<p><span class="lemma" style="display:block">
+<span class="arithmatex">\(id_{\mathscr{C}}\)</span> as defined above in Definition \ref{def:identityfunctor} is a functor.
+</span>
+\begin{proof}
+Given any <span class="arithmatex">\(X,Y,Z\in\mathscr{C}\)</span>, let <span class="arithmatex">\(f\in\ho{X}{Y}\)</span> and <span class="arithmatex">\(g\in\ho{Y}{Z}\)</span> be maps. Then,</p>
+<div class="arithmatex">\[\begin{align*}
+id_{\mathscr{C}}(f\circ g) &amp;= f\circ g\\
+&amp;= id_{\mathscr{C}}(f)\circ id_{\mathscr{C}}(g).
+\end{align*}\]</div>
+<p>Hence composition is preserved.</p>
+<p>For all <span class="arithmatex">\(X\in\ob{\mathscr{C}}\)</span></p>
+<div class="arithmatex">\[\begin{align*}
+id_{\mathscr{C}}(id_{X})=id_{X}.
+\end{align*}\]</div>
+<p>Hence identities are preserved.
+Therefore <span class="arithmatex">\(id_{\mathscr{C}}\)</span> is a functor.
+\end{proof}</p>
+<p>\subsubsection{More examples of functors}</p>
+<p>Here are some more examples of functors.</p>
+<p>The following example followed from a meeting with the supervisor.</p>
+<p><span class="example" style="display:block"></span></p>
+<p>Let the power set functor <span class="arithmatex">\(P:\mathbf{Set}\rightarrow\mathbf{Set}\)</span> be defined:
+\begin{enumerate}
+\item For each <span class="arithmatex">\(X\in\ob{\mathbf{Set}}\)</span>,</p>
+<div class="arithmatex">\[X\mapsto\mathcal{P}(X)\]</div>
+<p>where <span class="arithmatex">\(\mathcal{P}(X)\)</span> is the power set of <span class="arithmatex">\(X\)</span>,</p>
+<div class="arithmatex">\[\mathcal{P}(X)=\{A\mid A\subseteq X\};\]</div>
+<p>\item Given two \objs{<span class="arithmatex">\(\mathbf{Set}\)</span>} <span class="arithmatex">\(X,Y\in\ob{\mathbf{Set}}\)</span> then for each <span class="arithmatex">\(f\in\ho{X}{Y}\)</span>,</p>
+<div class="arithmatex">\[\begin{align*}
+P(f):P(X)&amp;\rightarrow P(Y),\\
+A&amp;\mapsto f[A]
+\end{align*}\]</div>
+<p>where <span class="arithmatex">\(f[A]\)</span> is the image of <span class="arithmatex">\(A\)</span> under <span class="arithmatex">\(f\)</span>,</p>
+<div class="arithmatex">\[f[A]=\{f(a)\mid a\in A\}.\]</div>
+<p>Clearly,  <span class="arithmatex">\(P(f)\)</span> is a function <span class="arithmatex">\(P(X)\to P(Y)\)</span>, so it is in <span class="arithmatex">\(\ho{P(X)}{P(Y)}\)</span>.
+\end{enumerate}
+Given any <span class="arithmatex">\(X,Y,Z\in\mathbf{Set}\)</span>, let <span class="arithmatex">\(f\in\ho{X}{Y}\)</span> and <span class="arithmatex">\(g\in\ho{Y}{Z}\)</span> be functions. Then for all <span class="arithmatex">\(A\in P(X)\)</span>,</p>
+<div class="arithmatex">\[\begin{align*}
+P(g\circ f)(A) &amp;= (g\circ f)[A])\\
+&amp;=g[f[A]]\\
+&amp;= P(g)\circ P(f)(A).
+\end{align*}\]</div>
+<p>For each <span class="arithmatex">\(X\in\mathbf{X}\)</span>, <span class="arithmatex">\(id_{X}\)</span> is the identity function with respect to function composition. For all <span class="arithmatex">\(A\in P(X)\)</span>,</p>
+<div class="arithmatex">\[\begin{align*}
+P(id_{X})(A) &amp;= id_{X}[A]\\
+&amp;= A \\
+&amp;= id_{P(X)}(A)
+\end{align*}\]</div>
+<p>Therefore P is a functor.
+
+The following Example \ref{exe:matrixringfunc} uses ideas from the Wikipedia article \cite{wiki:invmatrix}.</p>
+<p><span class="example" style="display:block"></span></p>
+<p>Let <span class="arithmatex">\(\GL\colon\mathbf{CRng}\rightarrow\mathbf{Grp}\)</span> be defined:
+\begin{enumerate}
+\item For each <span class="arithmatex">\(\mathbf{CRng}\)</span>-Object <span class="arithmatex">\(R\in\ob{\mathbf{CRng}}\)</span>,</p>
+<div class="arithmatex">\[\GL(R)=\left\{\begin{bmatrix}
+a&amp;b\\
+c&amp;d
+\end{bmatrix} | a,b,c,d\in R, ab-cd \text{ is invertable in }R\right\}
+\]</div>
+<p><span class="arithmatex">\(\GL(R)\in\mathbf{Grp}\)</span> since each matrix is invertable, the matrix:
+$<span class="arithmatex">\(\begin{bmatrix}1_{R}&amp;0_{R}\\0_{R}&amp;1_{R}\end{bmatrix}\)</span>$
+ acts as an identity under matrix multiplication and matrix multiplication is associative.
+\item Given <span class="arithmatex">\(R,S\in\ob{\mathbf{CRng}}\)</span> then for each <span class="arithmatex">\(f\in\ho{R}{S}\)</span>,</p>
+<div class="arithmatex">\[\begin{align*}
+\GL(f)\colon \GL(R)&amp;\rightarrow \GL(S),\\
+\begin{bmatrix} 
+a &amp; b\\
+c&amp;d
+\end{bmatrix}&amp;\mapsto \begin{bmatrix} 
+f(a) &amp; f(b)\\
+f(c) &amp; f(d)
+\end{bmatrix}.
+\end{align*}\]</div>
+<p>\end{enumerate}
+Then for <span class="arithmatex">\(M,N\in \GL(R)\)</span> we have,</p>
+<div class="arithmatex">\[\begin{align*}
+\GL(f)(M \times_{\GL(R)} N) &amp;= \GL(f)\left(\begin{bmatrix} 
+a_{M} \times_{R}a_{N}+_{R}b_{M}\times_{R}c_{N}&amp; a_{N}\times_{R}b_{M}+_{R}b_{N}\times_{R}d_{N}\\
+c_{M}\times_{R}a_{N}+_{R}d_{M}\times_{R}c_{N}&amp; c_{M}\times_{R}b_{N}+_{R}d_{M}\times d_{N}
+\end{bmatrix}\right)\\
+&amp;= \begin{bmatrix} 
+f(a_{M} \times_{R}a_{N}+_{R}b_{M}\times_{R}c_{N})&amp; f(a_{N}\times_{R}b_{M}+_{R}b_{N}\times_{R}d_{N})\\
+f(c_{M}\times_{R}a_{N}+_{R}d_{M}\times_{R}c_{N})&amp; f(c_{M}\times_{R}b_{N}+_{R}d_{M}\times_{R} d_{N})
+\end{bmatrix}\\
+&amp;= \begin{bmatrix} 
+f(a_{M}) \times_{S}f(a_{N})+_{S}f(b_{M})\times_{S}f(c_{N})&amp; f(a_{N})\times_{S}f(b_{M})+_{S}f(b_{N})\times_{S}f(d_{N})\\
+f(c_{M})\times_{S}f(a_{N})+_{S}f(d_{M})\times_{S}f(c_{N})&amp; f(c_{M})\times_{S}f(b_{N})+_{S}f(d_{M})\times_{S} f(d_{N})
+\end{bmatrix}\\
+&amp;= \GL(f)(M) \times_{\GL(S)} \GL(f)(N)
+\end{align*}\]</div>
+<p>and,</p>
+<div class="arithmatex">\[\begin{align*}
+\GL(f)(1_{\GL(R)}) &amp;= \GL(f)\left( \begin{bmatrix}
+1_{R}&amp;0_{R}\\
+0_{R}&amp;1_{R}
+\end{bmatrix}\right)\\
+&amp;= \begin{bmatrix}
+f(1_{R})&amp;f(0_{R})\\
+f(0_{R})&amp;f(1_{R})
+\end{bmatrix}\\
+&amp;= \begin{bmatrix}
+1_{S}&amp;0_{S}\\
+0_{S}&amp;1_{S}
+\end{bmatrix}, &amp;\text{since f is a ring homomorphism}\\
+&amp;= 1_{\GL(S)}.
+\end{align*}\]</div>
+<p>Therefore <span class="arithmatex">\(\GL(f)\)</span> is defined as a group homomorphism.\
+We now show <span class="arithmatex">\(\GL\)</span> is a functor by proving the axioms hold. Given any <span class="arithmatex">\(R,S,T\in\ob{\mathbf{CRng}}\)</span>, let <span class="arithmatex">\(f\in\ho{R}{S}\)</span> and <span class="arithmatex">\(g\in\ho{S}{T}\)</span> be ring homomorphisms. Then for all 
+$<span class="arithmatex">\(M=\begin{bmatrix} 
+a &amp; b\\
+c&amp;d
+\end{bmatrix}\in \GL(R)\)</span>$</p>
+<p>we have,</p>
+<div class="arithmatex">\[\begin{align*}
+\GL(g\circ f)(M)&amp;=\begin{bmatrix} 
+(g\circ f)(a) &amp; (g\circ f)(b)\\
+(g\circ f)(c)&amp;(g\circ f)(d)
+\end{bmatrix}\\
+&amp;= \begin{bmatrix} 
+g(f(a))&amp; g(f(b))\\
+g(f(c))&amp;g(f(d))
+\end{bmatrix}\\
+&amp;= \GL(g)\left (\begin{bmatrix} 
+f(a) &amp; f(b)\\
+f(c)&amp;f(d)
+\end{bmatrix}\right)\\
+&amp;= (\GL(g)\circ \GL(f))(M)
+\end{align*}\]</div>
+<p>and,</p>
+<div class="arithmatex">\[\begin{align*}
+\GL(id_{R})(M) &amp;= \begin{bmatrix} 
+id_{R}(a) &amp; id_{R}(b)\\
+id_{R}(c)&amp;id_{R}(d)
+\end{bmatrix}\\
+&amp;= \begin{bmatrix} 
+a &amp; b\\
+c&amp;d
+\end{bmatrix}\\
+&amp;=M\\
+&amp;= id_{\GL(R)}(M).
+\end{align*}\]</div>
+<p>Therefore <span class="arithmatex">\(\GL\)</span> is a functor.
+</p>
+<p><span class="remark" style="display:block">
+Example \ref{exe:matrixringfunc} can be extended to <span class="arithmatex">\(\mathrm{GL}_{n}\)</span> with <span class="arithmatex">\(n\times n\)</span> matrices.
+</span></p>
+<p><span class="lemma" style="display:block"></span></p>
+<p>Let <span class="arithmatex">\(R\)</span> be a ring with 1. Let <span class="arithmatex">\(R^*\)</span> be the set of all <span class="arithmatex">\(r\in R\)</span> such that, 
+$<span class="arithmatex">\(rr^\prime=r^\prime r=1_{R}\)</span>$
+ for some <span class="arithmatex">\(r^\prime \in R\)</span>. Then <span class="arithmatex">\((R^*,\times_{R})\)</span> forms a group called the <em>group of units of <span class="arithmatex">\(R\)</span></em>.
+
+\begin{proof}
+We have an identity <span class="arithmatex">\(1_{R}\)</span> since for each <span class="arithmatex">\(r\in R^*\)</span>,</p>
+<div class="arithmatex">\[\begin{align*}
+r1_{R} = r = 1_{R}r
+\end{align*}\]</div>
+<p>since R is a ring. </p>
+<p>Given <span class="arithmatex">\(r\in R^*\)</span> there exists <span class="arithmatex">\(r^\prime\in R^*\)</span> such that,</p>
+<div class="arithmatex">\[\begin{align*}
+rr^\prime = r^\prime r = 1_{R}.
+\end{align*}\]</div>
+<p>Hence each <span class="arithmatex">\(r\)</span> has inverse <span class="arithmatex">\(r^\prime\)</span>.</p>
+<p>We know <span class="arithmatex">\(\times_{S}\)</span> is associative since <span class="arithmatex">\(R\)</span> is a ring. </p>
+<p>Finally given <span class="arithmatex">\(r,s\in R^*\)</span>,</p>
+<div class="arithmatex">\[\begin{align*}
+rss^\prime r^\prime &amp;= r1_{R}r^\prime\\
+&amp;= rr^\prime\\
+&amp;= 1_{R}\\
+&amp;=s^{\prime}s\\
+&amp;= s^{\prime}1_{R}s\\
+&amp;= s^\prime r^{\prime}rs.
+\end{align*}\]</div>
+<p>Hence <span class="arithmatex">\(rs\in R^*\)</span> and therefore <span class="arithmatex">\(R^*\)</span> is a group.
+\end{proof}</p>
+<p><span class="example" style="display:block"></span></p>
+<p>Let <span class="arithmatex">\(\func{\Units}{\mathbf{Crng}}{\mathbf{Grp}}\)</span> be defined:
+\begin{enumerate}
+\item For each <span class="arithmatex">\(R\in\mathbf{Crng}\)</span>,</p>
+<div class="arithmatex">\[\Units(R)=R^*\]</div>
+<p>as in Lemma \ref{lem:groupofunits};
+\item Given <span class="arithmatex">\(R,S\in\ob{\mathbf{Crng}}\)</span>, for each <span class="arithmatex">\(f\in\ho{R}{S}\)</span>,</p>
+<div class="arithmatex">\[\begin{align*}
+\Units(f)\colon R^*&amp;\to S^*,\\
+r&amp;\mapsto f(r)
+\end{align*}\]</div>
+<p>and <span class="arithmatex">\(f(r)\in S^*\)</span> since,</p>
+<div class="arithmatex">\[\begin{align*}
+1_{S} &amp;= f(1_{R})\\
+&amp;= f(rr^\prime) \\
+&amp;= f(r)f(r^\prime), &amp; \text{since $f$ is a ring homomorphism.}
+\end{align*}\]</div>
+<p>We also have <span class="arithmatex">\(\Units(f)\)</span> is a group homomorphism since <span class="arithmatex">\(f\)</span> is a ring homomorphism.
+\end{enumerate}
+We will now show that <span class="arithmatex">\(\Units\)</span> is indeed a functor. </p>
+<p>Given any <span class="arithmatex">\(R,S,T\in\ob{\mathbf{Crng}}\)</span>, let <span class="arithmatex">\(f\in\ho{R}{S}\)</span> and <span class="arithmatex">\(g\in\ho{S}{T}\)</span>. Then for all <span class="arithmatex">\(r\in R\)</span>,</p>
+<div class="arithmatex">\[\begin{align*}
+\Units(g\circ f)(r) &amp;= g\circ f(r)\\
+&amp;= \Units(g)\circ \Units(f)(r).
+\end{align*}\]</div>
+<p>Hence composition is preserved.
+We also have,</p>
+<div class="arithmatex">\[\begin{align*}
+\Units(id_{R})(r)&amp;= id_{R}(r)\\
+&amp;= r\\
+&amp;= id_{R^*}(r).
+\end{align*}\]</div>
+<p>Hence identities are preserved.
+Therefore <span class="arithmatex">\(\Units\)</span> is a functor.
+
+The following example followed from a lecture on Topology given by Dr Daniel Graves at the University of Leeds.</p>
+<p><span class="example" style="display:block">
+Let <span class="arithmatex">\(\mathbf{Top}^*\)</span> be the category of based topological spaces as defined in Example \ref{exe:catbasedtop} and <span class="arithmatex">\(\mathbf{Grp}\)</span> be the category of groups as defined in Example \ref{exe:catoggroups}. </span></p>
+<p>The fundamental group functor <span class="arithmatex">\(\func{\pi_{1}}{\mathbf{Top}^{*}}{\mathbf{Grp}}\)</span> be defined:
+\begin{enumerate}
+\item For each <span class="arithmatex">\(((X,\tau_X),x_{0})\in\ob{\mathbf{Top}^*}\)</span>,</p>
+<div class="arithmatex">\[((X,\tau_X),x_{0})\mapsto\pi_1(((X,\tau_X),x_{0}))\]</div>
+<p>where <span class="arithmatex">\(\pi_1(((X,\tau_X),x_{0}))\)</span> is the fundamental group of <span class="arithmatex">\(X\)</span> based at <span class="arithmatex">\(x_{0}\)</span>. The group operation <span class="arithmatex">\(*\)</span> is defined by join of paths;</p>
+<p>\item For a given continuous map <span class="arithmatex">\(f\in\ho[\mathbf{Top}^*]{((X,\tau_X),x_{0})}{((Y,\tau_Y),y_{0})}\)</span> we define the induced group homomorphism:</p>
+<div class="arithmatex">\[f\mapsto f^*\colon\pi_1(((X,\tau_X),x_{0}))\to\pi_1(((Y,\tau_Y),y_{0}))\]</div>
+<p>where for each <span class="arithmatex">\([\gamma]\in \pi_1(((X,\tau_X),x_{0}))\)</span>,</p>
+<div class="arithmatex">\[ [\gamma] \mapsto [f\circ \gamma].\]</div>
+<p>Here <span class="arithmatex">\([\gamma]\)</span> is the equivalence class of a loop <span class="arithmatex">\(\gamma\)</span> based at <span class="arithmatex">\(x_{0}\)</span>.</p>
+<p><span class="arithmatex">\(f^*\)</span> is well defined since for any two loops <span class="arithmatex">\(\gamma_1\)</span> and <span class="arithmatex">\(\gamma_2\)</span> based at <span class="arithmatex">\(x_0\)</span> where <span class="arithmatex">\([\gamma_1] = [\gamma_2]\)</span> we have a path homotopy, </p>
+<div class="arithmatex">\[H\colon [0,1] \times [0,1] \to X\]</div>
+<p>and therefore,</p>
+<div class="arithmatex">\[f\circ H \colon [0,1]\times [0,1]\to Y,\]</div>
+<p>is a path homotopy between <span class="arithmatex">\(f\circ \gamma_1\)</span> and <span class="arithmatex">\(f\circ\gamma_2\)</span> hence <span class="arithmatex">\(f^*\)</span> is well defined.</p>
+<p>The group identity for <span class="arithmatex">\(\pi_1(((X,\tau_X),x_{0}))\)</span> is the equivalence class <span class="arithmatex">\([\gamma_{x_{0}}]\)</span> where <span class="arithmatex">\(\gamma_{x_{0}}\)</span> is the constant path at <span class="arithmatex">\(x_{0}\)</span> so,</p>
+<div class="arithmatex">\[[f\circ\gamma_{x_{0}}] = [\gamma_{f(x)}] = [\gamma_{y_{0}}]\]</div>
+<p>where <span class="arithmatex">\(\gamma_{y_{0}}\)</span> is the constant path at <span class="arithmatex">\(f(x_{0})\)</span>. Therefore <span class="arithmatex">\(f^*\)</span> preserves group identities. </p>
+<p>We also have for any two <span class="arithmatex">\([\gamma_1],[\gamma_2]\in\pi_1(((X,\tau_X),x_{0}))\)</span> </p>
+<div class="arithmatex">\[\begin{align*}
+f^*([\gamma_1]*[\gamma_2])&amp;=f^*([\gamma_1*\gamma_2])\\
+&amp;=[f\circ\gamma_1*\gamma_2] \\
+&amp;= [f\circ\gamma_1*f\circ\gamma_2] \\
+&amp;= [f\circ\gamma_1]*[f\circ\gamma_2]\\
+&amp;= f^*([\gamma_1])*f^*([\gamma_2]).
+\end{align*}\]</div>
+<p>Therefore <span class="arithmatex">\(f^*\)</span> is a group homomorphism.
+\end{enumerate}
+To check <span class="arithmatex">\(\pi_1\)</span> is a functor we check it preserves identities <span class="arithmatex">\(id_{X}\in\ho[\mathbf{Top}^*]{X}{X}\)</span>, given a path equivalence class <span class="arithmatex">\([\gamma]\in\pi_1(((X,\tau_X),x_{0}))\)</span>.</p>
+<div class="arithmatex">\[\begin{align*} 
+\pi_{1}(id_{X})([\gamma]) &amp;= [id_{X}\circ\gamma] \\
+&amp;= [\gamma] \\
+&amp;= id_{\pi_1(((X,\tau_X),x_{0}))}([\gamma]).
+\end{align*}\]</div>
+<p>Also given <span class="arithmatex">\(f\in\ho[\mathbf{Top}^*]{((X,\tau_X),x_{0})}{((Y,\tau_Y),y_{0})}\)</span> and <span class="arithmatex">\(g\in\ho[\mathbf{Top}^*]{((Y,\tau_Y),y_{0})}{((Z,\tau_Z),z_{0})}\)</span> we have,</p>
+<div class="arithmatex">\[\begin{align*}
+(g\circ f)^*([\gamma]) &amp;= [g\circ f\circ\gamma]\\
+&amp;= g^*([f\circ\gamma])\\
+&amp;= g^*(f^*([\gamma]))\\
+&amp;= g^*\circ f^*([\gamma]).
+\end{align*}\]</div>
+<p>Therefore <span class="arithmatex">\(\pi_{1}\)</span> is a functor.
+
+The following example can be found in Leinster \cite{Leinster}.</p>
+<p><span class="example" style="display:block"></span></p>
+<p>Recall for each monoid <span class="arithmatex">\(\cat{M}\)</span> we have a one object category defined in subsection \ref{sss:monascat}, also recall the category <span class="arithmatex">\(\mathbf{Set}\)</span> in Example \ref{exe:catofsets}. </p>
+<p>Given a set <span class="arithmatex">\(X\)</span>, we define a functor</p>
+<div class="arithmatex">\[\func{L_{X}}{\cat{M}}{\mathbf{Set}}\]</div>
+<p>where for the unique object <span class="arithmatex">\(M\in\cat{M}\)</span>,</p>
+<div class="arithmatex">\[M\mapsto X,\]</div>
+<p>and for each morphism <span class="arithmatex">\(g\in\ho[\cat{M}]{M}{M}\)</span>,</p>
+<div class="arithmatex">\[g\mapsto L_{X}(g)\]</div>
+<p>where,</p>
+<div class="arithmatex">\[\begin{align*}
+L_{X}(g) \colon X &amp;\to X,\\
+x &amp;\mapsto gx.
+\end{align*}\]</div>
+<p>The function <span class="arithmatex">\(L_{X}(g)\)</span> is the left action of <span class="arithmatex">\(g\)</span> on <span class="arithmatex">\(X\)</span>.</p>
+<p>We see for each <span class="arithmatex">\(x\in X\)</span>,</p>
+<div class="arithmatex">\[\begin{align*}
+L_{X}(id_{M})(x) &amp;= id_{M}x \\
+&amp;= x \\
+&amp;= id_{L_{X}(M)}
+\end{align*}\]</div>
+<p>and for <span class="arithmatex">\(g,g^\prime\in\ho[\cat{M}]{M}{M}\)</span> and each <span class="arithmatex">\(x\in X\)</span>,</p>
+<div class="arithmatex">\[\begin{align*}
+L_{X}(g^\prime\circ g)(x) &amp;= g^\prime\circ g x \\
+&amp;= g^\prime gx \\
+&amp;= L_{X}(g^\prime)\circ L_{X}(g)(x).
+\end{align*}\]</div>
+<p>Therefore <span class="arithmatex">\(L_{X}\)</span> is a functor. For each set <span class="arithmatex">\(X\in\ob{\mathbf{Set}}\)</span> the functor <span class="arithmatex">\(L_{X}\)</span> represents the left action of <span class="arithmatex">\(\cat{M}\)</span> on that set.
+</p>
+<p>\subsection{Functor composition}</p>
+<p>Ideas from this section are adapted from Leinster \cite{Leinster} and Adámek - Herrlick - Strecker \cite{ACC}.</p>
+<p><span class="definition" style="display:block"></span></p>
+<p>Let <span class="arithmatex">\(\mathscr{C}\)</span>, <span class="arithmatex">\(\mathscr{D}\)</span> and <span class="arithmatex">\(\mathscr{E}\)</span> be categories and <span class="arithmatex">\(F_{1}\colon\mathscr{C}\rightarrow\mathscr{D}\)</span>, <span class="arithmatex">\(F_{2}\colon\mathscr{D}\rightarrow\mathscr{E}\)</span> functors. Then we define <span class="arithmatex">\(F_{1}\circ F_{2}\colon\mathscr{C}\rightarrow\mathscr{E}\)</span>:
+\begin{enumerate}
+\item 
+\begin{align<em>}
+(F_{1}\circ F_{2})^{ob}\colon\ob{\mathscr{C}}&amp;\rightarrow\ob{\mathscr{E}},\
+A&amp;\mapsto F_{2}(F_{1}(A));
+\end{align</em>}</p>
+<p>\item 
+\begin{align<em>}
+(F_{1}\circ F_{2})^{hom}\colon\ho[\mathscr{C}]{A}{A^{\prime}}&amp;\rightarrow\ho[\mathscr{E}]{(F_{1}\circ F_{2})^{ob}(A)}{(F_{1}\circ F_{2})^{ob}(A^{\prime}},\
+f&amp;\mapsto F_{2}(F_{1}(f)).
+\end{align</em>}</p>
+<p>\end{enumerate}
+</p>
+<p><span class="remark" style="display:block">
+Again we will drop notation as in Remark \ref{rmk:functnotation} for simplicity.
+</span></p>
+<p><span class="lemma" style="display:block">
+<span class="arithmatex">\(F_{1}\circ F_{2}\colon\mathscr{C}\rightarrow\mathscr{E}\)</span> as defined above is a functor.
+</span>
+\begin{proof}
+Let <span class="arithmatex">\(f\in\ho[\cat{C}]{A}{A^{\prime}}\)</span> and <span class="arithmatex">\(g\in\ho[\cat{C}]{A^{\prime}}{A^{\prime\prime}}\)</span> then,</p>
+<div class="arithmatex">\[\begin{align*}
+F_{1}\circ F_{2}(f\circ^{\mathscr{C}} g) &amp;= F_{2}(F_{1}(f\circ^{\mathscr{C}}g))\\
+&amp;= F_{2}(F_{1}(f)\circ^{\mathscr{D}}F_{1}(g)), &amp;\text{since $F_{1}$ is a functor}\\
+&amp;= F_{2}(F_{1}(f))\circ^{\mathscr{E}}F_{2}(F_{1}(g)), &amp;\text{since $F_{2}$ is a functor}\\
+&amp;= F_{1}\circ F_{2}(f) \circ^{\mathscr{E}}F_{1}\circ F_{2}(g).
+\end{align*}\]</div>
+<p>Given <span class="arithmatex">\(A\in\ob{\mathscr{C}}\)</span></p>
+<div class="arithmatex">\[\begin{align*}
+F_{1}\circ F_{2}(id_{A}) &amp;= F_{2}(F_{1}(id_{A}))\\
+&amp;= F_{2}(id_{F_{1}(A)})\\
+&amp;= id_{F_{2}(F_{1}(A))}\\
+&amp;= id_{F_{1}\circ F_{2}(id_{A})}.
+\end{align*}\]</div>
+<p>Therefore <span class="arithmatex">\(F_{1}\circ F_{2}\)</span> is a functor.
+\end{proof}</p>
+<p><span class="remark" style="display:block">
+For functors <span class="arithmatex">\(F, G\)</span> we will write <span class="arithmatex">\(FG=F\circ G\)</span> and If <span class="arithmatex">\(F\)</span> is an endofunctor, then we can write <span class="arithmatex">\(F^{2}=F\circ F\)</span>.
+</span></p>
+<p>\pagebreak</p>
+<script src="../../mathjax_helper.js"></script>
+</article>
+</div>
+<script>var target=document.getElementById(location.hash.slice(1));target&&target.name&&(target.checked=target.name.startsWith("__tabbed_"))</script>
+</div>
+</main>
+<footer class="md-footer">
+<div class="md-footer-meta md-typeset">
+<div class="md-footer-meta__inner md-grid">
+<div class="md-copyright">
+  
+  
+    Made with
+    <a href="https://squidfunk.github.io/mkdocs-material/" rel="noopener" target="_blank">
+      Material for MkDocs
+    </a>
+</div>
+</div>
+</div>
+</footer>
+</div>
+<div class="md-dialog" data-md-component="dialog">
+<div class="md-dialog__inner md-typeset"></div>
+</div>
+<script id="__config" type="application/json">{"annotate": null, "base": "../..", "features": ["navigation.tabs", "navigation.sections"], "search": "../../assets/javascripts/workers/search.2c215733.min.js", "tags": null, "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}, "version": null}</script>
+<script src="../../assets/javascripts/bundle.79ae519e.min.js"></script>
+<script src="../../javascripts/mathjax.js"></script>
+<script src="https://unpkg.com/mathjax@3/es5/tex-mml-chtml.js"></script>
+<script src="../../makeblocks.js"></script>
+<script src="../../mini-coi.js"></script>
+</body>
+</html>
