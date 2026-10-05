@@ -51,7 +51,7 @@ Do you only want to think about things that bring you happiness?
 
 Can you think of anything you want?
 If I tell you to do that what does your mind go to?
-Mine goes to something concrete, like a giraffe with a really long neck, just to prove to my self I can think of anything
+Mine goes to something concrete, like a giraffe with a really long neck, just to prove to my self I can think of anything.
 However, I don't think I can.
 When I ask my brain to think of anything, it tries to fill the gap but I feel there are things it will never think.
 So when I think I like to wonder in the dark forest of thought and observe whats there.

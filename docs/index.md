@@ -3,23 +3,36 @@ hide:
   - toc
 ---
 
-# Welcome to my homepage
+# Watch my most recent talk!
+
+<div style="position: relative; width: 100%; max-width: 720px; aspect-ratio: 16 / 9;">
+  <iframe src="https://www.youtube.com/embed/xa04dVG4fEs" title="Topos colloquium talk" style="position: absolute; inset: 0; width: 100%; height: 100%; border: 0;" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+</div>
+
+# Hello,
 
 <figure style="float: right; width: 30%;">
-  <img src="images/louise.JPG" alt="This is me in Lake Louise, Canada." style="width: 100%;">
+  <img src="images/louise.JPG" alt="This is me at Lake Louise, Canada." style="width: 100%;">
   <figcaption>This is me at Lake Louise, Canada.</figcaption>
 </figure>
 
-Hello! I'm a mathematician and PhD candidate at Case Western Reserve University. Currently, I'm also a summer RA at [*topos institute*](https://topos.institute). I'm interested in exploring ideas in double category theory. In particular, I want to understand notions of presentable double categories, compact closed double categories and their use in answering questions in category theory and other areas of mathematics. Beyond this, I am drawn to all ideas that explore the search for truth and the beauty it reveals.
+I'm a mathematician and PhD candidate at Case Western Reserve University. This summer I was also RA at [*topos institute*](https://topos.institute).
+I'm interested in exploring ideas in double category theory.
+In particular, I want to understand notions of presentable double categories, compact closed double categories and their use in answering questions in category theory and other areas of mathematics.
 
-Here, you'll find:
+Recently, I have also been learning how to apply formal methods of category theory to real world problems.
 
-- **About me**: A description of my given talks, papers and events I helped organize.
-- [**Conversations with friends**](blog/index.md): I like thinking about things and having long conversations with others about things. In this section I want to keep a record of some of the things thought and conversated.
+Beyond this, I am drawn to all ideas that explore the search for truth and the beauty it reveals.
 
-If you find something here that resonates with you, feel free to reach out to me at **axh1127 [at] case [dot] edu**.
+On this website, you'll find:
 
-## Friends
+- [**About me**](aboutme/index.md): A description of my given talks, papers and events I helped organize.
+- [**Conversations with friends**](blog/cv.md): I like thinking about things and having long conversations with others about things.
+In this section I want to keep a record of some of the things thought and conversated.
+
+If you find something here that resonates with you, you want to collaborate on a project or just want to say hello; feel free to reach out to me at [axh1127@case.edu](mailto:axh1127@case.edu).
+
+# Friends
 
 [*Sebastian Gómez Rendón*](https://sites.google.com/view/sebasgomez)
 
