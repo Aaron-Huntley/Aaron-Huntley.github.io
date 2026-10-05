@@ -6,9 +6,8 @@ hide:
 # Watch my most recent talk!
 
 <a href="https://www.youtube.com/watch?v=xa04dVG4fEs" target="_blank" rel="noopener">
-  <img src="https://img.youtube.com/vi/xa04dVG4fEs/hqdefault.jpg" alt="Watch the Topos colloquium talk on YouTube" style="width: 100%; max-width: 720px;">
+  <img src="https://img.youtube.com/vi/xa04dVG4fEs/hqdefault.jpg" alt="Watch the Topos colloquium talk on YouTube" style="width: 100%; max-width: 320px;">
 </a>
-
 
 # Hello,
 
