@@ -5,9 +5,10 @@ hide:
 
 # Watch my most recent talk!
 
-<div style="position: relative; width: 100%; max-width: 720px; aspect-ratio: 16 / 9;">
-  <iframe src="https://www.youtube.com/embed/xa04dVG4fEs" title="Topos colloquium talk" style="position: absolute; inset: 0; width: 100%; height: 100%; border: 0;" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
-</div>
+<a href="https://www.youtube.com/watch?v=xa04dVG4fEs" target="_blank" rel="noopener">
+  <img src="https://img.youtube.com/vi/xa04dVG4fEs/hqdefault.jpg" alt="Watch the Topos colloquium talk on YouTube" style="width: 100%; max-width: 720px;">
+</a>
+
 
 # Hello,
 
