@@ -27,6 +27,14 @@ Sept 2019 – Jul 2023
 
 ---
 
+## Research Experience
+
+**Research Assistant *[Topos Institute](https://topos.institute)***
+
+- Summer 2026
+
+---
+
 ## Things I'm currently interested in
 
 **Locally lambda-Presentable Double Categories**
@@ -61,6 +69,7 @@ I wrote these notes in the third year of my time in Leeds.
 
 **Instructor of Record *CWRU***
 
+- Summer 2026 - Math 121 (Calculus)
 - Spring 2026 - Math 125 (Calculus)
 
 **Graduate Assistant *CWRU***
@@ -93,6 +102,10 @@ I wrote these notes in the third year of my time in Leeds.
 
 ## Talks & Presentations
 
+Product-like universal structures in double categories, *Kyoto University, October 2026*
+
+Partial functions and other generalised coproduct completions, *Topos Colloquium, Topos Institute, September 2026*
+
 Locally Presentable Categories, *Homotopy Seminar, CWRU*
 
 The Mathematics of Juggling, *MAMS Student Seminar, CWRU*
@@ -111,6 +124,7 @@ Homoclinic Tangles, *Dynamical Systems, *UoL*
 
 ## Leadership, Service & Outreach
 
+- **MGSA Vice President**, *CWRU*
 - **Co-Founder** – MGSA Student Seminar, *CWRU*
 - **MGSA GCAS Representative**, 2025, *CWRU*  
 - **Founder** – [Directed Reading Program](https://artscimedia.case.edu/wp-content/uploads/sites/41/2025/08/28180927/DRP.pdf), *CWRU*

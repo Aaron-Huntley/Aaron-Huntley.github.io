@@ -5,9 +5,16 @@ hide:
 
 # Watch my most recent talk!
 
-<a href="https://www.youtube.com/watch?v=xa04dVG4fEs" target="_blank" rel="noopener">
-  <img src="https://img.youtube.com/vi/xa04dVG4fEs/hqdefault.jpg" alt="Watch the Topos colloquium talk on YouTube" style="width: 100%; max-width: 320px;">
-</a>
+<div style="display: flex; gap: 1.5rem; align-items: flex-start; flex-wrap: wrap;">
+  <a href="https://www.youtube.com/watch?v=xa04dVG4fEs" target="_blank" rel="noopener" style="flex: 0 1 320px;">
+    <img src="https://img.youtube.com/vi/xa04dVG4fEs/hqdefault.jpg" alt="Watch the Topos colloquium talk on YouTube" style="width: 100%; display: block;">
+  </a>
+  <div style="flex: 1 1 280px;">
+    <p><strong>Partial functions and other generalised coproduct completions</strong></p>
+    <p><em>1st September 2026</em></p>
+    <p>The category of sets and functions is the free coproduct completion of the terminal category. In a double-categorical setting, Evan Patterson defined a new notion of double (co)product and used it to prove that the double category of sets, functions and spans is the free coproduct completion of the terminal double category. In this talk we both generalise and refine this notion. First, we extend Patterson’s original definition to include (co)products in (co)virtual double categories, which can capture examples such as coproducts in Span(C) even when C does not have pullbacks. Second, we isolate finer classes of double (co)products, denoted (L,R)-(co)products, where L and R are certain classes of functions. As an application, we exhibit the double category of sets, functions and partial functions as a free (L,R)-coproduct completion of the terminal double category.</p>
+  </div>
+</div>
 
 # Hello,
 
@@ -26,8 +33,8 @@ Beyond this, I am drawn to all ideas that explore the search for truth and the b
 
 On this website, you'll find:
 
-- [**About me**](aboutme/index.md): A description of my given talks, papers and events I helped organize.
-- [**Conversations with friends**](blog/cv.md): I like thinking about things and having long conversations with others about things.
+- [**About me**](aboutme/cv.md): A description of my given talks, papers and events I helped organize.
+- [**Conversations with friends**](blog/index.md): I like thinking about things and having long conversations with others about things.
 In this section I want to keep a record of some of the things thought and conversated.
 
 If you find something here that resonates with you, you want to collaborate on a project or just want to say hello; feel free to reach out to me at [axh1127@case.edu](mailto:axh1127@case.edu).
