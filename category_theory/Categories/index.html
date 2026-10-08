@@ -1,0 +1,758 @@
+
+<!DOCTYPE html>
+
+<html class="no-js" lang="en">
+<head>
+<meta charset="utf-8"/>
+<meta content="width=device-width,initial-scale=1" name="viewport"/>
+<link href="https://aaron-huntley.github.io/mathematics/category_theory/Categories/" rel="canonical"/>
+<link href="../../images/favicon.png" rel="icon"/>
+<meta content="mkdocs-1.6.1, mkdocs-material-9.7.1" name="generator"/>
+<title>Categories - Aaron Huntley</title>
+<link href="../../assets/stylesheets/main.484c7ddc.min.css" rel="stylesheet"/>
+<link href="../../assets/stylesheets/palette.ab4e12ef.min.css" rel="stylesheet"/>
+<link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect"/>
+<link href="https://fonts.googleapis.com/css?family=Roboto:300,300i,400,400i,700,700i%7CRoboto+Mono:400,400i,700,700i&amp;display=fallback" rel="stylesheet"/>
+<style>:root{--md-text-font:"Roboto";--md-code-font:"Roboto Mono"}</style>
+<link href="../../pyrepl.css" rel="stylesheet"/>
+<script>__md_scope=new URL("../..",location),__md_hash=e=>[...e].reduce(((e,_)=>(e<<5)-e+_.charCodeAt(0)),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
+</head>
+<body data-md-color-accent="amber" data-md-color-primary="deep-orange" data-md-color-scheme="slate" dir="ltr">
+<input autocomplete="off" class="md-toggle" data-md-toggle="drawer" id="__drawer" type="checkbox"/>
+<input autocomplete="off" class="md-toggle" data-md-toggle="search" id="__search" type="checkbox"/>
+<label class="md-overlay" for="__drawer"></label>
+<div data-md-component="skip">
+<a class="md-skip" href="#12-categories">
+          Skip to content
+        </a>
+</div>
+<div data-md-component="announce">
+</div>
+<header class="md-header" data-md-component="header">
+<nav aria-label="Header" class="md-header__inner md-grid">
+<a aria-label="Aaron Huntley" class="md-header__button md-logo" data-md-component="logo" href="../.." title="Aaron Huntley">
+<img alt="logo" src="../../images/logo.png"/>
+</a>
+<label class="md-header__button md-icon" for="__drawer">
+<svg viewbox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M3 6h18v2H3zm0 5h18v2H3zm0 5h18v2H3z"></path></svg>
+</label>
+<div class="md-header__title" data-md-component="header-title">
+<div class="md-header__ellipsis">
+<div class="md-header__topic">
+<span class="md-ellipsis">
+            Aaron Huntley
+          </span>
+</div>
+<div class="md-header__topic" data-md-component="header-topic">
+<span class="md-ellipsis">
+            
+              Categories
+            
+          </span>
+</div>
+</div>
+</div>
+<form class="md-header__option" data-md-component="palette">
+<input aria-label="Dark mode" class="md-option" data-md-color-accent="amber" data-md-color-media="" data-md-color-primary="deep-orange" data-md-color-scheme="slate" id="__palette_0" name="__palette" type="radio"/>
+<label class="md-header__button md-icon" for="__palette_1" hidden="" title="Dark mode">
+<svg viewbox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M12 7a5 5 0 0 1 5 5 5 5 0 0 1-5 5 5 5 0 0 1-5-5 5 5 0 0 1 5-5m0 2a3 3 0 0 0-3 3 3 3 0 0 0 3 3 3 3 0 0 0 3-3 3 3 0 0 0-3-3m0-7 2.39 3.42C13.65 5.15 12.84 5 12 5s-1.65.15-2.39.42zM3.34 7l4.16-.35A7.2 7.2 0 0 0 5.94 8.5c-.44.74-.69 1.5-.83 2.29zm.02 10 1.76-3.77a7.131 7.131 0 0 0 2.38 4.14zM20.65 7l-1.77 3.79a7.02 7.02 0 0 0-2.38-4.15zm-.01 10-4.14.36c.59-.51 1.12-1.14 1.54-1.86.42-.73.69-1.5.83-2.29zM12 22l-2.41-3.44c.74.27 1.55.44 2.41.44.82 0 1.63-.17 2.37-.44z"></path></svg>
+</label>
+<input aria-label="Light mode" class="md-option" data-md-color-accent="light-green" data-md-color-media="" data-md-color-primary="cyan" data-md-color-scheme="default" id="__palette_1" name="__palette" type="radio"/>
+<label class="md-header__button md-icon" for="__palette_0" hidden="" title="Light mode">
+<svg viewbox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="m17.75 4.09-2.53 1.94.91 3.06-2.63-1.81-2.63 1.81.91-3.06-2.53-1.94L12.44 4l1.06-3 1.06 3zm3.5 6.91-1.64 1.25.59 1.98-1.7-1.17-1.7 1.17.59-1.98L15.75 11l2.06-.05L18.5 9l.69 1.95zm-2.28 4.95c.83-.08 1.72 1.1 1.19 1.85-.32.45-.66.87-1.08 1.27C15.17 23 8.84 23 4.94 19.07c-3.91-3.9-3.91-10.24 0-14.14.4-.4.82-.76 1.27-1.08.75-.53 1.93.36 1.85 1.19-.27 2.86.69 5.83 2.89 8.02a9.96 9.96 0 0 0 8.02 2.89m-1.64 2.02a12.08 12.08 0 0 1-7.8-3.47c-2.17-2.19-3.33-5-3.49-7.82-2.81 3.14-2.7 7.96.31 10.98 3.02 3.01 7.84 3.12 10.98.31"></path></svg>
+</label>
+</form>
+<script>var palette=__md_get("__palette");if(palette&&palette.color){if("(prefers-color-scheme)"===palette.color.media){var media=matchMedia("(prefers-color-scheme: light)"),input=document.querySelector(media.matches?"[data-md-color-media='(prefers-color-scheme: light)']":"[data-md-color-media='(prefers-color-scheme: dark)']");palette.color.media=input.getAttribute("data-md-color-media"),palette.color.scheme=input.getAttribute("data-md-color-scheme"),palette.color.primary=input.getAttribute("data-md-color-primary"),palette.color.accent=input.getAttribute("data-md-color-accent")}for(var[key,value]of Object.entries(palette.color))document.body.setAttribute("data-md-color-"+key,value)}</script>
+</nav>
+</header>
+<div class="md-container" data-md-component="container">
+<nav aria-label="Tabs" class="md-tabs" data-md-component="tabs">
+<div class="md-grid">
+<ul class="md-tabs__list">
+<li class="md-tabs__item">
+<a class="md-tabs__link" href="../..">
+        
+  
+  
+    
+  
+  Home
+
+      </a>
+</li>
+<li class="md-tabs__item">
+<a class="md-tabs__link" href="../../aboutme/cv/">
+          
+  
+  
+  About me
+
+        </a>
+</li>
+<li class="md-tabs__item">
+<a class="md-tabs__link" href="../../blog/">
+          
+  
+  
+  Conversations with friends
+
+        </a>
+</li>
+</ul>
+</div>
+</nav>
+<main class="md-main" data-md-component="main">
+<div class="md-main__inner md-grid">
+<div class="md-sidebar md-sidebar--primary" data-md-component="sidebar" data-md-type="navigation">
+<div class="md-sidebar__scrollwrap">
+<div class="md-sidebar__inner">
+<nav aria-label="Navigation" class="md-nav md-nav--primary md-nav--lifted" data-md-level="0">
+<label class="md-nav__title" for="__drawer">
+<a aria-label="Aaron Huntley" class="md-nav__button md-logo" data-md-component="logo" href="../.." title="Aaron Huntley">
+<img alt="logo" src="../../images/logo.png"/>
+</a>
+    Aaron Huntley
+  </label>
+<ul class="md-nav__list" data-md-scrollfix="">
+<li class="md-nav__item">
+<a class="md-nav__link" href="../..">
+<span class="md-ellipsis">
+    
+  
+    Home
+  
+
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item md-nav__item--nested">
+<input class="md-nav__toggle md-toggle" id="__nav_2" type="checkbox"/>
+<label class="md-nav__link" for="__nav_2" id="__nav_2_label" tabindex="0">
+<span class="md-ellipsis">
+    
+  
+    About me
+  
+
+    
+  </span>
+<span class="md-nav__icon md-icon"></span>
+</label>
+<nav aria-expanded="false" aria-labelledby="__nav_2_label" class="md-nav" data-md-level="1">
+<label class="md-nav__title" for="__nav_2">
+<span class="md-nav__icon md-icon"></span>
+            
+  
+    About me
+  
+
+          </label>
+<ul class="md-nav__list" data-md-scrollfix="">
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../aboutme/cv/">
+<span class="md-ellipsis">
+    
+  
+    CV
+  
+
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../aboutme/talks/">
+<span class="md-ellipsis">
+    
+  
+    Talks
+  
+
+    
+  </span>
+</a>
+</li>
+</ul>
+</nav>
+</li>
+<li class="md-nav__item md-nav__item--nested">
+<input class="md-nav__toggle md-toggle" id="__nav_3" type="checkbox"/>
+<label class="md-nav__link" for="__nav_3" id="__nav_3_label" tabindex="0">
+<span class="md-ellipsis">
+    
+  
+    Conversations with friends
+  
+
+    
+  </span>
+<span class="md-nav__icon md-icon"></span>
+</label>
+<nav aria-expanded="false" aria-labelledby="__nav_3_label" class="md-nav" data-md-level="1">
+<label class="md-nav__title" for="__nav_3">
+<span class="md-nav__icon md-icon"></span>
+            
+  
+    Conversations with friends
+  
+
+          </label>
+<ul class="md-nav__list" data-md-scrollfix="">
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../blog/">
+<span class="md-ellipsis">
+    
+  
+    Conversations with friends
+  
+
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item md-nav__item--nested">
+<input class="md-nav__toggle md-toggle" id="__nav_3_2" type="checkbox"/>
+<label class="md-nav__link" for="__nav_3_2" id="__nav_3_2_label" tabindex="0">
+<span class="md-ellipsis">
+    
+  
+    Archive
+  
+
+    
+  </span>
+<span class="md-nav__icon md-icon"></span>
+</label>
+<nav aria-expanded="false" aria-labelledby="__nav_3_2_label" class="md-nav" data-md-level="2">
+<label class="md-nav__title" for="__nav_3_2">
+<span class="md-nav__icon md-icon"></span>
+            
+  
+    Archive
+  
+
+          </label>
+<ul class="md-nav__list" data-md-scrollfix="">
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../blog/archive/2026/">
+<span class="md-ellipsis">
+    
+  
+    2026
+  
+
+    
+  </span>
+</a>
+</li>
+</ul>
+</nav>
+</li>
+</ul>
+</nav>
+</li>
+</ul>
+</nav>
+</div>
+</div>
+</div>
+<div class="md-sidebar md-sidebar--secondary" data-md-component="sidebar" data-md-type="toc">
+<div class="md-sidebar__scrollwrap">
+<div class="md-sidebar__inner">
+<nav aria-label="Table of contents" class="md-nav md-nav--secondary">
+</nav>
+</div>
+</div>
+</div>
+<div class="md-content" data-md-component="content">
+<article class="md-content__inner md-typeset">
+<style>
+.md-content {
+    max-width: 80em;
+}
+</style>
+<h1 id="12-categories">1.2. Categories</h1>
+<p>This section of notes adapted mainly from \cite{Leinster}.</p>
+<p><span class="definition" style="display:block"></span></p>
+<p>A <em>category</em> is a quadruple 
+$<span class="arithmatex">\(\mathscr{C} = (\ob{\mathscr{C}}, \ho[\cat{C}]{-}{-}, \circ_{(-,-,-)}, id_{-})\)</span>$
+ where:
+\begin{enumerate}
+\item <span class="arithmatex">\(\ob{\mathscr{C}}\)</span> is a <em>class</em>. We call the elements of <span class="arithmatex">\(\ob{\mathscr{C}}\)</span> <em>\objs{<span class="arithmatex">\(\mathscr{C*\)</span>}};
+\item <span class="arithmatex">\(\ho[\cat{C}]{-}{-}\)</span> is a </em>function*,</p>
+<div class="arithmatex">\[\begin{align*}
+\ho[\cat{C}]{-}{-} \colon  \ob{\mathscr{C}}\times\ob{\mathscr{C}}&amp;\rightarrow \mathbf{set},\\
+(A,B) &amp;\mapsto \ho[\cat{C}]{A}{B}
+\end{align*}\]</div>
+<p>where <span class="arithmatex">\(\mathbf{set}\)</span> is the class of all sets. The  elements of <span class="arithmatex">\(\ho[\cat{C}]{A}{B}\)</span> we call maps from <span class="arithmatex">\(A\)</span> to <span class="arithmatex">\(B\)</span>;
+\item Given <span class="arithmatex">\(A,B,C \in\ob{\mathscr{C}}, \circ_{(A,B,C)}\)</span> is a function,</p>
+<div class="arithmatex">\[\begin{align*}
+\circ_{(A,B,C)}\colon\ho[\cat{C}]{B}{C}\times\ho[\cat{C}]{A}{B}&amp;\rightarrow \ho[\cat{C}]{A}{C},\\
+(g,f)&amp;\mapsto g\circ_{(A,B,C)} f.
+\end{align*}\]</div>
+<p>We call each <span class="arithmatex">\(\circ_{(A,B,C)}\)</span> <em>composition</em>;
+\item For each <span class="arithmatex">\(A\in\ob{\mathscr{C}}\)</span>, <span class="arithmatex">\(id_{A}\)</span> is an element of <span class="arithmatex">\(\ho[\cat{C}]{A}{A}\)</span>.
+\end{enumerate}
+The following axioms are satisfied:
+\begin{enumerate}
+\item <span class="arithmatex">\(\circ\)</span> satisfies <em>associativity</em>:
+Given <span class="arithmatex">\(A,B,C,D \in \ob{\mathscr{C}}\)</span>, for each <span class="arithmatex">\(f\in\ho[\cat{C}]{A}{B}\)</span>, <span class="arithmatex">\(g\in\ho[\cat{C}]{B}{C}\)</span> and <span class="arithmatex">\(h\in\ho[\cat{C}]{C}{D}\)</span> we have, 
+$<span class="arithmatex">\((h\circ_{(B,C,D)} g)\circ_{(A,B,D)} f = h\circ_{(A,C,D)} (g\circ_{(A,B,C)} f);\)</span>$</p>
+<p>\item For each <span class="arithmatex">\(A\in\ob{\mathscr{C}}\)</span>, the morphism <span class="arithmatex">\(id_{A}\)</span> acts as an identity with respect to <span class="arithmatex">\(\circ\)</span>. That is, given any two \objs{<span class="arithmatex">\(\mathscr{C}\)</span>}, <span class="arithmatex">\(B,C\in\ob{\mathscr{C}}\)</span> for all <span class="arithmatex">\(f\in\ho[\cat{C}]{A}{B}\)</span> and <span class="arithmatex">\(g\in\ho[\cat{C}]{C}{A}\)</span> we have: 
+$<span class="arithmatex">\(f\circ_{(A,B,B)} id_{A} = f\)</span>$
+and, 
+$<span class="arithmatex">\(id_{A}\circ_{(B,A,A)} g = g.\)</span>$</p>
+<p>\end{enumerate}
+</p>
+<p><span class="remark" style="display:block"></span></p>
+<p>The elements of each set <span class="arithmatex">\(\ho[\cat{C}]{A}{B}\)</span> where <span class="arithmatex">\(A,B\in\ob{\mathscr{C}}\)</span>  are also called functions, arrows or morphisms, from <span class="arithmatex">\(A\)</span> to <span class="arithmatex">\(B\)</span>.</p>
+<p>For simplicity we write <span class="arithmatex">\(\circ\)</span> for any <span class="arithmatex">\(\circ_{(A,B,C)}\)</span>. We will also write <span class="arithmatex">\(\hom\)</span> if the category we are working with is clear.
+</p>
+<p><span class="remark" style="display:block">
+In Definition \ref{def:category} we have that each <span class="arithmatex">\(\ho[\cat{C}]{A}{B}\)</span> is a set, this definition can be changed so that these are not sets but classes, however in this report we will only use sets. In the literature categories defined as in Definition \ref{def:category} may be refered to as <em>locally small categories</em>, see nCatLab \cite{nLab} for more details.
+</span></p>
+<p>\subsection{Examples}</p>
+<p>We can now see how some of the structures we already know fit into the framework of a category.</p>
+<p><span class="example" style="display:block"></span></p>
+<p>Let <span class="arithmatex">\(\mathbf{Set} = (\ob{\mathbf{Set}}, \hom, \circ, id)\)</span>, where:
+\begin{enumerate}
+\item <span class="arithmatex">\(\ob{\mathbf{Set}}\)</span> is the class of all sets;
+\item Given any two \objs{<span class="arithmatex">\(\mathbf{Set}\)</span>}, <span class="arithmatex">\((X,Y)\)</span>, <span class="arithmatex">\(\ho{X}{Y}\)</span> is the set of all functions between <span class="arithmatex">\(X\)</span> and <span class="arithmatex">\(Y\)</span>;
+\item Given three sets <span class="arithmatex">\(X,Y,Z\)</span>,</p>
+<div class="arithmatex">\[\begin{align*}
+\circ\colon\ho{Y}{Z}\times\ho{X}{Y}&amp;\rightarrow\ho{X}{Z},\\
+(f,g)&amp;\mapsto g\centerdot f
+\end{align*}\]</div>
+<p>where <span class="arithmatex">\(\centerdot\)</span> is regular function composition;
+\item For each <span class="arithmatex">\(X\in\ob{\mathbf{Set}}\)</span>,</p>
+<div class="arithmatex">\[\begin{align*}
+id_{X}\colon X&amp;\rightarrow X,\\
+x&amp;\mapsto x.
+\end{align*}\]</div>
+<p>\end{enumerate}
+Then <span class="arithmatex">\(\circ\)</span> is associative since function composition is associative and given any <span class="arithmatex">\(X,Y\in\ob{\mathbf{Set}}\)</span> then for all <span class="arithmatex">\(f\in\ho{X,Y}\)</span> and <span class="arithmatex">\(h\in\ho{Y}{X}\)</span>: 
+$<span class="arithmatex">\(f\circ id_{X} = f\)</span>$
+ and, 
+$<span class="arithmatex">\(id_{X}\circ h = h.\)</span>$</p>
+<p>Therefore <span class="arithmatex">\(\mathbf{Set}\)</span> is a category.
+</p>
+<p><span class="example" style="display:block"></span></p>
+<p>Let <span class="arithmatex">\(\mathbf{Grp}\)</span> be defined:
+\begin{enumerate}
+\item <span class="arithmatex">\(\ob{\mathbf{Grp}}\)</span> is the class of all groups;
+\item Given any two <span class="arithmatex">\((G,\bullet),(H,*)\in\ob{\mathbf{Grp}}\)</span>, <span class="arithmatex">\(\ho{(G,\bullet)}{(H,*)}\)</span> is the set of all group homomorphisms between <span class="arithmatex">\((G,\bullet)\)</span> and <span class="arithmatex">\((H,*)\)</span>;
+\item Given three groups <span class="arithmatex">\((G,\bullet),(H,*),(N,\square)\)</span>,</p>
+<div class="arithmatex">\[\begin{align*}
+\circ\colon\ho{(G,\bullet)}{(H,*)}\times\ho{(H,*)}{(N,\square)}&amp;\rightarrow\ho{(G,\bullet)}{(N,\square)},\\
+(f,g)&amp;\mapsto g\centerdot f
+\end{align*}\]</div>
+<p>where <span class="arithmatex">\(\centerdot\)</span> is regular function composition. 
+This is well defined meaning <span class="arithmatex">\(g\centerdot f\)</span> is a group homomorphism;
+\item For each <span class="arithmatex">\((G,\bullet)\in\ob{\mathbf{Grp}}\)</span>, <span class="arithmatex">\(id_{(G,\bullet)}\)</span> is the group homomorphism</p>
+<div class="arithmatex">\[\begin{align*}
+id_{(G,\bullet)}\colon G &amp;\rightarrow G,\\
+g &amp;\mapsto g.
+\end{align*}\]</div>
+<p>\end{enumerate}
+Then <span class="arithmatex">\(\circ\)</span> is associative since function composition is associative and given any \objs{<span class="arithmatex">\(\mathbf{Grp}\)</span>} <span class="arithmatex">\((G,\bullet),(H,*)\in\ob{\mathbf{Grp}}\)</span> then for all <span class="arithmatex">\(f\in\ho{(G,\bullet)}{(H,*)}\)</span> and <span class="arithmatex">\(h\in\ho{(H,*)}{(G,\bullet)}\)</span>; 
+$<span class="arithmatex">\(f\circ id_{(G,\bullet)} = f\)</span>$
+ and, 
+$<span class="arithmatex">\(id_{(G,\bullet)}\circ h = h.\)</span>$</p>
+<p>Therefore <span class="arithmatex">\(\mathbf{Grp}\)</span> is a category.
+</p>
+<p><span class="example" style="display:block">
+Let <span class="arithmatex">\(K\)</span> be a field then define <span class="arithmatex">\(\mathbf{Vect_{*K*}}\)</span> as:
+\begin{enumerate}
+\item <span class="arithmatex">\(\ob{\mathbf{Vect_{*K*}}}\)</span> is the class of all <em>K</em>-vector spaces where <em>K</em> is a field;
+\item For any two vector spaces <span class="arithmatex">\(V\)</span> and <span class="arithmatex">\(W\)</span>, <span class="arithmatex">\(\ho{V}{W}\)</span> is the set of all <em>K</em>-linear maps between <span class="arithmatex">\(V\)</span> and <span class="arithmatex">\(W\)</span>;
+\item <span class="arithmatex">\(\circ\)</span> is regular function composition;
+\item For each <span class="arithmatex">\(V\in\ob{\mathbf{Vect_{*K*}}}\)</span>, <span class="arithmatex">\(id_{V}\)</span> is the <em>K</em>-linear map:</span></p>
+<div class="arithmatex">\[\begin{align*}
+id_{V}\colon V &amp;\rightarrow V,\\
+v &amp;\mapsto v.
+\end{align*}\]</div>
+<p>\end{enumerate}
+Then <span class="arithmatex">\(\mathbf{Vect_{*K*}}\)</span> is a category since <span class="arithmatex">\(\circ\)</span> is associative and for any <span class="arithmatex">\(f\in\ho{V}{W}\)</span> and <span class="arithmatex">\(g\in\ho{W}{V}\)</span> <span class="arithmatex">\(f\circ id_{V} = f\)</span> and <span class="arithmatex">\(id_{V}\circ g= g\)</span>.
+
+The following example came from a lecture given by Dr Daniel Graves at the University of Leeds.</p>
+<p><span class="example" style="display:block"></span></p>
+<p>Let <span class="arithmatex">\(\mathbf{Top}^{*} = (\ob{\mathbf{Top}^{*}},\hom,\circ,id)\)</span> where:
+\begin{enumerate}
+\item <span class="arithmatex">\(\ob{\mathbf{Top}^{*}}\)</span> Is the class of all based topological spaces, <span class="arithmatex">\(((X,\tau_X),x_{0})\)</span>;
+\item Given two based topological spaces, <span class="arithmatex">\(((X,\tau_X),x_{0})\)</span> and <span class="arithmatex">\(((Y,\tau_Y),y_{0})\)</span>, each </p>
+<div class="arithmatex">\[\ho[\mathbf{Top}^*]{((X,\tau_X),x_{0})}{((Y,\tau_Y),y_{0})}\]</div>
+<p>is the set of continuous maps which sends <span class="arithmatex">\(x_0\mapsto y_{0}\)</span> between these spaces;
+\item <span class="arithmatex">\(\circ\)</span> is regular function composition. Given two base point preserving continuous maps, <span class="arithmatex">\(f,g\)</span>, then <span class="arithmatex">\(f\circ g\)</span> is a base point preserving continuous map;
+\item Given a based topological space <span class="arithmatex">\(((X,\tau_X),x_{0})\)</span>, <span class="arithmatex">\(id_{X}\)</span> is the identity continuous map which sends each point <span class="arithmatex">\(x\in X\)</span> to itself.
+\end{enumerate}
+<span class="arithmatex">\(\mathbf{Top}^*\)</span> is a category since <span class="arithmatex">\(\circ\)</span> is associative and each <span class="arithmatex">\(id_{X}\)</span> acts as an identity.
+</p>
+<p>\subsubsection{Example: Category of monoids}</p>
+<p><span class="definition" style="display:block"></span></p>
+<p>A <em>monoid</em> is a triple <span class="arithmatex">\(M=(M_{s},*,e_M)\)</span> where:
+\begin{enumerate}
+\item <span class="arithmatex">\(M_{s}\)</span> is a set, we call the <em>underlying set of M</em>;
+\item For any two elements <span class="arithmatex">\(a,b\in M_{s}, *\)</span> is a closed binary operation:</p>
+<div class="arithmatex">\[\begin{align*}
+*\colon M_{s}\times M_{s} &amp;\rightarrow M_{s},\\
+(a,b) &amp;\mapsto a*b;
+\end{align*}\]</div>
+<p>\item <span class="arithmatex">\(e_{M}\)</span> is an element in <span class="arithmatex">\(M_{s}\)</span> such that for all <span class="arithmatex">\(a\in M_{s},\)</span>,</p>
+<div class="arithmatex">\[\begin{align*}
+e_{M}*a = a*e_{M} = a;
+\end{align*}\]</div>
+<p>\item <span class="arithmatex">\(*\)</span> is associative; Given any two <span class="arithmatex">\(a,b,c\in M_{s}\)</span> </p>
+<div class="arithmatex">\[(a*b)*c = a*(b*c).\]</div>
+<p>\end{enumerate}
+</p>
+<p><span class="remark" style="display:block">
+We will write <span class="arithmatex">\(a\in M\)</span> to mean <span class="arithmatex">\(a\in M_{s}\)</span>.
+</span></p>
+<p><span class="definition" style="display:block"></span></p>
+<p>Let <span class="arithmatex">\(M=(M_{s},*_{M},e_{M})\)</span> and <span class="arithmatex">\(N=(N_{s},*_{N},e_{N})\)</span> be monoids. A <em>monoid homomorphism</em> between <span class="arithmatex">\(M\)</span> and <span class="arithmatex">\(N\)</span> is a function, <span class="arithmatex">\(f: M \rightarrow N\)</span>,
+which satisfies the following axioms:
+\begin{enumerate}
+\item For any <span class="arithmatex">\(m_{1},m_{2}\in M\)</span>, <span class="arithmatex">\(f(m_{1}*_{N}m_{2}) = f(m_{1})*_{N}f(m_{2})\)</span>;
+\item <span class="arithmatex">\(f(e_{M})= e_{M}\)</span>.
+\end{enumerate}
+
+With monoids and their morphisms defined, we can define the category of monoids.</p>
+<p><span class="lemma" style="display:block"></span></p>
+<p>Let <span class="arithmatex">\(\mathbf{Mon}\)</span> be defined:
+\begin{enumerate}
+\item <span class="arithmatex">\(\ob{\mathbf{Mon}}\)</span> is the class of all monoids as defined in Definition \ref{def:monoid1};
+\item For each <span class="arithmatex">\(M,N\in\ob{\mathbf{Mon}}\)</span>, <span class="arithmatex">\(\ho{M}{N}\)</span> is the set of all monoid homomorphisms between <span class="arithmatex">\(M\)</span> and <span class="arithmatex">\(N\)</span>;
+\item Given <span class="arithmatex">\(M,N,H\in\ob{\mathbf{Mon}}\)</span> <span class="arithmatex">\(\circ\)</span> is the function:</p>
+<div class="arithmatex">\[\begin{align*}
+\circ\colon \ho{M}{N}\times\ho{N}{H}&amp;\rightarrow\ho{M}{H},\\
+(f,g)&amp;\mapsto g \centerdot f,
+\end{align*}\]</div>
+<p>where <span class="arithmatex">\(\centerdot\)</span> is regular function composition. </p>
+<p>This is well defined since given any two monoid homomorphisms <span class="arithmatex">\(f\in\ho{M}{N}\)</span> and <span class="arithmatex">\(g\in\ho{M}{H}\)</span> and for each <span class="arithmatex">\(x,y\in M\)</span> we have,</p>
+<div class="arithmatex">\[\begin{align*}
+g\centerdot f(x*_{M}y) &amp;= g(f(x*^{M}y))\\
+&amp;= g(f(x)*^{N}f(y))\\
+&amp;= g(f(x))*^{H}g(f(y))\\
+&amp;= g\centerdot f(x) *^{H} g\centerdot f(y)
+\end{align*}\]</div>
+<p>and,</p>
+<div class="arithmatex">\[\begin{align*}
+g\centerdot f(e_{M}) &amp;= g(f(e_{M}))\\
+&amp;= g(e_{N})\\
+&amp;= e_{H}.
+\end{align*}\]</div>
+<p>Since <span class="arithmatex">\(f\)</span> and <span class="arithmatex">\(g\)</span> are monoid homomorphisms. Hence <span class="arithmatex">\(g\centerdot h\)</span> is a monoid homomorphism;
+\item For each <span class="arithmatex">\(M\in\ob{\mathbf{Mon}}\)</span>;</p>
+<div class="arithmatex">\[\begin{align*}
+id_{M}\colon M_{s} &amp;\rightarrow M_{s},\\
+m&amp;\mapsto m.
+\end{align*}\]</div>
+<p>\end{enumerate}
+Then <span class="arithmatex">\(\mathbf{Mon}\)</span> is a category.
+
+\begin{proof}
+Firstly <span class="arithmatex">\(\circ\)</span> is associative since it defined as function composition. </p>
+<p>To show the condition on identities,given any <span class="arithmatex">\(f\in\ho{M}{N}\)</span> and <span class="arithmatex">\(g\in\ho{N}{M}\)</span> we have for each <span class="arithmatex">\(m\in M\)</span> and <span class="arithmatex">\(n\in N\)</span>;</p>
+<div class="arithmatex">\[\begin{align*}
+f\circ id_{M}(m) &amp;= f(id_{M}(m))\\
+&amp;=f(m)\\
+\end{align*}\]</div>
+<p>and,</p>
+<div class="arithmatex">\[\begin{align*}
+id_{M} \circ g(n) &amp;= id_{M}(g(n))\\
+&amp;= g(n).
+\end{align*}\]</div>
+<p>Hence <span class="arithmatex">\(id_{M}\)</span> acts as an identity with respect to function composition and <span class="arithmatex">\(\mathbf{Mon}\)</span> is a category.
+\end{proof}
+The following Example \ref{exe:prodcat} is adapted from \cite{wiki:prodcat}.</p>
+<p><span class="example" style="display:block">[Product Category]</span></p>
+<p>Let <span class="arithmatex">\(\cat{C}\)</span> and <span class="arithmatex">\(\cat{D}\)</span> be categories. </p>
+<p>We can define the <em>Product category</em> <span class="arithmatex">\(\cat{C}\times\cat{D}\)</span> as follows:
+\begin{enumerate}
+\item The <span class="arithmatex">\(\objs{\cat{C}\times\cat{D}}\)</span> are pairs <span class="arithmatex">\((C,D)\)</span> where <span class="arithmatex">\(C\in\ob{\cat{C}}\)</span> and <span class="arithmatex">\(D\in\ob{\cat{C}}\)</span>;
+\item For each <span class="arithmatex">\((C_{1},D_{1}),(C_{2},D_{2})\in\ob{\cat{C}\times\cat{D}}\)</span> the elements of <span class="arithmatex">\(\ho[\cat{C}\times\cat{D}]{(C_{1},D_{1})}{(C_{2},D_{2})}\)</span> are the pairs <span class="arithmatex">\((f,g)\)</span> where <span class="arithmatex">\(f\in\ho[\cat{C}]{C_{1}}{C_{2}}\)</span> and <span class="arithmatex">\(g\in\ho[\cat{D}]{D_{1}}{D_{2}}\)</span>;
+\item Composition is defined,</p>
+<div class="arithmatex">\[\begin{align*}
+\circ_{\cat{C}\times\cat{D}}\colon\ho[\cat{C}\times\cat{D}]{(C_{2},D_{2})}{(C_{3},D_{3})}&amp;\to\ho[\cat{C}\times\cat{D}]{(C_{1},D_{1})}{(C_{2},D_{2})},\\
+((f_{2},g_{2}),(f_{1},g_{1}))&amp;\mapsto (f_{2}\circ_{\cat{C}} f_{1},g_{2}\circ_{\cat{D}}g_{1});
+\end{align*}\]</div>
+<p>\item Identities are defined for each <span class="arithmatex">\((C,D)\in\ob{\cat{C}\times\cat{D}}\)</span>: 
+$<span class="arithmatex">\(id_{(C,D)} = (id_{C},id_{D}).\)</span>$</p>
+<p>\end{enumerate}
+First we show composition is associative:
+Given <span class="arithmatex">\((f_{1},g_{1})\in\ho[\cat{C}\times\cat{D}]{(C_{1},D_{1})}{(C_{2},D_{2})}\)</span>, <span class="arithmatex">\((f_{2},g_{2})\in\ho[\cat{C}\times\cat{D}]{(C_{2},D_{2})}{(C_{3},D_{3})}\)</span> and <span class="arithmatex">\((f_{3},g_{3})\in\ho[\cat{C}\times\cat{D}]{(C_{3},D_{3})}{(C_{4},D_{4})}\)</span> we have,</p>
+<div class="arithmatex">\[\begin{align*}
+((f_{3},g_{3})\circ_{\cat{C}\times\cat{D}}\cat{C}\times\cat{D}(f_{2},g_{2}))\circ_{\cat{C}\times\cat{D}}(f_{1},g_{1})&amp;= (f_{3}\circ_{\cat{C}} f_{2},g_{3}\circ_{\cat{D}} g_{2})\circ_{\cat{C}\times\cat{D}}(f_{1},g_{1}),\\
+&amp;= (f_{3}\circ_{\cat{C}}f_{2}\circ_{\cat{C}}f_{1},g_{3}\circ_{\cat{D}}g_{2}\circ_{\cat{D}}g_{1}),\\
+&amp;= (f_{3},g_{3})\circ_{\cat{C}\times\cat{D}}(f_{2}\circ_{\cat{C}}f_{1},g_{2}\circ_{\cat{D}}g_{1}),\\
+&amp;= (f_{3},g_{3})\circ_{\cat{\cat{C}\times\cat{D}}}((f_{2},g_{2})\circ_{\cat{C}\times\cat{D}}(f_{1},g_{1})).
+\end{align*}\]</div>
+<p>Hence <span class="arithmatex">\(\circ_{\cat{C}\times\cat{D}}\)</span> is associative. </p>
+<p>We now show the identities indeed act as identities:
+Given <span class="arithmatex">\((C,D)\in\ob{\cat{C}\times\cat{D}}\)</span>, and <span class="arithmatex">\((f_{1},g_{1})\in\ho[\cat{C}\times\cat{D}]{(C_{1},D_{1})}{(C,D)}\)</span>, and <span class="arithmatex">\((f_{2},g_{2})\in\ho[\cat{C}\times\cat{D}]{(C,D)}{C_{2},D_{2}}\)</span> we have;</p>
+<div class="arithmatex">\[\begin{align*}
+id_{(C,D)}\circ_{\cat{C}\times\cat{D}}(f_{1},g_{1})&amp;= (id_{C},id_{D})\circ_{\cat{C}\times\cat{D}}(f_{1},g_{1})\\
+&amp;= (id_{C}\circ_{\cat{C}}f_{1},id_{D}\circ_{\cat{D}}g_{1})\\
+&amp;= (f_{1},g_{1})
+\end{align*}\]</div>
+<p>and,</p>
+<div class="arithmatex">\[\begin{align*}
+(f_{2},g_{2})\circ_{\cat{C}\times\cat{D}}id_{(C,D)}&amp;= (f_{2},g_{2})\circ_{\cat{C}\times\cat{D}}(id_{C},id_{D})\\
+&amp;= (f_{2}\circ_{\cat{C}}id_{C},g_{2}\circ_{\cat{D}}id_{D})\\
+&amp;= (f_{2},g_{2}).
+\end{align*}\]</div>
+<p>Therefore <span class="arithmatex">\(id_{(C,D)}\)</span> acts as an identity with respect to composition. Hence <span class="arithmatex">\(\cat{C}\times\cat{D}\)</span> is a category.
+
+The following Definition \ref{def:dualcategory} and Lemma \ref{lem:dualcatiscat} are adapted from Bartosz Milewsik video lectures \cite{Bartosz} and the book by Adámek - Herrlick - Strecker \cite{ACC} page 22 onward.</p>
+<p><span class="definition" style="display:block"></span></p>
+<p>Given a category <span class="arithmatex">\(\cat{C}\)</span> we define <span class="arithmatex">\(\cat{C}^{op} = (\ob{\cat{C}},\hom_{op}, \circ^{op},id)\)</span>: 
+\begin{enumerate}
+\item The objects of <span class="arithmatex">\(\cat{C}^{op}\)</span> are the objects of <span class="arithmatex">\(\cat{C}\)</span>;
+\item Given <span class="arithmatex">\(A,B\in\ob{\cat{C}}\)</span> for each <span class="arithmatex">\(f\in\ho{A}{B}\)</span> we have a <span class="arithmatex">\(f^{op}\in\ho[\cat{C}^{op}]{B}{A}\)</span>;
+\item Given <span class="arithmatex">\(f^{op}\in\hom^{op}(A,B)\)</span> and <span class="arithmatex">\(g^{op}\in\hom^{op}(B,C)\)</span>,</p>
+<div class="arithmatex">\[g^{op}\circ^{op}_{(A,B,C)}f^{op} = (f\circ_{(C,B,A)} g)^{op}.\]</div>
+<p>\end{enumerate}
+</p>
+<p><span class="lemma" style="display:block"></span></p>
+<p><span class="arithmatex">\(\cat{C}^{op}\)</span> defined in Definition \ref{def:dualcategory} is a category.
+
+\begin{proof}
+We first prove associativity of the composition for <span class="arithmatex">\(\cat{C}^{op}\)</span>; given morphisms <span class="arithmatex">\(f^{op}\in\hom^{op}(A,B)\)</span>, <span class="arithmatex">\(g^{op}\in\hom^{op}(B,C)\)</span> and <span class="arithmatex">\(h^{op}\in\hom^{op}(C,D)\)</span> we have,</p>
+<div class="arithmatex">\[\begin{align*}
+h^{op} \circ^{op} (g^{op}\circ^{op} f^{op}) &amp;= h^{op} \circ^{op} (f\circ g)^{op}\\
+&amp;= f\circ g \circ h\\
+&amp;= f\circ (g\circ h)\\
+&amp;= (g\circ h)^{op} \circ^{op} f^{op}\\
+&amp;= (h^{op}\circ^{op} g^{op})\circ^{op} f^{op}.
+\end{align*}\]</div>
+<p>Hence <span class="arithmatex">\(\circ^{op}\)</span> is associative.</p>
+<p>Now we show the identities hold;
+given morphisms  <span class="arithmatex">\(f^{op}\in\hom^{op}(A,B)\)</span> and <span class="arithmatex">\(g^{op}\in\hom^{op}(B,C)\)</span> we have,</p>
+<div class="arithmatex">\[f^{op} \circ^{op} id_{A} = (id_{A} \circ f)^{op} = f^{op}\]</div>
+<p>and,</p>
+<div class="arithmatex">\[id_{C}\circ^{op}g^{op} = (g\circ id_{C})^{op} = g^{op}.\]</div>
+<p>Hence each <span class="arithmatex">\(id_{C}\)</span> acts as an identity. Therefore, <span class="arithmatex">\(\cat{C}^{op}\)</span> is a category.
+\end{proof}</p>
+<p><span class="remark" style="display:block">
+Since we can construct a dual category for any category, <span class="arithmatex">\(\cat{C}\)</span> every result we prove about a general category gives us a dual result by looking from the perspective of the dual category.
+</span></p>
+<p>\subsubsection{Example: Monoid as a category}</p>
+<p>This section follows ideas from the video lectures of Bartosz Milewski \cite{Bartosz}.
+We can define a monoid in terms of the category structure as follows.</p>
+<p><span class="definition" style="display:block">[Monoid as a category]</span></p>
+<p>A <em>cat monoid</em> is a category <span class="arithmatex">\(\cat{M}\)</span> with one object, <span class="arithmatex">\(m\in\ob{\cat{M}}\)</span>.
+
+We will show that each cat monoid is a monoid and each monoid is a cat monoid and so the definitions are equivalent.</p>
+<p><span class="lemma" style="display:block"></span></p>
+<p>Let <span class="arithmatex">\(\cat{M}\)</span> be a cat monoid with object <span class="arithmatex">\(m\in\ob{\cat{M}}\)</span>. Then <span class="arithmatex">\((\ho{m}{m},\circ,id_{m})\)</span> is a monoid.
+
+\begin{proof}
+<span class="arithmatex">\(\ho{m}{m}\)</span> is a set by Definition \ref{def:category}. </p>
+<p>For any <span class="arithmatex">\(g,f\in\ho{m}{m}\)</span> we have <span class="arithmatex">\(g\circ f\in\ho{m}{m}\)</span> and so <span class="arithmatex">\(\circ\)</span> is a closed binary operation. </p>
+<p>For each <span class="arithmatex">\(g\in\ho{m}{m}\)</span> we have, 
+$<span class="arithmatex">\(id_{m}\circ g = g\)</span>$
+ and, 
+$<span class="arithmatex">\(g\circ id_{m} = g.\)</span>$
+ <span class="arithmatex">\(\circ\)</span> is associative since <span class="arithmatex">\(\cat{M}\)</span> is a category. </p>
+<p>Hence, <span class="arithmatex">\((\ho{m}{m},\circ,id_{m})\)</span> is a monoid.
+\end{proof}</p>
+<p><span class="definition" style="display:block"></span></p>
+<p>Let <span class="arithmatex">\(M = (M_{s},*,e_{M})\)</span> be a monoid. We define the category <span class="arithmatex">\(\cat{M}\)</span> as:
+\begin{enumerate}
+\item <span class="arithmatex">\(\ob{\cat{M}}\)</span> has one object <span class="arithmatex">\(m\)</span>;
+\item <span class="arithmatex">\(M_{s}=\ho[\cat{M}]{m}{m}\)</span>;
+\item <span class="arithmatex">\(\circ_{m,m,m} = *\)</span>;
+\item <span class="arithmatex">\(id_{m} = e_{M}\)</span>.
+\end{enumerate}
+</p>
+<p><span class="lemma" style="display:block"></span></p>
+<p><span class="arithmatex">\(\cat{M}\)</span> as defined above in Definition \ref{def:monascatmon} is a cat monoid.
+
+\begin{proof}
+Firstly, <span class="arithmatex">\(\circ\)</span> is associative since <span class="arithmatex">\(*\)</span> is associative as <span class="arithmatex">\(M\)</span> is a monoid. </p>
+<p>We also have for each <span class="arithmatex">\(f,g\in\ho{m}{m}\)</span>, 
+$<span class="arithmatex">\(f\circ id_{m} = f*e_{M} = f\)</span>$
+ and 
+$<span class="arithmatex">\(id_{m}\circ g = e_{M}*g = g.\)</span>$</p>
+<p>Therefore <span class="arithmatex">\(\cat{M}\)</span> is a one object category, hence a cat monoid.
+\end{proof}</p>
+<p><span class="remark" style="display:block">
+Any group can also be seen as a one object category since a group is a special case of  a monoid as follows:</span></p>
+<p>Suppose <span class="arithmatex">\(\cat{G}\)</span> is a group as a one object category then we have for each <span class="arithmatex">\(f\in\ho[\cat{G}]{g}{g}\)</span> a morphism <span class="arithmatex">\(g\in\ho[\cat{G}]{g}{g}\)</span> such that,</p>
+<div class="arithmatex">\[f\circ g = id_{g}\]</div>
+<p>and,</p>
+<div class="arithmatex">\[g\circ f = id_{g}.\]</div>
+<p></p>
+<p>\subsubsection{Example: Category of rings}</p>
+<p>Here we define what a ring is and how it fits into the framework of a category.</p>
+<p><span class="definition" style="display:block"></span></p>
+<p>A <em>ring with 1</em> is a triple <span class="arithmatex">\(R=(R_{s},+,\times)\)</span> where <span class="arithmatex">\(R_{s}\)</span> is a set called the <em>underlying set of R</em>, and <span class="arithmatex">\(+,\times\)</span> are closed binary operations on <span class="arithmatex">\(R_{s}\)</span> called <em>addition</em> and <em>multiplication</em> respectively. </p>
+<p>We also have that the following conditions are satisfied:
+\begin{enumerate}
+\item <span class="arithmatex">\((R,+)\)</span> forms an abelian group with identity denoted <span class="arithmatex">\(0_{R}\)</span>;
+\item <span class="arithmatex">\((R,\times,1_{R})\)</span> forms a monoid with identity <span class="arithmatex">\(1_{R}\neq0_{R}\)</span>;
+\item Multiplication is distributive across addition. Given <span class="arithmatex">\(,y,z\in R_{s}\)</span>,</p>
+<div class="arithmatex">\[x\times(y+z)=x\times y +x\times z\]</div>
+<p>and,</p>
+<div class="arithmatex">\[(y+z)\times x=y\times x +z\times x.\]</div>
+<p>\end{enumerate}
+</p>
+<p><span class="definition" style="display:block">
+An <em>abelian group</em> <span class="arithmatex">\((G,+)\)</span> is a group with the <em>commutativity property</em> that is: </span></p>
+<p>Given <span class="arithmatex">\(x,y\in G\)</span>,
+$<span class="arithmatex">\(x+y=y+x.\)</span>$</p>
+<p></p>
+<p><span class="definition" style="display:block"></span></p>
+<p>A <em>commutative ring with 1</em> is a ring with 1 <span class="arithmatex">\(R=(R_{s},+,\times)\)</span> where multiplication is commutative, that is:</p>
+<p>Given <span class="arithmatex">\(x,y\in R_{s}\)</span>,</p>
+<div class="arithmatex">\[x\times y = y\times x.\]</div>
+<p></p>
+<p><span class="definition" style="display:block"></span></p>
+<p>Given two rings with 1, <span class="arithmatex">\(R=(R_{s},+_{R},\times_{R})\)</span> and <span class="arithmatex">\(S=(S_{S},+_{S},\times_{S})\)</span> a function <span class="arithmatex">\(f\colon R_{S}\rightarrow S_{S}\)</span> is called a <em>ring homomorphism</em> if given <span class="arithmatex">\(x,y\in R_{s}\)</span> the following axioms hold:
+\begin{enumerate}
+\item <span class="arithmatex">\(f(x+_{R}y)=f(x)+_{S}f(y)\)</span>;
+\item <span class="arithmatex">\(f(x\times_{R}y)=f(x)\times_{S}f(y)\)</span>;
+\item <span class="arithmatex">\(f(1_{R})=1_{S}\)</span>.
+\end{enumerate}
+
+\begin{cor}</p>
+<p>Let <span class="arithmatex">\(R\)</span> and <span class="arithmatex">\(S\)</span> be a rings with 1 and <span class="arithmatex">\(f\colon R_{S}\to S_{S}\)</span> be a ring homomorphism then:</p>
+<div class="arithmatex">\[f(0_{R})=0_{S}.\]</div>
+<p>\end{cor}
+\begin{proof}</p>
+<div class="arithmatex">\[\begin{align*}
+f(1_{R}) &amp;= f(1_{R}+_{R}0_{R}) \\
+&amp;= f(1_{R})+_{S}f(0_{R}) \\
+&amp;= 1_{S}+_{S}f(0_{R}) \\
+&amp;= 1_{S},
+\end{align*}\]</div>
+<p>hence, <span class="arithmatex">\(f(0_{R})=0_{S}\)</span>.
+\end{proof}</p>
+<p><span class="remark" style="display:block">
+A commutative ring homomorphism is a ring homomorphism between commutative rings with 1. 
+</span></p>
+<p><span class="definition" style="display:block"></span></p>
+<p>Define the quadruple <span class="arithmatex">\(\mathbf{Rng}=(\ob{\mathbf{Rng}},\hom_{\mathbf{Rng}},\circ,id)\)</span> where:
+\begin{enumerate}
+\item <span class="arithmatex">\(\ob{\mathbf{Rng}}\)</span> is the class of all rings with 1;
+\item Given <span class="arithmatex">\(R,S\in \ob{\mathbf{Rng}}\)</span>, <span class="arithmatex">\(\ho[\mathbf{Rng}]{R}{S}\)</span> is the set of all ring homomorphisms between <span class="arithmatex">\(R\)</span> and <span class="arithmatex">\(S\)</span>;
+\item <span class="arithmatex">\(\circ\)</span> is regular function composition;
+\item Given <span class="arithmatex">\(R\in \ob{\mathbf{Rng}}\)</span>, <span class="arithmatex">\(id_{R}\)</span> is the identity with respect to function composition. <span class="arithmatex">\(id_{R}\)</span> is a ring homomorphism since for each <span class="arithmatex">\(x,y\in R\)</span>,
+$<span class="arithmatex">\(id_{R}(x+_{R}y)=x+_{R}y=id_{R}(x)+_{R}id_{R}(y)\)</span>$
+ and, 
+$<span class="arithmatex">\(id_{R}(x\times_{R}y)=x\times_{R}y=id_{R}(x)\times_{R}id_{R}(y)\)</span>$
+ and,</p>
+<div class="arithmatex">\[id_{R}(1_{R})=1_{R}.\]</div>
+<p>\end{enumerate}
+</p>
+<p><span class="definition" style="display:block"></span></p>
+<p>Define the quadruple <span class="arithmatex">\(\mathbf{CRng}=(\ob{\mathbf{Rng}},\hom_{\mathbf{CRng}},\circ,id)\)</span> where:
+\begin{enumerate}
+\item <span class="arithmatex">\(\ob{\mathbf{CRng}}\)</span> is the class of all rings with 1;
+\item Given <span class="arithmatex">\(R,S\in \ob{\mathbf{CRng}}\)</span>, <span class="arithmatex">\(\ho[\mathbf{CRng}]{R}{S}\)</span> is the set of all ring homomorphisms between <span class="arithmatex">\(R\)</span> and <span class="arithmatex">\(S\)</span>;
+\item <span class="arithmatex">\(\circ\)</span> is regular function composition;
+\item Given <span class="arithmatex">\(R\in \ob{\mathbf{CRng}}\)</span>, <span class="arithmatex">\(id_{R}\)</span> is the identity with respect to function composition. </p>
+<p><span class="arithmatex">\(id_{R}\)</span> is a commutative ring homomorphism since for each <span class="arithmatex">\(x,y\in R\)</span>,
+$<span class="arithmatex">\(id_{R}(x+_{R}y)=x+_{R}y=id_{R}(x)+_{R}id_{R}(y)\)</span>$
+ and, 
+$<span class="arithmatex">\(id_{R}(x\times_{R}y)=x\times_{R}y=id_{R}(x)\times_{R}id_{R}(y)\)</span>$
+ and,</p>
+<div class="arithmatex">\[id_{R}(1_{R})=1_{R}.\]</div>
+<p>\end{enumerate}
+</p>
+<p><span class="lemma" style="display:block">
+Both <span class="arithmatex">\(\mathbf{Rng}\)</span> and <span class="arithmatex">\(\mathbf{Crng}\)</span> as defined in Definition \ref{def:catofrings} and Definition \ref{def:catofcrings} are categories.
+</span>
+\begin{proof}
+We prove the category <span class="arithmatex">\(\mathbf{Rng}\)</span>, the proof for <span class="arithmatex">\(\mathbf{Crng}\)</span> follows trivially.</p>
+<p>Firstly, <span class="arithmatex">\(\circ\)</span> is associative since regular function composition is associative. </p>
+<p>Given each <span class="arithmatex">\(R\in\ob{\mathbf{Rng}}\)</span>, <span class="arithmatex">\(id_{R}\)</span> acts as an identity;
+Given <span class="arithmatex">\(f\in\ho[\mathbf{Rng}]{R}{S}\)</span> and <span class="arithmatex">\(g\in\ho[\mathbf{CRng}]{S}{R}\)</span></p>
+<div class="arithmatex">\[f\circ id_{R} = f\]</div>
+<p>and,</p>
+<div class="arithmatex">\[id_{S}\circ g = g.\]</div>
+<p>\end{proof}</p>
+<p>Some other well know categories can be found in Adámek - Herrlick - Strecker \cite{ACC} and include: <span class="arithmatex">\(\mathbf{Top}_{C}\)</span>; objects are topological spaces and morphisms are continuous maps or <span class="arithmatex">\(\mathbf{Top}_{H}\)</span>; objects are topological spaces and morphisms are homeomorphisms of topological spaces and <span class="arithmatex">\(\mathbf{Met}\)</span>; objects are  metric spaces with morphisms continuous maps between metric spaces.</p>
+<p>We can now translate some familiar concepts from the theories we are used to and translate them to the language of category theory. First we look at an isomorphism. </p>
+<p><span class="definition" style="display:block"></span></p>
+<p>For a category <span class="arithmatex">\(\mathscr{C}\)</span> a morphism <span class="arithmatex">\(f\in\ho{A}{B}\)</span> is called an isomorphism if there exists a <span class="arithmatex">\(g\in\ho{B}{A}\)</span> such that <span class="arithmatex">\(f\circ g = id_{B}\)</span> and <span class="arithmatex">\(g\circ f = id_{A}.\)</span>
+</p>
+<p><span class="theorem" style="display:block">
+Let <span class="arithmatex">\(X,Y\in\ob{\mathbf{Set}}\)</span> and <span class="arithmatex">\(f\in\ho{X}{Y}\)</span> then <span class="arithmatex">\(f\)</span> is an isomorphism if and only if <span class="arithmatex">\(f\)</span> is a bijection.
+</span>
+\begin{proof}
+For any two objects <span class="arithmatex">\(X,Y\in\ob{\mathbf{Set}}\)</span> suppose a map <span class="arithmatex">\(f\in\ho{X}{Y}\)</span> is a bijection therefore <span class="arithmatex">\(f\)</span> has an inverse <span class="arithmatex">\(f^{-1}\in\ho{X}{Y}\)</span> where, <span class="arithmatex">\(f\circ f^{-1} = id_{X}\)</span> and <span class="arithmatex">\(f^{-1}\circ f = id_{Y}\)</span>. Hence, every bijection is a category isomorphism. </p>
+<p>Suppose <span class="arithmatex">\(f\in\ho{G}{H}\)</span> is a isomorphism then there exists a <span class="arithmatex">\(g\in\ho{H}{G}\)</span> such that <span class="arithmatex">\(f\circ g = id_{H}\)</span> then <span class="arithmatex">\(f\)</span> is a bijection with inverse <span class="arithmatex">\(f^{-1} = g\)</span>. Therefore the set of category isomorphisms is exactly the set of group isomorphisms in <span class="arithmatex">\(\mathbf{Set}\)</span>.
+\end{proof}</p>
+<p><span class="theorem" style="display:block">
+Let <span class="arithmatex">\(G,H\in\ob{\mathbf{Grp}}\)</span> and <span class="arithmatex">\(f\in\ho{G}{H}\)</span> then <span class="arithmatex">\(f\)</span> is an isomorphism if and only if <span class="arithmatex">\(f\)</span> is a group isomorphism.
+</span>
+\begin{proof}
+For any two objects <span class="arithmatex">\(G,H\in\ob{\mathbf{Grp}}\)</span> suppose a morphism <span class="arithmatex">\(f\in\ho{G}{H}\)</span> is a group isomorphism then <span class="arithmatex">\(f\)</span> is a bijection so has an inverse <span class="arithmatex">\(f^{-1}\in\ho{H}{G}\)</span> where, <span class="arithmatex">\(f\circ f^{-1} = id_{H}\)</span> and <span class="arithmatex">\(f^{-1}\circ f = id_{G}\)</span>. Hence, every group isomorphism is a category isomorphism. Suppose <span class="arithmatex">\(f\in\ho{G}{H}\)</span> is a category isomorphism then there exists a <span class="arithmatex">\(g\in\ho{H}{G}\)</span> such that <span class="arithmatex">\(f\circ g = id_{H}\)</span> then <span class="arithmatex">\(f\)</span> is a bijection with inverse <span class="arithmatex">\(f^{-1} = g\)</span> hence a group isomorphism. Therefore the set of category isomorphisms is exactly the set of group isomorphisms in <span class="arithmatex">\(\mathbf{Grp}\)</span>.
+\end{proof}</p>
+<p>\subsection{Subcategories}</p>
+<p>The following definitions come from nCatLab \cite{nLab}.</p>
+<p><span class="definition" style="display:block"></span></p>
+<p>Let <span class="arithmatex">\(\cat{C}\)</span> be a category. Then a <em>subcategory</em>, <span class="arithmatex">\(\cat{D}= (\ob{\cat{D}},\hom,\circ,id)\)</span> is defined:
+\begin{enumerate}
+\item <span class="arithmatex">\(\ob{\cat{D}}\)</span> is a subclass of <span class="arithmatex">\(\ob{\cat{C}}\)</span>;
+\item For each <span class="arithmatex">\(X,Y\in\ob{C}\)</span>, <span class="arithmatex">\(\ho[\cat{D}]{X}{Y}\)</span> is a subset of <span class="arithmatex">\(\ho[\cat{C}]{X}{Y}\)</span>;
+\item If <span class="arithmatex">\(f\in\ho[\cat{D}]{X}{Y}\)</span> then <span class="arithmatex">\(X,Y\in\cat{D}\)</span>;
+\item If <span class="arithmatex">\(f\in\ho[\cat{D}]{X}{Y}\)</span> and <span class="arithmatex">\(g\in\ho[\cat{D}]{Y}{Z}\)</span> then <span class="arithmatex">\(g\circ f\in\ho[\cat{D}]{X}{Z}\)</span>;
+\item For all <span class="arithmatex">\(X\in\ob{\cat{D}}\)</span>, <span class="arithmatex">\(id_{X}\in\ho[\cat{D}]{X}{X}\)</span>.
+\end{enumerate}
+</p>
+<p><span class="remark" style="display:block">
+Every subcategory <span class="arithmatex">\(D\)</span> of <span class="arithmatex">\(C\)</span> is a category since the composition is associative and we have identities.
+</span></p>
+<p><span class="definition" style="display:block"></span></p>
+<p>Let <span class="arithmatex">\(\cat{C}\)</span> be a category and <span class="arithmatex">\(\cat{D}\)</span> be a sub category of <span class="arithmatex">\(\cat{C}\)</span>.</p>
+<p>We say <span class="arithmatex">\(\cat{D}\)</span> is:
+\begin{enumerate}
+\item A <em>full</em> subcategory if for all <span class="arithmatex">\(X,Y\in\ob{\cat{D}}\)</span>, if <span class="arithmatex">\(f\in\ho[\cat{C}]{X}{Y}\)</span> then <span class="arithmatex">\(f\in\ho[\cat{D}]{X}{Y}\)</span>;
+\item A <em>wide</em> subcategory if for all <span class="arithmatex">\(X\in\ob{\cat{C}}\)</span>, <span class="arithmatex">\(X\in\ob{\cat{D}}\)</span>.
+\end{enumerate}
+</p>
+<p>The following example followed from a discussion with the supervisor.</p>
+<p><span class="example" style="display:block">
+Let <span class="arithmatex">\(\mathbf{Met_{C}}\)</span> be the category whose objects are metric spaces and morphisms are continuous maps between spaces. Let <span class="arithmatex">\(\mathbf{Met_{I}}\)</span> be the category whose objects are metric spaces and morphism are isometries; given two metric spaces <span class="arithmatex">\(X,Y\in\ob{\mathbf{Met_{I}}}\)</span>, <span class="arithmatex">\(f\in\ho[\mathbf{Met_{I}}]{X}{Y}\)</span> if for <span class="arithmatex">\(x,y\in X\)</span>,</span></p>
+<div class="arithmatex">\[d_{X}(x,y)=d_{Y}(f(x),f(y)).\]</div>
+<p>Then <span class="arithmatex">\(\mathbf{Met_{I}}\)</span> is a wide, not full, subcategory of <span class="arithmatex">\(\mathbf{Met_{C}}\)</span>, since every isometry is a continuous map but not every continuous map is an isometry.
+</p>
+<p><span class="example" style="display:block">
+Recall the categories <span class="arithmatex">\(\mathbf{CRng}\)</span> and <span class="arithmatex">\(\mathbf{Rng}\)</span> defined in Subsection \ref{sss:catofringsexam}. <span class="arithmatex">\(\mathbf{CRng}\)</span> is a full but not wide subcategory of <span class="arithmatex">\(\mathbf{Rng}\)</span>, since every commutative ring is a ring but there exist rings that are not commutative but we have for two commutative rings <span class="arithmatex">\(R,S\in\ob{\mathbf{CRng}}\)</span> if <span class="arithmatex">\(f\in\ho[\mathbf{CRng}]{R}{S}\)</span> then <span class="arithmatex">\(f\in\ho[\mathbf{Rng}]{R}{S}\)</span>.
+</span></p>
+<p>\pagebreak</p>
+<script src="../../mathjax_helper.js"></script>
+</article>
+</div>
+<script>var target=document.getElementById(location.hash.slice(1));target&&target.name&&(target.checked=target.name.startsWith("__tabbed_"))</script>
+</div>
+</main>
+<footer class="md-footer">
+<div class="md-footer-meta md-typeset">
+<div class="md-footer-meta__inner md-grid">
+<div class="md-copyright">
+  
+  
+    Made with
+    <a href="https://squidfunk.github.io/mkdocs-material/" rel="noopener" target="_blank">
+      Material for MkDocs
+    </a>
+</div>
+</div>
+</div>
+</footer>
+</div>
+<div class="md-dialog" data-md-component="dialog">
+<div class="md-dialog__inner md-typeset"></div>
+</div>
+<script id="__config" type="application/json">{"annotate": null, "base": "../..", "features": ["navigation.tabs", "navigation.sections"], "search": "../../assets/javascripts/workers/search.2c215733.min.js", "tags": null, "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}, "version": null}</script>
+<script src="../../assets/javascripts/bundle.79ae519e.min.js"></script>
+<script src="../../javascripts/mathjax.js"></script>
+<script src="https://unpkg.com/mathjax@3/es5/tex-mml-chtml.js"></script>
+<script src="../../makeblocks.js"></script>
+<script src="../../mini-coi.js"></script>
+</body>
+</html>

@@ -1,0 +1,786 @@
+
+<!DOCTYPE html>
+
+<html class="no-js" lang="en">
+<head>
+<meta charset="utf-8"/>
+<meta content="width=device-width,initial-scale=1" name="viewport"/>
+<link href="https://aaron-huntley.github.io/mathematics/category_theory/Universal%20morphisms%20and%20adjoint%20functors/" rel="canonical"/>
+<link href="../../images/favicon.png" rel="icon"/>
+<meta content="mkdocs-1.6.1, mkdocs-material-9.7.1" name="generator"/>
+<title>Universal morphisms and adjoint functors - Aaron Huntley</title>
+<link href="../../assets/stylesheets/main.484c7ddc.min.css" rel="stylesheet"/>
+<link href="../../assets/stylesheets/palette.ab4e12ef.min.css" rel="stylesheet"/>
+<link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect"/>
+<link href="https://fonts.googleapis.com/css?family=Roboto:300,300i,400,400i,700,700i%7CRoboto+Mono:400,400i,700,700i&amp;display=fallback" rel="stylesheet"/>
+<style>:root{--md-text-font:"Roboto";--md-code-font:"Roboto Mono"}</style>
+<link href="../../pyrepl.css" rel="stylesheet"/>
+<script>__md_scope=new URL("../..",location),__md_hash=e=>[...e].reduce(((e,_)=>(e<<5)-e+_.charCodeAt(0)),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
+</head>
+<body data-md-color-accent="amber" data-md-color-primary="deep-orange" data-md-color-scheme="slate" dir="ltr">
+<input autocomplete="off" class="md-toggle" data-md-toggle="drawer" id="__drawer" type="checkbox"/>
+<input autocomplete="off" class="md-toggle" data-md-toggle="search" id="__search" type="checkbox"/>
+<label class="md-overlay" for="__drawer"></label>
+<div data-md-component="skip">
+<a class="md-skip" href="#15-universal-morphisms-and-adjoint-functors">
+          Skip to content
+        </a>
+</div>
+<div data-md-component="announce">
+</div>
+<header class="md-header" data-md-component="header">
+<nav aria-label="Header" class="md-header__inner md-grid">
+<a aria-label="Aaron Huntley" class="md-header__button md-logo" data-md-component="logo" href="../.." title="Aaron Huntley">
+<img alt="logo" src="../../images/logo.png"/>
+</a>
+<label class="md-header__button md-icon" for="__drawer">
+<svg viewbox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M3 6h18v2H3zm0 5h18v2H3zm0 5h18v2H3z"></path></svg>
+</label>
+<div class="md-header__title" data-md-component="header-title">
+<div class="md-header__ellipsis">
+<div class="md-header__topic">
+<span class="md-ellipsis">
+            Aaron Huntley
+          </span>
+</div>
+<div class="md-header__topic" data-md-component="header-topic">
+<span class="md-ellipsis">
+            
+              Universal morphisms and adjoint functors
+            
+          </span>
+</div>
+</div>
+</div>
+<form class="md-header__option" data-md-component="palette">
+<input aria-label="Dark mode" class="md-option" data-md-color-accent="amber" data-md-color-media="" data-md-color-primary="deep-orange" data-md-color-scheme="slate" id="__palette_0" name="__palette" type="radio"/>
+<label class="md-header__button md-icon" for="__palette_1" hidden="" title="Dark mode">
+<svg viewbox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M12 7a5 5 0 0 1 5 5 5 5 0 0 1-5 5 5 5 0 0 1-5-5 5 5 0 0 1 5-5m0 2a3 3 0 0 0-3 3 3 3 0 0 0 3 3 3 3 0 0 0 3-3 3 3 0 0 0-3-3m0-7 2.39 3.42C13.65 5.15 12.84 5 12 5s-1.65.15-2.39.42zM3.34 7l4.16-.35A7.2 7.2 0 0 0 5.94 8.5c-.44.74-.69 1.5-.83 2.29zm.02 10 1.76-3.77a7.131 7.131 0 0 0 2.38 4.14zM20.65 7l-1.77 3.79a7.02 7.02 0 0 0-2.38-4.15zm-.01 10-4.14.36c.59-.51 1.12-1.14 1.54-1.86.42-.73.69-1.5.83-2.29zM12 22l-2.41-3.44c.74.27 1.55.44 2.41.44.82 0 1.63-.17 2.37-.44z"></path></svg>
+</label>
+<input aria-label="Light mode" class="md-option" data-md-color-accent="light-green" data-md-color-media="" data-md-color-primary="cyan" data-md-color-scheme="default" id="__palette_1" name="__palette" type="radio"/>
+<label class="md-header__button md-icon" for="__palette_0" hidden="" title="Light mode">
+<svg viewbox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="m17.75 4.09-2.53 1.94.91 3.06-2.63-1.81-2.63 1.81.91-3.06-2.53-1.94L12.44 4l1.06-3 1.06 3zm3.5 6.91-1.64 1.25.59 1.98-1.7-1.17-1.7 1.17.59-1.98L15.75 11l2.06-.05L18.5 9l.69 1.95zm-2.28 4.95c.83-.08 1.72 1.1 1.19 1.85-.32.45-.66.87-1.08 1.27C15.17 23 8.84 23 4.94 19.07c-3.91-3.9-3.91-10.24 0-14.14.4-.4.82-.76 1.27-1.08.75-.53 1.93.36 1.85 1.19-.27 2.86.69 5.83 2.89 8.02a9.96 9.96 0 0 0 8.02 2.89m-1.64 2.02a12.08 12.08 0 0 1-7.8-3.47c-2.17-2.19-3.33-5-3.49-7.82-2.81 3.14-2.7 7.96.31 10.98 3.02 3.01 7.84 3.12 10.98.31"></path></svg>
+</label>
+</form>
+<script>var palette=__md_get("__palette");if(palette&&palette.color){if("(prefers-color-scheme)"===palette.color.media){var media=matchMedia("(prefers-color-scheme: light)"),input=document.querySelector(media.matches?"[data-md-color-media='(prefers-color-scheme: light)']":"[data-md-color-media='(prefers-color-scheme: dark)']");palette.color.media=input.getAttribute("data-md-color-media"),palette.color.scheme=input.getAttribute("data-md-color-scheme"),palette.color.primary=input.getAttribute("data-md-color-primary"),palette.color.accent=input.getAttribute("data-md-color-accent")}for(var[key,value]of Object.entries(palette.color))document.body.setAttribute("data-md-color-"+key,value)}</script>
+</nav>
+</header>
+<div class="md-container" data-md-component="container">
+<nav aria-label="Tabs" class="md-tabs" data-md-component="tabs">
+<div class="md-grid">
+<ul class="md-tabs__list">
+<li class="md-tabs__item">
+<a class="md-tabs__link" href="../..">
+        
+  
+  
+    
+  
+  Home
+
+      </a>
+</li>
+<li class="md-tabs__item">
+<a class="md-tabs__link" href="../../aboutme/cv/">
+          
+  
+  
+  About me
+
+        </a>
+</li>
+<li class="md-tabs__item">
+<a class="md-tabs__link" href="../../blog/">
+          
+  
+  
+  Conversations with friends
+
+        </a>
+</li>
+</ul>
+</div>
+</nav>
+<main class="md-main" data-md-component="main">
+<div class="md-main__inner md-grid">
+<div class="md-sidebar md-sidebar--primary" data-md-component="sidebar" data-md-type="navigation">
+<div class="md-sidebar__scrollwrap">
+<div class="md-sidebar__inner">
+<nav aria-label="Navigation" class="md-nav md-nav--primary md-nav--lifted" data-md-level="0">
+<label class="md-nav__title" for="__drawer">
+<a aria-label="Aaron Huntley" class="md-nav__button md-logo" data-md-component="logo" href="../.." title="Aaron Huntley">
+<img alt="logo" src="../../images/logo.png"/>
+</a>
+    Aaron Huntley
+  </label>
+<ul class="md-nav__list" data-md-scrollfix="">
+<li class="md-nav__item">
+<a class="md-nav__link" href="../..">
+<span class="md-ellipsis">
+    
+  
+    Home
+  
+
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item md-nav__item--nested">
+<input class="md-nav__toggle md-toggle" id="__nav_2" type="checkbox"/>
+<label class="md-nav__link" for="__nav_2" id="__nav_2_label" tabindex="0">
+<span class="md-ellipsis">
+    
+  
+    About me
+  
+
+    
+  </span>
+<span class="md-nav__icon md-icon"></span>
+</label>
+<nav aria-expanded="false" aria-labelledby="__nav_2_label" class="md-nav" data-md-level="1">
+<label class="md-nav__title" for="__nav_2">
+<span class="md-nav__icon md-icon"></span>
+            
+  
+    About me
+  
+
+          </label>
+<ul class="md-nav__list" data-md-scrollfix="">
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../aboutme/cv/">
+<span class="md-ellipsis">
+    
+  
+    CV
+  
+
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../aboutme/talks/">
+<span class="md-ellipsis">
+    
+  
+    Talks
+  
+
+    
+  </span>
+</a>
+</li>
+</ul>
+</nav>
+</li>
+<li class="md-nav__item md-nav__item--nested">
+<input class="md-nav__toggle md-toggle" id="__nav_3" type="checkbox"/>
+<label class="md-nav__link" for="__nav_3" id="__nav_3_label" tabindex="0">
+<span class="md-ellipsis">
+    
+  
+    Conversations with friends
+  
+
+    
+  </span>
+<span class="md-nav__icon md-icon"></span>
+</label>
+<nav aria-expanded="false" aria-labelledby="__nav_3_label" class="md-nav" data-md-level="1">
+<label class="md-nav__title" for="__nav_3">
+<span class="md-nav__icon md-icon"></span>
+            
+  
+    Conversations with friends
+  
+
+          </label>
+<ul class="md-nav__list" data-md-scrollfix="">
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../blog/">
+<span class="md-ellipsis">
+    
+  
+    Conversations with friends
+  
+
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item md-nav__item--nested">
+<input class="md-nav__toggle md-toggle" id="__nav_3_2" type="checkbox"/>
+<label class="md-nav__link" for="__nav_3_2" id="__nav_3_2_label" tabindex="0">
+<span class="md-ellipsis">
+    
+  
+    Archive
+  
+
+    
+  </span>
+<span class="md-nav__icon md-icon"></span>
+</label>
+<nav aria-expanded="false" aria-labelledby="__nav_3_2_label" class="md-nav" data-md-level="2">
+<label class="md-nav__title" for="__nav_3_2">
+<span class="md-nav__icon md-icon"></span>
+            
+  
+    Archive
+  
+
+          </label>
+<ul class="md-nav__list" data-md-scrollfix="">
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../blog/archive/2026/">
+<span class="md-ellipsis">
+    
+  
+    2026
+  
+
+    
+  </span>
+</a>
+</li>
+</ul>
+</nav>
+</li>
+</ul>
+</nav>
+</li>
+</ul>
+</nav>
+</div>
+</div>
+</div>
+<div class="md-sidebar md-sidebar--secondary" data-md-component="sidebar" data-md-type="toc">
+<div class="md-sidebar__scrollwrap">
+<div class="md-sidebar__inner">
+<nav aria-label="Table of contents" class="md-nav md-nav--secondary">
+</nav>
+</div>
+</div>
+</div>
+<div class="md-content" data-md-component="content">
+<article class="md-content__inner md-typeset">
+<style>
+.md-content {
+    max-width: 80em;
+}
+</style>
+<h1 id="15-universal-morphisms-and-adjoint-functors">1.5. Universal morphisms and adjoint functors</h1>
+<p>In this section we see how the free and forgetful functors defined in Definition \ref{def:forgetfulfunctormon} and Definition \ref{def:freemonoid} are related by looking at universal morphism and adjoint functors. Definitions and notation from this section are from Clementino \cite{Maria} and Adámek - Herrlick - Strecker \cite{ACC}. </p>
+<p><span class="definition" style="display:block">[Universal morphism]</span></p>
+<p>Let <span class="arithmatex">\(\cat{C}\)</span> and <span class="arithmatex">\(\cat{D}\)</span> be categories and <span class="arithmatex">\(\func{G}{C}{D}\)</span> be a functors and <span class="arithmatex">\(X\in\ob{\cat{D}}\)</span>.\
+A <em>universal morphism from <span class="arithmatex">\(X\)</span> to <span class="arithmatex">\(G\)</span></em> is a pair <span class="arithmatex">\((\eta_{X},C_{X})\)</span> where <span class="arithmatex">\(\eta_{X}\in\ho{X}{G(C_{X})}\)</span> is a morphism and <span class="arithmatex">\(C_{X}\in\ob{\mathscr{C}}\)</span> such that for each <span class="arithmatex">\(C\in\ob{\mathscr{C}}\)</span> and each morphism <span class="arithmatex">\(f\in\ho{X}{G(C)}\)</span> there exists a unique morphism <span class="arithmatex">\(\hat{f}\in\ho{C_{X}}{C}\)</span> for which the diagram on the left
+\begin{equation}</p>
+<p><img src="../../../png/Python/chapter_1/tikz_code_5_9.png" style="display: block; margin-left: auto; margin-right: auto;" width="99%"/>
+\
+\end{equation}
+commutes.\
+A <em>universal morphism from <span class="arithmatex">\(G\)</span> to <span class="arithmatex">\(X\)</span></em> is a pair <span class="arithmatex">\((\varepsilon_{X},C_{X})\)</span> where <span class="arithmatex">\(\varepsilon_{X}\in\ho{G(C_{X})}{X}\)</span> is a morphism and <span class="arithmatex">\(C_{X}\in\ob{\cat{C}}\)</span> such that for each <span class="arithmatex">\(C\in\ob{\cat{C}}\)</span> and each morphism <span class="arithmatex">\(g\in\ho{G(C)}{X}\)</span> there exists a unique morphism <span class="arithmatex">\(\hat{g}\in\ho{C}{C_{X}}\)</span> for which the diagram on the left</p>
+<p><img src="../../../png/Python/chapter_1/tikz_code_5_0.png" style="display: block; margin-left: auto; margin-right: auto;" width="99%"/>
+commutes.
+</p>
+<p><span class="definition" style="display:block">[Adjoint]</span></p>
+<p>Let <span class="arithmatex">\(\cat{C}\)</span> and <span class="arithmatex">\(\cat{D}\)</span> be categories and <span class="arithmatex">\(\func{G}{\cat{C}}{\cat{D}}\)</span> a functor. We say <span class="arithmatex">\(G\)</span> is <em>right adjoint</em> if for each object <span class="arithmatex">\(X\in\ob{\cat{D}}\)</span> there exists a universal morphism, <span class="arithmatex">\((\eta_{X},C_{X})\)</span> from <span class="arithmatex">\(X\)</span> to <span class="arithmatex">\(G\)</span>.
+We say <span class="arithmatex">\(G\)</span> is <em>left adjoint</em> if for each object <span class="arithmatex">\(X\in\ob{\cat{D}}\)</span> there exists a universal morphism, <span class="arithmatex">\((\epsilon_{X},C_{X})\)</span> from <span class="arithmatex">\(G\)</span> to <span class="arithmatex">\(X\)</span>.
+We say <span class="arithmatex">\(G\)</span> is <em>adjoint</em> if <span class="arithmatex">\(G\)</span> is either right adjoint or left adjoint.
+</p>
+<p>\subsection{Example: Free/forgetful adjunction for monoids}</p>
+<p><span class="lemma" style="display:block"></span></p>
+<p>Let <span class="arithmatex">\(\mathrm{F}\colon\mathbf{Set}\to\mathbf{Mon}\)</span> be the free monoid functor defined in Definition \ref{def:freefunctmon} and <span class="arithmatex">\(\mathrm{U}\colon\mathbf{Mon}\to\mathbf{Set}\)</span> be the forgetful monoid functor as defined in Definition \ref{def:forgetfulfunctormon}. Then <span class="arithmatex">\(\mathrm{F}\)</span> is left adjoint.
+
+\begin{proof}
+For each <span class="arithmatex">\(X\in\ob{\mathbf{Set}}\)</span> let 
+\begin{align<em>}
+\eta\colon id_{\mathbf{Set}}&amp;\to UF,\
+\eta_{X}\colon X&amp;\to U((\gamma(X),</em>,\varnothing)),\
+x&amp;\mapsto (x).
+\end{align*}</p>
+<p>Then given <span class="arithmatex">\((A,\circ,e_{A})\in\mathbf{Mon}\)</span> and <span class="arithmatex">\(f\in\ho[\mathbf{Set}]{X}{U((A,\circ,e_{A}))}\)</span> let 
+\begin{align<em>}
+\hat{f}\colon(\gamma(X),</em>,\varnothing)&amp;\to(A,\circ,e_{A}),\
+\hat{f}((x_{1},x_{2},\dots,x_{n}))&amp;\mapsto f(x_{1})\circ f(x_{2})\circ\dots\circ f(x_{n}),\
+\hat{f}(\varnothing)&amp;\mapsto e_{A}.
+\end{align*}</p>
+<p>We first show <span class="arithmatex">\(\hat{f}\)</span> is a monoid homomorphism. We ,have that</p>
+<div class="arithmatex">\[\begin{align*}
+\hat{f}(\varnothing) = e_{A}
+\end{align*}\]</div>
+<p>and,</p>
+<div class="arithmatex">\[\begin{align*}
+\hat{f}((x_{1},x_{2},\dots,x_{n},y_{1},y_{2},\dots,y_{n})) &amp;= f(x_{1})\circ f(x_{2})\circ \dots\circ f(x_{n})\circ f(y_{1})\circ f(y_{2})\circ\dots\circ f(y_{n}))\\
+&amp;= \hat{f}((x_{1},x_{2},\dots,x_{n}))\circ\hat{f}((y_{1},y_{2},\dots,y_{n})).
+\end{align*}\]</div>
+<p>Hence <span class="arithmatex">\(\hat{f}\)</span> is a monoid homomorphism.
+The diagram,</p>
+<p><img src="../../../png/Python/chapter_1/tikz_code_5_1.png" style="display: block; margin-left: auto; margin-right: auto;" width="99%"/>
+Commutes. So we need to show <span class="arithmatex">\(\hat{f}\)</span> is unique. Assume there exists monoid homomorphism <span class="arithmatex">\(\hat{g}\)</span> such that the diagram commutes. Then for each <span class="arithmatex">\(x\in X\)</span>,</p>
+<div class="arithmatex">\[\begin{align*}
+f(x) &amp;= \hat{g}(\eta_{x}(x))\\
+&amp;= \hat{g}((x))\\
+\end{align*}\]</div>
+<p>Since <span class="arithmatex">\(\hat{g}\)</span> is a monoid homomorphism,</p>
+<div class="arithmatex">\[\begin{align*}
+\hat{g}((x_{1},x_{2},\dots,x_{n}))&amp;=\hat{g}((x_{1}))\circ\hat{g}((x_{2}))\dots\circ\hat{g}((x_{n}))\\
+&amp;= f(x_{1})\circ f(x_{2})\circ\dots\circ f(x_{n})\\
+&amp;= \hat{f}.
+\end{align*}\]</div>
+<p>Therefore, since there is a unique <span class="arithmatex">\(\hat{f}\)</span> such that the diagram commutes for all <span class="arithmatex">\(X\in\mathbf{Set}\)</span>. <span class="arithmatex">\(F\)</span> is left adjoint.
+\end{proof}</p>
+<p><span class="remark" style="display:block">
+We will see later that Lemma \ref{lem:freeadj} implies <span class="arithmatex">\(U\)</span> is right adjoint.
+</span></p>
+<p>\subsubsection{Equivalent definitions of adjoint functors}</p>
+<p>The following Lemma \ref{lem:hombijection} followed from discussion with the supervisor and from the Wikipedia article on adjoint functors \cite{wiki:adjoint}. Here we add the proof.</p>
+<p><span class="lemma" style="display:block"></span></p>
+<p>Let <span class="arithmatex">\(\cat{C}\)</span> and <span class="arithmatex">\(\cat{D}\)</span> be categories, <span class="arithmatex">\(\func{G}{\cat{C}}{\cat{D}}\)</span> be a functor and for each <span class="arithmatex">\(X\in\ob{\cat{D}}\)</span> we have <span class="arithmatex">\((\eta_{X},C_{X})\)</span> is a universal morphism from <span class="arithmatex">\(X\)</span> to <span class="arithmatex">\(G\)</span>. Then given <span class="arithmatex">\(C\in\cat{C}\)</span> there exists a bijective function, defined as</p>
+<div class="arithmatex">\[\begin{align*}
+\phi_{X,C}\colon\ho[\cat{D}]{X}{G(C)}&amp;\to\ho[\cat{C}]{C_{X}}{C},\\
+f&amp;\mapsto \hat{f},
+\end{align*}\]</div>
+<p>where <span class="arithmatex">\(\hat{f}\)</span> is defined from the universal property in Diagram \eqref{eqn:uniarrowXG}.
+Further given <span class="arithmatex">\(C^\prime\in\ob{\cat{C}}\)</span> and <span class="arithmatex">\(g\in\ho{C}{C^\prime}\)</span> the following diagram commutes,
+\begin{equation}</p>
+<p><img src="../../../png/Python/chapter_1/tikz_code_5_10.png" style="display: block; margin-left: auto; margin-right: auto;" width="99%"/>
+\
+\end{equation}
+where <span class="arithmatex">\(\mathrm{h}_{C_X}\)</span> is the functor defined in Lemma \ref{lem:homsetfunctor}. 
+In particular the <span class="arithmatex">\(\phi_{X,C}\)</span>, where <span class="arithmatex">\(C\in \ob{\cat{C}}\)</span>, combine to give a natural isomorphism  <span class="arithmatex">\(\nattran{\phi_{X}}{\mathrm{h}_{X}\circ G}{\mathrm{h}_{C_{X}}}\)</span>.
+
+\begin{proof}
+First we show that for <span class="arithmatex">\(C\in\ob{\cat{C}}\)</span>, <span class="arithmatex">\(\phi_{X,C}\)</span> is a bijection by showing it is surjective and injective. Given <span class="arithmatex">\(f,f^\prime\in\ho[\cat{D}]{X}{G(C)}\)</span> suppose <span class="arithmatex">\(\hat{f}=\hat{f^\prime}\)</span>,  then we have,</p>
+<div class="arithmatex">\[\begin{align*}
+f &amp;= G(\hat{f})\circ \eta_{X}\\
+&amp;= G(\hat{f^\prime})\circ\eta_{X}\\
+&amp;= f^{\prime}.
+\end{align*}\]</div>
+<p>Hence <span class="arithmatex">\(\phi_{X,C}\)</span> is injective. Given <span class="arithmatex">\(g \in\ho[\cat{C}]{C_{X}}{C}\)</span> we have <span class="arithmatex">\(G(g)\in\ho[\cat{D}]{G(C_{X})}{G(C)}\)</span> since <span class="arithmatex">\(G\)</span> is a functor. We can then construct <span class="arithmatex">\(f=G(g)\circ\eta_{X}\)</span> since <span class="arithmatex">\(\eta_{X}\in\ho[\cat{D}]{X}{G(C_{X})}\)</span> and <span class="arithmatex">\(\cat{D}\)</span> is a category, hence <span class="arithmatex">\(g=\hat{f}\)</span>. Therefore <span class="arithmatex">\(\phi_{X,C}\)</span> is surjective and hence a bijection. We will now show the diagram \eqref{cd:homisomorph} commutes. Given <span class="arithmatex">\(f\in\ho[\cat{D}]{X}{G(C)}\)</span> we need to show</p>
+<div class="arithmatex">\[g\circ\phi_{X,C}(f) = \phi_{X,C^\prime}(G(g)\circ f).\]</div>
+<p>We have,</p>
+<div class="arithmatex">\[\begin{align*}
+g\circ\phi_{X,C}(f) &amp;= g\circ \hat{f}\\
+&amp;= \phi_{X,C^\prime}(\phi_{X,C^\prime}^{-1}(g\circ \hat{f}))\\
+&amp;= \phi_{X,C^\prime}(G(g\circ \hat{f})\circ\eta_{X})\\
+&amp;= \phi_{X,C^\prime}(G(g)\circ G(\hat{f})\circ\eta_{X})\\
+&amp;= \phi_{X,C^\prime}(G(g)\circ f).
+\end{align*}\]</div>
+<p>\end{proof}</p>
+<p>The following theorem is adapted from Adámek - Herrlick - Strecker \cite{ACC} (page 306 Theorem 19.1) where here we add the complete proof which was left as an exercise.</p>
+<p><span class="theorem" style="display:block"></span></p>
+<p>Let <span class="arithmatex">\(\func{G}{\cat{C}}{\cat{D}}\)</span> be a right adjoint functor and suppose that for each object <span class="arithmatex">\(X\in\ob{\cat{C}}\)</span> we are given a universal morphism <span class="arithmatex">\((\eta_{X},C_{X})\)</span>, from <span class="arithmatex">\(X\)</span> to <span class="arithmatex">\(G\)</span>. 
+\begin{enumerate}</p>
+<p>\item  There exists a unique functor <span class="arithmatex">\(\func{F}{\cat{D}}{\cat{C}}\)</span> such that the following two conditions hold:
+\begin{enumerate}
+\item <span class="arithmatex">\(F(X) = C_{X}\)</span>;
+\item We have a natural transformation, 
+\begin{align*}
+\nattran{\eta}{id_{\cat{D}}&amp;}{GF}</p>
+<p>\end{align*}</p>
+<p>whose components are given by:</p>
+<div class="arithmatex">\[\eta_X\colon X \to G(C_X);\]</div>
+<p>\end{enumerate}
+\item  Further, we have a natural transformation <span class="arithmatex">\(\nattran{\varepsilon}{FG}{id_{\cat{C}}}\)</span> where for each <span class="arithmatex">\(C\in\cat{C}\)</span>, <span class="arithmatex">\(\varepsilon_{C}\)</span> is the unique morphism for which,
+\begin{equation}</p>
+<p><img src="../../../png/Python/chapter_1/tikz_code_5_11.png" style="display: block; margin-left: auto; margin-right: auto;" width="99%"/></p>
+<p>\end{equation}
+commutes;</p>
+<p>\item We also have that the following identities are satisfied:
+\begin{enumerate}
+\item <span class="arithmatex">\(\eta G \circ G\varepsilon = id_{G}\)</span>;
+\item <span class="arithmatex">\(F\eta \circ \varepsilon F = id_{F}\)</span>.
+\end{enumerate}
+\end{enumerate}
+
+\begin{proof}
+Let <span class="arithmatex">\(\func{F}{\cat{D}}{\cat{C}}\)</span> be defined:</p>
+<div class="arithmatex">\[\begin{align*}
+F\colon\ob{\cat{D}}&amp;\to\ob{\cat{C}},\\
+X&amp;\mapsto C_{X}
+\end{align*}\]</div>
+<p>and,</p>
+<div class="arithmatex">\[\begin{align*}
+F\colon\ho[\cat{D}]{X}{Y}&amp;\to\ho[\cat{C}]{F(X)}{F(Y)},\\
+f&amp;\mapsto \widehat{\eta_{Y}\circ f}.
+\end{align*}\]</div>
+<p>This definition comes from the diagram,</p>
+<p><img src="../../../png/Python/chapter_1/tikz_code_5_2.png" style="display: block; margin-left: auto; margin-right: auto;" width="99%"/>
+which commutes since <span class="arithmatex">\(\eta_{X}\)</span> is a universal morphism.
+If this is a functor then it is unique since it is unique on objects and for <span class="arithmatex">\(f\in\ho[\cat{D}]{X}{Y}\)</span> we have <span class="arithmatex">\(\eta_{Y}\circ f\in\ho[\cat{D}]{X}{G(C_{Y})}\)</span> and by Lemma \ref{lem:hombijection} there is a bijection between <span class="arithmatex">\(\ho[\cat{D}]{X}{G(C_{Y})}\)</span> and <span class="arithmatex">\(\ho[\cat{C}]{C_{X}}{C_{Y}}\)</span> hence <span class="arithmatex">\(F\)</span> is unique on morphisms.</p>
+<p>We show <span class="arithmatex">\(F\)</span> is a functor. Given <span class="arithmatex">\(X\in\ob{\cat{D}}\)</span>,</p>
+<div class="arithmatex">\[\begin{align*}
+F(id_{X}) &amp;= \widehat{\eta_{X} \circ id_{X}}\\
+&amp;= \hat{\eta_{X}}\\
+&amp;= id_{C_{X}}\\
+&amp;= id_{F(X)}.
+\end{align*}\]</div>
+<p>Equivalently the diagram,</p>
+<p><img src="../../../png/Python/chapter_1/tikz_code_5_3.png" style="display: block; margin-left: auto; margin-right: auto;" width="99%"/>
+commutes since <span class="arithmatex">\(\eta_{X}\)</span> is a universal morphism.
+We also have for <span class="arithmatex">\(f\in\ho[\cat{D}]{X}{Y}\)</span> and <span class="arithmatex">\(g\in\ho[\cat{D}]{Y}{Z}\)</span>, the diagram,</p>
+<p><img src="../../../png/Python/chapter_1/tikz_code_5_4.png" style="display: block; margin-left: auto; margin-right: auto;" width="99%"/>
+commutes since <span class="arithmatex">\(\eta_{X}\)</span> and <span class="arithmatex">\(\eta_{Y}\)</span> are universal morphisms and we also have,</p>
+<p><img src="../../../png/Python/chapter_1/tikz_code_5_5.png" style="display: block; margin-left: auto; margin-right: auto;" width="99%"/>
+commutes since <span class="arithmatex">\(\eta_{X}\)</span> is a universal morphism, in particular,</p>
+<div class="arithmatex">\[G(\widehat{\eta_{Z}\circ(g\circ f)} = G(\widehat{\eta_{Z}\circ g}) \circ G(\widehat{\eta_{Y}\circ f}),\]</div>
+<p>therefore, since <span class="arithmatex">\(G\)</span> is a functor,</p>
+<div class="arithmatex">\[\begin{align*}
+F(g\circ f) &amp;= \widehat{\eta_{Z} \circ g\circ f} \\
+&amp;= \widehat{\eta_{Z}\circ g} \circ \widehat{\eta_{Y}\circ f}\\
+&amp;= F(g)\circ F(f).
+\end{align*}\]</div>
+<p>Hence <span class="arithmatex">\(F\)</span> is a functor.</p>
+<p>Define <span class="arithmatex">\(\nattran{\eta}{id_{\cat{D}}}{FG}\)</span> for each <span class="arithmatex">\(X\in\ob{\cat{D}}\)</span>, <span class="arithmatex">\(\eta_{X}\)</span> is the universal morphism given. Then clearly <span class="arithmatex">\(\eta_{X}\in\ho[\cat{D}]{X}{GF(X)}\)</span> since <span class="arithmatex">\(F(X) = C_{X}\)</span>. </p>
+<p>We show the naturality condition holds. Given <span class="arithmatex">\(X,Y\in\ob{\cat{D}}\)</span> and <span class="arithmatex">\(f\in\ho[\cat{D}]{X}{Y}\)</span>,</p>
+<p><img src="../../../png/Python/chapter_1/tikz_code_5_6.png" style="display: block; margin-left: auto; margin-right: auto;" width="99%"/>
+commutes since <span class="arithmatex">\(\eta_{X}\)</span> is a universal morphism. Hence the naturality condition holds and <span class="arithmatex">\(\eta\)</span> is a natural transformation. <span class="arithmatex">\(\nattran{\varepsilon}{FG}{id_{\cat{C}}}\)</span> exists since <span class="arithmatex">\(\eta_{G(C)}\)</span> is a universal morphism we show the naturality condition holds. Given <span class="arithmatex">\(C,C^\prime\in\ob{C}\)</span> and <span class="arithmatex">\(f\in\ho[\cat{C}]{C}{C^\prime}\)</span> we have,</p>
+<div class="arithmatex">\[\begin{align*}
+G(f\circ \varepsilon_{C})\circ \eta_{G(C)} &amp;= G(f)\circ G(\varepsilon_{C}) \circ \eta_{G(C)}\\
+&amp;= G(f) \circ id_{G(C)} \\
+&amp;= G(f) \\
+&amp;= G(\varepsilon_{C^\prime}) \circ \eta_{G(C^\prime)} G(f) \\
+&amp;= G(\varepsilon_{C^\prime}) \circ GFG(f)\circ \eta_{G(C)}, &amp;\text{ by the naturality of $\eta$,}\\
+&amp;= G(\varepsilon_{C^\prime}\circ FG(f)) \circ \eta_{G(C)}.
+\end{align*}\]</div>
+<p>Therefore, 
+$<span class="arithmatex">\(f\circ \varepsilon_{C} = \varepsilon_{C^\prime}\circ FG(f).\)</span>$</p>
+<p>The identity (a) is satisfied by the definition of <span class="arithmatex">\(\varepsilon\)</span> Diagram \eqref{eqn:counitdef}.
+To show identity (b) first note since <span class="arithmatex">\(\eta\)</span> is a natural transformation from <span class="arithmatex">\(id_{\cat{D}}\)</span> to <span class="arithmatex">\(GF\)</span> we have for each <span class="arithmatex">\(D\in\ob{\cat{D}}\)</span>,</p>
+<div class="arithmatex">\[\begin{align*}
+(\eta GF \circ \eta)_D &amp;= \eta_{G(F(D))} \circ \eta_D \\
+&amp;= G(F(\eta_D)) \circ \eta_{D}\\
+&amp;=(GF\eta \circ \eta)_D.
+\end{align*}\]</div>
+<p>Therefore by using identity (a) we have:</p>
+<div class="arithmatex">\[\begin{align*}
+G(id_{F})\circ \eta &amp;= id_{G}F \circ \eta \\
+&amp;= G\varepsilon F \circ \eta GF \circ \eta \\
+&amp;= G\varepsilon F \circ GF \eta \circ \eta \\
+&amp;= G(\varepsilon F \circ F\eta)\circ \eta.
+\end{align*}\]</div>
+<p>Hence,</p>
+<div class="arithmatex">\[id_{F} = \varepsilon F \circ F\eta.\]</div>
+<p>\end{proof}</p>
+<p>\subsection{Adjoint situations}</p>
+<p>Definition \ref{def:adjsituations} if adapted from Adámek - Herrlick - Strecker \cite{ACC} page 307.</p>
+<p><span class="definition" style="display:block"></span></p>
+<p>An <em>adjoint situation</em> <span class="arithmatex">\((F,G,\eta,\varepsilon)\)</span> is a pair of functors <span class="arithmatex">\(\func{F}{\cat{D}}{\cat{C}}\)</span> and <span class="arithmatex">\(\func{G}{\cat{C}}{\cat{D}}\)</span> and a pair of natural transformations <span class="arithmatex">\(\nattran{\eta}{id_{\cat{D}}}{GF}\)</span> and <span class="arithmatex">\(\nattran{\varepsilon}{FG}{id_{\cat{C}}}\)</span>. 
+Satisfying the <em>triangle identities</em>:
+\begin{enumerate}
+\item <span class="arithmatex">\(\varepsilon F \circ F\eta = id_{F}\)</span>;
+\item <span class="arithmatex">\(G\varepsilon \circ \eta G = id_{G}\)</span>.
+\end{enumerate}
+We call <span class="arithmatex">\(\eta\)</span> the <em>unit</em> and <span class="arithmatex">\(\varepsilon\)</span> the <em>co-unit</em>.
+</p>
+<p><span class="remark" style="display:block">
+Given a right adjoint functor <span class="arithmatex">\(\func{G}{\cat{C}}{\cat{D}}\)</span>, Theorem \ref{thm:adjsituation} tells us that there exists at least one adjoint situation <span class="arithmatex">\((F,G,\eta,\varepsilon)\)</span>.
+</span>
+The following Corollary \ref{cor:homdefadj} followed from discussions with the supervisor and here we provide a proof.
+\begin{cor}</p>
+<p>Let <span class="arithmatex">\(\cat{C}\)</span> and <span class="arithmatex">\(\cat{D}\)</span> be categories, <span class="arithmatex">\(\func{G}{\cat{C}}{\cat{D}}\)</span> be a functor. 
+The following are equivalent:
+\begin{enumerate}
+\item For each <span class="arithmatex">\(D\in\ob{\cat{D}}\)</span>, <span class="arithmatex">\((\eta_{D},F(D))\)</span>is a universal morphism from <span class="arithmatex">\(D\)</span> to <span class="arithmatex">\(G\)</span>;
+\item <span class="arithmatex">\((F,G,\eta,\varepsilon)\)</span> is an adjoint situation;
+\item The family of functions: </p>
+<p>$<span class="arithmatex">\(\phi_{D,C}\colon \ho[\cat{C}]{F(D)}{C}\to \ho[\cat{D}]{D}{G(C)},\)</span>$
+ are bijections. That is for all <span class="arithmatex">\(D\in\ob{\cat{D}}\)</span>, there exists a natural isomorphism <span class="arithmatex">\(\nattran{\phi_{D}}{\mathrm{h}_{D}\circ G}{\mathrm{h}_{G(C)}}\)</span>.
+\end{enumerate}
+\end{cor}
+\begin{proof}
+(1) <span class="arithmatex">\(\implies\)</span> (2) by Theorem \ref{thm:adjsituation} and (1) <span class="arithmatex">\(\implies\)</span> (3) by Lemma \ref{lem:hombijection}. Suppose that for each object <span class="arithmatex">\(D\in\ob{\cat{D}}\)</span> we have a natural isomorphism <span class="arithmatex">\(\nattran{\phi_{D}}{\mathrm{h}_{D}\circ G}{\mathrm{h}_{G(C)}}\)</span>. Then for each object <span class="arithmatex">\(D\in\ob{\cat{D}}\)</span> and each <span class="arithmatex">\(C\in\ob{\cat{C}}\)</span>, <span class="arithmatex">\(f\in\ho[\cat{D}]{D}{G(C)}\)</span> there is a unique morphism <span class="arithmatex">\(\phi_{D}(f)\in\ho[\cat{C}]{F(D)}{C}\)</span>, therefore <span class="arithmatex">\((\eta_{D},F(D))\)</span> where <span class="arithmatex">\(\eta_{D}\)</span> is the unique morphism for which the diagram,
+\begin{equation*}</p>
+<p><img src="../../../png/Python/chapter_1/tikz_code_5_12.png" style="display: block; margin-left: auto; margin-right: auto;" width="99%"/></p>
+<p>\end{equation<em>}
+commutes. Therefore (3) <span class="arithmatex">\(\implies\)</span> (1).
+Suppose we have an adjoint situation <span class="arithmatex">\((F,G,\eta,\varepsilon)\)</span> then for <span class="arithmatex">\(C\in\ob{\cat{C}}\)</span>, <span class="arithmatex">\(D\in\ob{\cat{D}}\)</span> and <span class="arithmatex">\(f\in\ho[\cat{D}]{D}{G(C)}\)</span> the diagram on the left,
+\begin{equation</em>}</p>
+<p><img src="../../../png/Python/chapter_1/tikz_code_5_13.png" style="display: block; margin-left: auto; margin-right: auto;" width="99%"/></p>
+<p>\end{equation<em>}
+commutes. Therefore for a morphism <span class="arithmatex">\(f\)</span> there exists a morphism <span class="arithmatex">\(\hat{f}=\varepsilon_{C}\circ F(f)\)</span> for which the diagram commutes. To show uniqueness if  <span class="arithmatex">\(\hat{f}\in\ho[\cat{C}]{F(D)}{C}\)</span> where <span class="arithmatex">\(f= G(\hat{f})\circ \eta_D\)</span> we have the diagram,
+\begin{equation</em>}</p>
+<p><img src="../../../png/Python/chapter_1/tikz_code_5_14.png" style="display: block; margin-left: auto; margin-right: auto;" width="99%"/></p>
+<p>\end{equation*}
+commutes, and therefore <span class="arithmatex">\(\hat{f} = \varepsilon_{C}\circ F(f)\)</span> is the unique morphism for which <span class="arithmatex">\(f= G(\hat{f})\circ \eta_D\)</span>, hence <span class="arithmatex">\((\eta_{D},F(D))\)</span> is a universal morphism from <span class="arithmatex">\(D\)</span> to <span class="arithmatex">\(G\)</span> for all <span class="arithmatex">\(D\in\ob{\cat{D}}\)</span>.
+Therefore (2) <span class="arithmatex">\(\implies\)</span> (1).
+\end{proof}</p>
+<p>The following Lemma \ref{lem:dualityofadjoints} is adapted from Adámek - Herrlick - Strecker \cite{ACC} (Page 308 Proposition 19.7)</p>
+<p><span class="lemma" style="display:block"></span></p>
+<p>Given an adjoint situation <span class="arithmatex">\((F,G,\eta,\varepsilon)\)</span> we have:
+\begin{enumerate}
+\item <span class="arithmatex">\(G\)</span> is a right adjoint functor.
+\item For each <span class="arithmatex">\(D\in\ob{\cat{D}}\)</span>, <span class="arithmatex">\((\eta_{D},F(D))\)</span> is a universal morphism from <span class="arithmatex">\(D\)</span> to <span class="arithmatex">\(G\)</span>.
+\item <span class="arithmatex">\(F\)</span> is a left adjoint functor.
+\item For each <span class="arithmatex">\(C\in\ob{\cat{C}}\)</span>, <span class="arithmatex">\((\varepsilon_{C},G(C))\)</span> is a universal morphism from <span class="arithmatex">\(F\)</span> to <span class="arithmatex">\(C\)</span>
+\end{enumerate}
+
+\begin{proof}
+By Corollary \ref{cor:homdefadj} if we have an adjoint situation, <span class="arithmatex">\((F,G,\eta,\varepsilon)\)</span> then <span class="arithmatex">\((\eta_{D},F(D))\)</span> are universal morphisms hence <span class="arithmatex">\(G\)</span> is right adjoint. The proof for (4) and thus (3) follows similarly to the proof of \ref{cor:homdefadj}. Suppose we have the adjoint situation <span class="arithmatex">\((F,G,\eta,\varepsilon)\)</span>, then for <span class="arithmatex">\(D\in\ob{\cat{D}}\)</span>, <span class="arithmatex">\(C\in\ob{\cat{C}}\)</span> and <span class="arithmatex">\(f\in\ho[\cat{C}]{F(D)}{C}\)</span> the diagram on the left,
+\begin{equation*}</p>
+<p><img src="../../../png/Python/chapter_1/tikz_code_5_15.png" style="display: block; margin-left: auto; margin-right: auto;" width="99%"/>
+,
+\end{equation*}
+commutes. Therefore for a morphism <span class="arithmatex">\(f\)</span> there exists a morphism <span class="arithmatex">\(\hat{f}= G(f)\circ\eta_{D}\)</span> for which the diagram commutes. To show uniqueness suppose we have <span class="arithmatex">\(\hat{f}\in\ho[\cat{D}]{G(C)}{D}\)</span> where <span class="arithmatex">\(f = \varepsilon_{C}\circ F(\hat{f})\)</span>, then we have the diagram,</p>
+<p>\begin{equation*}</p>
+<p><img src="../../../png/Python/chapter_1/tikz_code_5_16.png" style="display: block; margin-left: auto; margin-right: auto;" width="99%"/>
+,
+\end{equation*}</p>
+<p>commutes, and therefore <span class="arithmatex">\(\hat{f}= G(f)\circ\eta_{D}\)</span> is the unique morphism for which <span class="arithmatex">\(f = \varepsilon_{C}\circ F(\hat{f})\)</span>, hence <span class="arithmatex">\((\varepsilon_{C},G(C))\)</span> is a universal morphism from <span class="arithmatex">\(F\)</span> to <span class="arithmatex">\(C\)</span> for all <span class="arithmatex">\(C\in\ob{\cat{D}}\)</span> and therefore <span class="arithmatex">\(F\)</span> is a left adjoint functor.
+\end{proof}
+The following Lemma \ref{lem:adjsituniiso} is adapted from Adámek - Herrlick - Strecker \cite{ACC} (Page 309 Proposition 19.9) however here we give the proof from the perspective of the left adjoint functor <span class="arithmatex">\(F\)</span>.</p>
+<p><span class="lemma" style="display:block"></span></p>
+<p>Let <span class="arithmatex">\(\func{F}{\cat{D}}{\cat{C}}\)</span> be a left adjoint functor and <span class="arithmatex">\((F,G,\eta,\varepsilon)\)</span> be an adjoint situation. 
+\begin{enumerate}
+\item If there is an adjoint situation <span class="arithmatex">\((F,G^\prime,\eta^\prime,\varepsilon^\prime)\)</span> then there exists a natural isomorphism <span class="arithmatex">\(\nattran{\tau}{G}{G^\prime}\)</span> where <span class="arithmatex">\(\varepsilon^\prime = F\tau \circ \varepsilon\)</span> and <span class="arithmatex">\(\eta^\prime = \eta\circ\tau^{-1}F\)</span>;
+\item If we have a functor <span class="arithmatex">\(G^\prime\)</span> and a natural isomorphism <span class="arithmatex">\(\nattran{\tau}{G}{G^\prime}\)</span> then <span class="arithmatex">\((F,G^\prime,\eta\circ\tau^{-1}F,F\tau\circ\varepsilon)\)</span> is an adjoint situation.
+\end{enumerate}
+
+\begin{proof}
+(1): By Lemma \ref{lem:dualityofadjoints} we have for each <span class="arithmatex">\(C\in\ob{\cat{C}}\)</span>,  <span class="arithmatex">\((\varepsilon_{C},G(C))\)</span> and <span class="arithmatex">\((\varepsilon^\prime_{C},G^\prime(C))\)</span> are universal morphisms from <span class="arithmatex">\(F\)</span> to <span class="arithmatex">\(G\)</span>.
+Therefore there is an isomorphism <span class="arithmatex">\(\tau_{C}\)</span> with <span class="arithmatex">\(\varepsilon_{C}^\prime=F\tau_{C} \circ\varepsilon_{C}\)</span> by Definition \ref{def:uniarrow} and hence <span class="arithmatex">\(\nattran{\tau}{G}{G^\prime}\)</span> is a natural isomorphism with <span class="arithmatex">\(\varepsilon^\prime=F\tau \circ\varepsilon\)</span>. For each <span class="arithmatex">\(D\in\ob{\cat{D}}\)</span> we have:</p>
+<div class="arithmatex">\[\begin{align*}
+\varepsilon_{F(D)} \circ F(\eta_{D}) &amp;= id_{F(D)}\\
+&amp;= \varepsilon^\prime_{F(D)} \circ F(\eta^\prime_{D})\\
+&amp;= F\tau_{F(D)}\circ\varepsilon_{F(D)} \circ F(\eta^\prime_{D})\\
+&amp;= \varepsilon_{F(D)} \circ F(\tau_{F(D)}\circ \eta^\prime_{D}).
+\end{align*}\]</div>
+<p>Therefore <span class="arithmatex">\(\eta_{D} = \tau_{F(D)} \circ \eta^\prime_{D}\)</span>, and hence <span class="arithmatex">\(\eta^\prime=\eta\circ\tau^{-1}F\)</span>.</p>
+<p>(2): We have for each <span class="arithmatex">\(D\in\ob{\cat{D}}\)</span>,</p>
+<div class="arithmatex">\[\begin{align*}
+(F(\eta\circ\tau^{-1}F)\circ (F\tau\circ\varepsilon)F) (D) &amp;= F(\eta_{D})\circ F(\tau^{-1}_{F(D)})\circ F(\tau_{F(D)})\circ\varepsilon_{F(D)} \\
+&amp;= F(\eta_{D})\circ F(\tau^{-1}_{F(D)}\circ \tau_{F(D)})\circ\varepsilon_{F(D)} \\
+&amp;= F(\eta_{D})\circ\varepsilon_{F(D)}\\
+&amp;= id_{F} (D)
+\end{align*}\]</div>
+<p>and for <span class="arithmatex">\(C\in\ob{\cat{C}}\)</span> we have,</p>
+<div class="arithmatex">\[\begin{align*}
+(\eta\circ\tau^{-1}F)G^\prime \circ G^\prime(F\tau\circ\varepsilon)(C) &amp;= \eta_{G^\prime(C)}\circ\tau^{-1}_{F(G^\prime(C))} \circ G^\prime(F(\tau_{C})\circ\varepsilon_{C}) \\
+&amp;= \eta_{G^\prime(C)}\circ\tau^{-1}_{F(G^\prime(C))} \circ G^\prime(F(\tau_{C}))\circ G^\prime(\varepsilon_{C})\\
+&amp;= \eta_{G^\prime(C)}\circ G^\prime(\varepsilon_{C}) \\
+&amp;=id_{G^\prime}(C).
+\end{align*}\]</div>
+<p>Therefore <span class="arithmatex">\((F,G^\prime,\eta\circ\tau^{-1}F,F\tau\circ\varepsilon)\)</span> is an adjoint situation by Definition \ref{def:adjsituations}.
+\end{proof}</p>
+<p>\subsubsection{Category of adjoint situations}</p>
+<p>This section uses ideas from MacLane \cite{MacLane}, specifically chapter IV. To define a category of adjoint situations we need to define morphisms between adjoint situations. The following Definition \ref{def:morphadjsitu} is adapted from MacLane \cite{MacLane} (Page 99).</p>
+<p><span class="definition" style="display:block"></span></p>
+<p>Let <span class="arithmatex">\((\func{F}{\cat{D}}{\cat{C}},\func{G}{\cat{C}}{\cat{D}},\eta,\varepsilon)\)</span> and <span class="arithmatex">\((\func{F^\prime}{\cat{D^\prime}}{\cat{C^\prime}},\func{G^\prime}{\cat{C^\prime}}{\cat{D^\prime}},\eta^\prime,\varepsilon^\prime)\)</span> be adjoint situations. A <em>morphism between adjoint situations</em> from <span class="arithmatex">\((F,G,\eta,\varepsilon)\)</span> to <span class="arithmatex">\((F^\prime,G^\prime,\eta^\prime,\varepsilon^\prime)\)</span> is a pair of functors <span class="arithmatex">\((\func{K}{\cat{D}}{\cat{D^\prime}},\func{L}{\cat{C}}{\cat{C^\prime}})\)</span> such that:
+\begin{enumerate}
+\item 
+For each object <span class="arithmatex">\(C\in\ob{\cat{C}}\)</span>,</p>
+<div class="arithmatex">\[(K\circ F\circ G)(C) = (F^\prime\circ G^\prime\circ K)(C) = (F^\prime\circ L\circ G)(C)\]</div>
+<p>and each morphism <span class="arithmatex">\(f\in\ho[\cat{C}]{C}{C^\prime}\)</span></p>
+<div class="arithmatex">\[(K\circ F\circ G)(f) = (F^\prime\circ G^\prime\circ K)(f) = (F^\prime\circ L\circ G)(f).\]</div>
+<p>That is the diagram,
+\begin{equation}</p>
+<p><img src="../../../png/Python/chapter_1/tikz_code_5_17.png" style="display: block; margin-left: auto; margin-right: auto;" width="99%"/></p>
+<p>\end{equation}
+commutes;
+\item For each object <span class="arithmatex">\(C\in\ob{\cat{C}}\)</span> we have,</p>
+<div class="arithmatex">\[\varepsilon^\prime _{K(C)} = K(\varepsilon_C),\]</div>
+<p>and for each object <span class="arithmatex">\(D\in\ob{\cat{D}}\)</span> we have,</p>
+<div class="arithmatex">\[L(\eta_D) = \eta^\prime_{L(D)}.\]</div>
+<p>\end{enumerate}
+</p>
+<p><span class="lemma" style="display:block"></span></p>
+<p>Let <span class="arithmatex">\((\func{F}{\cat{D}}{\cat{C}},\func{G}{\cat{C}}{\cat{D}},\eta,\varepsilon)\)</span>, <span class="arithmatex">\((\func{F^\prime}{\cat{D^\prime}}{\cat{C^\prime}},\func{G^\prime}{\cat{C^\prime}}{\cat{D^\prime}},\eta^\prime,\varepsilon^\prime)\)</span> and <span class="arithmatex">\((\func{F^{\prime\prime}}{\cat{D^{\prime\prime}}}{\cat{C^{\prime\prime}}},\func{G^{\prime\prime}}{\cat{C^{\prime\prime}}}{\cat{D^{\prime\prime}}},\eta^{\prime\prime},\varepsilon^{\prime\prime})\)</span> be adjoint situations and let <span class="arithmatex">\((\func{K}{\cat{D}}{\cat{D^\prime}},\func{L}{\cat{C}}{\cat{C^\prime}})\)</span> and <span class="arithmatex">\((\func{K^\prime}{\cat{D^\prime}}{\cat{D^{\prime\prime}}},\func{L^\prime}{\cat{C^\prime}}{\cat{C^{\prime\prime}}})\)</span> be morphisms of adjoint situations. Then <span class="arithmatex">\((K^\prime \circ K,L^\prime\circ L)\)</span> is a morphism of adjoint situations.
+
+\begin{proof}
+First note <span class="arithmatex">\(\func{K^\prime \circ K}{\cat{D}}{\cat{D^\prime}}\)</span> and <span class="arithmatex">\(\func{L^\prime\circ L}{\cat{C}}{\cat{C^\prime}}\)</span> are functors since they are the composition of functors. We have the diagram,
+\begin{equation*}</p>
+<p><img src="../../../png/Python/chapter_1/tikz_code_5_18.png" style="display: block; margin-left: auto; margin-right: auto;" width="99%"/></p>
+<p>\end{equation*}
+commutes since all parts of the diagram commute.
+Then for each <span class="arithmatex">\(C\in\ob{\cat{C}}\)</span> we have the following,</p>
+<div class="arithmatex">\[\begin{align*}
+\varepsilon^{\prime\prime}_{K^\prime(K(C))} &amp;= K^\prime(\varepsilon^\prime_{K(C)}) \\
+&amp;= K^\prime(K(\varepsilon_{C}))
+\end{align*}\]</div>
+<p>and for each <span class="arithmatex">\(D\in\ob{\cat{D}}\)</span> we have,</p>
+<div class="arithmatex">\[\begin{align*}
+L^\prime(L(\eta_{D})) &amp;= L^\prime(\eta_{L(D)}) \\
+&amp;= \eta_{L^\prime(L(D))}.
+\end{align*}\]</div>
+<p>Therefore <span class="arithmatex">\((K^\prime \circ K, L^\prime \circ L)\)</span> is a morphism of adjoint situations.
+\end{proof}</p>
+<p><span class="definition" style="display:block"></span></p>
+<p>We define the composition of two morphisms of adjoint situations, <span class="arithmatex">\((L,K)\)</span> and <span class="arithmatex">\((L^\prime,L^\prime)\)</span> as 
+$<span class="arithmatex">\((L^\prime,K^\prime)\circ(L,K) = (K^\prime \circ K, L^\prime \circ L)\)</span>$</p>
+<p></p>
+<p><span class="example" style="display:block"></span></p>
+<p>Let <span class="arithmatex">\((\func{F}{\cat{D}}{\cat{C}},\func{G}{\cat{C}}{\cat{D}},\eta,\varepsilon)\)</span> be an adjoint situation. Then <span class="arithmatex">\((id_{\cat{C}},id_{\cat{D}})\)</span> a morphism of adjoint situations from <span class="arithmatex">\((F,G,\eta,\varepsilon)\)</span> to <span class="arithmatex">\((F,G,\eta,\varepsilon)\)</span>. In fact we have that this morphism acts as an identity with respect to morphisms of adjoint situations and the composition defined above in Definition \ref{def:compadjsit}.
+
+\begin{proof}
+We need to show Diagram \ref{dia:morphadjsitufunc} commutes, so we have,</p>
+<div class="arithmatex">\[\begin{align*}
+id_{\cat{C}}\circ F\circ G &amp;= F\circ G \\
+&amp;= F\circ G\circ id_{\cat{C}} \\
+&amp;= F\circ G \\
+&amp;= F\circ id_{\cat{D}} \circ G.
+\end{align*}\]</div>
+<p>We also have for each <span class="arithmatex">\(C\in\ob{\cat{C}}\)</span>,</p>
+<div class="arithmatex">\[\begin{align*}
+\varepsilon_{id_{C}(C)} &amp;= \varepsilon_{C} \\
+&amp;= id_{\cat{C}}(\varepsilon_C)
+\end{align*}\]</div>
+<p>and each <span class="arithmatex">\(D\in\ob{\cat{D}}\)</span>,</p>
+<div class="arithmatex">\[\begin{align*}
+id_{\cat{D}}(\eta_{D}) &amp;= \eta_{D} \\
+&amp;= \eta_{id_{\cat{C}}(D)}.
+\end{align*}\]</div>
+<p><span class="arithmatex">\((id_{\cat{C}},id_{\cat{D}})\)</span> clearly acts as an identity since for any morphism <span class="arithmatex">\((L,K)\)</span> from any adjoint situation to <span class="arithmatex">\((F,G,\eta,\varepsilon)\)</span> and <span class="arithmatex">\((L^\prime,K^\prime)\)</span> from <span class="arithmatex">\((F,G,\eta,\varepsilon)\)</span> to any adjoint situation,</p>
+<div class="arithmatex">\[\begin{align*}
+(L,K)\circ(id_{\cat{C}},id_{\cat{D}}) &amp;= (L\circ id_{\cat{C}},K\circ id_{\cat{D}})\\
+&amp;= (L,K)
+\end{align*}\]</div>
+<p>and,</p>
+<div class="arithmatex">\[\begin{align*}
+(id_{\cat{C}},id_{\cat{D}})\circ(K^\prime,L^\prime) &amp;= (id_{\cat{C}}\circ K^\prime,id_{\cat{D}}\circ L^\prime)\\
+&amp;= (L^\prime,K^\prime).
+\end{align*}\]</div>
+<p>\end{proof}</p>
+<p>\subsection{Composition of adjoint functors}</p>
+<p>The next Definition \ref{def:FadjointtoG} is adapted from \cite{ACC} (Page 309, Definition 19.10).</p>
+<p><span class="definition" style="display:block"></span></p>
+<p>Let <span class="arithmatex">\(\func{G}{\cat{C}}{\cat{D}}\)</span> and <span class="arithmatex">\(\func{F}{\cat{D}}{\cat{C}}\)</span> be functors. <span class="arithmatex">\(F\)</span> is <em>left adjoint to</em> <span class="arithmatex">\(G\)</span> and <span class="arithmatex">\(G\)</span> is <em>right adjoint to</em> <span class="arithmatex">\(F\)</span>, written <span class="arithmatex">\(F\dashv G\)</span> if there exists an adjoint situation <span class="arithmatex">\((F,G,\eta,\varepsilon)\)</span>.
+</p>
+<p>The following Lemma \ref{lem:comadjoint} is adapted from Leinster \cite{Leinster} (Page 49, Remark 2.1.11) here we add a proof. </p>
+<p><span class="lemma" style="display:block"></span></p>
+<p>Let <span class="arithmatex">\(\cat{C}\)</span>, <span class="arithmatex">\(\cat{D}\)</span> and <span class="arithmatex">\(\cat{E}\)</span> be categories, <span class="arithmatex">\(\func{G}{\cat{C}}{\cat{D}}\)</span> be right adjoint to <span class="arithmatex">\(\func{F}{\cat{D}}{\cat{C}}\)</span> and <span class="arithmatex">\(\func{G^\prime}{\cat{D}}{\cat{E}}\)</span> be right adjoint to <span class="arithmatex">\(\func{F^\prime}{\cat{E}}{\cat{D}}\)</span>. Then <span class="arithmatex">\(\func{G^\prime \circ G}{\cat{C}}{\cat{E}}\)</span> is right adjoint to <span class="arithmatex">\(\func{F \circ F^\prime}{\cat{E}}{\cat{D}}\)</span> and given <span class="arithmatex">\(C\in\ob{\cat{C}}\)</span> and <span class="arithmatex">\(E\in\ob{\cat{E}}\)</span> we have,</p>
+<div class="arithmatex">\[\ho[\cat{C}]{F(F^\prime(E))}{C}\cong \ho[\cat{D}]{F^\prime(E)}{G(C)}\cong\ho[\cat{E}]{E}{G^{\prime}(G(C))}.\]</div>
+<p>
+\begin{proof}
+We have for any <span class="arithmatex">\(E\in\ob{\cat{E}}\)</span>, <span class="arithmatex">\(F^\prime(E) \in \ob{\cat{D}}\)</span> hence since there is an adjoint situation <span class="arithmatex">\(F\)</span>,<span class="arithmatex">\(G\)</span> 
+$<span class="arithmatex">\(\ho[\cat{C}]{F(F^\prime(E))}{C}\cong \ho[\cat{D}]{F^\prime(E)}{G(C)}.\)</span>$
+ Similarly, for any <span class="arithmatex">\(C\in\ob{\cat{C}}\)</span>, <span class="arithmatex">\(G(C)\in\ob{\cat{D}}\)</span> hence since there is an adjoint situation <span class="arithmatex">\(G^\prime\)</span>, <span class="arithmatex">\(F^\prime\)</span> we have,</p>
+<div class="arithmatex">\[\ho[\cat{D}]{F^\prime(E)}{G(C)}\cong\ho[\cat{E}]{E}{G^{\prime}(G(C))}.\]</div>
+<p>\end{proof}</p>
+<p><span class="remark" style="display:block">
+Lemma \ref{lem:comadjoint} shows that if we compose two adjoint functors then we get an adjoint functor. 
+</span></p>
+<p>\subsection{Examples}</p>
+<p>The following Example \ref{exe:yonedaadj} came from a discussion with the supervisor and can be found in Leinster \cite{Leinster} (Page 47, Example 2.16). Example \ref{exe:yonedaadj} can also be found in Adámek - Herrlick - Strecker \cite{ACC} (Page 307, Example 19.4 (3)).</p>
+<p><span class="example" style="display:block"></span></p>
+<p>Let <span class="arithmatex">\(M\in\ob{\mathbf{Set}}\)</span> be a set then we have a functor</p>
+<div class="arithmatex">\[(-)\times M \colon \mathbf{Set} \to\mathbf{Set} \]</div>
+<p>defined for each object <span class="arithmatex">\(X\in\ob{\mathbf{Set}}\)</span> as,</p>
+<div class="arithmatex">\[X\mapsto X\times M,\]</div>
+<p>the usual direct product of sets,
+and for each <span class="arithmatex">\(f\in\ho[\mathbf{Set}]{X}{Y}\)</span>,</p>
+<div class="arithmatex">\[f\mapsto f\times M\]</div>
+<p>where,</p>
+<div class="arithmatex">\[\begin{align*}
+f\times M \colon X\times M &amp;\to Y\times M,\\
+(x,m)&amp;\mapsto (f(x),m).
+\end{align*}\]</div>
+<p>Recall we also have the functor <span class="arithmatex">\(h_{M}\)</span> defined in Lemma \ref{lem:homsetfunctor}.</p>
+<p>We can define the natural transformation <span class="arithmatex">\(\nattran{\eta}{id_{\mathbf{Set}}}{{h_{M}((-)\times M)}}\)</span> where for each <span class="arithmatex">\(X\in\ob{\mathbf{Set}}\)</span>,</p>
+<div class="arithmatex">\[\begin{align*}
+\eta_{X}\colon X &amp;\to h_{M}(X\times M),\\
+x&amp;\mapsto \eta_{X}^{(x)}
+\end{align*}\]</div>
+<p>where,</p>
+<div class="arithmatex">\[\begin{align*}
+\eta_{X}^{(x)}\colon M&amp;\to X\times M,\\
+m&amp;\mapsto (x,m).
+\end{align*}\]</div>
+<p>Then we have a unique function defined</p>
+<div class="arithmatex">\[\begin{align*}
+\hat{f}\colon X\times M&amp;\to Z,\\
+(x,m)&amp;\mapsto f_{x}(m)
+\end{align*}\]</div>
+<p>where,</p>
+<div class="arithmatex">\[\begin{align*}
+f_{x}\colon M&amp;\to Z,\\
+m &amp;\mapsto (f(x))(m)
+\end{align*}\]</div>
+<p>for which the diagram on the left,</p>
+<p><img src="../../../png/Python/chapter_1/tikz_code_5_7.png" style="display: block; margin-left: auto; margin-right: auto;" width="99%"/>
+commutes.</p>
+<p>The co-unit <span class="arithmatex">\(\nattran{\varepsilon}{(h_{M}(-))\times M}{id_{\mathbf{Set}}}\)</span> is defined for each <span class="arithmatex">\(S\in\ob{\mathbf{Set}}\)</span> as the unique morphism which,
+\begin{equation*}</p>
+<p><img src="../../../png/Python/chapter_1/tikz_code_5_19.png" style="display: block; margin-left: auto; margin-right: auto;" width="99%"/></p>
+<p>\end{equation*}
+commutes.
+Therefore define,</p>
+<div class="arithmatex">\[\begin{align*}
+\varepsilon_{S}\colon (h_{M}(S))\times M &amp;\to S,\\
+(g_{t},m)&amp;\mapsto g_{t}(m)
+\end{align*}\]</div>
+<p>then for each <span class="arithmatex">\(g\in\ho[\mathbf{Set}]{S}{T\times M}\)</span> there is a unique function given,</p>
+<div class="arithmatex">\[\begin{align*}
+\hat{g}\colon T &amp;\to h_{M}(S)\\
+t&amp;\mapsto g_{t}
+\end{align*}\]</div>
+<p>where,</p>
+<div class="arithmatex">\[\begin{align*}
+g_{t}\colon M&amp;\to S,\\
+g_{t}(m)&amp;\mapsto g(t,m) 
+\end{align*}\]</div>
+<p>for which the diagram on the left,</p>
+<p><img src="../../../png/Python/chapter_1/tikz_code_5_8.png" style="display: block; margin-left: auto; margin-right: auto;" width="99%"/>
+commutes.</p>
+<p>Now we can classify all other adjoint situations by looking at bijections;
+Let <span class="arithmatex">\(M^\prime\)</span> be a set such that there exists a bijection <span class="arithmatex">\(\tau\colon M\to M^\prime\)</span>. <span class="arithmatex">\(\tau\)</span> can be realised as a natural transformation </p>
+<div class="arithmatex">\[\nattran{\tau}{(-)\times M}{(-)\times M^\prime}\]</div>
+<p>where for each <span class="arithmatex">\(X\in\ob{\mathbf{Set}}\)</span> we have,</p>
+<div class="arithmatex">\[\begin{align*}
+\tau_{X}\colon X\times M&amp;\to X\times M^\prime,\\
+(x,m)&amp;\mapsto (x,\tau(m)).
+\end{align*}\]</div>
+<p>We show the naturality condition holds. Let <span class="arithmatex">\(X,Y\in\ob{\mathbf{Set}}\)</span> and <span class="arithmatex">\(f\in\ho[\mathbf{Set}]{X}{Y}\)</span> then for <span class="arithmatex">\((x,m)\in X\times M\)</span>,</p>
+<div class="arithmatex">\[\begin{align*}
+(\tau_{Y}\circ f\times M )((x,m))&amp;= (\tau_Y((f(x),m))) \\
+&amp;= (f(x),\tau(m))\\
+&amp;= f\times M((x,\tau(m))) \\
+&amp;= f\times M \circ \tau_{X}((x,m))
+\end{align*}\]</div>
+<p>Therefore the naturality condition holds.
+<span class="arithmatex">\(\tau\)</span> has a natural inverse</p>
+<div class="arithmatex">\[\nattran{\tau^{-1}}{(-)\times M^{\prime}}{(-)\times M}\]</div>
+<p>where for each <span class="arithmatex">\(X\in\ob{\mathbf{Set}}\)</span> we have,</p>
+<div class="arithmatex">\[\begin{align*}
+\tau_{X}^{-1}\colon X\times M&amp;\to X\times M^\prime,\\
+(x,m^\prime)&amp;\mapsto (x,\tau^{-1}(m^\prime)).
+\end{align*}\]</div>
+<p>since <span class="arithmatex">\(\tau\)</span> is a bijection. Hence <span class="arithmatex">\(\tau\)</span> is a natural isomorphism. </p>
+<p>So for the functor <span class="arithmatex">\(h_{M}\)</span> we have adjoint situations <span class="arithmatex">\((\tau((-)\times M),h_{M},h_{M}\tau \circ \eta,\varepsilon\circ\tau^{-1}h_{M})\)</span>.
+</p>
+<p>\pagebreak</p>
+<script src="../../mathjax_helper.js"></script>
+</article>
+</div>
+<script>var target=document.getElementById(location.hash.slice(1));target&&target.name&&(target.checked=target.name.startsWith("__tabbed_"))</script>
+</div>
+</main>
+<footer class="md-footer">
+<div class="md-footer-meta md-typeset">
+<div class="md-footer-meta__inner md-grid">
+<div class="md-copyright">
+  
+  
+    Made with
+    <a href="https://squidfunk.github.io/mkdocs-material/" rel="noopener" target="_blank">
+      Material for MkDocs
+    </a>
+</div>
+</div>
+</div>
+</footer>
+</div>
+<div class="md-dialog" data-md-component="dialog">
+<div class="md-dialog__inner md-typeset"></div>
+</div>
+<script id="__config" type="application/json">{"annotate": null, "base": "../..", "features": ["navigation.tabs", "navigation.sections"], "search": "../../assets/javascripts/workers/search.2c215733.min.js", "tags": null, "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}, "version": null}</script>
+<script src="../../assets/javascripts/bundle.79ae519e.min.js"></script>
+<script src="../../javascripts/mathjax.js"></script>
+<script src="https://unpkg.com/mathjax@3/es5/tex-mml-chtml.js"></script>
+<script src="../../makeblocks.js"></script>
+<script src="../../mini-coi.js"></script>
+</body>
+</html>

@@ -1,0 +1,464 @@
+
+<!DOCTYPE html>
+
+<html class="no-js" lang="en">
+<head>
+<meta charset="utf-8"/>
+<meta content="width=device-width,initial-scale=1" name="viewport"/>
+<link href="https://aaron-huntley.github.io/mathematics/category_theory/Initial%20and%20terminal%20objects/" rel="canonical"/>
+<link href="../../images/favicon.png" rel="icon"/>
+<meta content="mkdocs-1.6.1, mkdocs-material-9.7.1" name="generator"/>
+<title>Initial and terminal objects - Aaron Huntley</title>
+<link href="../../assets/stylesheets/main.484c7ddc.min.css" rel="stylesheet"/>
+<link href="../../assets/stylesheets/palette.ab4e12ef.min.css" rel="stylesheet"/>
+<link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect"/>
+<link href="https://fonts.googleapis.com/css?family=Roboto:300,300i,400,400i,700,700i%7CRoboto+Mono:400,400i,700,700i&amp;display=fallback" rel="stylesheet"/>
+<style>:root{--md-text-font:"Roboto";--md-code-font:"Roboto Mono"}</style>
+<link href="../../pyrepl.css" rel="stylesheet"/>
+<script>__md_scope=new URL("../..",location),__md_hash=e=>[...e].reduce(((e,_)=>(e<<5)-e+_.charCodeAt(0)),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
+</head>
+<body data-md-color-accent="amber" data-md-color-primary="deep-orange" data-md-color-scheme="slate" dir="ltr">
+<input autocomplete="off" class="md-toggle" data-md-toggle="drawer" id="__drawer" type="checkbox"/>
+<input autocomplete="off" class="md-toggle" data-md-toggle="search" id="__search" type="checkbox"/>
+<label class="md-overlay" for="__drawer"></label>
+<div data-md-component="skip">
+<a class="md-skip" href="#16-initial-and-terminal-objects">
+          Skip to content
+        </a>
+</div>
+<div data-md-component="announce">
+</div>
+<header class="md-header" data-md-component="header">
+<nav aria-label="Header" class="md-header__inner md-grid">
+<a aria-label="Aaron Huntley" class="md-header__button md-logo" data-md-component="logo" href="../.." title="Aaron Huntley">
+<img alt="logo" src="../../images/logo.png"/>
+</a>
+<label class="md-header__button md-icon" for="__drawer">
+<svg viewbox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M3 6h18v2H3zm0 5h18v2H3zm0 5h18v2H3z"></path></svg>
+</label>
+<div class="md-header__title" data-md-component="header-title">
+<div class="md-header__ellipsis">
+<div class="md-header__topic">
+<span class="md-ellipsis">
+            Aaron Huntley
+          </span>
+</div>
+<div class="md-header__topic" data-md-component="header-topic">
+<span class="md-ellipsis">
+            
+              Initial and terminal objects
+            
+          </span>
+</div>
+</div>
+</div>
+<form class="md-header__option" data-md-component="palette">
+<input aria-label="Dark mode" class="md-option" data-md-color-accent="amber" data-md-color-media="" data-md-color-primary="deep-orange" data-md-color-scheme="slate" id="__palette_0" name="__palette" type="radio"/>
+<label class="md-header__button md-icon" for="__palette_1" hidden="" title="Dark mode">
+<svg viewbox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M12 7a5 5 0 0 1 5 5 5 5 0 0 1-5 5 5 5 0 0 1-5-5 5 5 0 0 1 5-5m0 2a3 3 0 0 0-3 3 3 3 0 0 0 3 3 3 3 0 0 0 3-3 3 3 0 0 0-3-3m0-7 2.39 3.42C13.65 5.15 12.84 5 12 5s-1.65.15-2.39.42zM3.34 7l4.16-.35A7.2 7.2 0 0 0 5.94 8.5c-.44.74-.69 1.5-.83 2.29zm.02 10 1.76-3.77a7.131 7.131 0 0 0 2.38 4.14zM20.65 7l-1.77 3.79a7.02 7.02 0 0 0-2.38-4.15zm-.01 10-4.14.36c.59-.51 1.12-1.14 1.54-1.86.42-.73.69-1.5.83-2.29zM12 22l-2.41-3.44c.74.27 1.55.44 2.41.44.82 0 1.63-.17 2.37-.44z"></path></svg>
+</label>
+<input aria-label="Light mode" class="md-option" data-md-color-accent="light-green" data-md-color-media="" data-md-color-primary="cyan" data-md-color-scheme="default" id="__palette_1" name="__palette" type="radio"/>
+<label class="md-header__button md-icon" for="__palette_0" hidden="" title="Light mode">
+<svg viewbox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="m17.75 4.09-2.53 1.94.91 3.06-2.63-1.81-2.63 1.81.91-3.06-2.53-1.94L12.44 4l1.06-3 1.06 3zm3.5 6.91-1.64 1.25.59 1.98-1.7-1.17-1.7 1.17.59-1.98L15.75 11l2.06-.05L18.5 9l.69 1.95zm-2.28 4.95c.83-.08 1.72 1.1 1.19 1.85-.32.45-.66.87-1.08 1.27C15.17 23 8.84 23 4.94 19.07c-3.91-3.9-3.91-10.24 0-14.14.4-.4.82-.76 1.27-1.08.75-.53 1.93.36 1.85 1.19-.27 2.86.69 5.83 2.89 8.02a9.96 9.96 0 0 0 8.02 2.89m-1.64 2.02a12.08 12.08 0 0 1-7.8-3.47c-2.17-2.19-3.33-5-3.49-7.82-2.81 3.14-2.7 7.96.31 10.98 3.02 3.01 7.84 3.12 10.98.31"></path></svg>
+</label>
+</form>
+<script>var palette=__md_get("__palette");if(palette&&palette.color){if("(prefers-color-scheme)"===palette.color.media){var media=matchMedia("(prefers-color-scheme: light)"),input=document.querySelector(media.matches?"[data-md-color-media='(prefers-color-scheme: light)']":"[data-md-color-media='(prefers-color-scheme: dark)']");palette.color.media=input.getAttribute("data-md-color-media"),palette.color.scheme=input.getAttribute("data-md-color-scheme"),palette.color.primary=input.getAttribute("data-md-color-primary"),palette.color.accent=input.getAttribute("data-md-color-accent")}for(var[key,value]of Object.entries(palette.color))document.body.setAttribute("data-md-color-"+key,value)}</script>
+</nav>
+</header>
+<div class="md-container" data-md-component="container">
+<nav aria-label="Tabs" class="md-tabs" data-md-component="tabs">
+<div class="md-grid">
+<ul class="md-tabs__list">
+<li class="md-tabs__item">
+<a class="md-tabs__link" href="../..">
+        
+  
+  
+    
+  
+  Home
+
+      </a>
+</li>
+<li class="md-tabs__item">
+<a class="md-tabs__link" href="../../aboutme/cv/">
+          
+  
+  
+  About me
+
+        </a>
+</li>
+<li class="md-tabs__item">
+<a class="md-tabs__link" href="../../blog/">
+          
+  
+  
+  Conversations with friends
+
+        </a>
+</li>
+</ul>
+</div>
+</nav>
+<main class="md-main" data-md-component="main">
+<div class="md-main__inner md-grid">
+<div class="md-sidebar md-sidebar--primary" data-md-component="sidebar" data-md-type="navigation">
+<div class="md-sidebar__scrollwrap">
+<div class="md-sidebar__inner">
+<nav aria-label="Navigation" class="md-nav md-nav--primary md-nav--lifted" data-md-level="0">
+<label class="md-nav__title" for="__drawer">
+<a aria-label="Aaron Huntley" class="md-nav__button md-logo" data-md-component="logo" href="../.." title="Aaron Huntley">
+<img alt="logo" src="../../images/logo.png"/>
+</a>
+    Aaron Huntley
+  </label>
+<ul class="md-nav__list" data-md-scrollfix="">
+<li class="md-nav__item">
+<a class="md-nav__link" href="../..">
+<span class="md-ellipsis">
+    
+  
+    Home
+  
+
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item md-nav__item--nested">
+<input class="md-nav__toggle md-toggle" id="__nav_2" type="checkbox"/>
+<label class="md-nav__link" for="__nav_2" id="__nav_2_label" tabindex="0">
+<span class="md-ellipsis">
+    
+  
+    About me
+  
+
+    
+  </span>
+<span class="md-nav__icon md-icon"></span>
+</label>
+<nav aria-expanded="false" aria-labelledby="__nav_2_label" class="md-nav" data-md-level="1">
+<label class="md-nav__title" for="__nav_2">
+<span class="md-nav__icon md-icon"></span>
+            
+  
+    About me
+  
+
+          </label>
+<ul class="md-nav__list" data-md-scrollfix="">
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../aboutme/cv/">
+<span class="md-ellipsis">
+    
+  
+    CV
+  
+
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../aboutme/talks/">
+<span class="md-ellipsis">
+    
+  
+    Talks
+  
+
+    
+  </span>
+</a>
+</li>
+</ul>
+</nav>
+</li>
+<li class="md-nav__item md-nav__item--nested">
+<input class="md-nav__toggle md-toggle" id="__nav_3" type="checkbox"/>
+<label class="md-nav__link" for="__nav_3" id="__nav_3_label" tabindex="0">
+<span class="md-ellipsis">
+    
+  
+    Conversations with friends
+  
+
+    
+  </span>
+<span class="md-nav__icon md-icon"></span>
+</label>
+<nav aria-expanded="false" aria-labelledby="__nav_3_label" class="md-nav" data-md-level="1">
+<label class="md-nav__title" for="__nav_3">
+<span class="md-nav__icon md-icon"></span>
+            
+  
+    Conversations with friends
+  
+
+          </label>
+<ul class="md-nav__list" data-md-scrollfix="">
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../blog/">
+<span class="md-ellipsis">
+    
+  
+    Conversations with friends
+  
+
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item md-nav__item--nested">
+<input class="md-nav__toggle md-toggle" id="__nav_3_2" type="checkbox"/>
+<label class="md-nav__link" for="__nav_3_2" id="__nav_3_2_label" tabindex="0">
+<span class="md-ellipsis">
+    
+  
+    Archive
+  
+
+    
+  </span>
+<span class="md-nav__icon md-icon"></span>
+</label>
+<nav aria-expanded="false" aria-labelledby="__nav_3_2_label" class="md-nav" data-md-level="2">
+<label class="md-nav__title" for="__nav_3_2">
+<span class="md-nav__icon md-icon"></span>
+            
+  
+    Archive
+  
+
+          </label>
+<ul class="md-nav__list" data-md-scrollfix="">
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../blog/archive/2026/">
+<span class="md-ellipsis">
+    
+  
+    2026
+  
+
+    
+  </span>
+</a>
+</li>
+</ul>
+</nav>
+</li>
+</ul>
+</nav>
+</li>
+</ul>
+</nav>
+</div>
+</div>
+</div>
+<div class="md-sidebar md-sidebar--secondary" data-md-component="sidebar" data-md-type="toc">
+<div class="md-sidebar__scrollwrap">
+<div class="md-sidebar__inner">
+<nav aria-label="Table of contents" class="md-nav md-nav--secondary">
+</nav>
+</div>
+</div>
+</div>
+<div class="md-content" data-md-component="content">
+<article class="md-content__inner md-typeset">
+<style>
+.md-content {
+    max-width: 80em;
+}
+</style>
+<h1 id="16-initial-and-terminal-objects">1.6. Initial and terminal objects</h1>
+<p>In this section we use notation and definitions from Leinster \cite{Leinster}.</p>
+<p><span class="definition" style="display:block"></span></p>
+<p>Let <span class="arithmatex">\(\cat{C}\)</span> be a category. We call an <span class="arithmatex">\(\objs{\cat{C}}\)</span>, <span class="arithmatex">\(I\in\ob{\cat{C}}\)</span> <em>initial</em> if for any object <span class="arithmatex">\(C\in\ob{\cat{C}}\)</span>, there is exactly one morphism <span class="arithmatex">\(f\in\ho[\cat{C}]{I}{C}\)</span>.  We call an <span class="arithmatex">\(\objs{\cat{C}}\)</span>, <span class="arithmatex">\(T\in\ob{\cat{C}}\)</span> <em>terminal</em> if for any object <span class="arithmatex">\(C\in\ob{\cat{C}}\)</span>, there is exactly one morphism <span class="arithmatex">\(f\in\ho[\cat{C}]{C}{T}\)</span>.
+
+The following Lemma \ref{lem:initialiso} and proof is adapted from Leinster \cite{Leinster} (page 49 Lemma 2.1.8)</p>
+<p><span class="lemma" style="display:block"></span></p>
+<p>Let <span class="arithmatex">\(\cat{C}\)</span> be a category and <span class="arithmatex">\(I,I^\prime\in\ob{\cat{C}}\)</span> initial objects in <span class="arithmatex">\(\cat{C}\)</span>. There exists a unique isomorphism <span class="arithmatex">\(f\in\ho[\cat{C}]{I}{I^\prime}\)</span>. Let <span class="arithmatex">\(T,T^\prime\in\ob{\cat{C}}\)</span> be terminal objects in <span class="arithmatex">\(\cat{C}\)</span> then there exists a unique isomorphism <span class="arithmatex">\(g\in\ho[\cat{C}]{T}{T^\prime}\)</span>.
+
+\begin{proof}
+Since <span class="arithmatex">\(I\)</span> is initial there exists a unique morphism <span class="arithmatex">\(f\in\ho[\cat{C}]{I}{I^\prime}\)</span>. </p>
+<p>It remains to show <span class="arithmatex">\(f\)</span> is an isomorphism. Since <span class="arithmatex">\(I^\prime\)</span> is initial then there exists a unique morphism <span class="arithmatex">\(f^\prime\in\ho[\cat{C}]{I^\prime}{I}\)</span>. Therefore <span class="arithmatex">\(f^\prime\circ f\in\ho[\cat{C}]{I}{I}\)</span> but since <span class="arithmatex">\(I\)</span> is initial <span class="arithmatex">\(f^\prime\circ f\)</span> is the unique morphism in <span class="arithmatex">\(\ho[\cat{C}]{I}{I}\)</span>. Since <span class="arithmatex">\(\cat{C}\)</span> is a category we have <span class="arithmatex">\(id_{I}\in\ho[\cat{C}]{I}{I}\)</span>, hence <span class="arithmatex">\(id_{I}\)</span> is the unique morphism in <span class="arithmatex">\(\ho[\cat{C}]{I}{I}\)</span> therefore,</p>
+<div class="arithmatex">\[f\circ f^\prime = id_{I}\]</div>
+<p>similarly,</p>
+<div class="arithmatex">\[f^\prime\circ f = id_{I^\prime}\]</div>
+<p>since <span class="arithmatex">\(f\circ f^\prime\in\ho[\cat{C}]{I^\prime}{I^\prime}\)</span> is unique. Therefore <span class="arithmatex">\(f\)</span> is an isomorphism.</p>
+<p>Since <span class="arithmatex">\(T\)</span> is terminal there exists a unique morphism <span class="arithmatex">\(g\in\ho[\cat{C}]{T^\prime}{T}\)</span>, also since <span class="arithmatex">\(T^\prime\)</span> is terminal there exists a unique morphism <span class="arithmatex">\(g^\prime\ho[\cat{C}]{T}{T^\prime}\)</span>. Then we have,</p>
+<div class="arithmatex">\[g\circ g^\prime = id_{T^\prime}\]</div>
+<p>since <span class="arithmatex">\(g\circ g^\prime\in\ho[\cat{C}]{T^\prime}{T^\prime}\)</span> is unique. Similarly, 
+$<span class="arithmatex">\(g^\prime\circ g = id_{T}\)</span>$
+ since <span class="arithmatex">\(g^\prime\circ g\ho[\cat{C}]{T}{T}\)</span> is unique.
+\end{proof}</p>
+<p><span class="remark" style="display:block">
+Given a category there may or may not exist an initial or terminal objects but the above Lemma \ref{lem:initialiso} states that if there are initial objects they are all isomorphic and if there are terminal objects they are all isomorphic.
+</span></p>
+<p>\subsection{Examples}</p>
+<p>The following example can be found on nCatLab\cite{nLab}.</p>
+<p><span class="example" style="display:block">
+Let <span class="arithmatex">\(\mathbf{Set}\)</span> be the category of sets. The empty set <span class="arithmatex">\(\varnothing\in\ob{\mathbf{Set}}\)</span> is initial. Any singleton set <span class="arithmatex">\(\{x\}\in\ob{\mathbf{Set}}\)</span> is terminal.
+For any set <span class="arithmatex">\(Y\in\ob{\mathbf{Set}}\)</span> we have the unique map</span></p>
+<div class="arithmatex">\[\begin{align*}
+f\colon Y &amp;\to \{x\},\\
+y &amp;\mapsto x.
+\end{align*}\]</div>
+<p>hence <span class="arithmatex">\(\{x\}\)</span> is terminal.
+There also exists a unique function <span class="arithmatex">\(\emptyset\colon \varnothing\to Y\)</span> which is the empty function, hence <span class="arithmatex">\(\varnothing\)</span> is initial.
+</p>
+<p><span class="example" style="display:block">
+Let <span class="arithmatex">\(\mathbf{Grp}\)</span> be the category of groups. The trivial group <span class="arithmatex">\(\{id\}\)</span> is initial and terminal. Given any group <span class="arithmatex">\((G,\circ)\)</span> There exists a group homomorphism,</span></p>
+<div class="arithmatex">\[\begin{align*}
+f\colon \{id\}&amp;\to (G,\circ),\\
+id&amp;\mapsto id_{G},
+\end{align*}\]</div>
+<p>and also a group homomorphism,</p>
+<div class="arithmatex">\[\begin{align*}
+f\colon (G,\circ)&amp;\to \{id\},\\
+x&amp;\mapsto id.
+\end{align*}\]</div>
+<p>Both of these functions are unique since group homomorphisms must preserve identities.
+</p>
+<p>\subsection{Initial and terminal objects as adjoint functors}</p>
+<p><span class="definition" style="display:block"></span></p>
+<p>We call the category <span class="arithmatex">\(\mathbf{1}\)</span> with one object <span class="arithmatex">\(1\in\ob{\mathbf{1}}\)</span> and one morphism <span class="arithmatex">\(id_{1}\in\ho[\mathbf{1}]{1}{1}\)</span> the <em>identity category</em>.
+</p>
+<p>The following Lemma \ref{lem:initermadj} is adapted from Leinster \cite{Leinster} (Page 49 Example 2.1.9)</p>
+<p><span class="lemma" style="display:block"></span></p>
+<p>Let <span class="arithmatex">\(\cat{C}\)</span> be a category. Given <span class="arithmatex">\(C\in\ob{\cat{C}}\)</span>, there exists a functor <span class="arithmatex">\(\func{I_{C}}{\cat{C}}{\mathbf{1}}\)</span> which maps 
+$<span class="arithmatex">\(1\mapsto C\)</span>$
+ and, 
+$<span class="arithmatex">\(id_{1}\mapsto id_{C}.\)</span>$
+ Further, there exists a functor <span class="arithmatex">\(\func{T}{\mathbf{1}}{\cat{C}}\)</span> where for <span class="arithmatex">\(C\in\ob{\cat{C}}\)</span>, 
+$<span class="arithmatex">\(C\mapsto 1\)</span>$
+ and for <span class="arithmatex">\(f\in\ho[\cat{C}]{A}{B}\)</span>, 
+$<span class="arithmatex">\(f\mapsto id_{1}.\)</span>$</p>
+<p>
+\begin{proof}
+<span class="arithmatex">\(I_{C}\)</span> is a functor since,</p>
+<p>\begin{align<em>}
+I_{C}(id_{1}) &amp;= id_{C} \
+&amp;= id_{I_{C}(1)}
+\end{align</em>}
+ and,</p>
+<div class="arithmatex">\[\begin{align*}
+I_{C}(id_{1}\circ id_{1}) &amp;= I_{C}(id_{1}) \\ 
+&amp;= id_{C} \\
+&amp;= id_{C}\circ id_{C} \\
+&amp;= I_{C}(id_{1})\circ I_{C}(id_{1}).
+\end{align*}\]</div>
+<p><span class="arithmatex">\(T\)</span> is a functor since for all <span class="arithmatex">\(C\in\ob{\cat{C}}\)</span>, 
+$<span class="arithmatex">\(T(id_{C})=id_{1} = id_{T(1)}\)</span>$
+ and for any <span class="arithmatex">\(f\in\ho[\cat{C}]{A}{B}\)</span> and <span class="arithmatex">\(g\in\ho[\cat{C}]{B}{C}\)</span>,</p>
+<div class="arithmatex">\[\begin{align*}
+T(g\circ f) &amp;= id_{1} \\
+&amp;= id_{1}\circ id_{1} \\
+&amp;= T(g)\circ T(f).
+\end{align*}\]</div>
+<p>\end{proof}</p>
+<p><span class="lemma" style="display:block"></span></p>
+<p>Given a category <span class="arithmatex">\(\cat{C}\)</span> let <span class="arithmatex">\(I\)</span> be the set of all functors of the form <span class="arithmatex">\(I_{C}\)</span> as in Lemma \ref{lem:funcadj}, there exists a bijection</p>
+<div class="arithmatex">\[\begin{align*}
+\psi\colon\ob{\cat{C}}&amp;\to I,\\
+C&amp;\mapsto I_{C}.
+\end{align*}\]</div>
+<p>
+\begin{proof}
+Given <span class="arithmatex">\(I_{C}\in I\)</span> there exists <span class="arithmatex">\(C\in\ob{\cat{C}}\)</span> such that <span class="arithmatex">\(C\mapsto I_{C}\)</span> by Lemma \ref{lem:funcadj}, hence <span class="arithmatex">\(\psi\)</span> is surjective.</p>
+<p>Given <span class="arithmatex">\(I_{C}=I_{C^\prime}\)</span> then <span class="arithmatex">\(C=C^\prime\)</span> by Lemma \ref{lem:funcadj} hence <span class="arithmatex">\(\psi\)</span> is injective. </p>
+<p>Therefore <span class="arithmatex">\(\psi\)</span> is a bijection.
+\end{proof}</p>
+<p><span class="lemma" style="display:block"></span></p>
+<p>Let <span class="arithmatex">\(\cat{C}\)</span> be a category and <span class="arithmatex">\(C\in\cat{C}\)</span> then: \begin{enumerate}
+\item <span class="arithmatex">\(\func{I_{C}}{\mathbf{1}}{\cat{C}}\)</span> is left adjoint if and only if <span class="arithmatex">\(C\)</span> is an initial object of <span class="arithmatex">\(\cat{C}\)</span>;
+\item <span class="arithmatex">\(\func{I_{C}}{\mathbf{1}}{\cat{C}}\)</span> is right adjoint if and only if <span class="arithmatex">\(C\)</span> is a terminal object of <span class="arithmatex">\(\cat{C}\)</span>.
+\end{enumerate}
+
+\begin{proof}
+(1):
+Let <span class="arithmatex">\(I_{C}\)</span> be a left adjoint. Then there exists an adjoint situation defined in Theorem \ref{thm:adjsituation}. Hence there is a unique functor <span class="arithmatex">\(\func{T^*}{\cat{C}}{\mathbf{1}}\)</span> but since the only functor from <span class="arithmatex">\(\cat{C}\)</span> to <span class="arithmatex">\(\mathbf{1}\)</span> is the one defined in Lemma \ref{lem:funcadj} we have <span class="arithmatex">\(T^* = T\)</span>. Therefore, for each <span class="arithmatex">\(C^\prime\in\ob{\cat{C}}\)</span>, </p>
+<div class="arithmatex">\[\begin{align*}
+\ho[\cat{C}]{I_{C}(1)}{C^\prime}&amp;\cong \ho[\mathbf{1}]{1}{T(C^\prime)}\\
+\implies \ho[\cat{C}]{C}{C^\prime}&amp;\cong \ho[\mathbf{1}]{1}{1}\\
+\implies \ho[\cat{C}]{C}{C^\prime}&amp;\cong \{id_{1}\}.
+\end{align*}\]</div>
+<p>Therefore <span class="arithmatex">\(C\)</span> is an initial object.</p>
+<p>Let <span class="arithmatex">\(C\in\ob{\cat{C}}\)</span> be an initial object, therefore we have for any <span class="arithmatex">\(C^\prime \in\ob{\cat{C}}\)</span>
+$<span class="arithmatex">\(\ho[\cat{C}]{C}{C^\prime}.\)</span>$
+ has one element. Then we have,</p>
+<div class="arithmatex">\[\begin{align*}
+&amp;\ho{C}{C^\prime}\cong \{id_{1}\}\\
+\implies&amp; \ho{C}{C^\prime}\cong \ho[\mathbf{1}]{1}{1}\\
+\implies &amp;\ho[\cat{C}]{I_{C}(1)}{C^\prime}\cong \ho[\mathbf{1}]{1}{T(C^\prime)}.
+\end{align*}\]</div>
+<p>Therefore by \ref{thm:adjsituation} <span class="arithmatex">\(I_{C}\)</span> is a left adjoint.</p>
+<p>(2):
+Let <span class="arithmatex">\(I_{C}\)</span> be a right adjoint. Then there exists an adjoint situation defined in Theorem \ref{thm:adjsituation}. Hence there is a unique functor <span class="arithmatex">\(\func{T^*}{\cat{C}}{\mathbf{1}}\)</span> but since the only functor from <span class="arithmatex">\(\cat{C}\)</span> to <span class="arithmatex">\(\mathbf{1}\)</span> is the one defined in Lemma \ref{lem:funcadj} we have <span class="arithmatex">\(T^* = T\)</span>. Therefore, for each <span class="arithmatex">\(C^\prime\in\ob{\cat{C}}\)</span>, </p>
+<div class="arithmatex">\[\begin{align*}
+&amp;\ho[\mathbf{1}]{T(C^\prime)}{1}\cong \ho[\cat{C}]{C^\prime}{I_{C}(1)},\\
+\implies &amp;\ho[\mathbf{1}]{1}{1}\cong \ho[\cat{C}]{C^\prime}{C},\\
+\implies &amp; \{id_{1}\} \cong \ho[\cat{C}]{C^\prime}{C}.
+\end{align*}\]</div>
+<p>Therefore <span class="arithmatex">\(C\)</span> is a terminal object.
+Let <span class="arithmatex">\(C\in\ob{\cat{C}}\)</span> be a terminal object, therefore we have for any <span class="arithmatex">\(C^\prime \in\ob{\cat{C}}\)</span>
+$<span class="arithmatex">\(\ho[\cat{C}]{C^\prime}{C}.\)</span>$
+ has one element. Then we have,</p>
+<div class="arithmatex">\[\begin{align*}
+&amp;\{id_{1}\} \cong \ho[\cat{C}]{C^\prime}{C}\\
+\implies&amp; \ho[\mathbf{1}]{1}{1}\cong \ho[\cat{C}]{C^\prime}{C}\\
+\implies&amp; \ho[\mathbf{1}]{T(C^\prime)}{1}\cong \ho[\cat{C}]{C^\prime}{I_{C}(1)}.
+\end{align*}\]</div>
+<p>Therefore by \ref{thm:adjsituation} <span class="arithmatex">\(I_{C}\)</span> is a right adjoint.
+\end{proof}</p>
+<p><span class="example" style="display:block">
+Let <span class="arithmatex">\(\mathbf{Set}\)</span> be the category of sets. We have the functor,</span></p>
+<div class="arithmatex">\[\begin{align*}
+\func{I_{\varnothing}}{\mathbf{1}&amp;}{\mathbf{Set}}, \\
+1&amp;\mapsto \varnothing.
+\end{align*}\]</div>
+<p>Then for <span class="arithmatex">\(X\in\ob{\mathbf{Set}}\)</span>, we have a universal morphism <span class="arithmatex">\((\eta_{X},C_{X})\)</span>, where <span class="arithmatex">\(C_{X}=1\)</span> and <span class="arithmatex">\(\eta_{X}=\emptyset\)</span>, the empty function:</p>
+<div class="arithmatex">\[\begin{align*}
+\eta_{X}\colon X \mapsto \varnothing
+\end{align*}\]</div>
+<p>\begin{equation*}</p>
+<p><img src="../../../png/Python/chapter_1/tikz_code_6_0.png" style="display: block; margin-left: auto; margin-right: auto;" width="99%"/>
+.\
+\end{equation*}
+Therefore, <span class="arithmatex">\(I_{\varnothing}\)</span> is right adjoint.
+</p>
+<p>\pagebreak</p>
+<script src="../../mathjax_helper.js"></script>
+</article>
+</div>
+<script>var target=document.getElementById(location.hash.slice(1));target&&target.name&&(target.checked=target.name.startsWith("__tabbed_"))</script>
+</div>
+</main>
+<footer class="md-footer">
+<div class="md-footer-meta md-typeset">
+<div class="md-footer-meta__inner md-grid">
+<div class="md-copyright">
+  
+  
+    Made with
+    <a href="https://squidfunk.github.io/mkdocs-material/" rel="noopener" target="_blank">
+      Material for MkDocs
+    </a>
+</div>
+</div>
+</div>
+</footer>
+</div>
+<div class="md-dialog" data-md-component="dialog">
+<div class="md-dialog__inner md-typeset"></div>
+</div>
+<script id="__config" type="application/json">{"annotate": null, "base": "../..", "features": ["navigation.tabs", "navigation.sections"], "search": "../../assets/javascripts/workers/search.2c215733.min.js", "tags": null, "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}, "version": null}</script>
+<script src="../../assets/javascripts/bundle.79ae519e.min.js"></script>
+<script src="../../javascripts/mathjax.js"></script>
+<script src="https://unpkg.com/mathjax@3/es5/tex-mml-chtml.js"></script>
+<script src="../../makeblocks.js"></script>
+<script src="../../mini-coi.js"></script>
+</body>
+</html>
