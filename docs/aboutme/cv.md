@@ -6,7 +6,7 @@
 
 ## Summary
 
-I am a mathematician and second year PhD student at Case Western Reserve University. 
+I am a mathematician and third year PhD student at Case Western Reserve University. 
 
 ---
 

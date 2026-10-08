@@ -10,7 +10,7 @@ hide:
     <img src="https://img.youtube.com/vi/xa04dVG4fEs/hqdefault.jpg" alt="Watch the Topos colloquium talk on YouTube" style="width: 100%; display: block;">
   </a>
   <div style="flex: 1 1 280px;">
-    <p><strong>Partial functions and other generalised coproduct completions</strong></p>
+    <p><strong><a href="https://www.youtube.com/watch?v=xa04dVG4fEs" target="_blank" rel="noopener">Partial functions and other generalised coproduct completions</a></strong></p>
     <p><em>1st September 2026</em></p>
     <p>The category of sets and functions is the free coproduct completion of the terminal category. In a double-categorical setting, Evan Patterson defined a new notion of double (co)product and used it to prove that the double category of sets, functions and spans is the free coproduct completion of the terminal double category. In this talk we both generalise and refine this notion. First, we extend Patterson’s original definition to include (co)products in (co)virtual double categories, which can capture examples such as coproducts in Span(C) even when C does not have pullbacks. Second, we isolate finer classes of double (co)products, denoted (L,R)-(co)products, where L and R are certain classes of functions. As an application, we exhibit the double category of sets, functions and partial functions as a free (L,R)-coproduct completion of the terminal double category.</p>
   </div>
@@ -19,8 +19,8 @@ hide:
 # Hello,
 
 <figure style="float: right; width: 30%;">
-  <img src="images/louise.JPG" alt="This is me at Lake Louise, Canada." style="width: 100%;">
-  <figcaption>This is me at Lake Louise, Canada.</figcaption>
+  <img src="images/louise.JPG#only-light" alt="This is me at Lake Louise, Canada" style="width: 100%;">
+  <img src="images/me.JPG#only-dark" alt="This is me reading in a cafe" style="width: 100%;">
 </figure>
 
 I'm a mathematician and PhD candidate at Case Western Reserve University. This summer I was also RA at [*topos institute*](https://topos.institute).
