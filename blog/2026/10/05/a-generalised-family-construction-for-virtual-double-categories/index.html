@@ -1,0 +1,1422 @@
+
+<!doctype html>
+<html lang="en" class="no-js">
+  <head>
+    
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      
+      
+      
+        <link rel="canonical" href="https://aaron-huntley.github.io/blog/2026/10/05/a-generalised-family-construction-for-virtual-double-categories/">
+      
+      
+        <link rel="prev" href="../../../07/14/the-egg-box-problem/">
+      
+      
+      
+        
+      
+      
+      <link rel="icon" href="../../../../../images/favicon.png">
+      <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-9.7.1">
+    
+    
+      
+        <title>A generalised family construction for virtual double categories - Aaron Huntley</title>
+      
+    
+    
+      <link rel="stylesheet" href="../../../../../assets/stylesheets/main.484c7ddc.min.css">
+      
+        
+        <link rel="stylesheet" href="../../../../../assets/stylesheets/palette.ab4e12ef.min.css">
+      
+      
+
+
+    
+    
+      
+    
+    
+      
+        
+        
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,300i,400,400i,700,700i%7CRoboto+Mono:400,400i,700,700i&display=fallback">
+        <style>:root{--md-text-font:"Roboto";--md-code-font:"Roboto Mono"}</style>
+      
+    
+    
+    <script>__md_scope=new URL("../../../../..",location),__md_hash=e=>[...e].reduce(((e,_)=>(e<<5)-e+_.charCodeAt(0)),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
+    
+      
+
+    
+    
+  </head>
+  
+  
+    
+    
+      
+    
+    
+    
+    
+    <body dir="ltr" data-md-color-scheme="slate" data-md-color-primary="deep-orange" data-md-color-accent="amber">
+  
+    
+    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
+    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
+    <label class="md-overlay" for="__drawer"></label>
+    <div data-md-component="skip">
+      
+        
+        <a href="#background" class="md-skip">
+          Skip to content
+        </a>
+      
+    </div>
+    <div data-md-component="announce">
+      
+    </div>
+    
+    
+      
+
+<header class="md-header" data-md-component="header">
+  <nav class="md-header__inner md-grid" aria-label="Header">
+    <a href="../../../../.." title="Aaron Huntley" class="md-header__button md-logo" aria-label="Aaron Huntley" data-md-component="logo">
+      
+  <img src="../../../../../images/logo.png" alt="logo">
+
+    </a>
+    <label class="md-header__button md-icon" for="__drawer">
+      
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3 6h18v2H3zm0 5h18v2H3zm0 5h18v2H3z"/></svg>
+    </label>
+    <div class="md-header__title" data-md-component="header-title">
+      <div class="md-header__ellipsis">
+        <div class="md-header__topic">
+          <span class="md-ellipsis">
+            Aaron Huntley
+          </span>
+        </div>
+        <div class="md-header__topic" data-md-component="header-topic">
+          <span class="md-ellipsis">
+            
+              A generalised family construction for virtual double categories
+            
+          </span>
+        </div>
+      </div>
+    </div>
+    
+      
+        <form class="md-header__option" data-md-component="palette">
+  
+    
+    
+    
+    <input class="md-option" data-md-color-media="" data-md-color-scheme="slate" data-md-color-primary="deep-orange" data-md-color-accent="amber"  aria-label="Dark mode"  type="radio" name="__palette" id="__palette_0">
+    
+      <label class="md-header__button md-icon" title="Dark mode" for="__palette_1" hidden>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 7a5 5 0 0 1 5 5 5 5 0 0 1-5 5 5 5 0 0 1-5-5 5 5 0 0 1 5-5m0 2a3 3 0 0 0-3 3 3 3 0 0 0 3 3 3 3 0 0 0 3-3 3 3 0 0 0-3-3m0-7 2.39 3.42C13.65 5.15 12.84 5 12 5s-1.65.15-2.39.42zM3.34 7l4.16-.35A7.2 7.2 0 0 0 5.94 8.5c-.44.74-.69 1.5-.83 2.29zm.02 10 1.76-3.77a7.131 7.131 0 0 0 2.38 4.14zM20.65 7l-1.77 3.79a7.02 7.02 0 0 0-2.38-4.15zm-.01 10-4.14.36c.59-.51 1.12-1.14 1.54-1.86.42-.73.69-1.5.83-2.29zM12 22l-2.41-3.44c.74.27 1.55.44 2.41.44.82 0 1.63-.17 2.37-.44z"/></svg>
+      </label>
+    
+  
+    
+    
+    
+    <input class="md-option" data-md-color-media="" data-md-color-scheme="default" data-md-color-primary="cyan" data-md-color-accent="light-green"  aria-label="Light mode"  type="radio" name="__palette" id="__palette_1">
+    
+      <label class="md-header__button md-icon" title="Light mode" for="__palette_0" hidden>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="m17.75 4.09-2.53 1.94.91 3.06-2.63-1.81-2.63 1.81.91-3.06-2.53-1.94L12.44 4l1.06-3 1.06 3zm3.5 6.91-1.64 1.25.59 1.98-1.7-1.17-1.7 1.17.59-1.98L15.75 11l2.06-.05L18.5 9l.69 1.95zm-2.28 4.95c.83-.08 1.72 1.1 1.19 1.85-.32.45-.66.87-1.08 1.27C15.17 23 8.84 23 4.94 19.07c-3.91-3.9-3.91-10.24 0-14.14.4-.4.82-.76 1.27-1.08.75-.53 1.93.36 1.85 1.19-.27 2.86.69 5.83 2.89 8.02a9.96 9.96 0 0 0 8.02 2.89m-1.64 2.02a12.08 12.08 0 0 1-7.8-3.47c-2.17-2.19-3.33-5-3.49-7.82-2.81 3.14-2.7 7.96.31 10.98 3.02 3.01 7.84 3.12 10.98.31"/></svg>
+      </label>
+    
+  
+</form>
+      
+    
+    
+      <script>var palette=__md_get("__palette");if(palette&&palette.color){if("(prefers-color-scheme)"===palette.color.media){var media=matchMedia("(prefers-color-scheme: light)"),input=document.querySelector(media.matches?"[data-md-color-media='(prefers-color-scheme: light)']":"[data-md-color-media='(prefers-color-scheme: dark)']");palette.color.media=input.getAttribute("data-md-color-media"),palette.color.scheme=input.getAttribute("data-md-color-scheme"),palette.color.primary=input.getAttribute("data-md-color-primary"),palette.color.accent=input.getAttribute("data-md-color-accent")}for(var[key,value]of Object.entries(palette.color))document.body.setAttribute("data-md-color-"+key,value)}</script>
+    
+    
+    
+    
+  </nav>
+  
+</header>
+    
+    <div class="md-container" data-md-component="container">
+      
+      
+        
+          
+            
+<nav class="md-tabs" aria-label="Tabs" data-md-component="tabs">
+  <div class="md-grid">
+    <ul class="md-tabs__list">
+      
+        
+  
+  
+  
+  
+    <li class="md-tabs__item">
+      <a href="../../../../.." class="md-tabs__link">
+        
+  
+  
+    
+  
+  Home
+
+      </a>
+    </li>
+  
+
+      
+        
+  
+  
+  
+  
+    
+    
+      <li class="md-tabs__item">
+        <a href="../../../../../aboutme/cv/" class="md-tabs__link">
+          
+  
+  
+  About me
+
+        </a>
+      </li>
+    
+  
+
+      
+        
+  
+  
+  
+    
+  
+  
+    
+    
+      <li class="md-tabs__item md-tabs__item--active">
+        <a href="../../../../" class="md-tabs__link">
+          
+  
+  
+  Conversations with friends
+
+        </a>
+      </li>
+    
+  
+
+      
+    </ul>
+  </div>
+</nav>
+          
+        
+      
+      <main class="md-main" data-md-component="main">
+        <div class="md-main__inner md-grid">
+          
+            
+              
+                
+              
+              <div class="md-sidebar md-sidebar--primary" data-md-component="sidebar" data-md-type="navigation" hidden>
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+
+  
+
+
+<nav class="md-nav md-nav--primary md-nav--lifted" aria-label="Navigation" data-md-level="0">
+  <label class="md-nav__title" for="__drawer">
+    <a href="../../../../.." title="Aaron Huntley" class="md-nav__button md-logo" aria-label="Aaron Huntley" data-md-component="logo">
+      
+  <img src="../../../../../images/logo.png" alt="logo">
+
+    </a>
+    Aaron Huntley
+  </label>
+  
+  <ul class="md-nav__list" data-md-scrollfix>
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../.." class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Home
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+      
+      
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2" >
+        
+          
+          <label class="md-nav__link" for="__nav_2" id="__nav_2_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    About me
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_2_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_2">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    About me
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../../aboutme/cv/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    CV
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../../aboutme/talks/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Talks
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+    
+  
+  
+  
+    
+    
+    
+    
+      
+        
+        
+      
+      
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--active md-nav__item--section md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_3" checked>
+        
+          
+          <label class="md-nav__link" for="__nav_3" id="__nav_3_label" tabindex="">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Conversations with friends
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_3_label" aria-expanded="true">
+          <label class="md-nav__title" for="__nav_3">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Conversations with friends
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+    
+  
+  
+    
+  
+  
+    <li class="md-nav__item md-nav__item--active">
+      <a href="../../../../" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Conversations with friends
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+    
+    
+      
+      
+        
+          
+          
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--section md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_3_2" >
+        
+          
+          <label class="md-nav__link" for="__nav_3_2" id="__nav_3_2_label" tabindex="">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Archive
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_3_2_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_3_2">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Archive
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+    
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../archive/2026/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    2026
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+  </ul>
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+            
+              
+                
+              
+              <div class="md-sidebar md-sidebar--secondary" data-md-component="sidebar" data-md-type="toc" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#the-family-construction" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        The family construction
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#families-of-double-categories" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Families of double categories
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#virtual-double-categories" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Virtual double categories
+      
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+          
+          
+  <div class="md-content md-content--post" data-md-component="content">
+    <div class="md-sidebar md-sidebar--post" data-md-component="sidebar" data-md-type="navigation">
+      <div class="md-sidebar__scrollwrap">
+        <div class="md-sidebar__inner md-post">
+          <nav class="md-nav md-nav--primary">
+            <div class="md-post__back">
+              <div class="md-nav__title md-nav__container">
+                <a href="../../../../" class="md-nav__link">
+                  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11z"/></svg>
+                  <span class="md-ellipsis">
+                    Back to index
+                  </span>
+                </a>
+              </div>
+            </div>
+            
+            <ul class="md-post__meta md-nav__list">
+              <li class="md-nav__item md-nav__item--section">
+                <div class="md-post__title">
+                  <span class="md-ellipsis">
+                    Metadata
+                  </span>
+                </div>
+                <nav class="md-nav">
+                  <ul class="md-nav__list">
+                    <li class="md-nav__item">
+                      <div class="md-nav__link">
+                        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19 19H5V8h14m-3-7v2H8V1H6v2H5c-1.11 0-2 .89-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V5a2 2 0 0 0-2-2h-1V1m-1 11h-5v5h5z"/></svg>
+                        <time datetime="2026-10-05 00:00:00+00:00" class="md-ellipsis">October 5, 2026</time>
+                      </div>
+                    </li>
+                    
+                    
+                    
+                      
+                      <li class="md-nav__item">
+                        <div class="md-nav__link">
+                          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 20a8 8 0 0 0 8-8 8 8 0 0 0-8-8 8 8 0 0 0-8 8 8 8 0 0 0 8 8m0-18a10 10 0 0 1 10 10 10 10 0 0 1-10 10C6.47 22 2 17.5 2 12A10 10 0 0 1 12 2m.5 5v5.25l4.5 2.67-.75 1.23L11 13V7z"/></svg>
+                          <span class="md-ellipsis">
+                            
+                              16 min read
+                            
+                          </span>
+                        </div>
+                      </li>
+                    
+                  </ul>
+                </nav>
+              </li>
+            </ul>
+            
+          </nav>
+          
+        </div>
+      </div>
+    </div>
+    <article class="md-content__inner md-typeset">
+      
+        
+  
+
+
+
+
+<div style="display:none">
+<div class="arithmatex">\[
+% Category theory
+\newcommand{\xto}[1]{\xrightarrow{#1}}
+\newcommand{\To}{\Rightarrow}
+\newcommand{\Ob}{\operatorname{Ob}}
+\newcommand{\Hom}{\operatorname{Hom}}
+\newcommand{\id}{\operatorname{id}}
+\newcommand{\op}{\mathrm{op}}
+\newcommand{\co}{\mathrm{co}}
+\newcommand{\coop}{\mathrm{coop}}
+% Categories
+\newcommand{\cat}[1]{\mathsf{#1}}
+\newcommand{\Set}{\mathsf{Set}}
+% Morphism classes
+\newcommand{\inj}{\cat{inj}}
+\newcommand{\surj}{\cat{surj}}
+\newcommand{\bij}{\cat{bij}}
+\newcommand{\all}{\cat{all}}
+\newcommand{\idnt}{\cat{id}}
+% Double category theory
+\newcommand{\proto}{\mathrel{\mkern3mu\vcenter{\hbox{$\shortmid$}}\mkern-10mu{\to}}}
+\newcommand{\xproto}[1]{\ \overset{#1}{\proto}\ }
+\newcommand{\proTo}{\mathrel{\mkern3mu\vcenter{\hbox{$\scriptstyle\mid$}}\mkern-8mu{\Rightarrow}}}
+% Double categories
+\newcommand{\dbl}[1]{\mathbb{#1}}
+\newcommand{\Span}{\mathbb{S}\mathsf{pan}}
+\newcommand{\B}{\mathbb{B}}
+\newcommand{\ThPromnd}{\mathbb{T}_{\cat{Promnd}}}
+\newcommand{\DblFam}{\mathbb{F}\mathsf{am}}
+\newcommand{\DblFamOp}{\mathbb{F}\mathsf{am}^*}
+\newcommand{\DblFamLR}{\mathbb{F}\mathsf{am}_{L,R}}
+\newcommand{\DblFamOpLR}{{\mathbb{F}\mathsf{am}^*_{L,R}}}
+\]</div>
+</div>
+<p>The category of sets and functions is a favourite of category theorists.
+Among its special features, it is the free coproduct cocompletion of the
+terminal category. But functions are not the only sensible mapping you
+can consider between sets; take, for example, partial functions. A
+similar free-cocompletion characterisation of the category of sets and
+partial functions is more elusive. One satisfying resolution comes from
+double categories.</p>
+<!-- more -->
+
+<p>For a double category, we can define its double category of families,
+which is its free coproduct completion. However, unlike the
+<span class="arithmatex">\(1\)</span>-categorical case, the construction can be parameterised by certain
+classes of functions, giving many kinds of family construction. A
+specific choice of parameterisation does exhibit the double category of
+sets, functions and partial functions as a free coproduct completion of
+the terminal double category.</p>
+<p>However, with the new understanding we can do even more. We can redefine
+what it means for a double category to have products via a contravariant
+family construction. Then, using these refined classes of products, we
+can define a 'double category of partial maps' as a double category with
+a particular class of products. A double category of partial maps then
+has an underlying bicategory of partial maps as in Carboni (1987).</p>
+<p>Finally, the theory extends to (co)virtual double categories, giving a
+notion of product in a virtual double category and of coproduct in a
+covirtual double category. This generalisation is useful in (co)virtual
+double categories of spans and cospans, which exist for any category,
+not just those with pullbacks or pushouts.</p>
+<p>This is joint work with Evan Patterson from this summer; it accompanies
+a <a href="https://www.youtube.com/watch?v=xa04dVG4fEs">talk</a> and a forthcoming
+paper.</p>
+<h1 id="background">Background</h1>
+<h2 id="the-family-construction">The family construction</h2>
+<p>The category <span class="arithmatex">\(\mathbf{Set}\)</span> of sets and functions is the free coproduct
+completion of the terminal category (<span class="nocase">nLab</span>
+(2026)). To see the result, we can define a free coproduct completion
+via the family construction.</p>
+<div class="theorem definition" id="def-family-construction">
+<p><strong>Definition 1</strong> For a category <span class="arithmatex">\(\mathsf{C}\)</span>, the <em>category of families
+<span class="arithmatex">\(\mathsf{Fam}(\mathsf{C})\)</span></em> is defined as follows:</p>
+<ul>
+<li>objects <span class="arithmatex">\((I,x)\)</span> are a set <span class="arithmatex">\(I\)</span> with <span class="arithmatex">\(I\)</span>-indexed objects <span class="arithmatex">\(x_i\)</span> of
+  <span class="arithmatex">\(\mathsf{C}\)</span>;</li>
+<li>morphisms <span class="arithmatex">\((f_0,f)\colon (I,x)\to (J,y)\)</span> are a function
+  <span class="arithmatex">\(f_0\colon I\to J\)</span> with <span class="arithmatex">\(I\)</span>-indexed morphisms
+  <span class="arithmatex">\(f_i\colon x_i\to y_{f_0(i)}\)</span> of <span class="arithmatex">\(\mathsf{C}\)</span>.</li>
+</ul>
+</div>
+<p>There is an inclusion
+<span class="arithmatex">\(\Delta\colon \mathsf{C}\to \mathsf{Fam}(\mathsf{C})\)</span> given by sending
+objects and morphisms to the objects and morphisms indexed by the
+singleton set, <span class="arithmatex">\(1\)</span>. We then obtain the universal property: for any
+functor <span class="arithmatex">\(F\colon \mathsf{C}\to \mathsf{D}\)</span>, where <span class="arithmatex">\(\mathsf{D}\)</span> has small
+coproducts, there exists an essentially unique coproduct-preserving
+functor <span class="arithmatex">\(\hat{F}\colon \mathsf{Fam}(\mathsf{C})\to \mathsf{D}\)</span> such that
+the diagram</p>
+<div class="tikz">
+<p><img alt="" src="../../../../vdc-fam/_svgs/ed4204a4c3d4a4b76e2d0cf85fbf2a000f5684b1.svg" /></p>
+</div>
+<p>commutes.</p>
+<p>Can we trace the universal property in reverse? From the family
+construction on a category, how do we recover the coproduct? If
+<span class="arithmatex">\(\mathsf{C}\)</span> has coproducts, then we can define
+<span class="arithmatex">\(\Sigma:= \widehat{\mathsf{id}_{\mathsf{C}}} \colon \mathsf{Fam}(\mathsf{C})\to \mathsf{C}\)</span>.
+It is a fun exercise to show that a category <span class="arithmatex">\(\mathsf{C}\)</span> has coproducts
+if and only if the inclusion
+<span class="arithmatex">\(\Delta\colon \mathsf{C}\to \mathsf{Fam}(\mathsf{C})\)</span> admits a left
+adjoint, <span class="arithmatex">\(\Sigma\dashv \Delta\)</span>. So, starting from the family
+construction, we can characterise coproducts by the existence of a left
+adjoint.</p>
+<p>Using the tools of category theory, there is a nice way to describe the
+family construction. The family construction is the free coproduct
+completion monad. The algebras over the monad give categories with
+coproducts. The unit of the monad is the inclusion of a category into
+the category of families, and the multiplication is taking coproducts in
+the category of families. If <span class="arithmatex">\(\mathsf{C}\)</span> is an algebra, then the
+algebra laws force the algebra action, <span class="arithmatex">\(\Sigma\)</span>, to be isomorphic to
+taking coproducts in <span class="arithmatex">\(\mathsf{C}\)</span>. In fact, <span class="arithmatex">\(\mathsf{Fam}\)</span> is what's
+called a lax-idempotent monad on <span class="arithmatex">\(\mathbf{Cat}\)</span>, which tells us that the
+algebra structure, if it exists, is unique up to isomorphism (see Kelly
+and Lack (1997)).</p>
+<h2 id="families-of-double-categories">Families of double categories</h2>
+<p>When we start looking at higher-dimensional category theory, in
+particular in double categories, it is not uncommon for definitions that
+agree in the <span class="arithmatex">\(1\)</span>-categorical case to diverge. In this case, you may want
+to define a coproduct as an initial cocone over a discrete diagram
+<span class="arithmatex">\(F\colon I\to \mathsf{C}\)</span> or as a left adjoint to the inclusion
+<span class="arithmatex">\(\Delta\colon \mathsf{C}\to \mathsf{Fam}(\mathsf{C})\)</span>, depending on
+which is convenient.</p>
+<p>In their seminal paper, Grandis and Paré (1999) extended the former
+definition to the setting of double categories. They defined what it
+means for a double functor <span class="arithmatex">\(F\colon \mathbb{I} \to \mathbb{D}\)</span> from a
+small double category to have a (co)limit. In particular, when
+<span class="arithmatex">\(\mathbb{I}\)</span> is discrete, we obtain a definition for a double
+(co)product.</p>
+<p>The free completion under the Grandis-Paré coproduct may appear
+unsatisfying when you consider certain double categories. Specifically,
+taking the terminal double category, <span class="arithmatex">\(𝟙\)</span>, and freely adding double
+coproducts, we obtain the double category of sets, functions, trivial
+proarrows and cells. If you know some double category theory, you may
+have expected the answer to be <span class="arithmatex">\(\mathbb{S}\mathsf{pan}\)</span>, the double
+category of sets, functions, spans and span homomorphisms.
+<span class="arithmatex">\(\mathbb{S}\mathsf{pan}\)</span> plays a crucial role in double category theory
+as exhibited, for example, in Paré (2011), where the double Yoneda
+embedding lands in the virtual double category of
+<span class="arithmatex">\(\mathbb{S}\mathsf{pan}\)</span>-valued double functors.</p>
+<p>A remedy for this problem is an idea introduced by Paré (2009) and
+developed by Patterson (2026). Evan defined a double family construction
+<span class="arithmatex">\(\mathbb{F}\mathsf{am}(\mathbb{D})\)</span>, the key difference being that we
+index the proarrows in <span class="arithmatex">\(\mathbb{D}\)</span> by arbitrary spans of sets
+<span class="arithmatex">\(I\leftarrow A\rightarrow J\)</span>, and redefined a double coproduct as a lax
+left adjoint to the inclusion
+<span class="arithmatex">\(\Delta \colon\mathbb{D}\to \mathbb{F}\mathsf{am}(\mathbb{D})\)</span>,
+mirroring the <span class="arithmatex">\(1\)</span>-categorical case. Restricting to identity spans
+recovers Grandis and Paré's definition. Furthermore, completing with
+respect to the new notion of coproduct gives us the desired result,
+<span class="arithmatex">\(\mathbb{F}\mathsf{am}(𝟙)\cong\mathbb{S}\mathsf{pan}\)</span>.</p>
+<h2 id="virtual-double-categories">Virtual double categories</h2>
+<p>We are assuming the reader is familiar with category theory and knows of
+double categories, but may not have come across virtual double
+categories (VDCs). It is worth spending some time to get used to VDCs
+since they are becoming increasingly useful in the study of formal
+category theory. The idea was first introduced by Burroni (1971) as the
+case <span class="arithmatex">\(\mathrm{T}=\mathrm{fc}\)</span> of his '<span class="arithmatex">\(\mathrm{T}\)</span>-categories', where
+<span class="arithmatex">\(\mathrm{fc}\)</span> is the free-category monad. Virtual double categories were
+then developed by Leinster (2004) where they are called
+'<span class="arithmatex">\(\mathrm{fc}\)</span>-multicategories'. We will use the name and notation from
+Cruttwell and Shulman (2010).</p>
+<p>One benefit of virtual double categories is that we can now capture
+examples such as <span class="arithmatex">\(\mathbb{C}\mathsf{ospan}(\mathsf{C})\)</span>, which can be
+defined even when <span class="arithmatex">\(\mathsf{C}\)</span> does not have pushouts. For us, this
+means we can define products in the virtual double category
+<span class="arithmatex">\(\mathbb{C}\mathsf{ospan}(\mathsf{C})\)</span>. Later in this post, we will
+include an example of the dual situation: coproducts in covirtual double
+categories.</p>
+<p>Before seeing a virtual double category, it is worth remembering what a
+double category is. A double category, <span class="arithmatex">\(\mathbb{D}\)</span>, is a category
+object internal to <span class="arithmatex">\(\mathbf{Cat}\)</span>. We will denote the underlying
+category of objects and arrows as <span class="arithmatex">\(\mathbb{D}_0\)</span> and of proarrows and
+cells as <span class="arithmatex">\(\mathbb{D}_1\)</span>. Double categories have proven useful since they
+can package together two kinds of arrows in the same structure. For
+example, sets typically have functions as maps between them, and
+functions are very well studied. However, there are other kinds of
+mappings between sets such as relations, partial functions and spans. We
+can define the double categories <span class="arithmatex">\(\mathbb{P}\mathsf{ar}\)</span> or
+<span class="arithmatex">\(\mathbb{S}\mathsf{pan}\)</span> with functions as arrows and partial functions
+or spans as the proarrows. This allows us to study partial functions or
+spans through their relationship with functions.</p>
+<p>The step from double categories to virtual double categories is a small
+one. We forget about the composition of proarrows, and to compensate we
+let the cells have an arbitrary composable string of proarrows as their
+source.</p>
+<div class="theorem definition" id="def-virtual-double-category">
+<p><strong>Definition 2</strong> A <em>virtual double category</em> <span class="arithmatex">\(\mathbb{D}\)</span> has as data:</p>
+<ul>
+<li>objects, <span class="arithmatex">\(x\)</span>;</li>
+<li>arrows, <span class="arithmatex">\(f\colon x\to y\)</span>;</li>
+<li>proarrows, <span class="arithmatex">\(u\colon x\proto y\)</span>;</li>
+<li>cells,</li>
+</ul>
+<div class="tikz">
+<p><img alt="" src="../../../../vdc-fam/_svgs/9ac61267e9ee3b0f234aa1659169272d2ada6390.svg" /></p>
+</div>
+<ul>
+<li>arrow composition;</li>
+<li>cell composition</li>
+</ul>
+<div class="tikz">
+<p><img alt="" src="../../../../vdc-fam/_svgs/f9297728eb65848a45f1ac2059c77766fa9e2fb1.svg" /></p>
+</div>
+<div class="arithmatex">\[
+=
+\]</div>
+<div class="tikz">
+<p><img alt="" src="../../../../vdc-fam/_svgs/1ea9aff916509c52bcff53ac5d30cea0e96ba474.svg" /></p>
+</div>
+<ul>
+<li>identity arrows;</li>
+<li>identity cells;</li>
+</ul>
+<p>subject to the axioms:</p>
+<ul>
+<li>objects and arrows form a category;</li>
+<li>associativity and identity axioms for cell composition.</li>
+</ul>
+</div>
+<p>To recover the relation to double categories, we can define notions of
+virtual double functors and transformations as the maps preserving the
+relevant structure. Then there is an inclusion (fully faithful on
+<span class="arithmatex">\(1\)</span>-cells and <span class="arithmatex">\(2\)</span>-cells) of the <span class="arithmatex">\(2\)</span>-category of double categories, lax
+functors and transformations, into the <span class="arithmatex">\(2\)</span>-category of virtual double
+categories, virtual functors and transformations.</p>
+<div class="arithmatex">\[
+\mathbf{Dbl}_{\mathrm{lax}} \hookrightarrow \mathbf{vDbl}
+\]</div>
+<p>As mentioned in the intro, we can define
+<span class="arithmatex">\(\mathbb{S}\mathsf{pan}(\mathsf{C})\)</span> even when <span class="arithmatex">\(\mathsf{C}\)</span> doesn't have
+pullbacks. First, we need to dualise our definition of a VDC to get
+what's called a covirtual double category (coVDC). Notice how simply
+reversing the arrows in a VDC will not give us back a VDC, due to the
+asymmetry of the multi-source and single-target of the cells. So, define
+a coVDC to consist of objects, arrows, proarrows and cells of the shape</p>
+<div class="tikz">
+<p><img alt="" src="../../../../vdc-fam/_svgs/a1eb5a343eddbd656e8655cdb610951f9729822f.svg" /></p>
+</div>
+<p>Notice that coVDCs also generalise double categories by forgetting loose
+composition.</p>
+<p>Now we can give a use for this abstraction, hinted at already. The
+following example can be found in Dawson et al. (2010), Proposition 4.3,
+where covirtual double categories are named oplax double categories.</p>
+<div class="theorem example" id="exm-span-c">
+<p><strong>Example 1</strong> For <em>any</em> category <span class="arithmatex">\(\mathsf{C}\)</span> define the covirtual
+double category <span class="arithmatex">\(\mathbb{S}\mathsf{pan}(\mathsf{C})\)</span> as:</p>
+<ul>
+<li>having objects and arrows, the objects and arrows of <span class="arithmatex">\(\mathsf{C}\)</span>;</li>
+<li>having proarrows, spans of arrows of <span class="arithmatex">\(\mathsf{C}\)</span>,
+  <span class="arithmatex">\(X\leftarrow A\rightarrow Y\)</span>;</li>
+<li>having cells, a collection of arrows of <span class="arithmatex">\(\mathsf{C}\)</span>,
+  <span class="arithmatex">\(\alpha_i\colon B \to A_i\)</span> such that the diagram</li>
+</ul>
+<div class="tikz">
+<p><img alt="" src="../../../../vdc-fam/_svgs/75d24f3f4e43211df5272e83975d6b9b5a153a73.svg" /></p>
+</div>
+<p>commutes.</p>
+</div>
+<p>Since we didn't need to compose spans, we never needed pullbacks. If
+<span class="arithmatex">\(\mathsf{C}\)</span> has pullbacks, then, by the universal property, the maps
+<span class="arithmatex">\(\alpha_i\)</span> form a cone over the pullback diagram and hence give a unique
+map into the pullback. Therefore, our definition and the one defined by
+maps into the pullback coincide.</p>
+<h1 id="the-family-construction-for-virtual-double-categories">The family construction for virtual double categories</h1>
+<p>Now that we have <em>familiarised</em> ourselves with virtual double categories
+and the family construction, we will put them together to get the family
+construction on VDCs. The definition will seem a little intimidating, so
+first let's figure out how we get there.</p>
+<p>To come up with the definition, there's one thing we know already: we
+want the construction to be the same on objects and arrows as for the
+family construction on categories. This leaves us to decide what happens
+on proarrows and cells. For a double category <span class="arithmatex">\(\mathbb{D}\)</span>, we want to
+index both underlying categories, <span class="arithmatex">\(\mathbb{D}_0\)</span> and <span class="arithmatex">\(\mathbb{D}_1\)</span>,
+with a discrete category. We could choose the same set <span class="arithmatex">\(I\)</span> indexing both
+categories, giving us a diagram,</p>
+<div class="tikz">
+<p><img alt="" src="../../../../vdc-fam/_svgs/c43e21e987dbe1b6926fd068462c4c76e67d0471.svg" /></p>
+</div>
+<p>However, it makes just as much sense to index the categories by
+different underlying sets with functors (functions since the categories
+are discrete) that commute with the source and target functors,</p>
+<div class="tikz">
+<p><img alt="" src="../../../../vdc-fam/_svgs/e925b39230ad9c20121e032670761be97ea01953.svg" /></p>
+</div>
+<p>This idea, first due to Paré (2009), is what we mean when we <em>index by a
+span</em> of sets <span class="arithmatex">\(I\leftarrow A \rightarrow J\)</span>. We can index cells by span
+morphisms. Although we don't have diagrams like the one above in virtual
+double categories, we can still perform a similar construction.</p>
+<div class="theorem definition" id="def-family-construction-vdcs">
+<p><strong>Definition 3 (Family construction on VDCs)</strong> For a virtual double
+category <span class="arithmatex">\(\mathbb{D}\)</span>, the <em>(contravariant) family construction
+<span class="arithmatex">\(\DblFamOp(\mathbb{D})\)</span></em> is defined as follows:</p>
+<ul>
+<li>objects, <span class="arithmatex">\((I,x)\)</span>, are a set <span class="arithmatex">\(I\)</span> and an <span class="arithmatex">\(I\)</span>-indexed family of objects
+  in <span class="arithmatex">\(\mathbb{D}\)</span>;</li>
+<li>arrows, <span class="arithmatex">\((f_0,f)\colon (I,x)\to (J,y)\)</span>, are a function
+  <span class="arithmatex">\(f_0\colon J \to I\)</span> and a <span class="arithmatex">\(J\)</span>-indexed family of arrows
+  <span class="arithmatex">\(f_j\colon x_{f_0(j)}\to y_{j}\)</span> in <span class="arithmatex">\(\mathbb{D}\)</span>;</li>
+<li>proarrows, <span class="arithmatex">\((A, p)\colon (I,x)\proto (J,y)\)</span>, are a span
+  <span class="arithmatex">\(I\overset{l}{\leftarrow} A \overset{r}{\rightarrow} J\)</span> and a
+  span-indexed family of proarrows <span class="arithmatex">\(p_a\colon x_{l(a)}\proto y_{r(a)}\)</span>
+  in <span class="arithmatex">\(\mathbb{D}\)</span>;</li>
+<li>cells, <span class="arithmatex">\((\alpha_0,\alpha)\)</span>,</li>
+</ul>
+<div class="tikz">
+<p><img alt="" src="../../../../vdc-fam/_svgs/df6e0047aa178555b7e6c79712830de43614fb9c.svg" /></p>
+</div>
+<p>are a morphism of spans,</p>
+<div class="tikz">
+<p><img alt="" src="../../../../vdc-fam/_svgs/5a3790b22c268e0665ffbbc8e1c48feefadfdf77.svg" /></p>
+</div>
+<p>and a <span class="arithmatex">\((J_0\leftarrow B\rightarrow J_1)\)</span>-indexed family of cells</p>
+<div class="tikz">
+<p><img alt="" src="../../../../vdc-fam/_svgs/16e8041415c9162ff2c0df1e2c4295f428f81e68.svg" /></p>
+</div>
+<p>in <span class="arithmatex">\(\mathbb{D}\)</span>.</p>
+</div>
+<div>
+<blockquote>
+<p><strong>Covariant vs contravariant</strong></p>
+<p>You may have noticed the arrows in the construction here are going in
+the opposite direction to the one you might expect. This is because we
+are giving the contravariant family construction, so that we can
+define products rather than coproducts. To define coproducts in a
+double category, we need to consider the covariant family
+construction, which generalises to <em>covirtual</em> double categories. To
+avoid getting into the weeds, we will present the contravariant
+version where we write <span class="arithmatex">\(*\)</span> and hope the reader can dualise where
+necessary. To help remember the upcoming terminology, note:
+<span class="arithmatex">\(* \implies\)</span> contravariant <span class="arithmatex">\(\implies\)</span> colax-idempotent <span class="arithmatex">\(\implies\)</span>
+right adjoint gives products, and no <span class="arithmatex">\(* \implies\)</span> covariant <span class="arithmatex">\(\implies\)</span>
+lax-idempotent <span class="arithmatex">\(\implies\)</span> left adjoint gives coproducts.</p>
+</blockquote>
+</div>
+<p>We find that the double family construction here, similarly to the
+<span class="arithmatex">\(1\)</span>-categorical case, is a (co)lax-idempotent monad. So, we get many
+similar results such as the family construction being a free completion
+and the algebra structure being unique. However, the difference from the
+<span class="arithmatex">\(1\)</span>-categorical case is that we have many different double-categorical
+family monads parameterised by the definition below.</p>
+<h2 id="span-indexing-pairs">Span indexing pairs</h2>
+<p>Indexing proarrows by a span gives us a lot more freedom in what we
+index by. It is no longer just the indexing set that can vary, but also
+the functions in the legs of the span. We can notice that certain
+classes of these functions, for example injections, are closed under the
+operations which encode the family monad. So there is not just one
+family monad but many, depending on which class of functions we choose
+for the legs of the span. In particular, we have the following:</p>
+<div class="theorem definition" id="def-span-indexing-pair">
+<p><strong>Definition 4 (Span indexing pair)</strong> A <em>span indexing pair</em>, <span class="arithmatex">\((L,R)\)</span>,
+is a pair of classes of functions satisfying:</p>
+<ul>
+<li>(pullback closure) if <span class="arithmatex">\(l,l^\prime \in L\)</span> and <span class="arithmatex">\(r,r^\prime \in R\)</span> then
+  in the pullback square below <span class="arithmatex">\(f \in L\)</span> and <span class="arithmatex">\(g \in R\)</span>.</li>
+</ul>
+<div class="tikz">
+<p><img alt="" src="../../../../vdc-fam/_svgs/200f06c2a9db3fb4259686f5ee942b10361c6cf1.svg" /></p>
+</div>
+<ul>
+<li>
+<p>(coproduct closure) for a collection of arrows
+  <span class="arithmatex">\(p_a\colon S_a \rightarrowtail V_{r(a)}\)</span> in <span class="arithmatex">\(L\)</span> (resp. <span class="arithmatex">\(R\)</span>) indexed by
+  a function <span class="arithmatex">\(r\colon A\rightarrowtail J\)</span> in <span class="arithmatex">\(L\)</span> (resp. <span class="arithmatex">\(R\)</span>), the
+  copairing of arrows
+  <span class="arithmatex">&#92;[&#91;&#92;iota &#92;circ p&#95;a&#93;&#95;{a&#92;in A}&#92;colon &#92;bigsqcup&#95;{a&#92;in A}S&#95;a&#92;rightarrowtail &#92;bigsqcup&#95;{j&#92;in J}V&#95;j&#92;]</span>
+  is also in <span class="arithmatex">\(L\)</span> (resp. <span class="arithmatex">\(R\)</span>).</p>
+</li>
+<li>
+<p>(unit) <span class="arithmatex">\(\id_{1}\colon 1 \to 1\)</span> is in <span class="arithmatex">\(L\)</span> and <span class="arithmatex">\(R\)</span>.</p>
+</li>
+</ul>
+</div>
+<p>The definition reflects exactly the conditions we need for the double
+family construction to assemble into a monad.</p>
+<p>Examples of span indexing pairs seem to come in two flavours:
+subcategories such as <span class="arithmatex">\(\surj\)</span> or <span class="arithmatex">\(\inj\)</span> and small examples such as the
+set of all maps out of the initial set, <span class="arithmatex">\(\varnothing\)</span>. The classes of
+interest are:</p>
+<table>
+<thead>
+<tr>
+<th>class</th>
+<th>functions</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><span class="arithmatex">\(\all\)</span></td>
+<td>all functions</td>
+</tr>
+<tr>
+<td><span class="arithmatex">\(\bij\)</span></td>
+<td>bijections</td>
+</tr>
+<tr>
+<td><span class="arithmatex">\(\surj\)</span></td>
+<td>surjections</td>
+</tr>
+<tr>
+<td><span class="arithmatex">\(\inj\)</span></td>
+<td>injections</td>
+</tr>
+<tr>
+<td><span class="arithmatex">\(\idnt\)</span></td>
+<td>identity functions</td>
+</tr>
+<tr>
+<td><span class="arithmatex">\(\varnothing\)</span></td>
+<td>functions out of the empty set (initial)</td>
+</tr>
+<tr>
+<td><span class="arithmatex">\(!\)</span></td>
+<td>functions into the singleton set (terminal)</td>
+</tr>
+<tr>
+<td><span class="arithmatex">\(\idnt_{\varnothing}\)</span></td>
+<td><span class="arithmatex">\(\{\id_\varnothing,\id_{1}\}\)</span></td>
+</tr>
+<tr>
+<td><span class="arithmatex">\(\idnt_{1}\)</span></td>
+<td><span class="arithmatex">\(\{\id_{1}\}\)</span></td>
+</tr>
+</tbody>
+</table>
+<p>They can be arranged into a nice diagram below.</p>
+<div class="tikz">
+<p><img alt="" src="../../../../vdc-fam/_svgs/5ee957d995e002e93d54885c9ec570f61b763a3e.svg" /></p>
+</div>
+<p>Note that not every class can pair with every other class to form a
+valid span indexing pair, as together the pullback condition needs to be
+satisfied.</p>
+<p>We can now define a refined family construction
+<span class="arithmatex">\(\mathbb{F}\mathsf{am}_{(L,R)}(\mathbb{D})\)</span> by only indexing by spans
+with the left leg in <span class="arithmatex">\(L\)</span> and right leg in <span class="arithmatex">\(R\)</span>.</p>
+<div class="theorem" id="thm-generalised-family-monads">
+<p><strong>Theorem 1 (Generalised family monads)</strong> For a span indexing pair
+<span class="arithmatex">\((L,R)\)</span> there is a colax-idempotent pseudomonad,</p>
+<div class="arithmatex">\[
+\DblFamOpLR \colon \mathbf{vDbl}\to \mathbf{vDbl},
+\]</div>
+<p>given by the family construction. The unit of the pseudomonad,
+<span class="arithmatex">\(\Delta\colon \id \Rightarrow \DblFamOpLR\)</span>, is the inclusion at the
+singleton set, and the multiplication,
+<span class="arithmatex">\(\Sigma\colon \DblFamOpLR^2\Rightarrow \DblFamOpLR\)</span>, is taking the
+coproduct over the indexing sets.</p>
+</div>
+<p>Dually, for a span indexing pair <span class="arithmatex">\((L,R)\)</span>, there is a lax-idempotent
+pseudomonad, <span class="arithmatex">\(\DblFamLR\colon \mathbf{covDbl}\to \mathbf{covDbl}\)</span>. Both
+of the monads restrict to monads on the <span class="arithmatex">\(2\)</span>-category of double
+categories. This presentation of the result gives us what we need to
+recover the leading example.</p>
+<div class="theorem example" id="exm-par">
+<p><strong>Example 2</strong> A partial function is equivalently a span of functions
+whose left leg is an injection. Therefore,</p>
+<div class="arithmatex">\[
+\mathbb{P}\mathsf{ar} \simeq \DblFam_{(\inj,\all)}(𝟙).
+\]</div>
+</div>
+<p>The next section briefly explains what products we can now define in
+virtual double categories.</p>
+<h1 id="virtual-double-products">(Virtual) double products</h1>
+<p>As in the <span class="arithmatex">\(1\)</span>-categorical case, we can move from the family construction
+to (co)products by taking adjoints to the inclusion. The bonus now is
+that we have many different family monads which describe different kinds
+of (co)products.</p>
+<div class="theorem definition" id="def-prod">
+<p><strong>Definition 5 ((L,R)-products)</strong> A virtual double category <span class="arithmatex">\(\mathbb{D}\)</span>
+has <em><span class="arithmatex">\((L,R)\)</span>-products</em> if the inclusion
+<span class="arithmatex">\(\Delta\colon \mathbb{D}\to \DblFamOpLR(\mathbb{D})\)</span> has a right
+adjoint, <span class="arithmatex">\(\Pi\colon \DblFamOpLR(\mathbb{D})\to \mathbb{D}\)</span>.</p>
+</div>
+<p>In a virtual double category we can take products of objects just as in
+a <span class="arithmatex">\(1\)</span>-category, but we can also take a product <span class="arithmatex">\(\Pi(A,m)\)</span> of a family of
+proarrows, which is again a proarrow. We get some interesting kinds of
+proarrow which exhibit the universal property of a product.</p>
+<div class="theorem example" id="exm-prod-in-dbl">
+<p><strong>Example 3</strong> For a <em>double</em> category <span class="arithmatex">\(\mathbb{D}\)</span> with
+<span class="arithmatex">\((\all,\all)\)</span>-products, we call:</p>
+<ul>
+<li>a product of proarrows indexed by <span class="arithmatex">\([2]=[2]=[2]\)</span> a <em>parallel product</em>
+  <span class="arithmatex">&#92;[u&#92;times v &#92;colon x&#92;times x^&#92;prime &#92;proto y&#92;times y^&#92;prime;&#92;]</span></li>
+<li>a product of proarrows indexed by
+  <span class="arithmatex">\([1]\overset{!}{\leftarrow} [2]\overset{!}{\rightarrow} [1]\)</span> a <em>local
+  product</em>
+  <span class="arithmatex">&#92;[p&#92;times p^&#92;prime &#92;colon x&#92;proto y;&#92;]</span></li>
+<li>a product of identity proarrows indexed by
+  <span class="arithmatex">\([2]=[2]\overset{\sigma_{12}}{\to}[2]\)</span> a <em>braiding</em>
+  <span class="arithmatex">&#92;[&#92;sigma&#95;{x} &#92;colon x&#92;times x &#92;proto x&#92;times x;&#92;]</span></li>
+<li>a product of identity proarrows indexed by
+  <span class="arithmatex">\([1]\overset{!}{\leftarrow} [2]=[2]\)</span> a <em>diagonal</em>
+  <span class="arithmatex">&#92;[&#92;delta&#95;x&#92;colon x&#92;proto x&#92;times x.&#92;]</span></li>
+</ul>
+</div>
+<p>These examples are not exhaustive but give an idea of the different
+interesting structures which appear as products.</p>
+<p>The post is getting long, so we will end by stating one benefit of our
+abstraction, leaving the details to the upcoming paper.</p>
+<p>Provided the <span class="arithmatex">\((L,R)\)</span>-product functor is normal (preserves identities in
+the proarrow direction), products can be exhibited as companions or
+conjoints. That is, the existence of <em>normal</em> <span class="arithmatex">\((L,R)\)</span>-products in a
+double category (products where the product functor is normal) implies
+the existence of particular companions and conjoints. Using this idea,
+we can express known bicategorical structure which arises as the
+underlying bicategory of a double category with <span class="arithmatex">\((L,R)\)</span>-products.</p>
+<p>We can also ask if the <span class="arithmatex">\((L,R)\)</span>-product functor is pseudo, that is, it
+preserves compositions in the proarrow direction. In this case, we say
+the products are <em><span class="arithmatex">\((L,R)\)</span>-strong</em>.</p>
+<p>The motivating example of this idea is a double category of partial
+maps.</p>
+<div class="theorem definition" id="def-dblcatpartial">
+<p><strong>Definition 6 (Double categories of partial maps)</strong> A double category
+with <span class="arithmatex">\((\surj,\idnt)\)</span>-strong <span class="arithmatex">\((\all,\surj)\)</span>-products is called a <em>double
+category of partial maps</em>.</p>
+</div>
+<p>The definition comes from trying to mimic the structure of a bicategory
+of partial maps in Carboni (1987). For example, the comultiplication
+structure on each object comes from the product structure maps, which
+transpose to an <span class="arithmatex">\((\idnt,\surj)\)</span>-product in the proarrow direction.
+Therefore, we get that the underlying bicategory of a double category of
+partial maps is indeed a bicategory of partial maps.</p>
+<h1 id="summary">Summary</h1>
+<p>(Co)limits in double categories were first studied by Grandis and Paré.
+To capture more examples of universal structures, even in the case of
+products, we approach the question from a different perspective. From
+the new perspective there are many more features we can outline which
+give rise to different and interesting structures. For example, we saw
+that we can state double-categorical analogues of bicategorical
+structure via products. We also find that a generalisation to the
+setting of virtual double categories gives a stronger universal property
+which opens the door to more examples to study.</p>
+<p>A motivating next question: how can we recover a similar perspective for
+more general (co)limits, and what kinds of structure can we exhibit from
+those universal properties?[^1]</p>
+<h1 id="references">References</h1>
+<div id="refs"></div>
+<div id="refs" class="references csl-bib-body hanging-indent">
+
+<div id="ref-Burroni1971Tcategories" class="csl-entry">
+
+Burroni, Albert. 1971. "$T$-Catégories (Catégories Dans Un Triple)."
+*Cahiers de Topologie Et Géométrie Différentielle Catégoriques* 12 (3):
+215--321. <https://www.numdam.org/item/CTGDC_1971__12_3_215_0/>.
+
+</div>
+
+<div id="ref-Carboni1987_PartialMaps" class="csl-entry">
+
+Carboni, Aurelio. 1987. "Bicategories of Partial Maps." *Cahiers de
+Topologie Et Géométrie Différentielle Catégoriques* 28 (2): 111--26.
+<http://eudml.org/doc/91396>.
+
+</div>
+
+<div id="ref-Clarke2025Limits" class="csl-entry">
+
+Clarke, Bryce, and Nathanael Arkor. 2025. "A New Framework for Limits in
+Double Categories."
+<https://archive.math.muni.cz/conference/ct2025/data/uploads/abstracts/clarke.pdf>.
+
+</div>
+
+<div id="ref-cruttwellshulman_gen_multicat" class="csl-entry">
+
+Cruttwell, G. S. H., and Michael A. Shulman. 2010. *A Unified Framework
+for Generalized Multicategories*. <https://arxiv.org/abs/0907.2460>.
+
+</div>
+
+<div id="ref-dawson_pare_pronk_span_construction" class="csl-entry">
+
+Dawson, Robert, Robert Paré, and Dorette Pronk. 2010. "The Span
+Construction." *Theory Appl. Categ.* 24: 302--77.
+
+</div>
+
+<div id="ref-GPlimindblcats" class="csl-entry">
+
+Grandis, Marco, and Robert Paré. 1999. "Limits in Double Categories."
+*Cah. Topologie Géom. Différ. Catégoriques* 40 (3): 162--220.
+<https://eudml.org/doc/91618>.
+
+</div>
+
+<div id="ref-lackKelly1997PropertyLikeStructures" class="csl-entry">
+
+Kelly, G. M., and Stephen Lack. 1997. "On Property-Like Structures."
+*Theory Appl. Categ.* 3: 213--50. <https://eudml.org/doc/120206>.
+
+</div>
+
+<div id="ref-Leinster2004Higher" class="csl-entry">
+
+Leinster, Tom. 2004. *Higher Operads, Higher Categories*. Vol. 298.
+London Mathematical Society Lecture Note Series. Cambridge University
+Press. <https://doi.org/10.1017/CBO9780511525896>.
+
+</div>
+
+<div id="ref-nlab:free_coproduct_completion" class="csl-entry">
+
+<span class="nocase">nLab</span>. 2026. *Free Coproduct Completion*.
+[Https://ncatlab.org/nlab/show/free+coproduct+completion](https://ncatlab.org/nlab/show/free+coproduct+completion){.uri}.
+
+</div>
+
+<div id="ref-pare2009firstorder" class="csl-entry">
+
+Paré, Robert. 2009. *First Order Theories as Double Lawvere Theories*.
+Conference talk presented at CT2009.
+<https://www.mscs.dal.ca/~pare/CapeTown2009.pdf>.
+
+</div>
+
+<div id="ref-pareYoneda" class="csl-entry">
+
+Paré, Robert. 2011. "Yoneda Theory for Double Categories." *Theory Appl.
+Categ.* 25: 436--89.
+<http://www.tac.mta.ca/tac/volumes/25/17/25-17abs.html>.
+
+</div>
+
+<div id="ref-evan:prod_in_dbl" class="csl-entry">
+
+Patterson, Evan. 2026. "Products in Double Categories, Revisited."
+*Theory Appl. Categ.* 45: 537--601.
+[www.tac.mta.ca/tac/volumes/45/16/45-16abs.html](https://www.tac.mta.ca/tac/volumes/45/16/45-16abs.html).
+
+</div>
+
+</div>
+
+<p>[^1]: Work in this area is developing: a great exposition of a unified
+    framework is given by Clarke and Arkor (2025).</p>
+
+
+
+
+
+
+
+  
+  
+
+
+
+
+  
+
+
+
+      
+    </article>
+  </div>
+
+          
+<script>var target=document.getElementById(location.hash.slice(1));target&&target.name&&(target.checked=target.name.startsWith("__tabbed_"))</script>
+        </div>
+        
+      </main>
+      
+        <footer class="md-footer">
+  
+  <div class="md-footer-meta md-typeset">
+    <div class="md-footer-meta__inner md-grid">
+      <div class="md-copyright">
+  
+  
+    Made with
+    <a href="https://squidfunk.github.io/mkdocs-material/" target="_blank" rel="noopener">
+      Material for MkDocs
+    </a>
+  
+</div>
+      
+    </div>
+  </div>
+</footer>
+      
+    </div>
+    <div class="md-dialog" data-md-component="dialog">
+      <div class="md-dialog__inner md-typeset"></div>
+    </div>
+    
+    
+    
+      
+      
+      <script id="__config" type="application/json">{"annotate": null, "base": "../../../../..", "features": ["navigation.tabs", "navigation.sections"], "search": "../../../../../assets/javascripts/workers/search.2c215733.min.js", "tags": null, "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}, "version": null}</script>
+    
+    
+      <script src="../../../../../assets/javascripts/bundle.79ae519e.min.js"></script>
+      
+        <script src="../../../../../javascripts/mathjax.js"></script>
+      
+        <script src="https://cdn.jsdelivr.net/npm/mathjax@3.2.2/es5/tex-mml-chtml.js"></script>
+      
+    
+  </body>
+</html>
