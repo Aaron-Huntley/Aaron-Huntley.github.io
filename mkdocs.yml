@@ -21,7 +21,6 @@ theme:
   logo: images/logo.png
   favicon: images/favicon.png
   features:
-    - navigation.instant
     - navigation.tabs
     - navigation.sections
 exclude_docs: |
@@ -36,7 +35,6 @@ nav:
 plugins:
   - material/blog:
       draft_on_serve: false
-  - mkdocs-pyscript
 markdown_extensions:
   - pymdownx.snippets:
       base_path: docs
