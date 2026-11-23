@@ -35,6 +35,8 @@ plugins:
   - blog:
       draft_on_serve: false
   - mkdocs-pyscript
+  - mkquartodocs:
+      keep_output: false
 markdown_extensions:
   - pymdownx.snippets:
       base_path: docs
