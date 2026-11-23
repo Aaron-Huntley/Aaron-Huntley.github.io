@@ -8,8 +8,10 @@ __pycache__/
 
 # Editor
 .vscode/
-# Quarto
-.svg-cache/
 
-/.quarto/
+# Quarto (sources live in quarto/, output is copied into docs/ by render.sh)
+.svg-cache/
+.quarto/
 **/*.quarto_ipynb
+quarto/*/_svgs/
+quarto/*/index.md
