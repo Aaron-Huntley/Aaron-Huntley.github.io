@@ -34,7 +34,7 @@ nav:
   - Conversations with friends:
     - blog/index.md
 plugins:
-  - blog:
+  - material/blog:
       draft_on_serve: false
   - mkdocs-pyscript
   - mkquartodocs:
