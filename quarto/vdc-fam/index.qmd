@@ -1,8 +1,5 @@
 ---
 title: A generalised family construction for virtual double categories
-categories:
-  - category theory
-  - double categories
 date: 2026-10-05
 bibliography: refs.bib
 tikz-preamble-file: _tikz-macros.tex
@@ -15,6 +12,8 @@ Among its special features, it is the free coproduct cocompletion of the termina
 But functions are not the only sensible mapping you can consider between sets; take, for example, partial functions.
 A similar free-cocompletion characterisation of the category of sets and partial functions is more elusive.
 One satisfying resolution comes from double categories.
+
+<!-- more -->
 
 For a double category, we can define its double category of families, which is its free coproduct completion.
 However, unlike the $1$-categorical case, the construction can be parameterised by certain classes of functions, giving many kinds of family construction.

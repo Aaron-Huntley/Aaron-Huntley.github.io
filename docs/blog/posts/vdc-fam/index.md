@@ -1,8 +1,5 @@
 ---
 bibliography: refs.bib
-categories:
-- category theory
-- double categories
 date: 2026-10-05
 tikz-preamble-file: \_tikz-macros.tex
 title: A generalised family construction for virtual double categories
@@ -54,6 +51,8 @@ can consider between sets; take, for example, partial functions. A
 similar free-cocompletion characterisation of the category of sets and
 partial functions is more elusive. One satisfying resolution comes from
 double categories.
+
+<!-- more -->
 
 For a double category, we can define its double category of families,
 which is its free coproduct completion. However, unlike the
