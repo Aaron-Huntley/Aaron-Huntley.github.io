@@ -26,3 +26,6 @@ site/
 *.fdb_latexmk
 *.synctex.gz
 *.out
+
+# Unfinished pages kept locally only (also excluded in mkdocs.yml)
+docs/calc3/
