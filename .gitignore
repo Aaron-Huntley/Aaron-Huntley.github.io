@@ -18,3 +18,11 @@ quarto/*/index.md
 
 # MkDocs build output
 site/
+
+# LaTeX build artifacts
+*.aux
+*.log
+*.fls
+*.fdb_latexmk
+*.synctex.gz
+*.out
