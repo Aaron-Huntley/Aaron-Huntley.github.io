@@ -14,9 +14,9 @@ The conversation and resulting outcome is what follows.
 
 <!-- more -->
 
-<figure style="float: right; width: 30%;">
-  <img src="../../../../../images/eggbox.jpeg" alt="The eggbox." style="width: 100%;">
-  <figcaption>The eggbox.</figcaption>
+<figure markdown="span" style="float: right; width: 30%;">
+![The eggbox.](../../../images/eggbox.jpeg){ style="width: 100%;" }
+<figcaption>The eggbox.</figcaption>
 </figure>
 
 On the night of the eggbox problem we cobbled together some poorly written python code which could compute all combinations for an $n\times m$ egg box with $k$ eggs. 

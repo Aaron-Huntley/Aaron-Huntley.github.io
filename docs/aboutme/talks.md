@@ -22,4 +22,4 @@ hide:
   </div>
 </div>
 
-_Last updated: November 2025_
+_Last updated: November 2026_
