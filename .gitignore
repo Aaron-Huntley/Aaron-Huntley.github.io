@@ -15,3 +15,6 @@ __pycache__/
 **/*.quarto_ipynb
 quarto/*/_svgs/
 quarto/*/index.md
+
+# MkDocs build output
+site/
