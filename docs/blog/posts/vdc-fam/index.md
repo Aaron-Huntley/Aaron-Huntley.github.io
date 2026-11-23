@@ -9,7 +9,7 @@ title: A generalised family construction for virtual double categories
 toc-title: Table of contents
 ---
 
-<div markdown="1">
+<div style="display:none" markdown="1">
 
 $$
 % Category theory
@@ -85,9 +85,9 @@ paper.
 ## The family construction
 
 The category $\mathbf{Set}$ of sets and functions is the free coproduct
-completion of the terminal category ([nLab]{.nocase} (2026)). To see the
-result, we can define a free coproduct completion via the family
-construction.
+completion of the terminal category (<span class="nocase">nLab</span>
+(2026)). To see the result, we can define a free coproduct completion
+via the family construction.
 
 <div id="def-family-construction" class="theorem definition" markdown="1">
 
@@ -241,7 +241,9 @@ source.
 ![](_svgs/f9297728eb65848a45f1ac2059c77766fa9e2fb1.svg)
 </div>
 
-$$=$$
+$$
+=
+$$
 
 <div class="tikz" markdown="1">
 ![](_svgs/1ea9aff916509c52bcff53ac5d30cea0e96ba474.svg)
@@ -263,7 +265,11 @@ relevant structure. Then there is an inclusion (fully faithful on
 $1$-cells and $2$-cells) of the $2$-category of double categories, lax
 functors and transformations, into the $2$-category of virtual double
 categories, virtual functors and transformations.
-$$\mathbf{Dbl}_{\mathrm{lax}} \hookrightarrow \mathbf{vDbl}$$
+
+
+$$
+\mathbf{Dbl}_{\mathrm{lax}} \hookrightarrow \mathbf{vDbl}
+$$
 
 As mentioned in the intro, we can define
 $\mathbb{S}\mathsf{pan}(\mathsf{C})$ even when $\mathsf{C}$ doesn't have
@@ -429,7 +435,7 @@ is a pair of classes of functions satisfying:
   $p_a\colon S_a \rightarrowtail V_{r(a)}$ in $L$ (resp. $R$) indexed by
   a function $r\colon A\rightarrowtail J$ in $L$ (resp. $R$), the
   copairing of arrows
-  $$[\iota \circ p_a]_{a\in A}\colon \bigsqcup_{a\in A}S_a\rightarrowtail \bigsqcup_{j\in J}V_j$$
+  <span class="arithmatex">&#92;[&#91;&#92;iota &#92;circ p&#95;a&#93;&#95;{a&#92;in A}&#92;colon &#92;bigsqcup&#95;{a&#92;in A}S&#95;a&#92;rightarrowtail &#92;bigsqcup&#95;{j&#92;in J}V&#95;j&#92;]</span>
   is also in $L$ (resp. $R$).
 
 - (unit) $\id_{1}\colon 1 \to 1$ is in $L$ and $R$.
@@ -444,27 +450,17 @@ subcategories such as $\surj$ or $\inj$ and small examples such as the
 set of all maps out of the initial set, $\varnothing$. The classes of
 interest are:
 
-  -----------------------------------------------------------------------
-  class                   functions
-  ----------------------- -----------------------------------------------
-  $\all$                  all functions
-
-  $\bij$                  bijections
-
-  $\surj$                 surjections
-
-  $\inj$                  injections
-
-  $\idnt$                 identity functions
-
-  $\varnothing$           functions out of the empty set (initial)
-
-  $!$                     functions into the singleton set (terminal)
-
-  $\idnt_{\varnothing}$   $\{\id_\varnothing,\id_{1}\}$
-
-  $\idnt_{1}$             $\{\id_{1}\}$
-  -----------------------------------------------------------------------
+| class                 | functions                                   |
+|-----------------------|---------------------------------------------|
+| $\all$                | all functions                               |
+| $\bij$                | bijections                                  |
+| $\surj$               | surjections                                 |
+| $\inj$                | injections                                  |
+| $\idnt$               | identity functions                          |
+| $\varnothing$         | functions out of the empty set (initial)    |
+| $!$                   | functions into the singleton set (terminal) |
+| $\idnt_{\varnothing}$ | $\{\id_\varnothing,\id_{1}\}$               |
+| $\idnt_{1}$           | $\{\id_{1}\}$                               |
 
 They can be arranged into a nice diagram below.
 
@@ -484,8 +480,13 @@ with the left leg in $L$ and right leg in $R$.
 
 **Theorem 1 (Generalised family monads)** For a span indexing pair
 $(L,R)$ there is a colax-idempotent pseudomonad,
-$$\DblFamOpLR \colon \mathbf{vDbl}\to \mathbf{vDbl},$$ given by the
-family construction. The unit of the pseudomonad,
+
+
+$$
+\DblFamOpLR \colon \mathbf{vDbl}\to \mathbf{vDbl},
+$$
+
+given by the family construction. The unit of the pseudomonad,
 $\Delta\colon \id \Rightarrow \DblFamOpLR$, is the inclusion at the
 singleton set, and the multiplication,
 $\Sigma\colon \DblFamOpLR^2\Rightarrow \DblFamOpLR$, is taking the
@@ -503,7 +504,11 @@ recover the leading example.
 
 **Example 2** A partial function is equivalently a span of functions
 whose left leg is an injection. Therefore,
-$$\mathbb{P}\mathsf{ar} \simeq \DblFam_{(\inj,\all)}(𝟙).$$
+
+
+$$
+\mathbb{P}\mathsf{ar} \simeq \DblFam_{(\inj,\all)}(𝟙).
+$$
 
 </div>
 
@@ -537,16 +542,17 @@ proarrow which exhibit the universal property of a product.
 $(\all,\all)$-products, we call:
 
 - a product of proarrows indexed by $[2]=[2]=[2]$ a *parallel product*
-  $$u\times v \colon x\times x^\prime \proto y\times y^\prime;$$
+  <span class="arithmatex">&#92;[u&#92;times v &#92;colon x&#92;times x^&#92;prime &#92;proto y&#92;times y^&#92;prime;&#92;]</span>
 - a product of proarrows indexed by
   $[1]\overset{!}{\leftarrow} [2]\overset{!}{\rightarrow} [1]$ a *local
-  product* $$p\times p^\prime \colon x\proto y;$$
+  product*
+  <span class="arithmatex">&#92;[p&#92;times p^&#92;prime &#92;colon x&#92;proto y;&#92;]</span>
 - a product of identity proarrows indexed by
   $[2]=[2]\overset{\sigma_{12}}{\to}[2]$ a *braiding*
-  $$ \sigma_{x} \colon x\times x \proto x\times x;$$
+  <span class="arithmatex">&#92;[&#92;sigma&#95;{x} &#92;colon x&#92;times x &#92;proto x&#92;times x;&#92;]</span>
 - a product of identity proarrows indexed by
   $[1]\overset{!}{\leftarrow} [2]=[2]$ a *diagonal*
-  $$\delta_x\colon x\proto x\times x.$$
+  <span class="arithmatex">&#92;[&#92;delta&#95;x&#92;colon x&#92;proto x&#92;times x.&#92;]</span>
 
 </div>
 
@@ -672,7 +678,7 @@ Press. <https://doi.org/10.1017/CBO9780511525896>.
 
 <div id="ref-nlab:free_coproduct_completion" class="csl-entry">
 
-[nLab]{.nocase}. 2026. *Free Coproduct Completion*.
+<span class="nocase">nLab</span>. 2026. *Free Coproduct Completion*.
 [Https://ncatlab.org/nlab/show/free+coproduct+completion](https://ncatlab.org/nlab/show/free+coproduct+completion){.uri}.
 
 </div>

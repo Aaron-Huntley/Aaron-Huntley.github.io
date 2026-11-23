@@ -6,6 +6,10 @@ filters:
   - quarto
   - _mkdocs.lua
 
+# Write Markdown that Python-Markdown (MkDocs) understands:
+#  - divs as <div markdown="1"> instead of ::: fences
+#  - spans as <span> instead of [text]{.class} (citations add these late)
+#  - tables as | pipe | tables |
 format:
   markdown:
-    variant: -fenced_divs
+    variant: -fenced_divs-bracketed_spans-simple_tables-multiline_tables-grid_tables
