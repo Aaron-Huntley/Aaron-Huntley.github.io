@@ -1,9 +1,5 @@
 ---
-report: true
-metadata-files:
-  - ../_report-post.yml
 title: A generalised family construction for virtual double categories
-author: "Aaron Huntley"
 categories:
   - category theory
   - double categories
@@ -12,7 +8,7 @@ bibliography: refs.bib
 tikz-preamble-file: _tikz-macros.tex
 ---
 
-{{< include _macros.qmd >}}
+{{< include _macros.txt >}}
 
 The category of sets and functions is a favourite of category theorists.
 Among its special features, it is the free coproduct cocompletion of the terminal category.

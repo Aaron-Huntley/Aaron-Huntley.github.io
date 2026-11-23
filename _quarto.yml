@@ -1,0 +1,11 @@
+project:
+  type: default
+
+filters:
+  - _tikz.lua
+  - quarto
+  - _mkdocs.lua
+
+format:
+  markdown:
+    variant: -fenced_divs
